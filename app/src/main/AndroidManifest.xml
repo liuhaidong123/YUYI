@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.technology.yuyi">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.InformationActivity" />
+        <activity android:name=".activity.AppointmentActivity" />
+        <activity android:name=".activity.AllHospitalDepartmentActivity" />
+        <activity android:name=".activity.SelectDoctorActivity" />
+        <activity android:name=".activity.CurrentTemActivity" />
+        <activity android:name=".activity.AddEquipmentActivity" />
+        <activity android:name=".activity.HandInputActivity" />
+        <activity android:name=".activity.CurrentBloodActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,70 @@
+package com.technology.yuyi.viewpager.impl;
+
+import android.os.Handler;
+import android.support.v4.view.ViewPager;
+
+import android.widget.ImageView;
+
+import com.technology.yuyi.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * Created by liuhaidong on 2017/2/21.
+ */
+
+public class AdListenerImpl implements ViewPager.OnPageChangeListener {
+
+    private ImageView[] mImgCircleArr;
+    private List<Integer> mImgList = new ArrayList<>();
+    private ViewPager mAdViewpager;
+    private Handler mHandler;
+
+    public AdListenerImpl(ImageView[] mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Integer> mImgList) {
+        this.mImgCircleArr = mImgCircleArr;
+        this.mHandler = mHandler;
+        this.mAdViewpager = mAdViewpager;
+        this.mImgList = mImgList;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setImageBackground(position % mImgList.size());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        //手指开始滑动
+        if (state == mAdViewpager.SCROLL_STATE_DRAGGING) {
+            mHandler.removeMessages(1);
+            //手指松开后自动滑动
+        } else if (state == mAdViewpager.SCROLL_STATE_SETTLING) {
+            mHandler.removeMessages(1);
+            //停在某一页
+        } else {
+            mHandler.sendEmptyMessageDelayed(1, 3000);
+        }
+    }
+
+    /**
+     * 停在某一页时，变换小圆点
+     *
+     * @param selectItems
+     */
+    private void setImageBackground(int selectItems) {
+        for (int i = 0; i < mImgCircleArr.length; i++) {
+            if (i == selectItems) {
+                mImgCircleArr[i].setBackgroundResource(R.mipmap.select_ad);
+            } else {
+                mImgCircleArr[i].setBackgroundResource(R.mipmap.no_select_ad);
+            }
+        }
+    }
+}

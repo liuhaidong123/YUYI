@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">YUYI</string>
+
+    <string name="firstpage_name">首页</string>
+    <string name="measure_name">测量</string>
+    <string name="ask_name">咨询</string>
+    <string name="my_name">我的</string>
+
+    <string name="edit_hint">搜索医院、药品</string>
+    <string name="beijing">北京</string>
+    <string name="str_drugmall">医药商城</string>
+    <string name="str_register">预约挂号</string>
+    <string name="str_userone">用户1</string>
+    <string name="str_usertwo">用户2</string>
+    <string name="str_userthree">用户3</string>
+    <string name="str_adduser">添加用户</string>
+    <string name="str_manyuser">更多用户</string>
+
+    <string name="str_usernomal">正常</string>
+    <string name="str_userheightpress">收缩压(高压)</string>
+    <string name="str_userlowpress">舒张压(低压)</string>
+    <string name="str_usertemperature">体温</string>
+
+
+    <string name="str_listview_tv_title">涿州市中医院</string>
+    <string name="str_listview_tv_mess">涿州北大医院是集医疗、科研、预防、保健、康复为一体的现代化新型医院,医院设有妇科、计划生育</string>
+    <string name="str_drug">常用药品</string>
+    <string name="str_information">资讯</string>
+    <string name="str_tv_item">999感冒灵,999感冒灵,999感冒灵,999感冒灵,999感冒灵,999感冒灵,</string>
+    <string name="str_tv_price">¥38</string>
+
+    <string name="str_tv_infor">资讯</string>
+    <string name="str_tv_y">三级甲等</string>
+    <string name="str_hospital">涿州市中医院</string>
+    <string name="str_doctor">呼吸内科</string>
+
+    <string name="str_blood">血压计</string>
+    <string name="str_record">血压测量记录</string>
+    <string name="str_add">添加其他设备</string>
+    <string name="str_auto">自动输入</string>
+    <string name="str_hand">手动输入</string>
+    <string name="str_cancel">取消</string>
+
+    <string name="str_current">当前体温</string>
+    <string name="str_tem">体温</string>
+
+    <string name="str_equip">连接设备</string>
+    <string name="str_zx">扫描二维码连接设备</string>
+    <string name="str_btn_zx">扫描二维码</string>
+    <string name="str_prompt">*当前您的体温较高，请尽快就医</string>
+    <string name="str_data">数据录入</string>
+    <string name="str_add_per">添加其他成员</string>
+    <string name="str_sure">确认</string>
+    <string name="str_blood_c">当前血压</string>
+    <string name="str_blood_z">当前血压正常</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
