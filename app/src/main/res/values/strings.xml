@@ -53,6 +53,7 @@
     <string name="str_sure">确认</string>
     <string name="str_blood_c">当前血压</string>
     <string name="str_blood_z">当前血压正常</string>
+    <string name="str_hand_pro">内容不能为空</string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

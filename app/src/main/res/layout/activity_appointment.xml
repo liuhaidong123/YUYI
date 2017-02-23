@@ -75,7 +75,6 @@
                     android:hint="@string/edit_hint"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:focusable="false"
                     android:textColor="@color/color_edit_hint"
                     android:textSize="14sp" />
             </RelativeLayout>
