@@ -23,4 +23,8 @@
     <dimen name="ms_home_dicHeight">20dp</dimen>
     <!--医药首页配送范围字体大小-->
     <dimen name="ms_home_dictextsize12">12sp</dimen>
+    <!--医药首页搜索框的左，右间距-->
+    <dimen name="ms_home_searchleftAndrightMar20">20dp</dimen>
+    <!--医药首页搜索框的左，右间距-->
+    <dimen name="ms_home_searchTextsize">14sp</dimen>
 </resources>
