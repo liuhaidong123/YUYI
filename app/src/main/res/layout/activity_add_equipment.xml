@@ -66,6 +66,7 @@
                 android:background="@drawable/zx_btn_bg"
                 android:text="@string/str_btn_zx"
                 android:textColor="@color/color_fe" />
+
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -25,6 +25,8 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AddEquipmentActivity;
 import com.technology.yuyi.activity.CurrentBloodActivity;
 import com.technology.yuyi.activity.CurrentTemActivity;
+import com.technology.yuyi.activity.HandInputBloodActivity;
+import com.technology.yuyi.activity.HandInputTemActivity;
 import com.technology.yuyi.adapter.MeasureListViewAdapter;
 
 /**
@@ -91,14 +93,20 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
         int id = v.getId();
         if (id == mAutoBtn.getId()) {
            mAlertDialog.dismiss();
-            if (mPosition==0){//体温
+            if (mPosition==0){//自动输入体温
                 startActivity(new Intent(this.getContext(),CurrentTemActivity.class));
-            }else if (mPosition==1){//血压
+            }else if (mPosition==1){//自动输入血压
                 startActivity(new Intent(this.getContext(),CurrentBloodActivity.class));
             }
 
         } else if (id == mHandBtn.getId()) {
             mAlertDialog.dismiss();
+
+            if (mPosition==0){//手动输入体温
+                startActivity(new Intent(this.getContext(),HandInputTemActivity.class));
+            }else if (mPosition==1){//手动输入血压
+                startActivity(new Intent(this.getContext(),HandInputBloodActivity.class));
+            }
 
         } else if (id == mCancelBtn.getId()) {
             mAlertDialog.dismiss();

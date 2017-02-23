@@ -16,6 +16,7 @@ public class AddEquipmentActivity extends AppCompatActivity implements View.OnCl
         initView();
     }
 
+
     public void initView(){
         mBack= (ImageView) findViewById(R.id.equip_back);
         mBack.setOnClickListener(this);
