@@ -18,20 +18,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.InformationActivity" />
-        <activity
-            android:name=".activity.AppointmentActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".activity.AppointmentActivity" />
         <activity android:name=".activity.AllHospitalDepartmentActivity" />
         <activity android:name=".activity.SelectDoctorActivity" />
         <activity android:name=".activity.CurrentTemActivity" />
         <activity android:name=".activity.AddEquipmentActivity" />
+        <activity android:name=".activity.HandInputActivity" />
         <activity android:name=".activity.CurrentBloodActivity" />
-        <activity
-            android:name=".activity.HandInputBloodActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name=".activity.HandInputTemActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+        <activity android:name=".activity.MS_home_Activity"></activity>
     </application>
 
 </manifest>

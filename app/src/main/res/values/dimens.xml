@@ -2,4 +2,25 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--          lzh           -->
+    <!--医药首页商城字体大小-->
+    <dimen name="ms_home_Titletextsize17">17sp</dimen>
+    <dimen name="ms_home_TitleReturnleftMar">15dp</dimen>
+    <!--医药首页配送范围提示框的高度-->
+    <dimen name="ms_home_dicHeight">20dp</dimen>
+    <!--医药首页配送范围字体大小-->
+    <dimen name="ms_home_dictextsize12">12sp</dimen>
 </resources>

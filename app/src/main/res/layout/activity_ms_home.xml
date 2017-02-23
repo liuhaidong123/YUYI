@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_ms_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.technology.yuyi.activity.MS_home_Activity">
+
+    <RelativeLayout
+        android:id="@+id/ms_top_relayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:clickable="true"
+            android:onClick="ms_homeClick"
+            android:id="@+id/ms_home_return"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/ms_home_TitleReturnleftMar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ms_home_return"/>
+        <TextView
+            android:id="@+id/ms_home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ms_home_titleText"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_ms_home_titleclolr"
+            android:textSize="@dimen/ms_home_Titletextsize17"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/color_ms_home_disc"
+        android:layout_height="@dimen/ms_home_dicHeight"
+        android:layout_below="@+id/ms_top_relayout"
+        android:layout_alignParentStart="true">
+<TextView
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/ms_home_dictextsize12"
+    android:text="@string/ms_home_textDisc"
+    android:textColor="@color/color_white"
+    />
+</LinearLayout>
+</RelativeLayout>
