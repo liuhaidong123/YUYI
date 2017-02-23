@@ -25,7 +25,9 @@
         <activity android:name=".activity.AddEquipmentActivity" />
         <activity android:name=".activity.HandInputActivity" />
         <activity android:name=".activity.CurrentBloodActivity" />
-        <activity android:name=".activity.MS_home_Activity"></activity>
+        <activity android:name=".activity.MS_home_Activity"
+            android:launchMode="singleTop"
+            ></activity>
     </application>
 
 </manifest>

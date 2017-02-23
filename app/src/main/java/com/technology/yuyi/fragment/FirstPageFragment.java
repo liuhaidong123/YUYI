@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AppointmentActivity;
 import com.technology.yuyi.activity.InformationActivity;
+import com.technology.yuyi.activity.MS_home_Activity;
 import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
 import com.technology.yuyi.adapter.ViewPagerAdAdapter;
@@ -55,6 +56,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
     private ViewPagerBloodTemAdapter mBloodTemAdapter;
     private BloodView mBloodView;
     private TemView mTemView;
+    private LinearLayout drugmall_ll;
     private ArrayList<Integer> YbloodNum = new ArrayList<>();//y轴血压数据
     private ArrayList<Integer> XdateNum = new ArrayList<>();//x轴日期数据
     private ArrayList<Integer> heightBloodData = new ArrayList<>();  //血压高压数据
@@ -112,7 +114,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
         mScrollRelative.setFocusable(true);
         mScrollRelative.setFocusableInTouchMode(true);
         mScrollRelative.requestFocus();
-
+        //医药商城进入
+        drugmall_ll= (LinearLayout) view.findViewById(R.id.drugmall_ll);
+        drugmall_ll.setOnClickListener(this);
         //常用药品设置adapter
         mGridview = (GridView) view.findViewById(R.id.firstpage_gridview_id);
         mUseDrugAdapter = new UseDrugGridViewAdapter(this.getContext());
@@ -300,5 +304,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
         }else if (id==mRegister_ll.getId()){//预约挂号
             startActivity(new Intent(this.getContext(),AppointmentActivity.class));
         }
+        else if (id==R.id.drugmall_ll){
+            Intent intent=new Intent();
+            intent.setClass(getActivity(),MS_home_Activity.class);
+            startActivity(intent);
+        }
     }
-}
+
+    }

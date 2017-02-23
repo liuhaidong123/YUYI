@@ -27,4 +27,12 @@
     <dimen name="ms_home_searchleftAndrightMar20">20dp</dimen>
     <!--医药首页搜索框的左，右间距-->
     <dimen name="ms_home_searchTextsize">14sp</dimen>
+    <!--医药首页药品种类的gridview的item宽度-->
+    <dimen name="ms_home_gridviewitemWidth">105dp</dimen>
+    <!--医药首页药品种类的gridview的item高度-->
+    <dimen name="ms_home_gridviewitemHeight">39dp</dimen>
+    <!--医药首页药品种类的gridview的item字体大小-->
+    <dimen name="ms_home_gridviewitemTextsize14">14sp</dimen>
+    <!--医药首页药品名称字体大小-->
+    <dimen name="ms_home_gridviewitemTextsize15">15sp</dimen>
 </resources>

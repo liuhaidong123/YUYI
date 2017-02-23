@@ -49,6 +49,8 @@
     <color name="color_ms_home_disc">#25f368</color>
     <color name="color_ms_home_serachback">#f3f3f3</color>
     <color name="color_ms_home_serachtextcolor">#aaa9a9</color>
+    <color name="color_ms_home_gridviewitem_text">#6a6a6a</color>
+    <color name="color_ms_home_gridviewitem_stokecolor">#e5e4e4</color>
 </resources>
 
 
