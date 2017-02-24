@@ -95,15 +95,49 @@
     <string name="str_user_address">收货地址</string>
     <string name="str_set">设置</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="str_user_edi">个人编辑</string>
+    <string name="str_save">保存</string>
+    <string name="str_head">头像</string>
+    <string name="str_user_name">用户名</string>
+    <string name="str_user_num">18328887653</string>
+    <string name="str_user_sex">性别</string>
+    <string name="str_user_boy">男</string>
+    <string name="str_user_girl">女</string>
+    <string name="str_user_age">年龄</string>
+    <string name="str_user_nation">民族</string>
+    <string name="str_user_bu">布依族</string>
+    <string name="str_user_id">身份证号码</string>
+    <string name="str_user_id_num">13238829983839280100</string>
+    <string name="str_user_place">籍贯</string>
+    <string name="str_user_place_mess">河南省新乡市</string>
 
+    <string name="str_elec_title">电子病历</string>
+    <string name="str_tv_name">李四病历</string>
+    <string name="str_tv_date">2016-01-05</string>
+    <string name="str_tv_look">病历查看</string>
+
+    <string name="user_name">姓名</string>
+    <string name="user_profession">职业</string>
+    <string name="user_designer">设计师</string>
+    <string name="user_merry">婚姻</string>
+    <string name="user_merry_y">已婚</string>
+    <string name="user_date">病历采集日期</string>
+    <string name="user_now">现病史</string>
+
+    <string name="contact_ours">联系我们</string>
+    <string name="suggestion">意见反馈</string>
+    <string name="about_ours">关于我们</string>
+    <string name="exit">退出</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!--          lzh           -->
 
     <string name="ms_home_titleText">医药商城</string>
     <!--支持的配送范围-->
-<string name="ms_home_textDisc">目前只支持涿州市区范围</string>
+    <string name="ms_home_textDisc">目前只支持涿州市区范围</string>
     <!--医药商城搜索框提示的问题-->
     <string name="ms_home_textSearch"></string>
 
