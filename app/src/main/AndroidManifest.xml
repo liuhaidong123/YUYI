@@ -26,6 +26,7 @@
         <activity android:name=".activity.CurrentTemActivity" />
         <activity android:name=".activity.AddEquipmentActivity" />
         <activity android:name=".activity.CurrentBloodActivity" />
+        <activity android:name=".activity.MS_home_Activity"></activity>
         <activity
             android:name=".activity.HandInputBloodActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -33,7 +34,7 @@
             android:name=".activity.HandInputTemActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.HospitalDetailsActivity"></activity>
-        <activity android:name=".activity.MS_home_Activity"></activity>
+
     </application>
 
 </manifest>
