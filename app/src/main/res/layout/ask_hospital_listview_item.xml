@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/hospital_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/main_background4" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/hospital_img"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/hospital_img"
+            android:text="@string/str_hospital"
+            android:textColor="@color/color_normal"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/hospital_img"
+            android:text="@string/str_tel"
+            android:textColor="@color/color_press"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_tel_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/tv_tel"
+            android:text="@string/str_tel_num"
+            android:textColor="@color/color_press"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/tv_tel_num"
+            android:layout_marginEnd="10dp"
+            android:text="@string/str_km"
+            android:textColor="@color/color_press"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/locat_img"
+            android:layout_width="8dp"
+            android:layout_height="12dp"
+            android:layout_alignTop="@id/tv_km"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@id/tv_km"
+            android:src="@mipmap/consult_location_icon_1"
+            />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/tv_tel"
+            android:layout_alignBottom="@id/hospital_img"
+            android:text="@string/str_address"
+            android:textColor="@color/color_press"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</RelativeLayout>

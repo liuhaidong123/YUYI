@@ -55,7 +55,45 @@
     <string name="str_blood_z">当前血压正常</string>
     <string name="str_hand_pro">内容不能为空</string>
 
-    <string name="str_hand_pro1">内容不能为空123</string>
-    <string name="str_hand_pro12">内容不能为空123</string>
+    <string name="str_ask">咨询医院</string>
+    <string name="str_tel">电话:</string>
+    <string name="str_tel_num">0312-4433225</string>
+    <string name="str_km">5.2km</string>
+    <string name="str_address">地址:河北省涿州市范阳中路12号</string>
+
+    <string name="str_hospiytal_j">医院介绍</string>
+    <string name="str_hospiytal_mess">涿州市中医院地处市中心范阳西路129号，市政府东侧，
+        北京天桥至涿州的838路公共汽车通过门前，交通四通八达。医院占地50亩，建筑面积为11万平方米、
+        开放床位1000张，全院职工1400人，专业技术人员900人。2009年医院投入2.6亿元兴建病房楼4.9万平方米。
+        2011年医院又投入5亿元新建9.7万平方米的医技综合大楼，届时医院总建筑面积将达20万平方米。为了加快数字化医院建设，
+        医院又投资近千万安装HIS系统。医院设有：骨科关节外科、脊柱外科、神经外科、普外胃肠外科、肝胆外科、泌尿外科、胸外科、
+        心外科、腺体外科、妇科、产科、肿瘤科、放疗科、神经内科、呼吸内科、消化内科、内分泌科、心内科、肾内科、血液科、儿科、
+        新生儿科、耳鼻喉科、口腔科、眼科、中医科、康复医学科、皮肤科、心理咨询门诊、急诊科、感染科、功能科、检验科、输血科、
+        病理科、药剂科、介入室、内窥镜室、放疗科、等10个医技科室。1951年涿县建立卫生试验院，地址在观音堂，有医护人员34人。住院处设在县城西丁市口，有病床50张（其中接受志愿军伤病专设床30张），医生1人，护士6人。
+        1956年，卫生试验院改称涿县人民医院，有医护人员67人，设床位35张，1958年，涿州县、新县、雄县、及涞水合并成为大涿县，涿县医院大部分人员和设备迁往高碑店，留涿州部分人员建精神病院，地址在西丁口内。
+        1961年12月24日，涿县恢复原建置。涿县在精神病医院的基础上重建涿县医院，并从西丁口内迁往文庙。
+        1961年至1985年，涿县医院一直在原有基础上徘徊发展。在科室划分上，并无十分明确的分工，主要以综合科室为主。分为妇产科、儿科、大内科、大外科和手术室，床位150张。
+        1986年9月24日，撤县建市，县医院更名为涿州市医院，占地1.8万平方米，建筑面积9500平方米，设门诊部和住院处。
+        1992年，有病床150张，职工175人，日平均门诊量200余人次，年住院4000余人次，业务收入254万元。
+        1999年至2003年，由于管理不善、设备落后、技术人员的流失等各方面原因，使医院负债累累，举步维艰，发展步入低谷。
+        2004年1月，经涿州市委批准，引入联合实业集团资金，对涿州市医院进行体制改革，改为股份制医院。</string>
+    <string name="str_hospiytal_js">医院详情</string>
+    <string name="str_consult">医患咨询</string>
+
+    <string name="str_speech">语音咨询</string>
+    <string name="str_video">视频咨询</string>
+    <string name="str_char">文字咨询</string>
+
+    <string name="str_li">李四</string>
+    <string name="str_name2">用户名:18328887653</string>
+    <string name="str_elec">电子病历</string>
+    <string name="str_mess">消息</string>
+    <string name="str_th">购物车</string>
+    <string name="str_order">订单详情</string>
+    <string name="str_home">家庭成员管理</string>
+    <string name="str_userdetial">用户设备管理</string>
+    <string name="str_user_address">收货地址</string>
+    <string name="str_set">设置</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

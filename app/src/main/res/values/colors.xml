@@ -28,5 +28,6 @@
     <color name="color_tem">#e80000</color>
     <color name="color_per">#c7c5c5</color>
     <color name="color_e">#e2e2e2</color>
+    <color name="color_d">#dddddd</color>
 
 </resources>

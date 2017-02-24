@@ -1,13 +1,403 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
     tools:context="com.technology.yuyi.fragment.MyFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/my_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="my" />
+        android:layout_height="44dp"
+        android:background="@color/color_white">
 
-</FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/my_name"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/mea_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/my_title"
+        android:background="@color/color_bg" />
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/mea_line"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white">
+
+        <com.technology.yuyi.myview.RoundImageView
+            android:id="@+id/my_head_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:src="@mipmap/main_background4" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/my_head_img"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_li"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/my_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_name"
+                android:layout_marginTop="10dp"
+                android:text="@string/str_name2"
+                android:textColor="@color/color_normal"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/first_rl"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/rl_title"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white">
+
+        <RelativeLayout
+            android:id="@+id/elec_rl"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/img_elec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/per_elec"
+                 android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+               android:textColor="@color/color_normal"
+                android:text="@string/str_elec"
+                android:layout_toEndOf="@id/img_elec"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/elec_rl"
+            android:background="@color/color_bg"
+            />
+        <RelativeLayout
+            android:layout_below="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/img_mess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/message"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_mess"
+                android:layout_toEndOf="@id/img_mess"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/two_rl"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/first_rl"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white">
+
+        <RelativeLayout
+            android:id="@+id/thing_rl"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/img_th"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/th_car"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_th"
+                android:layout_toEndOf="@id/img_th"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/thing_rl"
+            android:background="@color/color_bg"
+            />
+        <RelativeLayout
+            android:layout_below="@id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/img_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/order_icon_"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_order"
+                android:layout_toEndOf="@id/img_order"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/three_rl"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/two_rl"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white">
+
+        <RelativeLayout
+            android:id="@+id/home_rl"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/img_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/family_icon"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_home"
+                android:layout_toEndOf="@id/img_home"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+        <View
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/home_rl"
+            android:background="@color/color_bg"
+            />
+        <RelativeLayout
+            android:layout_below="@id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/img_userdetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/user_detail"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_userdetial"
+                android:layout_toEndOf="@id/img_userdetail"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/four_rl"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/three_rl"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white">
+
+        <RelativeLayout
+            android:id="@+id/address_rl"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/img_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/address"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_user_address"
+                android:layout_toEndOf="@id/img_address"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/address_rl"
+            android:background="@color/color_bg"
+            />
+        <RelativeLayout
+            android:layout_below="@id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+                android:id="@+id/img_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/set"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="25dp"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/color_normal"
+                android:text="@string/str_set"
+                android:layout_toEndOf="@id/img_set"
+                android:layout_marginStart="15dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/many"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
