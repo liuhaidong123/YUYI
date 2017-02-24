@@ -30,4 +30,26 @@
     <color name="color_e">#e2e2e2</color>
     <color name="color_d">#dddddd</color>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--          lzh           -->
+    <color name="color_ms_home_titleclolr">#333333</color>
+    <color name="color_ms_home_disc">#25f368</color>
+    <color name="color_ms_home_serachback">#f3f3f3</color>
+    <color name="color_ms_home_serachtextcolor">#aaa9a9</color>
 </resources>
+
+

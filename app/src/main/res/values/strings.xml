@@ -96,4 +96,15 @@
     <string name="str_set">设置</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!--          lzh           -->
+
+    <string name="ms_home_titleText">医药商城</string>
+    <!--支持的配送范围-->
+<string name="ms_home_textDisc">目前只支持涿州市区范围</string>
+    <!--医药商城搜索框提示的问题-->
+    <string name="ms_home_textSearch"></string>
+
 </resources>

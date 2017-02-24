@@ -33,6 +33,7 @@
             android:name=".activity.HandInputTemActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.HospitalDetailsActivity"></activity>
+        <activity android:name=".activity.MS_home_Activity"></activity>
     </application>
 
 </manifest>
