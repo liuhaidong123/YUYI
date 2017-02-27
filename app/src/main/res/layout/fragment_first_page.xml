@@ -121,6 +121,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:clickable="true"
                     android:id="@+id/drugmall_ll"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
