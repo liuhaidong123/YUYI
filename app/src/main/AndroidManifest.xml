@@ -26,7 +26,16 @@
         <activity android:name=".activity.CurrentTemActivity" />
         <activity android:name=".activity.AddEquipmentActivity" />
         <activity android:name=".activity.CurrentBloodActivity" />
-
+        <activity
+            android:name=".activity.HandInputTemActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".activity.HospitalDetailsActivity" />
+        <activity android:name=".activity.UserEditorActivity" />
+        <activity android:name=".activity.ElectronicMessActivity" />
+        <activity android:name=".activity.LookElectronicMessActivity" />
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.InformationDetailsActivity" />
+        <activity android:name=".activity.EquipmentManageActivity"></activity>
 
 
 
@@ -38,18 +47,6 @@
         <!-- create by liuzonghao -->
         <activity
             android:name=".activity.MS_home_Activity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".activity.HandInputTemActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.HospitalDetailsActivity" />
-        <activity android:name=".activity.UserEditorActivity" />
-        <activity android:name=".activity.ElectronicMessActivity" />
-        <activity android:name=".activity.LookElectronicMessActivity" />
-        <activity android:name=".activity.SetActivity" />
-        <activity android:name=".activity.InformationDetailsActivity" />
-        <activity android:name=".activity.EquipmentManageActivity"></activity>
-            android:name=".activity.MS_allkinds_activity"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.MS_allkinds_sort_activity"
