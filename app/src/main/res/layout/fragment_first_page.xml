@@ -289,9 +289,7 @@
                         <ImageView
                             android:layout_width="37dp"
                             android:layout_height="37dp"
-                            android:background="@drawable/add_bg"
-                            android:src="@mipmap/add" />
-
+                            android:src="@mipmap/add_icon_1" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -472,6 +470,7 @@
 
             <RelativeLayout
                 android:id="@+id/relative_information"
+                android:background="@color/color_white"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/view3"
@@ -507,6 +506,7 @@
                 android:background="@color/color_bg" />
 
             <com.technology.yuyi.myview.InformationListView
+                android:background="@color/color_white"
                 android:id="@+id/listview_firstpage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -524,6 +524,7 @@
 
             <RelativeLayout
                 android:id="@+id/relative_drug"
+                android:background="@color/color_white"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/view4"
@@ -560,11 +561,12 @@
 
 
             <com.technology.yuyi.myview.UseDrugGridView
+                android:background="@color/color_white"
                 android:id="@+id/firstpage_gridview_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/line4"
-                android:layout_margin="10dp"
+                android:padding="10dp"
                 android:numColumns="3">
 
             </com.technology.yuyi.myview.UseDrugGridView>

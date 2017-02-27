@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#25f368</color>
 
-    <color name="color_fragment_btn">#dedbdc</color>
+    <color name="color_fragment_btn">#fafcfb</color>
     <color name="color_press_tv">#5ee708</color>
     <color name="color_no_press_tv">#000000</color>
     <color name="color_edit_hint">#aaa9a9</color>
@@ -28,6 +28,7 @@
     <color name="color_tem">#e80000</color>
     <color name="color_per">#c7c5c5</color>
     <color name="color_e">#e2e2e2</color>
+    <color name="color_d">#dddddd</color>
 
 
 

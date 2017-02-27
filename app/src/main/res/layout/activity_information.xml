@@ -4,7 +4,7 @@
     android:id="@+id/activity_information"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_ee"
+    android:background="@color/color_scroll_bg"
     tools:context="com.technology.yuyi.activity.InformationActivity">
 
     <RelativeLayout

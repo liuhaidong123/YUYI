@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_speech"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/ask_alert_changbg"
+        android:text="@string/str_speech"
+        android:textColor="@drawable/click_change_tvcolor" />
+
+    <Button
+        android:id="@+id/btn_video"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/ask_alert_changbg"
+        android:text="@string/str_video"
+        android:textColor="@drawable/click_change_tvcolor" />
+
+    <Button
+        android:id="@+id/btn_char"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/ask_alert_changbg"
+        android:text="@string/str_char"
+        android:textColor="@drawable/click_change_tvcolor" />
+</LinearLayout>

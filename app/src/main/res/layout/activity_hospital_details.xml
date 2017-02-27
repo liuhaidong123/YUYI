@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_hospital_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context="com.technology.yuyi.activity.HospitalDetailsActivity">
+    <RelativeLayout
+        android:id="@+id/detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/str_hospiytal_js"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_below="@+id/detail_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/rl_head"
+                android:background="@mipmap/main_background4"
+                android:layout_width="match_parent"
+                android:layout_height="225dp">
+
+                <RelativeLayout
+                    android:background="#000000"
+                    android:id="@+id/bg_relative"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_height="40dp">
+
+                    <TextView
+                        android:id="@+id/tv_hospital"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_hospital"
+                        android:textColor="@color/color_white"
+                        android:textSize="16sp"
+                        android:layout_marginStart="10dp"
+                        android:layout_centerVertical="true"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_d"
+                        android:layout_toEndOf="@id/tv_hospital"
+                        android:text="@string/str_tv_y"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_hospital_mess"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/rl_head"
+                android:text="@string/str_hospiytal_j"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_below="@id/tv_hospital_mess"
+                android:text="@string/str_hospiytal_mess"
+                android:textColor="@color/color_press"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rl_sure"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_e" />
+
+        <Button
+            android:id="@+id/ask_btn_sure"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="190dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/click_change_bgcolor"
+            android:text="@string/str_consult"
+            android:textColor="@drawable/click_change_tvcolor"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</RelativeLayout>

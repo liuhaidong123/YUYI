@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String askTag="askFragment";
     public final String myTag="myFragment";
 
+    public final String pressColor="#25f368";
+    public final String noPressColor="#333333";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,66 +205,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //点击首页文字图片变化
     public void clickFirstBtnChangeTvColor() {
-        mFirstPage_tv.setTextColor(Color.parseColor("#5ee708"));
+        mFirstPage_tv.setTextColor(Color.parseColor(pressColor));
         mFirstPafe_img.setImageResource(R.mipmap.first_page_press);
 
-        mMeasure_tv.setTextColor(Color.parseColor("#000000"));
+        mMeasure_tv.setTextColor(Color.parseColor(noPressColor));
         mMeasure_img.setImageResource(R.mipmap.measure_no_press);
 
-        mAsk_tv.setTextColor(Color.parseColor("#000000"));
+        mAsk_tv.setTextColor(Color.parseColor(noPressColor));
         mAsk_img.setImageResource(R.mipmap.ask_no_press);
 
-        mMy_tv.setTextColor(Color.parseColor("#000000"));
+        mMy_tv.setTextColor(Color.parseColor(noPressColor));
         mMy_img.setImageResource(R.mipmap.my_no_press);
 
     }
 
     //点击测量文字图片变化
     public void clickMeasureBtnChangeTvColor() {
-        mFirstPage_tv.setTextColor(Color.parseColor("#000000"));
+        mFirstPage_tv.setTextColor(Color.parseColor(noPressColor));
         mFirstPafe_img.setImageResource(R.mipmap.first_page_no_press);
 
-        mMeasure_tv.setTextColor(Color.parseColor("#5ee708"));
+        mMeasure_tv.setTextColor(Color.parseColor(pressColor));
         mMeasure_img.setImageResource(R.mipmap.measure_press);
 
-        mAsk_tv.setTextColor(Color.parseColor("#000000"));
+        mAsk_tv.setTextColor(Color.parseColor(noPressColor));
         mAsk_img.setImageResource(R.mipmap.ask_no_press);
 
-        mMy_tv.setTextColor(Color.parseColor("#000000"));
+        mMy_tv.setTextColor(Color.parseColor(noPressColor));
         mMy_img.setImageResource(R.mipmap.my_no_press);
     }
 
     //点击咨询文字图片变化
     public void clickAskBtnChangeTvColor() {
-        mFirstPage_tv.setTextColor(Color.parseColor("#000000"));
+        mFirstPage_tv.setTextColor(Color.parseColor(noPressColor));
         mFirstPafe_img.setImageResource(R.mipmap.first_page_no_press);
 
-        mMeasure_tv.setTextColor(Color.parseColor("#000000"));
+        mMeasure_tv.setTextColor(Color.parseColor(noPressColor));
         mMeasure_img.setImageResource(R.mipmap.measure_no_press);
 
-        mAsk_tv.setTextColor(Color.parseColor("#5ee708"));
+        mAsk_tv.setTextColor(Color.parseColor(pressColor));
         mAsk_img.setImageResource(R.mipmap.ask_press);
 
-        mMy_tv.setTextColor(Color.parseColor("#000000"));
+        mMy_tv.setTextColor(Color.parseColor(noPressColor));
         mMy_img.setImageResource(R.mipmap.my_no_press);
     }
 
     //点击我的文字图片变化
     public void clickMyBtnChangeTvColor() {
-        mFirstPage_tv.setTextColor(Color.parseColor("#000000"));
+        mFirstPage_tv.setTextColor(Color.parseColor(noPressColor));
         mFirstPafe_img.setImageResource(R.mipmap.first_page_no_press);
 
-        mMeasure_tv.setTextColor(Color.parseColor("#000000"));
+        mMeasure_tv.setTextColor(Color.parseColor(noPressColor));
         mMeasure_img.setImageResource(R.mipmap.measure_no_press);
 
-        mAsk_tv.setTextColor(Color.parseColor("#000000"));
+        mAsk_tv.setTextColor(Color.parseColor(noPressColor));
         mAsk_img.setImageResource(R.mipmap.ask_no_press);
 
-        mMy_tv.setTextColor(Color.parseColor("#5ee708"));
+        mMy_tv.setTextColor(Color.parseColor(pressColor));
         mMy_img.setImageResource(R.mipmap.my_press);
 
     }
-
+//隐藏软键盘
     public static Boolean hideInputMethod(Context context, View v) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
