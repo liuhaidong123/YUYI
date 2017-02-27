@@ -25,9 +25,31 @@
         <activity android:name=".activity.AddEquipmentActivity" />
         <activity android:name=".activity.HandInputActivity" />
         <activity android:name=".activity.CurrentBloodActivity" />
-        <activity android:name=".activity.MS_home_Activity"
-            android:launchMode="singleTop"
-            ></activity>
+
+
+
+
+
+
+
+
+
+        <!-- create by liuzonghao -->
+        <activity
+            android:name=".activity.MS_home_Activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MS_allkinds_activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MS_allkinds_sort_activity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.MS_drugInfo_activity"
+        android:launchMode="singleTop"></activity>
+        <activity android:name=".activity.MS_drugBuy_activity"
+            android:launchMode="singleTop"></activity>
+        <!-- create by liuzonghao -->
+
     </application>
 
 </manifest>

@@ -16,7 +16,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <RelativeLayout
                 android:id="@+id/ms_top_relayout"
                 android:layout_width="match_parent"
@@ -132,6 +131,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
+                    android:id="@+id/ms_home_rela1"
+                    android:clickable="true"
+                    android:onClick="selectMs"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                 <TextView
@@ -178,6 +180,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <RelativeLayout
+                    android:id="@+id/ms_home_rela2"
+                    android:clickable="true"
+                    android:onClick="selectMs"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
                     <TextView

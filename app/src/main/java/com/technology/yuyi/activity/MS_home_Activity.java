@@ -1,9 +1,11 @@
 package com.technology.yuyi.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.MS_home_DailyGridViewAdapter;
@@ -53,12 +55,30 @@ public class MS_home_Activity extends AppCompatActivity {
     private void initView() {
         ms_home_gridview= (MyGridView) findViewById(R.id.ms_home_gridview);
         ms_home_gridview.setAdapter(adapter);
+        ms_home_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                IntentClick(position);
+            }
+        });
         //常用
         ms_home_gridview_dailyM= (MyGridView) findViewById(R.id.ms_home_gridview_dailyM);//常用药的gridview（只显示1行，3个选项）
         ms_home_gridview_dailyM.setAdapter(adapterDailly);
+        ms_home_gridview_dailyM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getDrugInfo();
+            }
+        });
        //滋补
         ms_home_gridview_Nu= (MyGridView) findViewById(R.id.ms_home_gridview_Nutritious);//滋补药的gridview（只显示1行，3个选项）
         ms_home_gridview_Nu.setAdapter(adapterNu);
+        ms_home_gridview_Nu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getDrugInfo();
+            }
+        });
 
     }
 
@@ -104,4 +124,37 @@ public class MS_home_Activity extends AppCompatActivity {
         }
 
     }
+
+
+
+
+    public void IntentClick(int pos){
+        Intent intent=new Intent();
+        intent.putExtra("type",pos);
+        intent.setClass(MS_home_Activity.this,MS_allkinds_activity.class);
+        startActivity(intent);
+
+
+    }
+
+    public void selectMs(View view) {
+        if (view!=null){
+            switch (view.getId()){
+                case R.id.ms_home_rela1:
+                    IntentClick(6);
+                    break;
+                case R.id.ms_home_rela2:
+                    IntentClick(7);
+                    break;
+            }
+        }
+    }
+    //药品详情页面
+    public void getDrugInfo(){
+        Intent intent=new Intent();
+        intent.setClass(MS_home_Activity.this,MS_drugInfo_activity.class);
+        startActivity(intent);
+    }
 }
+
+
