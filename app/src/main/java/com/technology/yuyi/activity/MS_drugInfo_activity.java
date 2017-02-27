@@ -51,6 +51,7 @@ public class MS_drugInfo_activity extends Activity {
                 Intent intent=new Intent();
                 intent.setClass(MS_drugInfo_activity.this,MS_drugBuy_activity.class);
                 startActivity(intent);
+                popupWindow.dismiss();
             }
         });
         popOutside.setOnClickListener(new View.OnClickListener() {
