@@ -285,6 +285,7 @@
             android:background="@color/color_bg"
             />
         <RelativeLayout
+            android:id="@+id/equtment_rl"
             android:layout_below="@id/line3"
             android:layout_width="match_parent"
             android:layout_height="40dp">

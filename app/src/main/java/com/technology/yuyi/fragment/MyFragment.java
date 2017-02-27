@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.ElectronicMessActivity;
+import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 
@@ -22,7 +23,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mUserEditor;//用户信息编辑
     private RelativeLayout mElectronicMess;//电子病历
     private RelativeLayout mSetBtn;//设置
-
+    private RelativeLayout mEquipment;//设备管理
     public MyFragment() {
 
     }
@@ -47,6 +48,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //设置
         mSetBtn= (RelativeLayout) view.findViewById(R.id.set_relative);
         mSetBtn.setOnClickListener(this);
+
+        mEquipment=(RelativeLayout) view.findViewById(R.id.equtment_rl);
+        mEquipment.setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +65,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //设置
         } else if (id == mSetBtn.getId()) {
             startActivity(new Intent(this.getContext(), SetActivity.class));
+        }else if (id == mEquipment.getId()) {
+            startActivity(new Intent(this.getContext(), EquipmentManageActivity.class));
         }
     }
 }

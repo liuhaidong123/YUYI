@@ -37,7 +37,9 @@
         <activity android:name=".activity.UserEditorActivity" />
         <activity android:name=".activity.ElectronicMessActivity" />
         <activity android:name=".activity.LookElectronicMessActivity" />
-        <activity android:name=".activity.SetActivity"></activity>
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.InformationDetailsActivity" />
+        <activity android:name=".activity.EquipmentManageActivity"></activity>
     </application>
 
 </manifest>

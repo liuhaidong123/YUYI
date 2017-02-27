@@ -129,6 +129,31 @@
     <string name="about_ours">关于我们</string>
     <string name="exit">退出</string>
 
+    <string name="details">资讯详情</string>
+    <string name="hospital_jj">医院简介</string>
+
+    <string name="doctor_date1">01/13</string>
+    <string name="doctor_date2">01/14</string>
+    <string name="doctor_date3">01/15</string>
+    <string name="doctor_date4">01/16</string>
+    <string name="doctor_date5">01/17</string>
+    <string name="doctor_date6">01/18</string>
+    <string name="doctor_date7">01/19</string>
+    <string name="doctor_date_morning">上午</string>
+    <string name="doctor_date_afternoon">下午</string>
+    <string name="regi">挂号</string>
+    <string name="doctor_num">余号 32</string>
+    <string name="doctor_name">LIM</string>
+    <string name="doctor_good_at">擅长: 哮喘的规范化诊断与治疗、慢性阻塞性肺病机械诊治、心脑血管疾病</string>
+    <string name="doctor_job">主治医师</string>
+    <string name="select_person">选择挂号人</string>
+    <string name="select_person_name">李美丽(妈妈)</string>
+    <string name="add_person">添加</string>
+    <string name="perfect">去完善</string>
+    <string name="prompt">提示</string>
+    <string name="prompt_mess">你还没有完善个人信息无法挂号，\n现在去完善？</string>
+    <string name="equitment_m">设备管理</string>
+    <string name="equitment_connect">设备已连接</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

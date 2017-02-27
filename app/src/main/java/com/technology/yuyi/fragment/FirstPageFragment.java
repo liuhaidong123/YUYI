@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -21,11 +22,13 @@ import android.widget.RelativeLayout;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AppointmentActivity;
 import com.technology.yuyi.activity.InformationActivity;
+import com.technology.yuyi.activity.InformationDetailsActivity;
 import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
 import com.technology.yuyi.adapter.ViewPagerAdAdapter;
 import com.technology.yuyi.adapter.ViewPagerBloodTemAdapter;
 import com.technology.yuyi.myview.BloodView;
+import com.technology.yuyi.myview.InformationListView;
 import com.technology.yuyi.myview.TemView;
 import com.technology.yuyi.viewpager.impl.AdListenerImpl;
 import com.technology.yuyi.viewpager.impl.BloodTemImpl;
@@ -40,7 +43,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
     private EditText mEdit;
     private RelativeLayout mScrollRelative;
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
-    private ListView mFirstPageListView;//资讯ListView
+    private InformationListView mFirstPageListView;//资讯ListView
 
     private GridView mGridview;//常用药品
     private UseDrugGridViewAdapter mUseDrugAdapter;//常用药品adapter
@@ -118,10 +121,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
         mUseDrugAdapter = new UseDrugGridViewAdapter(this.getContext());
         mGridview.setAdapter(mUseDrugAdapter);
         //给资讯设置adapter
-        mFirstPageListView = (ListView) view.findViewById(R.id.listview_firstpage);
+        mFirstPageListView = (InformationListView) view.findViewById(R.id.listview_firstpage);
         mListViewAdapter = new FirstPageListViewAdapter(this.getContext());
         mFirstPageListView.setAdapter(mListViewAdapter);
-
+        //点击跳转资讯详情
+        mFirstPageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getContext(),InformationDetailsActivity.class));
+            }
+        });
         //广告viewpager
         mViewPagerAD = (ViewPager) view.findViewById(R.id.viewpager_title);
         //初始化存放小圆点的容器与viewpager

@@ -4,8 +4,11 @@
     android:id="@+id/activity_select_doctor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
     tools:context="com.technology.yuyi.activity.SelectDoctorActivity">
+
     <RelativeLayout
+
         android:id="@+id/doctor_title"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -27,6 +30,7 @@
             android:textColor="@color/color_normal"
             android:textSize="17sp" />
     </RelativeLayout>
+
     <View
         android:id="@+id/doc_line"
         android:layout_width="match_parent"
@@ -34,5 +38,313 @@
         android:layout_below="@id/doctor_title"
         android:background="@color/color_bg" />
 
+    <HorizontalScrollView
+        android:id="@+id/h_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/doc_line"
+        android:background="@color/color_scroll_bg"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/one_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date1"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date1"
+                    android:textColor="@color/color_username" />
+
+                <TextView
+                    android:id="@+id/date1_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/date1"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_username"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_white" />
+
+                <TextView
+                    android:id="@+id/date1_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/date1"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date1_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/two_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date2"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date2" />
+
+                <TextView
+                    android:id="@+id/date2_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date2"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_drumall" />
+
+                <TextView
+                    android:id="@+id/date2_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date2"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date2_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/three_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date3"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date3" />
+
+                <TextView
+                    android:id="@+id/date3_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date3"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_drumall" />
+
+                <TextView
+                    android:id="@+id/date3_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date3"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date3_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/four_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date4"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date4" />
+
+                <TextView
+                    android:id="@+id/date4_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date4"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_drumall" />
+
+                <TextView
+                    android:id="@+id/date4_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date4"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date4_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/five_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date5"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date5" />
+
+                <TextView
+                    android:id="@+id/date5_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date5"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_drumall" />
+
+                <TextView
+                    android:id="@+id/date5_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date5"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date5_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/six_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date6"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date6" />
+
+                <TextView
+                    android:id="@+id/date6_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date6"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_drumall" />
+
+                <TextView
+                    android:id="@+id/date6_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date6"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date6_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/seven_rl"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp">
+
+                <TextView
+                    android:id="@+id/date7"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date7" />
+
+                <TextView
+                    android:id="@+id/date7_morning"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date7"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_morning"
+                    android:textColor="@color/color_drumall" />
+
+                <TextView
+                    android:id="@+id/date7_afternoon"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/date7"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toEndOf="@id/date7_morning"
+                    android:background="@color/color_white"
+                    android:gravity="center"
+                    android:text="@string/doctor_date_afternoon"
+                    android:textColor="@color/color_drumall" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <ListView
+        android:dividerHeight="10dp"
+        android:divider="@color/color_scroll_bg"
+        android:id="@+id/doctor_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/h_scroll"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_white">
+
+
+    </ListView>
 
 </RelativeLayout>
