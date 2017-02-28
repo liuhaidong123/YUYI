@@ -54,6 +54,8 @@
         <activity android:name=".activity.MS_drugInfo_activity"
         android:launchMode="singleTop"></activity>
         <activity android:name=".activity.MS_drugBuy_activity"
+        android:launchMode="singleTop"></activity>
+        <activity android:name=".activity.MS_allkinds_activity"
             android:launchMode="singleTop"></activity>
         <!-- create by liuzonghao -->
 
