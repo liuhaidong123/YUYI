@@ -15,6 +15,7 @@ import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.FamilyManageActivity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
+import com.technology.yuyi.lzh_utils.user;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +27,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mSetBtn;//设置
     private RelativeLayout mEquipment;//设备管理
     private RelativeLayout mFamily;//设备管理
+    private RelativeLayout my_rela_userLogin,my_rela_userNotLogin;
     public MyFragment() {
 
     }
@@ -56,6 +58,23 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //家庭用户管理
         mFamily=(RelativeLayout) view.findViewById(R.id.home_rl);
         mFamily.setOnClickListener(this);
+
+
+        my_rela_userLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userLogin);
+        my_rela_userNotLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userNotLogin);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (user.isLogin(getActivity())){
+            my_rela_userLogin.setVisibility(View.VISIBLE);
+            my_rela_userNotLogin.setVisibility(View.GONE);
+        }
+        else {
+            my_rela_userLogin.setVisibility(View.GONE);
+            my_rela_userNotLogin.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
