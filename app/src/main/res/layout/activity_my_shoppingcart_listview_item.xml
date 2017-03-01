@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingTop="15dp"
+    android:paddingBottom="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="160dp">
+
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:id="@+id/my_shoppingcart_listitem_r1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/testdrug"
+            android:id="@+id/my_shoppingcart_listitem_image"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*本单已免运费"
+            android:layout_marginTop="30dp"
+            android:textSize="9sp"
+            android:textColor="#999999"
+            android:layout_below="@+id/my_shoppingcart_listitem_image"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+    <RelativeLayout
+        android:id="@+id/my_shoppingcart_listitem_r3"
+        android:layout_width="100dp"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingLeft="5dp"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/my_shoppingcart_listitem_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="￥55"
+            android:textColor="#666666"
+            android:textSize="13sp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/my_shoppingcart_listitem_price">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_alignParentBottom="true"
+                android:text="总计："
+                android:textColor="#fb0202"
+                android:layout_toLeftOf="@+id/my_shoppingcart_listitem_totalPrice"
+                android:id="@+id/my_shoppingcart_listitem_total"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:text="110"
+                android:id="@+id/my_shoppingcart_listitem_totalPrice"
+                android:textColor="#fb0202"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:layout_width="match_parent"
+            android:gravity="left"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/my_shoppingcart_listitem_r3">
+            <TextView
+                android:id="@+id/my_shoppingcart_listitem_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="氨基酸口服液fff"
+                android:gravity="left"
+                android:textSize="13sp"
+                android:textColor="#666666"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#999999"
+                android:textSize="11sp"
+                android:layout_marginTop="10dp"
+                android:text="非处方药"/>
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/my_shoppingcart_listitem_Minus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/reduction_icon_2"/>
+                <TextView
+                    android:layout_toRightOf="@+id/my_shoppingcart_listitem_Minus"
+                    android:id="@+id/my_shoppingcart_listitem_num"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:text="2"
+                    android:gravity="center"
+                    android:textColor="#333333"
+                    android:textSize="11sp"/>
+                <ImageView
+                    android:id="@+id/my_shoppingcart_listitem_Add"
+                    android:layout_toRightOf="@+id/my_shoppingcart_listitem_num"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/add_icon_2"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

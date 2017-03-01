@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_settings_about_ours"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f2f2f2"
+    tools:context="com.technology.yuyi.activity.My_settings_aboutOurs_Activity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white">
+        <include
+            android:id="@+id/my_settings_aboutOurs_titleInclude"
+            layout="@layout/activity_titleinclude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></include>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e4e4e4"
+            android:id="@+id/my_settings_aboutOurs_fg"
+            android:layout_below="@+id/my_settings_aboutOurs_titleInclude"/>
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+        <com.technology.yuyi.lzh_utils.XCRoundRectImageView
+            android:layout_width="70dp"
+            android:src="@mipmap/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="92dp"
+            android:id="@+id/my_settings_aboutOurs_imageview"
+            android:layout_height="70dp" />
+        <TextView
+            android:id="@+id/my_settings_aboutOurs_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/my_settings_aboutOurs_imageview"
+            android:layout_marginTop="15dp"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:text="宇医1.0"/>
+        <TextView
+            android:paddingRight="50dp"
+            android:paddingLeft="50dp"
+            android:id="@+id/my_settings_aboutOurs_pro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/my_settings_aboutOurs_name"
+            android:layout_marginTop="30dp"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:text="@string/my_settings_aboutOurs_msg"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/my_settings_aboutOurs_versionCode"
+            android:textSize="12sp"
+            android:layout_marginBottom="25dp"
+            android:textColor="#aaaaaa"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -119,6 +119,7 @@ public class MS_home_Activity extends AppCompatActivity {
         if (v!=null){
             switch (v.getId()){
                 case R.id.ms_home_return://首页返回按钮
+                    finish();
                     break;
             }
         }
@@ -155,6 +156,9 @@ public class MS_home_Activity extends AppCompatActivity {
         intent.setClass(MS_home_Activity.this,MS_drugInfo_activity.class);
         startActivity(intent);
     }
+
+
+
 }
 
 

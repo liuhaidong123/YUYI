@@ -21,6 +21,7 @@ import com.technology.yuyi.fragment.AskFragment;
 import com.technology.yuyi.fragment.FirstPageFragment;
 import com.technology.yuyi.fragment.MeasureFragment;
 import com.technology.yuyi.fragment.MyFragment;
+import com.technology.yuyi.lzh_utils.user;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout mFirstPage_ll;
@@ -51,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
+        user.clearLogin(MainActivity.this);
     }
-
     //初始化数据
     public void initView() {
         mFragment_rl = (RelativeLayout) findViewById(R.id.fragment_relative);

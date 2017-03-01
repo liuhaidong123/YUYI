@@ -28,55 +28,12 @@
         android:layout_height="1dp"
         android:layout_below="@id/my_title"
         android:background="@color/color_bg" />
-    <RelativeLayout
-        android:id="@+id/rl_title"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@id/mea_line"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_white">
-
-        <com.technology.yuyi.myview.RoundImageView
-            android:id="@+id/my_head_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="25dp"
-            android:src="@mipmap/main_background4" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/my_head_img"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/my_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_li"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/my_name2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_name"
-                android:layout_marginTop="10dp"
-                android:text="@string/str_name2"
-                android:textColor="@color/color_normal"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/first_rl"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_below="@id/rl_title"
+        android:layout_below="@+id/rl_title"
         android:layout_marginTop="10dp"
         android:background="@color/color_white">
 
@@ -401,5 +358,69 @@
                 android:src="@mipmap/many"
                 />
         </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/color_white"
+        android:layout_below="@+id/mea_line"
+        android:layout_alignParentStart="true">
+
+        <com.technology.yuyi.myview.RoundImageView
+            android:id="@+id/my_head_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:src="@mipmap/main_background4" />
+
+        <RelativeLayout
+            android:id="@+id/my_rela_userLogin"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/my_head_img"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/my_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_li"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/my_name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/my_name"
+                android:layout_marginTop="10dp"
+                android:text="@string/str_name2"
+                android:textColor="@color/color_normal"
+                android:textSize="13sp" />
+        </RelativeLayout>
+       <RelativeLayout
+           android:id="@+id/my_rela_userNotLogin"
+           android:layout_height="80dp"
+           android:layout_marginStart="10dp"
+           android:layout_toEndOf="@+id/my_head_img"
+           android:layout_width="match_parent"
+           >
+
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:textSize="14sp"
+               android:text="请登陆"
+               android:gravity="center_vertical"
+               android:textColor="@color/color_normal"
+               android:layout_alignParentTop="true"
+               android:layout_alignParentStart="true"
+               android:id="@+id/textView3" />
+       </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

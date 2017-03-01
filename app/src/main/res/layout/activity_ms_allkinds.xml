@@ -17,6 +17,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp">
                 <ImageView
+                    android:clickable="true"
+                    android:onClick="goBack"
+                    android:id="@+id/ms_allkinds_return"
                     android:src="@mipmap/ms_home_return"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="15dp"
