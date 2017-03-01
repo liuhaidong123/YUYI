@@ -33,6 +33,8 @@
     <color name="color_cancel">#f1f1f1</color>
     <color name="color_delete">#e00610</color>
     <color name="color_fail">#e51b1b</color>
+    <color name="color_price">#f32f25</color>
+    <color name="color_now_price">#f11d18</color>
 
 
 

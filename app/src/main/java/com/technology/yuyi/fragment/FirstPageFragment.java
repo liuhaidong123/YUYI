@@ -1,6 +1,7 @@
 package com.technology.yuyi.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -24,6 +26,7 @@ import com.technology.yuyi.activity.AppointmentActivity;
 import com.technology.yuyi.activity.InformationActivity;
 import com.technology.yuyi.activity.InformationDetailsActivity;
 import com.technology.yuyi.activity.MS_home_Activity;
+import com.technology.yuyi.activity.SearchActivity;
 import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
 import com.technology.yuyi.adapter.ViewPagerAdAdapter;
@@ -40,7 +43,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstPageFragment extends Fragment implements View.OnClickListener{
+public class FirstPageFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener {
     private EditText mEdit;
     private RelativeLayout mScrollRelative;
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
@@ -112,13 +115,17 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
      * @param view
      */
     public void initView(View view) {
+        //搜索框
         mEdit = (EditText) view.findViewById(R.id.edit_box);
+        mEdit.setOnClickListener(this);
+       mEdit.setOnFocusChangeListener(this);
+        //scrollview
         mScrollRelative = (RelativeLayout) view.findViewById(R.id.search_rl);
         mScrollRelative.setFocusable(true);
         mScrollRelative.setFocusableInTouchMode(true);
         mScrollRelative.requestFocus();
         //医药商城进入
-        drugmall_ll= (LinearLayout) view.findViewById(R.id.drugmall_ll);
+        drugmall_ll = (LinearLayout) view.findViewById(R.id.drugmall_ll);
         drugmall_ll.setOnClickListener(this);
         //常用药品设置adapter
         mGridview = (GridView) view.findViewById(R.id.firstpage_gridview_id);
@@ -132,7 +139,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
         mFirstPageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getContext(),InformationDetailsActivity.class));
+                startActivity(new Intent(getContext(), InformationDetailsActivity.class));
             }
         });
         //广告viewpager
@@ -163,12 +170,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
         setBloodTemImg();
 
         //跳转资讯
-        mInformation_rl= (RelativeLayout) view.findViewById(R.id.relative_information);
+        mInformation_rl = (RelativeLayout) view.findViewById(R.id.relative_information);
         mInformation_rl.setOnClickListener(this);
         //预约挂号
-        mRegister_ll= (LinearLayout) view.findViewById(R.id.register_ll);
+        mRegister_ll = (LinearLayout) view.findViewById(R.id.register_ll);
         mRegister_ll.setOnClickListener(this);
     }
+
     /**
      * 初始化广告轮播图的小图标，以及设置viewpager滑动监听和自动轮播
      */
@@ -307,16 +315,29 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
-        if (id==mInformation_rl.getId()){//资讯跳转
-            startActivity(new Intent(this.getContext(),InformationActivity.class));
-        }else if (id==mRegister_ll.getId()){//预约挂号
-            startActivity(new Intent(this.getContext(),AppointmentActivity.class));
-        }
-        else if (id==R.id.drugmall_ll){
-            Intent intent=new Intent();
-            intent.setClass(getActivity(),MS_home_Activity.class);
+        int id = v.getId();
+        if (id == mInformation_rl.getId()) {//资讯跳转
+            startActivity(new Intent(this.getContext(), InformationActivity.class));
+        } else if (id == mRegister_ll.getId()) {//预约挂号
+            startActivity(new Intent(this.getContext(), AppointmentActivity.class));
+        } else if (id == R.id.drugmall_ll) {//医药商城
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), MS_home_Activity.class);
             startActivity(intent);
+        } else if (id == mEdit.getId()) {//跳转到搜索页
+            startActivity(new Intent(this.getContext(), SearchActivity.class));
+            //将光标设置为false
+            mEdit.setFocusable(false);
+        }
+    }
+
+    //获取到editText光标焦点的时候，跳转到搜索页
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            startActivity(new Intent(this.getContext(), SearchActivity.class));
+            //将光标设置为false
+            mEdit.setFocusable(false);
         }
     }
 }

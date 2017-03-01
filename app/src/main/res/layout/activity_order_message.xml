@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_order_message"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
+    tools:context="com.technology.yuyi.activity.OrderMessageActivity">
+
+    <RelativeLayout
+        android:id="@+id/equip_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/order_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/str_order"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/equip_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/equip_title"
+        android:background="@color/color_bg" />
+
+    <RelativeLayout
+        android:id="@+id/order_title"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/equip_line"
+        android:background="@color/color_white"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:id="@+id/order_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_order_num"
+                android:textColor="@color/color_press"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/order_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_num"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_order_time"
+                android:textColor="@color/color_press"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/order_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/order_time"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/order_wait_pay"
+                android:textColor="@color/color_price"
+                android:textSize="13sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/order_title_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/order_title"
+        android:background="@color/color_bg" />
+
+    <RelativeLayout
+        android:id="@+id/order_message_rl"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/order_title_line"
+        android:background="@color/color_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/order_name"
+            android:textColor="@color/color_press"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/order_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            android:text="18388389997"
+            android:textColor="@color/color_press"
+            android:textSize="13sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/order_tel">
+
+            <ImageView
+                android:id="@+id/locate_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/consult_location_icon_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/locate_icon"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@id/locate_icon"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/order_address" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/order_drug_message"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_below="@id/order_message_rl">
+
+        <ImageView
+            android:id="@+id/order_drug_img"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/main_background4" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/order_drug_img">
+
+            <TextView
+                android:id="@+id/order_drug_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_name"
+                android:textColor="@color/color_press"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/order_drug_spec_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/order_drug_name_tv"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_spec"
+                android:textColor="@color/color_ad"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/order_drug_producer_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/order_drug_spec_tv"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_producer"
+                android:textColor="@color/color_ad"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/order_drug_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/order_drug_producer_tv"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:maxLines="1"
+                android:text="@string/drug_price"
+                android:textColor="@color/color_price"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/order_drug_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:text="1件"
+            android:textColor="@color/color_username" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_drug_message"
+        android:background="@color/color_white">
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/order_score"
+            android:textColor="@color/color_ad"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/score_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="25dp"
+            android:text="¥ 0.0"
+            android:textColor="@color/color_ad"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_voucher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_score"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/order_voucher"
+            android:textColor="@color/color_ad"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/voucher_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/score_price"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:text="¥ 0.0"
+            android:textColor="@color/color_ad"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_expenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_voucher"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/order_voucher"
+            android:textColor="@color/color_ad"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/expenses_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/voucher_price"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:text="¥ 0.0"
+            android:textColor="@color/color_ad"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_now_expenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_expenses"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/order_now_expenses"
+            android:textColor="@color/color_normal"
+            android:textSize="12sp" />
+
+
+        <TextView
+            android:id="@+id/now_expenses_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/expenses_price"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:text="¥ 0.0"
+            android:textColor="@color/color_now_price"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/drug_img"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/main_background4" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10.5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10.5dp"
+            android:layout_toEndOf="@id/drug_img">
+
+            <TextView
+                android:id="@+id/drug_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_name"
+                android:textColor="@color/color_press"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/drug_spec_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drug_name_tv"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_spec"
+                android:textColor="@color/color_ad"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/drug_producer_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/drug_spec_tv"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/drug_producer"
+                android:textColor="@color/color_ad"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/drug_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/drug_producer_tv"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:gravity="bottom"
+                android:maxLines="1"
+                android:text="@string/drug_price"
+                android:textColor="@color/color_price"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:text="1件"
+            android:textColor="@color/color_username" />
+    </RelativeLayout>
+
+</RelativeLayout>

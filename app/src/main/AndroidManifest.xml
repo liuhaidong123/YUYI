@@ -59,7 +59,12 @@
         <activity android:name=".activity.AddFamilyUserActivity" />
         <activity android:name=".activity.FamilyUserMessageActivity" />
         <activity android:name=".activity.ConnectWifiActivity" />
-        <activity android:name=".activity.MyDataAnalyseActivity"></activity>
+        <activity android:name=".activity.MyDataAnalyseActivity" />
+        <activity android:name=".activity.OrderMessageActivity" />
+        <activity android:name=".activity.MyOrderActivity" />
+        <activity android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            ></activity>
     </application>
 
 </manifest>

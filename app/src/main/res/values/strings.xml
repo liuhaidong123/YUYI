@@ -190,6 +190,24 @@
     据统计临界高血压5年死亡率较血压正常值高2倍。对于临界高血压首先应用非药物疗法。除了上面介绍的措施外，还可以理疗、针灸，可收到良好的效果。
     </string>
 
+    <string name="my_order">我的订单</string>
+    <string name="drug_name">针叶樱桃维C咀嚼片</string>
+    <string name="drug_spec">规格: 20粒/袋</string>
+    <string name="drug_producer">生产商: 哈尔滨制药厂</string>
+    <string name="drug_price">¥ 25</string>
+
+    <string name="drug_order_num">订单号：12345678</string>
+    <string name="drug_order_time">创建时间：2016-02-01  9:00</string>
+    <string name="order_name">金大中</string>
+    <string name="order_address">收货地址：河北省邢台市沙河县弯子镇西葫芦村103号</string>
+    <string name="order_score">积分</string>
+    <string name="order_voucher">代金券</string>
+    <string name="order_expenses">运费</string>
+    <string name="order_now_expenses">实时付款(含运费)</string>
+    <string name="order_wait_pay">等待买家付款</string>
+
+    <string name="clear_up_all">清除全部</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--          lzh           -->

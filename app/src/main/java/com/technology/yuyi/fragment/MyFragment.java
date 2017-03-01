@@ -13,6 +13,8 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.activity.ElectronicMessActivity;
 import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.FamilyManageActivity;
+import com.technology.yuyi.activity.MyOrderActivity;
+import com.technology.yuyi.activity.OrderMessageActivity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 
@@ -25,7 +27,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mElectronicMess;//电子病历
     private RelativeLayout mSetBtn;//设置
     private RelativeLayout mEquipment;//设备管理
-    private RelativeLayout mFamily;//设备管理
+    private RelativeLayout mFamily;//家庭用户管理
+    private RelativeLayout mOrder;//订单详情
     public MyFragment() {
 
     }
@@ -56,6 +59,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //家庭用户管理
         mFamily=(RelativeLayout) view.findViewById(R.id.home_rl);
         mFamily.setOnClickListener(this);
+
+        //订单详情
+        mOrder= (RelativeLayout) view.findViewById(R.id.order_rl);
+        mOrder.setOnClickListener(this);
     }
 
     @Override
@@ -76,6 +83,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //家庭用户管理
         }else if (id == mFamily.getId()) {
             startActivity(new Intent(this.getContext(), FamilyManageActivity.class));
+            //订单详情
+        }else if (id == mOrder.getId()) {
+            startActivity(new Intent(this.getContext(), MyOrderActivity.class));
         }
     }
 }

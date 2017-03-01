@@ -44,7 +44,7 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
         if (id==mBack.getId()){//返回
             finish();
         }else if (id==mEditText.getId()){//点击edittext跳转
-
+            startActivity(new Intent(this,SearchActivity.class));
         }
     }
 
