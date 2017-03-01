@@ -13,6 +13,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.activity.ElectronicMessActivity;
 import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.FamilyManageActivity;
+import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.lzh_utils.user;
@@ -82,7 +83,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         int id = v.getId();
         //用户信息编辑
         if (id == mUserEditor.getId()) {
-            startActivity(new Intent(this.getContext(), UserEditorActivity.class));
+            if (user.isLogin(getActivity())){
+                startActivity(new Intent(this.getContext(), UserEditorActivity.class));
+            }
+            else {
+                startActivity(new Intent(this.getContext(), My_userLogin_Activity.class));
+            }
             //电子病历
         } else if (id == mElectronicMess.getId()) {
             startActivity(new Intent(this.getContext(), ElectronicMessActivity.class));
