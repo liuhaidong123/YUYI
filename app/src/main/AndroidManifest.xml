@@ -53,6 +53,23 @@
         <activity
             android:name=".activity.MS_allkinds_activity"
             android:launchMode="singleTop" />
+
+
+        <activity
+            android:name=".activity.My_settings_feedbackIdea_Activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.My_settings_aboutOurs_Activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.My_settings_contactOur_Activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.My_shoppingCart_Activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.My_userLogin_Activity"
+            android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
 
         <activity android:name=".activity.FamilyManageActivity" />
