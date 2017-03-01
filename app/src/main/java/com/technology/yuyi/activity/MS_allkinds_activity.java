@@ -104,4 +104,12 @@ public class MS_allkinds_activity extends Activity{
         intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
         startActivity(intent);
     }
+
+    public void goBack(View view) {
+        if (view!=null){
+            if (view.getId()==R.id.ms_allkinds_return){
+                finish();
+            }
+        }
+    }
 }

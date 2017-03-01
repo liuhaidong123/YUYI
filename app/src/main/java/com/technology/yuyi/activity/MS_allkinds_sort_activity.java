@@ -2,6 +2,7 @@ package com.technology.yuyi.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.MS_allkindssort_Adapter;
@@ -63,5 +64,13 @@ public class MS_allkinds_sort_activity extends Activity{
         ms_allkindssort_gridview3= (MyGridView) findViewById(R.id.ms_allkindssort_gridview3);
         ms_allkindssort_gridview4= (MyGridView) findViewById(R.id.ms_allkindssort_gridview4);
         ms_allkindssort_gridview5= (MyGridView) findViewById(R.id.ms_allkindssort_gridview5);
+    }
+
+    public void goBack(View view) {
+        if (view!=null){
+            if (view.getId()==R.id.ms_allkinds_sort_return){
+                finish();
+            }
+        }
     }
 }

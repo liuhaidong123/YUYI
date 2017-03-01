@@ -4,109 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:background="@color/color_white"
-        android:id="@+id/ms_druginfo_pop_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/ms_druginfo_popupwindow_buy"
-        >
-         <LinearLayout
-             android:background="@drawable/ms_druginfo_pop"
-             android:orientation="horizontal"
-             android:layout_marginTop="40dp"
-             android:layout_marginBottom="40dp"
-             android:layout_marginRight="20dp"
-             android:layout_width="wrap_content"
-             android:layout_height="30dp"
-             android:layout_alignParentRight="true">
-             <ImageView
-                 android:padding="10dp"
-             android:layout_width="30dp"
-             android:layout_height="30dp"
-             android:src="@mipmap/jian"/>
-             <TextView
-                 android:layout_width="1dp"
-                 android:layout_height="match_parent"
-                 android:background="#e4e4e4"/>
-             <TextView
-                 android:gravity="center"
-                 android:textColor="#999999"
-                 android:textSize="17sp"
-                 android:layout_width="30dp"
-                 android:layout_height="match_parent"
-                 android:text="1"/>
-             <TextView
-                 android:layout_width="1dp"
-                 android:layout_height="match_parent"
-                 android:background="#e4e4e4"/>
-             <ImageView
-                 android:padding="10dp"
-                 android:layout_width="30dp"
-                 android:layout_height="30dp"
-                 android:src="@mipmap/jia"/>
-         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textSize="13sp"
-            android:text="购买数量"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:textColor="#999999"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:background="@color/color_white"
-        android:id="@+id/ms_druginfo_pop_layout2"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_above="@+id/ms_druginfo_pop_layout">
-        <TextView
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e4e4e4"
-            android:id="@+id/f1"/>
-
-        <TextView
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e4e4e4"
-            android:id="@+id/f2"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
-            <TextView
-                android:background="@drawable/ms_druginfo_textselect_true"
-                android:text="3支装"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:textColor="#25f368"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_width="75dp"
-                android:layout_height="35dp"/>
-            <TextView
-                android:background="@drawable/ms_druginfo_textselect"
-                android:text="6支装"
-                android:gravity="center"
-                android:layout_marginLeft="15dp"
-                android:textSize="12sp"
-                android:textColor="#999999"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_width="75dp"
-                android:layout_height="35dp"/>
-        </LinearLayout>
-    </RelativeLayout>
     <FrameLayout
         android:id="@+id/ms_druginfo_pop_frameLayout"
         android:background="#00000000"
@@ -130,12 +27,22 @@
                 android:layout_marginTop="15dp"
                 />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ms_img"
                 android:layout_below="@+id/ms_druginfo_pop_name"
                 android:textSize="14sp"
+                android:text="￥"
+                android:layout_marginTop="7dp"
+                android:textColor="#e00610"
                 android:layout_marginLeft="135dp"
-                android:text="￥45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/ms_druginfo_pop_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:layout_below="@+id/ms_druginfo_pop_name"
+                android:layout_toRightOf="@+id/ms_img"
                 android:layout_marginTop="7dp"
                 android:textColor="#e00610"/>
         </RelativeLayout>
@@ -168,4 +75,123 @@
         android:background="@drawable/ms_druginfo_shoppingbuy"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:id="@+id/ms_druginfo_pop_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ms_druginfo_popupwindow_buy"
+        android:layout_alignParentStart="true">
+         <LinearLayout
+             android:background="@drawable/ms_druginfo_pop"
+             android:orientation="horizontal"
+             android:layout_marginTop="40dp"
+             android:layout_marginBottom="40dp"
+             android:layout_marginRight="20dp"
+             android:layout_width="wrap_content"
+             android:layout_height="30dp"
+             android:layout_alignParentRight="true">
+             <ImageView
+                 android:clickable="true"
+                 android:onClick="numChange"
+                 android:id="@+id/ms_druginfo_pop_numMinus"
+                 android:padding="10dp"
+             android:layout_width="30dp"
+             android:layout_height="30dp"
+             android:src="@mipmap/jian"/>
+             <TextView
+                 android:layout_width="1dp"
+                 android:layout_height="match_parent"
+                 android:background="#e4e4e4"/>
+             <TextView
+                 android:id="@+id/ms_druginfo_pop_num"
+                 android:gravity="center"
+                 android:textColor="#999999"
+                 android:textSize="17sp"
+                 android:layout_width="30dp"
+                 android:layout_height="match_parent"
+                 android:text="1"/>
+             <TextView
+                 android:layout_width="1dp"
+                 android:layout_height="match_parent"
+                 android:background="#e4e4e4"/>
+             <ImageView
+                 android:clickable="true"
+                 android:onClick="numChange"
+                 android:id="@+id/ms_druginfo_pop_numAdd"
+                 android:padding="10dp"
+                 android:layout_width="30dp"
+                 android:layout_height="30dp"
+                 android:src="@mipmap/jia"/>
+         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="13sp"
+            android:text="购买数量"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="#999999"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@color/color_white"
+        android:id="@+id/ms_druginfo_pop_layout2"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_above="@+id/ms_druginfo_pop_layout"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e4e4e4"
+            android:id="@+id/f1"/>
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e4e4e4"
+            android:id="@+id/f2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:id="@+id/ms_druginfo_pop_r1"
+                android:background="@drawable/ms_druginfo_textselect_true"
+                android:text="3支装"
+                android:gravity="center"
+                android:clickable="true"
+                android:onClick="selectPro"
+                android:textSize="12sp"
+                android:textColor="@drawable/ms_druginfo_pop_textcolor"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="75dp"
+                android:layout_height="35dp"/>
+            <TextView
+                android:id="@+id/ms_druginfo_pop_r2"
+                android:clickable="true"
+                android:onClick="selectPro"
+                android:background="@drawable/ms_druginfo_textselect"
+                android:text="6支装"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:textSize="12sp"
+                android:textColor="@drawable/ms_druginfo_pop_textcolor"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="75dp"
+                android:layout_height="35dp"/>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

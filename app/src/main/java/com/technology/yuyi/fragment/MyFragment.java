@@ -15,8 +15,10 @@ import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.FamilyManageActivity;
 import com.technology.yuyi.activity.MyOrderActivity;
 import com.technology.yuyi.activity.OrderMessageActivity;
+import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
+import com.technology.yuyi.lzh_utils.user;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +31,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mEquipment;//设备管理
     private RelativeLayout mFamily;//家庭用户管理
     private RelativeLayout mOrder;//订单详情
+    private RelativeLayout mFamily;//设备管理
+    private RelativeLayout my_rela_userLogin,my_rela_userNotLogin;
     public MyFragment() {
 
     }
@@ -63,6 +67,23 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //订单详情
         mOrder= (RelativeLayout) view.findViewById(R.id.order_rl);
         mOrder.setOnClickListener(this);
+
+
+        my_rela_userLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userLogin);
+        my_rela_userNotLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userNotLogin);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (user.isLogin(getActivity())){
+            my_rela_userLogin.setVisibility(View.VISIBLE);
+            my_rela_userNotLogin.setVisibility(View.GONE);
+        }
+        else {
+            my_rela_userLogin.setVisibility(View.GONE);
+            my_rela_userNotLogin.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -70,7 +91,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         int id = v.getId();
         //用户信息编辑
         if (id == mUserEditor.getId()) {
-            startActivity(new Intent(this.getContext(), UserEditorActivity.class));
+            if (user.isLogin(getActivity())){
+                startActivity(new Intent(this.getContext(), UserEditorActivity.class));
+            }
+            else {
+                startActivity(new Intent(this.getContext(), My_userLogin_Activity.class));
+            }
             //电子病历
         } else if (id == mElectronicMess.getId()) {
             startActivity(new Intent(this.getContext(), ElectronicMessActivity.class));

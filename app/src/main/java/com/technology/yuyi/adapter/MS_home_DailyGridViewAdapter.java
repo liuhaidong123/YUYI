@@ -59,7 +59,7 @@ public class MS_home_DailyGridViewAdapter extends BaseAdapter{
         hodler= (ViewHodler) convertView.getTag();
         hodler.imageView.setImageResource(Integer.parseInt(list.get(position).get("image")));
         hodler.textViewName.setText(list.get(position).get("name"));
-        hodler.textViewPrice.setText(list.get(position).get("price"));
+        hodler.textViewPrice.setText("￥"+list.get(position).get("price"));
         return convertView;
     }
     class ViewHodler{
