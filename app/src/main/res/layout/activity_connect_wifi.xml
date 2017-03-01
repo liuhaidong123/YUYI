@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_connect_wifi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
+    tools:context="com.technology.yuyi.activity.ConnectWifiActivity">
+
+    <RelativeLayout
+        android:id="@+id/equip_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/wifi_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/connect_wifi"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/equip_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/equip_title"
+        android:background="@color/color_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/equip_line"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/img_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:src="@mipmap/connect_wifi_icon_" />
+
+
+        <RelativeLayout
+            android:id="@+id/wifi_name_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_wifi">
+
+            <ImageView
+                android:id="@+id/green_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@mipmap/connect_wifi_icon_mormal_" />
+
+            <TextView
+                android:id="@+id/wifi_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/green_wifi"
+                android:text="@string/green_wifi"
+                android:textColor="@color/color_press"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/wifi_tv"
+                android:background="@null"
+                android:hint="wifi名称"
+                android:textColor="@color/color_ad"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/wifi_name_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/wifi_name_rl"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_scroll_bg" />
+
+        <RelativeLayout
+            android:id="@+id/wifi_password_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/wifi_name_line"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/green_lock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@mipmap/connect_lock_icon_" />
+
+            <TextView
+                android:id="@+id/password_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/green_lock"
+                android:text="@string/green_password"
+                android:textColor="@color/color_press"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/password_tv"
+                android:background="@null"
+                android:hint="密码"
+                android:textColor="@color/color_ad"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/password_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/wifi_password_rl"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/color_scroll_bg" />
+
+        <TextView
+            android:id="@+id/config_remind_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_line"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/config_remind" />
+
+
+        <Button
+            android:id="@+id/config_btn"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/config_remind_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/zx_btn_bg"
+            android:text="@string/config_btn"
+            android:textColor="@color/color_fe" />
+    </RelativeLayout>
+
+</RelativeLayout>

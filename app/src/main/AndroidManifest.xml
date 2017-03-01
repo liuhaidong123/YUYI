@@ -35,14 +35,7 @@
         <activity android:name=".activity.LookElectronicMessActivity" />
         <activity android:name=".activity.SetActivity" />
         <activity android:name=".activity.InformationDetailsActivity" />
-        <activity android:name=".activity.EquipmentManageActivity"></activity>
-
-
-
-
-
-
-
+        <activity android:name=".activity.EquipmentManageActivity" />
 
         <!-- create by liuzonghao -->
         <activity
@@ -51,14 +44,22 @@
         <activity
             android:name=".activity.MS_allkinds_sort_activity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.MS_drugInfo_activity"
-        android:launchMode="singleTop"></activity>
-        <activity android:name=".activity.MS_drugBuy_activity"
-        android:launchMode="singleTop"></activity>
-        <activity android:name=".activity.MS_allkinds_activity"
-            android:launchMode="singleTop"></activity>
+        <activity
+            android:name=".activity.MS_drugInfo_activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MS_drugBuy_activity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.MS_allkinds_activity"
+            android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
 
+        <activity android:name=".activity.FamilyManageActivity" />
+        <activity android:name=".activity.AddFamilyUserActivity" />
+        <activity android:name=".activity.FamilyUserMessageActivity" />
+        <activity android:name=".activity.ConnectWifiActivity" />
+        <activity android:name=".activity.MyDataAnalyseActivity"></activity>
     </application>
 
 </manifest>

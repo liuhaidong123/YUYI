@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_family_user_message"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_scroll_bg"
+    tools:context="com.technology.yuyi.activity.FamilyUserMessageActivity">
+
+    <RelativeLayout
+        android:id="@+id/equip_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/family_user_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/myself_mess"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/equip_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/equip_title"
+        android:background="@color/color_bg" />
+
+    <RelativeLayout
+        android:id="@+id/user_rl"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@id/equip_line"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/family_listview_bg">
+
+        <com.technology.yuyi.myview.RoundImageView
+            android:id="@+id/user_img_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:src="@mipmap/main_background4" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@id/user_img_head">
+
+            <TextView
+                android:id="@+id/user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_person_name"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/user_name_tv"
+                android:text="18岁"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/user_telnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name_tv"
+                android:layout_marginTop="15dp"
+                android:text="@string/str_user_num" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/edit_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            android:src="@mipmap/edit" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/user_rl"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8.5dp"
+        android:background="@drawable/family_listview_bg">
+
+        <RelativeLayout
+            android:id="@+id/my_data_rl"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:text="@string/my_data"
+                android:textColor="@color/color_normal"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/many" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line_z"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/my_data_rl"
+            android:background="@color/color_scroll_bg" />
+
+        <RelativeLayout
+            android:id="@+id/my_files_rl"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@id/line_z">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:text="@string/my_files"
+                android:textColor="@color/color_normal"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/many" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/delete_btn_bg"
+        android:text="@string/btn_delete"
+        android:textColor="@color/color_delete"
+
+        />
+</RelativeLayout>

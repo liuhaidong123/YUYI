@@ -31,6 +31,8 @@
     <color name="color_d">#dddddd</color>
     <color name="color_gua">#fefbfb</color>
     <color name="color_cancel">#f1f1f1</color>
+    <color name="color_delete">#e00610</color>
+    <color name="color_fail">#e51b1b</color>
 
 
 

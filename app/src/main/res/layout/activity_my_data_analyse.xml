@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_data_analyse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context="com.technology.yuyi.activity.MyDataAnalyseActivity">
+
+    <RelativeLayout
+        android:id="@+id/equip_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/analyse_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/my_data"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/equip_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/equip_title"
+        android:background="@color/color_bg" />
+
+    <LinearLayout
+        android:id="@+id/blood_tem_ll"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_below="@id/equip_line"
+        android:background="@color/color_white">
+
+        <TextView
+            android:id="@+id/tv_blood"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/blood_tv"
+            android:textColor="@color/color_username"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_tem"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/tem_tv"
+            android:textColor="@color/color_drumall"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/left_right_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/blood_tem_ll">
+
+        <View
+            android:id="@+id/left_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/color_username" />
+
+        <View
+            android:id="@+id/right_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/color_scroll_bg" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/blood_data_ll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/left_right_line"
+        android:background="@color/color_white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/normal_btn_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/normal_btn_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/normal" />
+
+            <TextView
+                android:id="@+id/normal_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/str_usernomal"
+                android:textColor="@color/color_normal"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/heightPress_btn_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/height_blood_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="129"
+                android:textColor="@color/color_press"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/height_blood_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/str_userheightpress"
+                android:textColor="@color/color_bg"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lowPress_btn_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/low_blood_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="87"
+                android:textColor="@color/color_press"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/low_blood_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/str_userlowpress"
+                android:textColor="@color/color_bg"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tem_data_ll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/left_right_line"
+        android:background="@color/color_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:id="@+id/tem_btn_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/tem_btn_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/normal" />
+
+            <TextView
+                android:id="@+id/tem_normal_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/str_usernomal"
+                android:textColor="@color/color_normal"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tem_mess_btn_ll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tem_num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="38°C"
+                android:textColor="@color/color_press"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tem_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/str_now_tem"
+                android:textColor="@color/color_bg"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/my_data_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_below="@id/blood_data_ll"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"></android.support.v4.view.ViewPager>
+
+    <RelativeLayout
+        android:id="@+id/tem_data_mess_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_data_viewpager"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/tv_mess1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_mess1"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_mess2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mess1"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_mess2"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_mess3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mess2"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_mess3"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_mess4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mess3"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_mess4"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_mess5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mess4"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_mess5"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_mess6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_mess5"
+            android:layout_marginTop="10dp"
+            android:text="@string/tv_mess6"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/blood_data_mess_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/my_data_viewpager"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_mess7"
+            android:textColor="@color/color_drumall"
+            android:textSize="11sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

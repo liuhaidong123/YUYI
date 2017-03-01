@@ -20,6 +20,7 @@
     <string name="str_userheightpress">收缩压(高压)</string>
     <string name="str_userlowpress">舒张压(低压)</string>
     <string name="str_usertemperature">体温</string>
+    <string name="str_now_tem">当前体温</string>
 
 
     <string name="str_listview_tv_title">涿州市中医院</string>
@@ -90,7 +91,7 @@
     <string name="str_mess">消息</string>
     <string name="str_th">购物车</string>
     <string name="str_order">订单详情</string>
-    <string name="str_home">家庭成员管理</string>
+    <string name="str_home">家庭用户管理</string>
     <string name="str_userdetial">用户设备管理</string>
     <string name="str_user_address">收货地址</string>
     <string name="str_set">设置</string>
@@ -154,6 +155,40 @@
     <string name="prompt_mess">你还没有完善个人信息无法挂号，\n现在去完善？</string>
     <string name="equitment_m">设备管理</string>
     <string name="equitment_connect">设备已连接</string>
+
+    <string name="add_family_user">添加家庭用户</string>
+    <string name="add_family_sure">确定</string>
+    <string name="add_head">上传头像</string>
+    <string name="home_relation">家人关系</string>
+    <string name="tem_num">手&#8194;机&#8194;号</string>
+    <string name="add_user_name">姓&#8194;&#8194;&#8194;&#8194;名</string>
+    <string name="add_user_age">年&#8194;&#8194;&#8194;&#8194;龄</string>
+    <string name="select">选填项</string>
+    <string name="agree">同意此手机号账号查看我的家庭用户成员信息</string>
+
+    <string name="my_data">我的数据分析</string>
+    <string name="my_files">我的病历档案</string>
+    <string name="myself_mess">个人信息</string>
+    <string name="btn_delete">删除</string>
+
+    <string name="connect_wifi">连接WIFI</string>
+    <string name="green_wifi">WIFI</string>
+    <string name="green_password">密码</string>
+    <string name="config_btn">配置</string>
+    <string name="config_remind">连接wifi后点击配置按钮，连接设备</string>
+    <string name="connect_wifi_remind">连接wifi失败，请您重试一次</string>
+
+    <string name="blood_tv">血压</string>
+    <string name="tem_tv">体温</string>
+    <string name="tv_mess1">正常人体温一般为36~37°C</string>
+    <string name="tv_mess2">发烧分为:</string>
+    <string name="tv_mess3">低热: 37.5~38°C</string>
+    <string name="tv_mess4">中等度热: 28.1~39°C</string>
+    <string name="tv_mess5">高热: 39.1~41°C</string>
+    <string name="tv_mess6">超高热: 41°以上</string>
+    <string name="tv_mess7">&#8194;&#8194;&#8194;&#8194;收缩压在120~139毫米汞柱和舒张压在80~89毫米汞柱，是从理想血压到确诊高血压的过渡阶段。
+    据统计临界高血压5年死亡率较血压正常值高2倍。对于临界高血压首先应用非药物疗法。除了上面介绍的措施外，还可以理疗、针灸，可收到良好的效果。
+    </string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -77,11 +77,11 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
     //设置alert宽度
     public void setAlertWidth() {
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         WindowManager m = getWindowManager();
-       m.getDefaultDisplay().getMetrics(dm);
+        m.getDefaultDisplay().getMetrics(dm);
         android.view.WindowManager.LayoutParams p = mAlertDialog.getWindow().getAttributes();  //获取对话框当前的参数值
-        p.width = (int)(dm.widthPixels*(0.7));
+        p.width = (int) (dm.widthPixels * (0.7));
         mAlertDialog.getWindow().setAttributes(p);//设置生效
     }
 }
