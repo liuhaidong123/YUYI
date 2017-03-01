@@ -31,7 +31,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mEquipment;//设备管理
     private RelativeLayout mFamily;//家庭用户管理
     private RelativeLayout mOrder;//订单详情
-    private RelativeLayout mFamily;//设备管理
     private RelativeLayout my_rela_userLogin,my_rela_userNotLogin;
     public MyFragment() {
 
