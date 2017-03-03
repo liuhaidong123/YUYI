@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/color_white"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:id="@+id/r1"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#f3f3f3">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="取消"
+        android:textSize="16sp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#cccccc"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@drawable/my_settings_idea_textclick"/>
+</RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/r1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.technology.yuyi.lzh_view.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/my_address_pop_wheelV_Provice"/>
+        <com.technology.yuyi.lzh_view.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/my_address_pop_wheelV_City"/>
+        <com.technology.yuyi.lzh_view.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/my_address_pop_wheelV_Areas"/>
+    </LinearLayout>
+</RelativeLayout>

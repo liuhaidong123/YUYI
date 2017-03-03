@@ -24,4 +24,7 @@
     <dimen name="ms_home_gridviewitemTextsize14">14sp</dimen>
     <!--医药首页药品名称字体大小-->
     <dimen name="ms_home_gridviewitemTextsize15">15sp</dimen>
+    <dimen name="wheelViewHeight">50dp</dimen>
+    <dimen name="wheelNotselect">15sp</dimen>
+    <dimen name="wheelselect">16sp</dimen>
 </resources>

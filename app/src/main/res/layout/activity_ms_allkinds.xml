@@ -83,19 +83,18 @@
 
                     </RelativeLayout>
                     <RelativeLayout
-                        android:clickable="true"
-                        android:onClick="getAllKinds"
-                        android:id="@+id/ms_allkinds_relative_allkinds"
                         android:layout_marginRight="10dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/ms_allkinds_textV_sortName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="全部分类"
+                            android:clickable="true"
+                            android:onClick="getAllKinds"
+                            android:id="@+id/ms_allkinds_relative_allkinds"
                             android:layout_marginRight="5dp"
                             android:layout_toLeftOf="@+id/ms_allkinds_image_sort"
                             android:textColor="#333333"

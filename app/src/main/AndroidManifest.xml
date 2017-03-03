@@ -70,8 +70,13 @@
         <activity
             android:name=".activity.My_userLogin_Activity"
             android:launchMode="singleTop" />
+        <activity
+        android:name=".activity.My_address_Activity"
+        android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.My_message_Activity"
+            android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
-
         <activity android:name=".activity.FamilyManageActivity" />
         <activity android:name=".activity.AddFamilyUserActivity" />
         <activity android:name=".activity.FamilyUserMessageActivity" />

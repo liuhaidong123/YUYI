@@ -14,6 +14,9 @@ import com.technology.yuyi.activity.ElectronicMessActivity;
 import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.FamilyManageActivity;
 import com.technology.yuyi.activity.MyOrderActivity;
+import com.technology.yuyi.activity.My_address_Activity;
+import com.technology.yuyi.activity.My_message_Activity;
+import com.technology.yuyi.activity.My_shoppingCart_Activity;
 import com.technology.yuyi.activity.OrderMessageActivity;
 import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
@@ -32,6 +35,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mFamily;//家庭用户管理
     private RelativeLayout mOrder;//订单详情
     private RelativeLayout my_rela_userLogin,my_rela_userNotLogin;
+    private RelativeLayout thing_rl;//gouwuche
+    private RelativeLayout address_rl;//收货地址
+    private RelativeLayout my_message;//消息
     public MyFragment() {
 
     }
@@ -67,6 +73,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         mOrder= (RelativeLayout) view.findViewById(R.id.order_rl);
         mOrder.setOnClickListener(this);
 
+        thing_rl= (RelativeLayout) view.findViewById(R.id.thing_rl);
+        thing_rl.setOnClickListener(this);
+
+        address_rl= (RelativeLayout) view.findViewById(R.id.address_rl);
+        address_rl.setOnClickListener(this);
+
+        my_message= (RelativeLayout) view.findViewById(R.id.my_message);
+        my_message.setOnClickListener(this);
 
         my_rela_userLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userLogin);
         my_rela_userNotLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userNotLogin);
@@ -111,6 +125,15 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //订单详情
         }else if (id == mOrder.getId()) {
             startActivity(new Intent(this.getContext(), MyOrderActivity.class));
+        }
+        else if (id==R.id.thing_rl){
+            startActivity(new Intent(this.getContext(), My_shoppingCart_Activity.class));
+        }
+        else if (id==R.id.address_rl){//收货地址
+            startActivity(new Intent(this.getContext(), My_address_Activity.class));
+        }
+        else if (id==R.id.my_message){//消息
+            startActivity(new Intent(this.getContext(), My_message_Activity.class));
         }
     }
 }
