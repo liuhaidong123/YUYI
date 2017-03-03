@@ -215,7 +215,7 @@
     <string name="search_city">搜索城市</string>
     <string name="all_city">全部城市</string>
     <string name="current_locate">当前位置</string>
-    <string name="xxx_city">xx城市</string>
+    <string name="xxx_city">正在定位...</string>
     <string name="search_result">抱歉,暂时没有找到相关城市</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

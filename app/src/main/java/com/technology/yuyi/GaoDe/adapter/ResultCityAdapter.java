@@ -22,6 +22,10 @@ public class ResultCityAdapter extends BaseAdapter {
     private ArrayList<City> mResultList = new ArrayList<City>();
     private Context mContext;
 
+    public void setmResultList(ArrayList<City> mResultList) {
+        this.mResultList = mResultList;
+    }
+
     public ResultCityAdapter(ArrayList<City> mResultList, Context mContext) {
         this.mResultList = mResultList;
         this.mContext = mContext;
