@@ -53,8 +53,6 @@
         <activity
             android:name=".activity.MS_allkinds_activity"
             android:launchMode="singleTop" />
-
-
         <activity
             android:name=".activity.My_settings_feedbackIdea_Activity"
             android:launchMode="singleTop" />
@@ -79,9 +77,18 @@
         <activity android:name=".activity.MyDataAnalyseActivity" />
         <activity android:name=".activity.OrderMessageActivity" />
         <activity android:name=".activity.MyOrderActivity" />
-        <activity android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            ></activity>
+        <activity
+            android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".activity.VideoActivity" />
+        <activity android:name=".activity.VoiceActivity" />
+        <activity android:name=".activity.VoiceSuccessActivity" />
+        <activity android:name=".activity.WordActivity" />
+        <activity
+            android:name=".activity.GaoDeLocateActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+
+        </activity>
     </application>
 
 </manifest>

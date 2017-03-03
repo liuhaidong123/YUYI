@@ -29,6 +29,8 @@
         android:layout_below="@id/my_title"
         android:background="@color/color_bg" />
 
+
+
     <RelativeLayout
         android:id="@+id/first_rl"
         android:layout_width="match_parent"
@@ -75,39 +77,38 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/elec_rl"
-            android:background="@color/color_bg"
-            />
+            android:background="@color/color_bg" />
+
         <RelativeLayout
-            android:layout_below="@+id/line1"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_below="@+id/line1">
+
             <ImageView
                 android:id="@+id/img_mess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/message"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/message" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_mess"
-                android:layout_toEndOf="@id/img_mess"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_mess"
+                android:text="@string/str_mess"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -128,69 +129,67 @@
                 android:id="@+id/img_th"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/th_car"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/th_car" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_th"
-                android:layout_toEndOf="@id/img_th"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_th"
+                android:text="@string/str_th"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
+
         <View
             android:id="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/thing_rl"
-            android:background="@color/color_bg"
-            />
+            android:background="@color/color_bg" />
+
         <RelativeLayout
             android:id="@+id/order_rl"
-            android:layout_below="@id/line2"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_below="@id/line2">
+
             <ImageView
                 android:id="@+id/img_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/order_icon_"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/order_icon_" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_order"
-                android:layout_toEndOf="@id/img_order"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_order"
+                android:text="@string/str_order"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -211,69 +210,67 @@
                 android:id="@+id/img_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/family_icon"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/family_icon" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_home"
-                android:layout_toEndOf="@id/img_home"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_home"
+                android:text="@string/str_home"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
+
         <View
             android:id="@+id/line3"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/home_rl"
-            android:background="@color/color_bg"
-            />
+            android:background="@color/color_bg" />
+
         <RelativeLayout
             android:id="@+id/equtment_rl"
-            android:layout_below="@id/line3"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_below="@id/line3">
+
             <ImageView
                 android:id="@+id/img_userdetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/user_detail"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/user_detail" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_userdetial"
-                android:layout_toEndOf="@id/img_userdetail"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_userdetail"
+                android:text="@string/str_userdetial"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -294,29 +291,27 @@
                 android:id="@+id/img_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/address"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/address" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_user_address"
-                android:layout_toEndOf="@id/img_address"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_address"
+                android:text="@string/str_user_address"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
 
         <View
@@ -324,40 +319,39 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_below="@id/address_rl"
-            android:background="@color/color_bg"
-            />
+            android:background="@color/color_bg" />
+
         <RelativeLayout
             android:id="@+id/set_relative"
-            android:layout_below="@id/line4"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:layout_below="@id/line4">
+
             <ImageView
                 android:id="@+id/img_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/set"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="25dp"
-                />
+                android:src="@mipmap/set" />
+
             <TextView
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/color_normal"
-                android:text="@string/str_set"
-                android:layout_toEndOf="@id/img_set"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
-                />
+                android:layout_toEndOf="@id/img_set"
+                android:text="@string/str_set"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/many"
-                />
+                android:layout_marginEnd="25dp"
+                android:src="@mipmap/many" />
         </RelativeLayout>
     </RelativeLayout>
 

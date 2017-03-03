@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,13 +49,14 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         mAlertView = LayoutInflater.from(this).inflate(R.layout.ask_alert_box, null);
         mAlertDialog.setView(mAlertView);
 
-        //语音
+        //语音,视频，文字
         mSpeechBtn = (Button) mAlertView.findViewById(R.id.btn_speech);
         mVideoBtn = (Button) mAlertView.findViewById(R.id.btn_video);
         mCharBtn = (Button) mAlertView.findViewById(R.id.btn_char);
         mSpeechBtn.setOnClickListener(this);
         mVideoBtn.setOnClickListener(this);
         mCharBtn.setOnClickListener(this);
+
     }
 
     @Override
@@ -63,25 +65,28 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
         if (id == mBtn.getId()) {
             mAlertDialog.show();
-            setAlertWidth();
-        } else if (id == mSpeechBtn.getId()) {
+            setAlertWidth(0.7f,mAlertDialog);
+        } else if (id == mSpeechBtn.getId()) {//语音咨询
+            startActivity(new Intent(this, VoiceActivity.class));
             mAlertDialog.dismiss();
-        } else if (id == mVideoBtn.getId()) {
+        } else if (id == mVideoBtn.getId()) {//视频咨询
+            startActivity(new Intent(this, VideoActivity.class));
             mAlertDialog.dismiss();
-        } else if (id == mCharBtn.getId()) {
+        } else if (id == mCharBtn.getId()) {//文字资讯
             mAlertDialog.dismiss();
-        } else if (id == mBack.getId()) {
+            startActivity(new Intent(this,WordActivity.class));
+        } else if (id == mBack.getId()) {//返回
             finish();
         }
     }
 
     //设置alert宽度
-    public void setAlertWidth() {
+    public void setAlertWidth(float a,AlertDialog alertDialog) {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager m = getWindowManager();
         m.getDefaultDisplay().getMetrics(dm);
-        android.view.WindowManager.LayoutParams p = mAlertDialog.getWindow().getAttributes();  //获取对话框当前的参数值
-        p.width = (int) (dm.widthPixels * (0.7));
-        mAlertDialog.getWindow().setAttributes(p);//设置生效
+        android.view.WindowManager.LayoutParams p = alertDialog.getWindow().getAttributes();  //获取对话框当前的参数值
+        p.width = (int) (dm.widthPixels * (a));
+        alertDialog.getWindow().setAttributes(p);//设置生效
     }
 }

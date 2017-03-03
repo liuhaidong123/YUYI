@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_voice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_no_press_tv"
+    tools:context="com.technology.yuyi.activity.VoiceActivity">
+
+    <TextView
+        android:id="@+id/wait_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="等待对方语音接收..."
+        android:textColor="#f9f9f9"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/img_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wait_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="155dp"
+        android:src="@mipmap/voice_phone_icon_1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_voice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="挂断"
+        android:textColor="#f9f9f9"
+        android:textSize="15sp" />
+</RelativeLayout>

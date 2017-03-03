@@ -20,11 +20,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AppointmentActivity;
+import com.technology.yuyi.activity.GaoDeLocateActivity;
 import com.technology.yuyi.activity.InformationActivity;
 import com.technology.yuyi.activity.InformationDetailsActivity;
+import com.technology.yuyi.activity.MS_allkinds_activity;
+import com.technology.yuyi.activity.MS_drugInfo_activity;
 import com.technology.yuyi.activity.MS_home_Activity;
 import com.technology.yuyi.activity.SearchActivity;
 import com.technology.yuyi.adapter.FirstPageListViewAdapter;
@@ -43,13 +47,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstPageFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener {
-    private EditText mEdit;
+public class FirstPageFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener ,AdapterView.OnItemClickListener{
+    private EditText mEdit;//搜索编辑框
+    private TextView mLocate_tv;
     private RelativeLayout mScrollRelative;
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
     private ListView mFirstPageListView;//资讯ListView
 
-    private GridView mGridview;//常用药品
+    private GridView mGridview;//常用药品Gridview
     private UseDrugGridViewAdapter mUseDrugAdapter;//常用药品adapter
 
     private ViewPager mViewPagerAD;
@@ -77,6 +82,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
     private RelativeLayout mInformation_rl;//资讯跳转
     private LinearLayout mRegister_ll;//预约挂号
+    private RelativeLayout mStaple_drug_rl;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -115,10 +121,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * @param view
      */
     public void initView(View view) {
+        //跳转到定位页面
+        mLocate_tv= (TextView) view.findViewById(R.id.tv_beijing);
+        mLocate_tv.setOnClickListener(this);
         //搜索框
         mEdit = (EditText) view.findViewById(R.id.edit_box);
         mEdit.setOnClickListener(this);
-       mEdit.setOnFocusChangeListener(this);
+        mEdit.setOnFocusChangeListener(this);
         //scrollview
         mScrollRelative = (RelativeLayout) view.findViewById(R.id.search_rl);
         mScrollRelative.setFocusable(true);
@@ -131,17 +140,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mGridview = (GridView) view.findViewById(R.id.firstpage_gridview_id);
         mUseDrugAdapter = new UseDrugGridViewAdapter(this.getContext());
         mGridview.setAdapter(mUseDrugAdapter);
+        mGridview.setOnItemClickListener(this);
         //给资讯设置adapter
         mFirstPageListView = (InformationListView) view.findViewById(R.id.listview_firstpage);
         mListViewAdapter = new FirstPageListViewAdapter(this.getContext());
         mFirstPageListView.setAdapter(mListViewAdapter);
-        //点击跳转资讯详情
-        mFirstPageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getContext(), InformationDetailsActivity.class));
-            }
-        });
+        mFirstPageListView.setOnItemClickListener(this);
+
         //广告viewpager
         mViewPagerAD = (ViewPager) view.findViewById(R.id.viewpager_title);
         //初始化存放小圆点的容器与viewpager
@@ -175,6 +180,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //预约挂号
         mRegister_ll = (LinearLayout) view.findViewById(R.id.register_ll);
         mRegister_ll.setOnClickListener(this);
+        //常用药品跳转
+        mStaple_drug_rl = (RelativeLayout) view.findViewById(R.id.relative_drug);
+        mStaple_drug_rl.setOnClickListener(this);
     }
 
     /**
@@ -326,8 +334,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             startActivity(intent);
         } else if (id == mEdit.getId()) {//跳转到搜索页
             startActivity(new Intent(this.getContext(), SearchActivity.class));
-            //将光标设置为false
-            mEdit.setFocusable(false);
+            mEdit.setFocusable(false); //将光标设置为false
+        } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
+            Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
+            intent.putExtra("type", 6);
+            startActivity(intent);
+        }else if (id==mLocate_tv.getId()){
+            startActivity(new Intent(this.getContext(),GaoDeLocateActivity.class));
         }
     }
 
@@ -339,5 +352,14 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             //将光标设置为false
             mEdit.setFocusable(false);
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+       if (parent==mGridview){//跳转到药品详情页
+           startActivity(new Intent(getContext(), MS_drugInfo_activity.class));
+       }else if (parent==mFirstPageListView){//跳转到资讯详情页
+           startActivity(new Intent(getContext(), InformationDetailsActivity.class));
+       }
     }
 }
