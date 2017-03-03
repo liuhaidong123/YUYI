@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.MyOrderListViewAdapter;
 import com.technology.yuyi.adapter.SearchHistoryListViewAdapter;
+import com.technology.yuyi.hide.input.keyboard.HideKeyboardUtils;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener{
     private ListView mListView;
@@ -72,4 +74,5 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(SearchActivity.this, "点击了listview:"+position, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -207,7 +207,16 @@
     <string name="order_wait_pay">等待买家付款</string>
 
     <string name="clear_up_all">清除全部</string>
+    <string name="doctor">医生</string>
+    <string name="hang_up">挂断</string>
+    <string name="photo">照片传输</string>
 
+    <string name="locate_tv">定位</string>
+    <string name="search_city">搜索城市</string>
+    <string name="all_city">全部城市</string>
+    <string name="current_locate">当前位置</string>
+    <string name="xxx_city">xx城市</string>
+    <string name="search_result">抱歉,暂时没有找到相关城市</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--          lzh           -->

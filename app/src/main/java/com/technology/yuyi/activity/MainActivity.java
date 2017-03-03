@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.fragment.AskFragment;
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView mMy_img;
     private RelativeLayout mFragment_rl;
     private FragmentManager mFragmentManager;
-    public final String firstPageTag="firstPageFragment";
-    public final String measureTag="measureFragment";
-    public final String askTag="askFragment";
-    public final String myTag="myFragment";
+    public final String firstPageTag = "firstPageFragment";
+    public final String measureTag = "measureFragment";
+    public final String askTag = "askFragment";
+    public final String myTag = "myFragment";
 
-    public final String pressColor="#25f368";
-    public final String noPressColor="#333333";
+    public final String pressColor = "#25f368";
+    public final String noPressColor = "#333333";
+    private long time = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showFirstPageFragment();
         user.clearLogin(MainActivity.this);
     }
+
     //初始化数据
     public void initView() {
         mFragment_rl = (RelativeLayout) findViewById(R.id.fragment_relative);
@@ -73,10 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAsk_tv = (TextView) findViewById(R.id.ask_tv);
         mMy_tv = (TextView) findViewById(R.id.my_tv);
         //底部图片
-        mFirstPafe_img= (ImageView) findViewById(R.id.firstpage_btn_img);
-        mMeasure_img= (ImageView) findViewById(R.id.measure_btn_img);
-        mAsk_img= (ImageView) findViewById(R.id.ask_btn_img);
-        mMy_img= (ImageView) findViewById(R.id.my_btn_img);
+        mFirstPafe_img = (ImageView) findViewById(R.id.firstpage_btn_img);
+        mMeasure_img = (ImageView) findViewById(R.id.measure_btn_img);
+        mAsk_img = (ImageView) findViewById(R.id.ask_btn_img);
+        mMy_img = (ImageView) findViewById(R.id.my_btn_img);
 
     }
 
@@ -133,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (measureFragment != null) {//显示测量
             fragmentTransaction.show(measureFragment);
         } else {
-            MeasureFragment measureF=new MeasureFragment();
+            MeasureFragment measureF = new MeasureFragment();
             fragmentTransaction.add(mFragment_rl.getId(), measureF, measureTag);
         }
         if (firstPageFragment != null) {//隐藏首页
@@ -161,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (askFragment != null) {//显示咨询
             fragmentTransaction.show(askFragment);
         } else {
-            AskFragment askF=new AskFragment();
+            AskFragment askF = new AskFragment();
             fragmentTransaction.add(mFragment_rl.getId(), askF, askTag);
         }
         if (firstPageFragment != null) {//隐藏首页
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (myFragment != null) {//显示我的
             fragmentTransaction.show(myFragment);
         } else {
-            MyFragment myF=new MyFragment();
+            MyFragment myF = new MyFragment();
             fragmentTransaction.add(mFragment_rl.getId(), myF, myTag);
         }
         if (firstPageFragment != null) {//隐藏首页
@@ -265,42 +268,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMy_img.setImageResource(R.mipmap.my_press);
 
     }
-//隐藏软键盘
-    public static Boolean hideInputMethod(Context context, View v) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            return imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-        return false;
-    }
-
-    public static boolean isShouldHideInput(View v, MotionEvent event) {
-        if (v != null && (v instanceof EditText)) {
-            int[] leftTop = { 0, 0 };
-            v.getLocationInWindow(leftTop);
-            int left = leftTop[0], top = leftTop[1], bottom = top + v.getHeight(), right = left
-                    + v.getWidth();
-            if (event.getX() > left && event.getX() < right
-                    && event.getY() > top && event.getY() < bottom) {
-                // 保留点击EditText的事件
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            View v = getCurrentFocus();
-            if (isShouldHideInput(v, ev)) {
-                if(hideInputMethod(this, v)) {
-                    return true; //隐藏键盘时，其他控件不响应点击事件==》注释则不拦截点击事件
-                }
+    public void onBackPressed() {
+        if (time > 0) {
+            if (System.currentTimeMillis() - time < 2000) {
+                super.onBackPressed();
+            } else {
+                time = System.currentTimeMillis();
+                Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
             }
+
+        } else {
+            time = System.currentTimeMillis();
+            Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
+
         }
-        return super.dispatchTouchEvent(ev);
     }
 }

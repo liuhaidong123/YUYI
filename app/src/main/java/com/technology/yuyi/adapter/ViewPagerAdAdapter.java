@@ -1,6 +1,7 @@
 package com.technology.yuyi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.activity.InformationDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +43,16 @@ public class ViewPagerAdAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        //View view = View.inflate(mContext, R.layout.viewpager_item, null);
         View view = mInflater.inflate(R.layout.viewpager_item, null);
-        ((ImageView) view.findViewById(R.id.imageView1)).setImageResource(mListImgAd.get(position % mListImgAd.size()));
+       ImageView img= ((ImageView) view.findViewById(R.id.imageView1));
+        img.setImageResource(mListImgAd.get(position % mListImgAd.size()));
+        //点击轮播图片跳转
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, InformationDetailsActivity.class));
+            }
+        });
         ((ViewPager) container).addView(view);
         return view;
 

@@ -20,12 +20,12 @@ import java.util.List;
 public class ViewPagerBloodTemAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List <View> mList=new ArrayList<>(); //血压图和体温图
+    private List<View> mList = new ArrayList<>(); //血压图和体温图
 
     public ViewPagerBloodTemAdapter(Context mContext, List<View> mList) {
         this.mContext = mContext;
         this.mList = mList;
-        mInflater=LayoutInflater.from(this.mContext);
+        mInflater = LayoutInflater.from(this.mContext);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ViewPagerBloodTemAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view==object;
+        return view == object;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class ViewPagerBloodTemAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-       View view= mInflater.inflate(R.layout.blood_and_tem_view,null);
-        ((RelativeLayout)view.findViewById(R.id.relative_blood_tem)).addView(mList.get(position));
+        View view = mInflater.inflate(R.layout.blood_and_tem_view, null);
+        ((RelativeLayout) view.findViewById(R.id.relative_blood_tem)).addView(mList.get(position));
         ((ViewPager) container).addView(view);
         return view;
     }
