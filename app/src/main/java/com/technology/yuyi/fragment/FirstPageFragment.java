@@ -1,12 +1,18 @@
 package com.technology.yuyi.fragment;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,7 +27,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AppointmentActivity;
 import com.technology.yuyi.activity.GaoDeLocateActivity;
@@ -41,13 +52,15 @@ import com.technology.yuyi.myview.TemView;
 import com.technology.yuyi.viewpager.impl.AdListenerImpl;
 import com.technology.yuyi.viewpager.impl.BloodTemImpl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstPageFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener ,AdapterView.OnItemClickListener{
+public class FirstPageFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, AdapterView.OnItemClickListener, AMapLocationListener {
     private EditText mEdit;//搜索编辑框
     private TextView mLocate_tv;
     private RelativeLayout mScrollRelative;
@@ -83,6 +96,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private RelativeLayout mInformation_rl;//资讯跳转
     private LinearLayout mRegister_ll;//预约挂号
     private RelativeLayout mStaple_drug_rl;
+
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
+    private final int LOCATE_CODE = 123;
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -111,7 +131,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.fragment_first_page, container, false);
 
         initView(view);
-
+        checkPermission();//检测定位权限
         return view;
     }
 
@@ -122,7 +142,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      */
     public void initView(View view) {
         //跳转到定位页面
-        mLocate_tv= (TextView) view.findViewById(R.id.tv_beijing);
+        mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
         //搜索框
         mEdit = (EditText) view.findViewById(R.id.edit_box);
@@ -339,8 +359,24 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
             intent.putExtra("type", 6);
             startActivity(intent);
-        }else if (id==mLocate_tv.getId()){
-            startActivity(new Intent(this.getContext(),GaoDeLocateActivity.class));
+        } else if (id == mLocate_tv.getId()) {//跳转到定位页面
+            Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
+            intent.putExtra("isNull",mLocate_tv.getText());
+            startActivityForResult(intent, 66);
+        }
+    }
+
+    //获取到的定位页面传过来的城市
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 66 && resultCode == 1) {//点击定位页面的某个城市，传过来的城市
+            mLocate_tv.setText(data.getStringExtra("city"));
+        }else if (requestCode == 66 && resultCode == 2){//点击返回按钮，传过来的信息
+            mLocate_tv.setText(data.getStringExtra("cityResult"));
+        }else if (requestCode == 66 && resultCode == 3){//点击搜索到的城市，传过来的城市
+            mLocate_tv.setText(data.getStringExtra("citySearchResult"));
         }
     }
 
@@ -356,10 +392,124 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-       if (parent==mGridview){//跳转到药品详情页
-           startActivity(new Intent(getContext(), MS_drugInfo_activity.class));
-       }else if (parent==mFirstPageListView){//跳转到资讯详情页
-           startActivity(new Intent(getContext(), InformationDetailsActivity.class));
-       }
+        if (parent == mGridview) {//跳转到药品详情页
+            startActivity(new Intent(getContext(), MS_drugInfo_activity.class));
+        } else if (parent == mFirstPageListView) {//跳转到资讯详情页
+            startActivity(new Intent(getContext(), InformationDetailsActivity.class));
+        }
+    }
+
+    //初始化高德定位数据
+    public void gaoDeMap() {
+        //初始化定位
+        mLocationClient = new AMapLocationClient(this.getContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Battery_Saving，低功耗模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+        //获取最近3s内精度最高的一次定位结果：
+        //mLocationOption.setOnceLocationLatest(true);
+        //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
+        mLocationOption.setInterval(6000);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否强制刷新WIFI，默认为true，强制刷新。
+        mLocationOption.setWifiActiveScan(false);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(20000);
+        //只定位一次,如果设置只定位一次的话， mLocationOption.setInterval（）这个方法就不会执行了，也就是即使隔6秒也不会重新定位
+        mLocationOption.setOnceLocation(true);
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+        Log.e("MainActivity当前线程id=", Thread.currentThread().getId() + "");
+
+    }
+
+    /**
+     * 检查定位权限
+     */
+    public void checkPermission() {
+        //sdk版本>=23时，
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+            //如果没有授权定位权限
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                //请求授权，点击允许或者拒绝时会回调onRequestPermissionsResult（），
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATE_CODE);//位置信息
+                return;
+                //如果已经授权，执行业务逻辑
+            } else {
+                gaoDeMap();
+                Toast.makeText(this.getContext(), "定位授权成功", Toast.LENGTH_SHORT).show();
+            }
+            //版本小于23时，执行业务逻辑
+        } else {
+            Toast.makeText(this.getContext(), "版本小于23", Toast.LENGTH_SHORT).show();
+            gaoDeMap();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATE_CODE:
+                //点击了允许
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    Toast.makeText(this.getContext(), "允许定位", Toast.LENGTH_SHORT).show();
+                    gaoDeMap();
+                    //点击了拒绝
+                } else {
+                    // Permission Denied
+                    mLocate_tv.setText("未定位");
+                    Toast.makeText(this.getContext(), "无法获取定位权限", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    //定位回调接口
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                //可在其中解析aMapLocation获取相应内容。
+                aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                aMapLocation.getLatitude();//获取纬度
+                aMapLocation.getLongitude();//获取经度
+                aMapLocation.getAccuracy();//获取精度信息
+                aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                aMapLocation.getCountry();//国家信息
+                aMapLocation.getProvince();//省信息
+                aMapLocation.getCity();//城市信息
+                aMapLocation.getDistrict();//城区信息
+                aMapLocation.getStreet();//街道信息
+                aMapLocation.getStreetNum();//街道门牌号信息
+                aMapLocation.getCityCode();//城市编码
+                aMapLocation.getAdCode();//地区编码
+                aMapLocation.getAoiName();//获取当前定位点的AOI信息
+                aMapLocation.getBuildingId();//获取当前室内定位的建筑物Id
+                aMapLocation.getFloor();//获取当前室内定位的楼层
+                aMapLocation.getGpsAccuracyStatus();//获取GPS的当前状态
+                //获取定位时间
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(aMapLocation.getTime());
+                df.format(date);
+                Log.e("街道信息当前线程id=", Thread.currentThread().getId() + "");
+                Log.e("当前城市信息：", aMapLocation.getCity());
+                Log.e("当前城区信息：", aMapLocation.getDistrict());
+                mLocate_tv.setText(aMapLocation.getDistrict());
+            } else {
+                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
+            }
+        }
+
     }
 }

@@ -2,11 +2,11 @@ package com.technology.yuyi.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PixelFormat;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,9 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.LocationManagerProxy;
-import com.amap.api.location.LocationProviderProxy;
 import com.technology.yuyi.DBSqlite.DBHelper;
 import com.technology.yuyi.GaoDe.adapter.ResultCityAdapter;
 import com.technology.yuyi.R;
@@ -44,14 +45,16 @@ import com.technology.yuyi.lhd.utils.PingYinUtil;
 import com.technology.yuyi.myview.MyLetterListView;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class GaoDeLocateActivity extends AppCompatActivity implements TextWatcher, AbsListView.OnScrollListener, AMapLocationListener, View.OnClickListener {
+public class GaoDeLocateActivity extends AppCompatActivity implements TextWatcher, AbsListView.OnScrollListener, View.OnClickListener, AMapLocationListener {
     private RelativeLayout mRelative;
     private ImageView mBack;
     private ListView mAllCity_ListView;//定位页面所有城市列表ListView
@@ -77,7 +80,12 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
     private Handler handler;
     private OverlayThread overlayThread;
     private final int LOCATE_CODE = 123;
-    private LocationManagerProxy mLocationManagerProxy;
+
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
+
     //将全部城市按拼音排序时所需要的对象
     private Comparator comparator = new Comparator<City>() {
         @Override
@@ -95,7 +103,7 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gao_de_locate);
         initData();
-        checkPermission();
+        checkPermission();//检测定位权限
     }
 
     //初始化数据
@@ -103,7 +111,7 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
         mBack = (ImageView) findViewById(R.id.locate_back);
         mBack.setOnClickListener(this);
 
-        tv_city = (TextView) findViewById(R.id.tv_city);
+        tv_city = (TextView) findViewById(R.id.tv_city);//定位的信息
         getAllCityList();//初始化定位页面的所有城市数据
         initOverlay();
         //initLoc();//初始化定位
@@ -112,18 +120,34 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
         mAllCity_ListView = (ListView) findViewById(R.id.all_city_listview);//定位页面所有城市列表ListView
         mAllCityAdapter = new AllCityListAdapter(this, mAllCity_list);
         mAllCity_ListView.setAdapter(mAllCityAdapter);
+        mAllCity_ListView.setOnScrollListener(this);//滚动监听
+        //点击某个城市，将这个城市返回到首页
         mAllCity_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView = (TextView) view.findViewById(R.id.name);
                 Toast.makeText(GaoDeLocateActivity.this, "" + textView.getText(), Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                intent.putExtra("city", textView.getText());
+                setResult(1, intent);
+                finish();
             }
         });
-        mAllCity_ListView.setOnScrollListener(this);
 
         mSearch_city_result_listview = (ListView) findViewById(R.id.search_listview);//搜索城市时的城市列表ListView
         mResultCityAdapter = new ResultCityAdapter(mSearch_city_result_list, this);//搜索城市Adapter
         mSearch_city_result_listview.setAdapter(mResultCityAdapter);//设置搜索城市Adapter
+        mSearch_city_result_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.name);
+                Toast.makeText(GaoDeLocateActivity.this, "" + textView.getText(), Toast.LENGTH_SHORT).show();
+                Intent intent = getIntent();
+                intent.putExtra("citySearchResult", textView.getText());
+                setResult(3, intent);
+                finish();
+            }
+        });
 
         mSearch_result_tv = (TextView) findViewById(R.id.search_prompt_tv);//搜索城市时，搜索的结果提示
         mEditText = (EditText) findViewById(R.id.loacte_edit_box);//输入编辑框
@@ -323,6 +347,18 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
     public void onClick(View v) {
         int id = v.getId();
         if (id == mBack.getId()) {
+            Intent intent = getIntent();
+            String cityName = intent.getStringExtra("isNull");
+            if (cityName.equals("未定位")) {
+                intent.putExtra("cityResult", tv_city.getText());
+            }else {
+                if (cityName.equals(tv_city.getText())){
+                    intent.putExtra("cityResult", tv_city.getText());
+                }else {
+                    intent.putExtra("cityResult", cityName);
+                }
+            }
+            setResult(2, intent);
             finish();
         }
     }
@@ -386,13 +422,7 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
 
         if (mReady) {
             String text;
-            String name = mAllCity_list.get(firstVisibleItem).getName();
             String pinyin = mAllCity_list.get(firstVisibleItem).getPinyi();
-//            if (firstVisibleItem < 4) {
-//                text = name;
-//            } else {
-//                text = PingYinUtil.converterToFirstSpell(pinyin).substring(0, 1).toUpperCase();
-//            }
             text = PingYinUtil.converterToFirstSpell(pinyin).substring(0, 1).toUpperCase();
             mOverlay.setText(text);
             mOverlay.setVisibility(View.VISIBLE);
@@ -400,19 +430,6 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
             // 延迟一秒后执行，让overlay为不可见
             handler.postDelayed(overlayThread, 1000);
         }
-    }
-
-
-    private void initLoc() {
-        // 初始化定位，只采用网络定位
-        mLocationManagerProxy = LocationManagerProxy.getInstance(getApplicationContext());
-        mLocationManagerProxy.setGpsEnable(false);
-        // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-        // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用removeUpdates()方法来取消定位请求
-        // 在定位结束后，在合适的生命周期调用destroy()方法
-        // 其中如果间隔时间为-1，则定位只定一次,
-        // 在单次定位情况下，定位无论成功与否，都无需调用removeUpdates()方法移除请求，定位sdk内部会移除
-        mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, 60 * 1000, 15, this);
     }
 
     /**
@@ -429,13 +446,13 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
                 return;
                 //如果已经授权，执行业务逻辑
             } else {
-                initLoc();
+                gaoDeMap();
                 Toast.makeText(this, "定位授权成功", Toast.LENGTH_SHORT).show();
             }
             //版本小于23时，执行业务逻辑
         } else {
             Toast.makeText(this, "版本小于23", Toast.LENGTH_SHORT).show();
-            initLoc();
+            gaoDeMap();
         }
     }
 
@@ -446,12 +463,12 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
                 //点击了允许
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                   Toast.makeText(GaoDeLocateActivity.this, "允许定位", Toast.LENGTH_SHORT).show();
-                   initLoc();
+                    Toast.makeText(GaoDeLocateActivity.this, "允许定位", Toast.LENGTH_SHORT).show();
+                    gaoDeMap();
                     //点击了拒绝
                 } else {
                     // Permission Denied
-                    tv_city.setText("无法获取定位权限");
+                    tv_city.setText("未定位");
                     Toast.makeText(GaoDeLocateActivity.this, "拒绝定位", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -459,38 +476,73 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-    //定位回调接口
+
+    //初始化高德定位数据
+    public void gaoDeMap() {
+        //初始化定位
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+        //设置定位回调监听
+        mLocationClient.setLocationListener(this);
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        //设置定位模式为AMapLocationMode.Battery_Saving，低功耗模式。
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+        //获取最近3s内精度最高的一次定位结果：
+        //mLocationOption.setOnceLocationLatest(true);
+        //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
+        mLocationOption.setInterval(6000);
+        //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否强制刷新WIFI，默认为true，强制刷新。
+        mLocationOption.setWifiActiveScan(false);
+        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
+        mLocationOption.setHttpTimeOut(20000);
+
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+        Log.e("MainActivity当前线程id=", Thread.currentThread().getId() + "");
+
+    }
+
+
+    //定位监听回调
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
-
-        //定位成功
-        if (aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0) {
-            tv_city.setText(aMapLocation.getCity()+aMapLocation.getDistrict());
-            //定位失败
-        } else {
-            Toast.makeText(getApplicationContext(), "Location ERR:" + aMapLocation.getAMapException().getErrorCode(), Toast.LENGTH_LONG).show();
-            tv_city.setText("定位失败");
-            return;
+        if (aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                //可在其中解析aMapLocation获取相应内容。
+                aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                aMapLocation.getLatitude();//获取纬度
+                aMapLocation.getLongitude();//获取经度
+                aMapLocation.getAccuracy();//获取精度信息
+                aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+                aMapLocation.getCountry();//国家信息
+                aMapLocation.getProvince();//省信息
+                aMapLocation.getCity();//城市信息
+                aMapLocation.getDistrict();//城区信息
+                aMapLocation.getStreet();//街道信息
+                aMapLocation.getStreetNum();//街道门牌号信息
+                aMapLocation.getCityCode();//城市编码
+                aMapLocation.getAdCode();//地区编码
+                aMapLocation.getAoiName();//获取当前定位点的AOI信息
+                aMapLocation.getBuildingId();//获取当前室内定位的建筑物Id
+                aMapLocation.getFloor();//获取当前室内定位的楼层
+                aMapLocation.getGpsAccuracyStatus();//获取GPS的当前状态
+                //获取定位时间
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(aMapLocation.getTime());
+                df.format(date);
+                Log.e("街道信息当前线程id=", Thread.currentThread().getId() + "");
+                Log.e("当前城市信息：", aMapLocation.getCity());
+                Log.e("当前城区信息：", aMapLocation.getDistrict());
+                tv_city.setText(aMapLocation.getDistrict());
+            } else {
+                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError", "location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
+            }
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
 
     }
 

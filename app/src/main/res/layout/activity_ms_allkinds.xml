@@ -22,7 +22,8 @@
                     android:id="@+id/ms_allkinds_return"
                     android:src="@mipmap/ms_home_return"
                     android:layout_width="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"/>
                 <TextView
