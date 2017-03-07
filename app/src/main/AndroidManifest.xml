@@ -46,7 +46,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="14cf697240503b60713b62354333abd3" /><!--开发者申请的key-->
+            android:value="14cf697240503b60713b62354333abd3"/><!--开发者申请的key-->
         <activity
             android:name=".activity.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
