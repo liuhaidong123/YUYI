@@ -29,4 +29,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/AMap_ Location_v1.4.0_20150830.jar')
+   
 }

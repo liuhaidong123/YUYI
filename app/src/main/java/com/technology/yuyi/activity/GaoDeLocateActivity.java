@@ -1,12 +1,18 @@
 package com.technology.yuyi.activity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.PixelFormat;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +25,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,9 +51,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class GaoDeLocateActivity extends AppCompatActivity implements TextWatcher, AbsListView.OnScrollListener, AMapLocationListener {
+public class GaoDeLocateActivity extends AppCompatActivity implements TextWatcher, AbsListView.OnScrollListener, AMapLocationListener, View.OnClickListener {
     private RelativeLayout mRelative;
-
+    private ImageView mBack;
     private ListView mAllCity_ListView;//定位页面所有城市列表ListView
     private AllCityListAdapter mAllCityAdapter;
 
@@ -69,7 +76,7 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
     private boolean isScroll = false;//触摸右侧拼音的监听事件的标志
     private Handler handler;
     private OverlayThread overlayThread;
-
+    private final int LOCATE_CODE = 123;
     private LocationManagerProxy mLocationManagerProxy;
     //将全部城市按拼音排序时所需要的对象
     private Comparator comparator = new Comparator<City>() {
@@ -88,14 +95,18 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gao_de_locate);
         initData();
+        checkPermission();
     }
 
     //初始化数据
     public void initData() {
+        mBack = (ImageView) findViewById(R.id.locate_back);
+        mBack.setOnClickListener(this);
+
         tv_city = (TextView) findViewById(R.id.tv_city);
         getAllCityList();//初始化定位页面的所有城市数据
         initOverlay();
-        initLoc();//初始化定位
+        //initLoc();//初始化定位
         mRelative = (RelativeLayout) findViewById(R.id.locare_rl);
 
         mAllCity_ListView = (ListView) findViewById(R.id.all_city_listview);//定位页面所有城市列表ListView
@@ -308,6 +319,14 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
         TextView name;// 城市名字
     }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == mBack.getId()) {
+            finish();
+        }
+    }
+
     //搜索框监听
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -396,14 +415,57 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
         mLocationManagerProxy.requestLocationData(LocationProviderProxy.AMapNetwork, 60 * 1000, 15, this);
     }
 
+    /**
+     * 检查定位权限
+     */
+    public void checkPermission() {
+        //sdk版本>=23时，
+        if (Build.VERSION.SDK_INT >= 23) {
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            //如果读取电话权限没有授权
+            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                //请求授权， 点击允许或者拒绝时会回调onRequestPermissionsResult（），
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATE_CODE);//位置信息
+                return;
+                //如果已经授权，执行业务逻辑
+            } else {
+                initLoc();
+                Toast.makeText(this, "定位授权成功", Toast.LENGTH_SHORT).show();
+            }
+            //版本小于23时，执行业务逻辑
+        } else {
+            Toast.makeText(this, "版本小于23", Toast.LENGTH_SHORT).show();
+            initLoc();
+        }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case LOCATE_CODE:
+                //点击了允许
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                   Toast.makeText(GaoDeLocateActivity.this, "允许定位", Toast.LENGTH_SHORT).show();
+                   initLoc();
+                    //点击了拒绝
+                } else {
+                    // Permission Denied
+                    tv_city.setText("无法获取定位权限");
+                    Toast.makeText(GaoDeLocateActivity.this, "拒绝定位", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
     //定位回调接口
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
 
         //定位成功
         if (aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0) {
-            tv_city.setText(aMapLocation.getCity());
+            tv_city.setText(aMapLocation.getCity()+aMapLocation.getDistrict());
             //定位失败
         } else {
             Toast.makeText(getApplicationContext(), "Location ERR:" + aMapLocation.getAMapException().getErrorCode(), Toast.LENGTH_LONG).show();
