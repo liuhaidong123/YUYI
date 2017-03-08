@@ -86,6 +86,7 @@ public class BloodView extends View {
         mPaintXY.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaintXY.setTextSize(dip2px(10));
         mPaintXY.setStrokeWidth(dip2px(0.5f));
+        mPaintXY.setTextAlign(Paint.Align.CENTER);
         //折线
         mPaintBloodLine = new Paint();
         mPaintBloodLine.setColor(Color.parseColor(paintColor));
@@ -125,7 +126,12 @@ public class BloodView extends View {
         }
         //x轴日期刻度
         for (int i = 0; i < XDate.size(); i++) {
-            canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale / 2.0f, mPaintXY);
+            if (i==0){
+                canvas.drawText("3月"+XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
+            }else {
+                canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
+            }
+
         }
         //折线走势
         for (int i = 0; i < mHeightBloodData.size(); i++) {

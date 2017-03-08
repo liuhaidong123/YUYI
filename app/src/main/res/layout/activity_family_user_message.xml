@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -96,6 +97,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="15dp"
+            android:padding="3dp"
             android:src="@mipmap/edit" />
 
     </RelativeLayout>
@@ -165,6 +167,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/delete_user"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="150dp"
         android:layout_height="50dp"

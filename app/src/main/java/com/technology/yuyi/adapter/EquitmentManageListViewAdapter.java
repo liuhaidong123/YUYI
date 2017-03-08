@@ -15,7 +15,6 @@ import com.technology.yuyi.R;
 public class EquitmentManageListViewAdapter extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-
     public EquitmentManageListViewAdapter(Context mContext) {
         this.mContext = mContext;
         mInflater=LayoutInflater.from(this.mContext);

@@ -6,7 +6,7 @@
     <string name="ask_name">咨询</string>
     <string name="my_name">我的</string>
 
-    <string name="edit_hint">搜索医院、药品</string>
+    <string name="edit_hint">搜索药品</string>
     <string name="beijing">北京</string>
     <string name="str_drugmall">医药商城</string>
     <string name="str_register">预约挂号</string>
@@ -170,6 +170,8 @@
     <string name="my_files">我的病历档案</string>
     <string name="myself_mess">个人信息</string>
     <string name="btn_delete">删除</string>
+    <string name="btn_sure_delete">确定要删除此用户吗？</string>
+    <string name="btn_equitment_delete">确定要删除此设备吗？</string>
 
     <string name="connect_wifi">连接WIFI</string>
     <string name="green_wifi">WIFI</string>
