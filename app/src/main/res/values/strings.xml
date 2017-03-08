@@ -234,4 +234,5 @@
     <string name="my_settings_aboutOurs_versionCode">当前版本号：1.0（wanyu2017）</string>
     <string name="my_settings_contactOur_phoneNum">0312-3850331</string>
     <string name="my_address_postcode">072750</string>
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
 </resources>

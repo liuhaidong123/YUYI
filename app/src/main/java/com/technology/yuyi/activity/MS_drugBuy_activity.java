@@ -24,11 +24,15 @@ import android.widget.Toast;
 import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.technology.yuyi.R;
+import com.technology.yuyi.lzh_WXutils.Constants;
 import com.technology.yuyi.lzh_alipay.AuthResult;
 import com.technology.yuyi.lzh_alipay.OrderInfoUtil2_0;
 import com.technology.yuyi.lzh_alipay.PayResult;
 import com.technology.yuyi.lzh_alipay.alipayEnvironment;
 import com.technology.yuyi.lzh_alipay.alipayId;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,9 @@ public class MS_drugBuy_activity extends Activity{
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
     //以上支付宝
+    //微信
+    private IWXAPI api;
+    //微信
     private PopupWindow popupW;//显示支付方式的window
     private TextView ms_drugbuy_price;//单价
     private TextView ms_drugbuy_numX;//x数量
@@ -129,6 +136,8 @@ public class MS_drugBuy_activity extends Activity{
         num=Integer.parseInt(getIntent().getStringExtra("num"));
         price=Float.parseFloat(getIntent().getStringExtra("price"));
         initView();
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+        api.registerApp(Constants.APP_ID);
 
     }
 
@@ -196,7 +205,6 @@ public class MS_drugBuy_activity extends Activity{
     //弹窗显示支付方式：支付宝，微信，货到付款
     private void showWindowPayment() {
         View v=getLayoutInflater().inflate(R.layout.ms_drugbuy_popupwindow, null);
-
         ms_drugbuy_paymentAlipay= (TextView) v.findViewById(R.id.ms_drugbuy_paymentAlipay);
         ms_drugbuy_paymentWX= (TextView) v.findViewById(R.id.ms_drugbuy_paymentWX);
         ms_drugbuy_paymentCashOnDelivery= (TextView) v.findViewById(R.id.ms_drugbuy_paymentCashOnDelivery);
@@ -270,6 +278,7 @@ public class MS_drugBuy_activity extends Activity{
                             break;
                         case 1:
                             Toast.makeText(MS_drugBuy_activity.this,"微信支付",Toast.LENGTH_SHORT).show();
+                            pay(ms_drugbuy_paymentSubmit);
                             break;
                         case 2:
                             Toast.makeText(MS_drugBuy_activity.this,"货到付款",Toast.LENGTH_SHORT).show();
@@ -305,11 +314,6 @@ public class MS_drugBuy_activity extends Activity{
         return postion;
     }
 
-
-
-
-
-
     /**
      * 支付宝支付业务
      *
@@ -331,7 +335,6 @@ public class MS_drugBuy_activity extends Activity{
          * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
          * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
          * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
-         *
          * orderInfo的获取必须来自服务端；
          */
         alipayEnvironment.setEnvironment();
@@ -359,5 +362,20 @@ public class MS_drugBuy_activity extends Activity{
 
         Thread payThread = new Thread(payRunnable);
         payThread.start();
+    }
+
+
+
+    //吊起微信支付（假订单）
+    public void pay(View view) {
+        PayReq request = new PayReq();
+        request.appId = "wxd930ea5d5a258f4f";
+        request.partnerId = "1900000109";
+        request.prepayId= "1101000000140415649af9fc314aa427";
+        request.packageValue = "Sign=WXPay";
+        request.nonceStr= "1101000000140429eb40476f8896f4c9";
+        request.timeStamp= "1398746574";
+        request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+        api.sendReq(request);
     }
 }
