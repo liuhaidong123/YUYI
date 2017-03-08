@@ -25,8 +25,16 @@ public class RoundImageView extends ImageView {
     private BitmapShader mShader;
     private Matrix mMatrix = new Matrix();
 
+    public RoundImageView(Context context) {
+        super(context);
+    }
+
     public RoundImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public RoundImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override

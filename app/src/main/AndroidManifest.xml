@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -48,8 +49,10 @@
             android:name="com.amap.api.v2.apikey"
             android:value="14cf697240503b60713b62354333abd3" /><!--开发者申请的key-->
         <service android:name="com.amap.api.location.APSService"></service>
+
         <activity
             android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,28 +60,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.InformationActivity" />
+        <activity
+            android:name=".activity.InformationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AppointmentActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.AllHospitalDepartmentActivity" />
-        <activity android:name=".activity.SelectDoctorActivity" />
-        <activity android:name=".activity.CurrentTemActivity" />
-        <activity android:name=".activity.AddEquipmentActivity" />
-        <activity android:name=".activity.CurrentBloodActivity" />
+        <activity
+            android:name=".activity.AllHospitalDepartmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectDoctorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CurrentTemActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddEquipmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CurrentBloodActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.HandInputTemActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.HandInputBloodActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".activity.HospitalDetailsActivity" />
-        <activity android:name=".activity.UserEditorActivity" />
-        <activity android:name=".activity.ElectronicMessActivity" />
-        <activity android:name=".activity.LookElectronicMessActivity" />
-        <activity android:name=".activity.SetActivity" />
-        <activity android:name=".activity.InformationDetailsActivity" />
-        <activity android:name=".activity.EquipmentManageActivity" />
+        <activity
+            android:name=".activity.HospitalDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.UserEditorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ElectronicMessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LookElectronicMessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.InformationDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EquipmentManageActivity"
+            android:screenOrientation="portrait" />
 
         <!-- create by liuzonghao -->
         <activity
@@ -112,28 +144,52 @@
             android:name=".activity.My_userLogin_Activity"
             android:launchMode="singleTop" />
         <activity
-        android:name=".activity.My_address_Activity"
-        android:launchMode="singleTop" />
+            android:name=".activity.My_address_Activity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.My_message_Activity"
             android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
-        <activity android:name=".activity.FamilyManageActivity" />
-        <activity android:name=".activity.AddFamilyUserActivity" />
-        <activity android:name=".activity.FamilyUserMessageActivity" />
-        <activity android:name=".activity.ConnectWifiActivity" />
-        <activity android:name=".activity.MyDataAnalyseActivity" />
-        <activity android:name=".activity.OrderMessageActivity" />
-        <activity android:name=".activity.MyOrderActivity" />
+        <activity
+            android:name=".activity.FamilyManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddFamilyUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FamilyUserMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ConnectWifiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyDataAnalyseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OrderMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyOrderActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".activity.VideoActivity" />
-        <activity android:name=".activity.VoiceActivity" />
-        <activity android:name=".activity.VoiceSuccessActivity" />
-        <activity android:name=".activity.WordActivity" />
+        <activity
+            android:name=".activity.VideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VoiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.VoiceSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WordActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.GaoDeLocateActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
@@ -143,8 +199,7 @@
             android:name=".lzh_alipay.H5PayDemoActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind" >
-        </activity>
+            android:screenOrientation="behind"></activity>
 
         <!-- alipay sdk begin -->
 
@@ -153,16 +208,14 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
-<!--支付宝相关-->
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+        <!--支付宝相关-->
     </application>
 
 </manifest>

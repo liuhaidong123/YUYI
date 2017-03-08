@@ -5,6 +5,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,8 +16,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +40,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.technology.yuyi.R;
+import com.technology.yuyi.activity.AddFamilyUserActivity;
 import com.technology.yuyi.activity.AppointmentActivity;
 import com.technology.yuyi.activity.GaoDeLocateActivity;
 import com.technology.yuyi.activity.InformationActivity;
@@ -48,6 +55,7 @@ import com.technology.yuyi.adapter.ViewPagerAdAdapter;
 import com.technology.yuyi.adapter.ViewPagerBloodTemAdapter;
 import com.technology.yuyi.myview.BloodView;
 import com.technology.yuyi.myview.InformationListView;
+import com.technology.yuyi.myview.RoundImageView;
 import com.technology.yuyi.myview.TemView;
 import com.technology.yuyi.viewpager.impl.AdListenerImpl;
 import com.technology.yuyi.viewpager.impl.BloodTemImpl;
@@ -103,6 +111,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public AMapLocationClientOption mLocationOption = null;
     private final int LOCATE_CODE = 123;
 
+    private LinearLayout mAllUser_ll;//首页全部用户布局
+    private ArrayList mUserData=new ArrayList();
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -129,8 +139,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first_page, container, false);
-
         initView(view);
+        initUserMessage();//初始化用户的头像和昵称
         checkPermission();//检测定位权限
         return view;
     }
@@ -141,6 +151,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * @param view
      */
     public void initView(View view) {
+        //首页全部用户布局
+        mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
+        mUserData.add(1);
+        mUserData.add(1);
+        mUserData.add(1);
+        mUserData.add(1);
+        mUserData.add(1);
         //跳转到定位页面
         mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
@@ -203,6 +220,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //常用药品跳转
         mStaple_drug_rl = (RelativeLayout) view.findViewById(R.id.relative_drug);
         mStaple_drug_rl.setOnClickListener(this);
+        //添加用户按钮
+//        mAddUserImg = (LinearLayout) view.findViewById(R.id.adduser_ll);
+//        mAddUserImg.setOnClickListener(this);
     }
 
     /**
@@ -361,7 +381,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             startActivity(intent);
         } else if (id == mLocate_tv.getId()) {//跳转到定位页面
             Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
-            intent.putExtra("isNull",mLocate_tv.getText());
+            intent.putExtra("isNull", mLocate_tv.getText());
             startActivityForResult(intent, 66);
         }
     }
@@ -373,9 +393,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
         if (requestCode == 66 && resultCode == 1) {//点击定位页面的某个城市，传过来的城市
             mLocate_tv.setText(data.getStringExtra("city"));
-        }else if (requestCode == 66 && resultCode == 2){//点击返回按钮，传过来的信息
+        } else if (requestCode == 66 && resultCode == 2) {//点击返回按钮，传过来的信息
             mLocate_tv.setText(data.getStringExtra("cityResult"));
-        }else if (requestCode == 66 && resultCode == 3){//点击搜索到的城市，传过来的城市
+        } else if (requestCode == 66 && resultCode == 3) {//点击搜索到的城市，传过来的城市
             mLocate_tv.setText(data.getStringExtra("citySearchResult"));
         }
     }
@@ -510,6 +530,87 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 Log.e("AmapError", "location Error, ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
             }
         }
+
+
+    }
+
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     *
+     * @param dpValue
+     * @return
+     */
+    public int dip2px(int dpValue) {
+        DisplayMetrics mDisplayMetrics = getResources().getDisplayMetrics();
+        float scale = mDisplayMetrics.density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 初始化用户数据
+     */
+    public void initUserMessage(){
+        //用户头像，昵称外层的布局参数
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMarginEnd(dip2px(20));
+        //用户头像布局参数
+        LinearLayout.LayoutParams paramsImg = new LinearLayout.LayoutParams(dip2px(37), dip2px(37));
+        //用户昵称布局参数
+        LinearLayout.LayoutParams paramsTV = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        paramsTV.setMargins(0,dip2px(5),0,0);
+
+        for (int i=0;i<mUserData.size();i++){
+            //用户布局
+            LinearLayout linearLayout = new LinearLayout(this.getContext());
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setGravity(Gravity.CENTER);
+            linearLayout.setLayoutParams(params);
+
+            //用户头像
+            RoundImageView roundImageView=new RoundImageView(this.getContext());
+            roundImageView.setImageResource(R.mipmap.item01);
+            roundImageView.setLayoutParams(paramsImg);
+
+            //用户昵称
+
+            TextView textView=new TextView(this.getContext());
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+            textView.setTextColor(Color.parseColor("#25f368"));
+            textView.setText("用户3");
+            textView.setLayoutParams(paramsTV);
+
+            linearLayout.addView(roundImageView);
+            linearLayout.addView(textView);
+            mAllUser_ll.addView(linearLayout);
+        }
+
+        //首页添加用户按钮
+        if (mUserData.size()<6){
+            //添加按钮的外层布局参数
+            LinearLayout.LayoutParams addparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            //添加布局
+            LinearLayout addlinear=new LinearLayout(this.getContext());
+            addlinear.setId(View.generateViewId());
+            addlinear.setOrientation(LinearLayout.VERTICAL);
+            addlinear.setLayoutParams(addparams);
+            addlinear.setGravity(Gravity.CENTER);
+
+            //添加图片
+            ImageView imageView=new ImageView(this.getContext());
+            imageView.setImageResource(R.mipmap.add_icon_1);
+            imageView.setLayoutParams(paramsImg);
+
+            addlinear.addView(imageView);
+            mAllUser_ll.addView(addlinear);
+            //点击添加按钮
+            addlinear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getContext(), AddFamilyUserActivity.class));
+                }
+            });
+        }
+
 
     }
 }

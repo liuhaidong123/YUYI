@@ -73,7 +73,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/app_search_img"
                     android:background="@null"
-                    android:hint="@string/edit_hint"
+                    android:hint="搜索医院"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/color_edit_hint"

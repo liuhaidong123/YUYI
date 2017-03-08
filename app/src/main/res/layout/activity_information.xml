@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -38,13 +38,19 @@
         android:layout_below="@id/infor_title"
         android:background="@color/color_bg" />
 
-    <ListView
-        android:layout_marginTop="5dp"
-        android:id="@+id/information_listview_id"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refreshlayout_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/infor_line">
+        android:layout_below="@id/infor_line"
+        android:layout_marginTop="5dp">
 
+        <ListView
+            android:id="@+id/information_listview_id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ListView>
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>

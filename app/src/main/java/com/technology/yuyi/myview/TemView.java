@@ -75,6 +75,7 @@ public class TemView extends View {
         YXpaint.setTextSize(dip2px(10));
         YXpaint.setStrokeWidth(dip2px(0.5f));
         YXpaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        YXpaint.setTextAlign(Paint.Align.CENTER);
 
         //折线画笔
         linePaint = new Paint();
@@ -113,7 +114,10 @@ public class TemView extends View {
 
         //x轴日期刻度
         for (int i = 0; i < XDate.size(); i++) {
-            canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale / 2.0f, YXpaint);
+            if (i==0){
+                canvas.drawText("3月"+XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , YXpaint);
+            }else {
+            canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , YXpaint);}
         }
 
         //折线走势
