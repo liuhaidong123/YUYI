@@ -9,7 +9,7 @@
         android:layout_height="60dp"
         android:text="内科"
         android:textSize="17sp"
-        android:textColor="@color/color_normal"
         android:gravity="center"
+        android:textColor="@color/color_normal"
         />
 </RelativeLayout>

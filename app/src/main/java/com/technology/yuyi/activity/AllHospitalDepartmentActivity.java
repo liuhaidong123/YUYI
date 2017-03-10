@@ -11,22 +11,26 @@ import android.widget.ListView;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.LeftListViewAdapter;
 import com.technology.yuyi.adapter.RightListViewAdapter;
+import com.technology.yuyi.bean.MyEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class AllHospitalDepartmentActivity extends AppCompatActivity implements View.OnClickListener{
+public class AllHospitalDepartmentActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
     //左边listview
     private LeftListViewAdapter mLeftAdapter;
     private ListView mLeftListView;
     private String[] str = {"内科", "外科", "妇产科", "儿科", "眼科", "耳鼻喉科", "口腔科", "中医科"};
-    private ArrayList<String> mLeftData = new ArrayList();
+    private List<MyEntity> mLeftData = new ArrayList();
 
     //右边listview
     private ListView mRightListView;
     private RightListViewAdapter mRightAdapter;
     private String[] str2 = {"呼吸内科门诊", "消化内科门诊", "肾内科门诊", "心血管内科门诊", "神经内科门诊", "感染科门诊", "普内科门诊", "发热门诊", "康复理疗科门诊"};
     private ArrayList<String> mRightData = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +40,16 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
     }
 
     private void initView() {
-        mBack= (ImageView) findViewById(R.id.depart_back);
+        mBack = (ImageView) findViewById(R.id.depart_back);
         mBack.setOnClickListener(this);
         //左边listview
-        for (int i = 0; i < str.length; i++) {
-            mLeftData.add(str[i]);
-        }
+        initLeftList();
         mLeftListView = (ListView) findViewById(R.id.left_listview);
         mLeftAdapter = new LeftListViewAdapter(this, mLeftData);
         mLeftListView.setAdapter(mLeftAdapter);
-        mLeftListView.setSelector(R.color.color_white);
-        mLeftListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-//                TextView tv = (TextView) view.findViewById(R.id.tv_left);
-//                tv.setTextColor(Color.parseColor("#25f368"));
-            }
-        });
 
         //右边listview
-
         for (int i = 0; i < str2.length; i++) {
             mRightData.add(str2[i]);
         }
@@ -66,7 +59,7 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
         mRightListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               startActivity(new Intent(AllHospitalDepartmentActivity.this,SelectDoctorActivity.class));
+                startActivity(new Intent(AllHospitalDepartmentActivity.this, SelectDoctorActivity.class));
             }
         });
 
@@ -74,9 +67,32 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
-        if (id==mBack.getId()){
+        int id = v.getId();
+        if (id == mBack.getId()) {
             finish();
         }
+    }
+
+    public void initLeftList() {
+        mLeftData = Arrays.asList(
+                new MyEntity("内科", true),
+                new MyEntity("外科", false),
+                new MyEntity("妇产科", false),
+                new MyEntity("儿科", false),
+                new MyEntity("眼科", false),
+                new MyEntity("耳鼻喉科", false),
+                new MyEntity("口腔科", false),
+                new MyEntity("中医科", false),
+
+                new MyEntity("内科", false),
+                new MyEntity("外科", false),
+                new MyEntity("妇产科", false),
+                new MyEntity("儿科", false),
+                new MyEntity("眼科", false),
+                new MyEntity("耳鼻喉科", false),
+                new MyEntity("口腔科", false),
+                new MyEntity("中医科", false)
+
+        );
     }
 }

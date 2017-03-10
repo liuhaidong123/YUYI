@@ -25,6 +25,7 @@ import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -68,8 +69,8 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstPageFragment extends Fragment implements View.OnClickListener, View.OnFocusChangeListener, AdapterView.OnItemClickListener, AMapLocationListener {
-    private EditText mEdit;//搜索编辑框
+public class FirstPageFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AMapLocationListener {
+    private RelativeLayout mEdit_rl;//搜索
     private TextView mLocate_tv;
     private RelativeLayout mScrollRelative;
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
@@ -112,7 +113,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private final int LOCATE_CODE = 123;
 
     private LinearLayout mAllUser_ll;//首页全部用户布局
-    private ArrayList mUserData=new ArrayList();
+    private ArrayList mUserData = new ArrayList();
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -154,17 +155,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //首页全部用户布局
         mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
         mUserData.add(1);
-        mUserData.add(1);
-        mUserData.add(1);
-        mUserData.add(1);
-        mUserData.add(1);
+        mUserData.add(2);
+        mUserData.add(3);
+        mUserData.add(4);
+        mUserData.add(5);
         //跳转到定位页面
         mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
-        //搜索框
-        mEdit = (EditText) view.findViewById(R.id.edit_box);
-        mEdit.setOnClickListener(this);
-        mEdit.setOnFocusChangeListener(this);
+        //搜索
+        mEdit_rl= (RelativeLayout) view.findViewById(R.id.edit_rl);
+        mEdit_rl.setOnClickListener(this);
         //scrollview
         mScrollRelative = (RelativeLayout) view.findViewById(R.id.search_rl);
         mScrollRelative.setFocusable(true);
@@ -204,6 +204,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
         mTemView = new TemView(this.getContext());
         mTemView.setTemInfo(YTemData, XTemdateNum, temData);
+
 
         mViewList.add(mBloodView);
         mViewList.add(mTemView);
@@ -372,9 +373,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             Intent intent = new Intent();
             intent.setClass(getActivity(), MS_home_Activity.class);
             startActivity(intent);
-        } else if (id == mEdit.getId()) {//跳转到搜索页
-            startActivity(new Intent(this.getContext(), SearchActivity.class));
-            mEdit.setFocusable(false); //将光标设置为false
+        } else if (id == mEdit_rl.getId()) {//跳转到搜索页
+          Intent intent= new Intent(this.getContext(), SearchActivity.class);
+            intent.putExtra("hint","搜索药品");
+            startActivity(intent);
+
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
             Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
             intent.putExtra("type", 6);
@@ -400,15 +403,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         }
     }
 
-    //获取到editText光标焦点的时候，跳转到搜索页
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            startActivity(new Intent(this.getContext(), SearchActivity.class));
-            //将光标设置为false
-            mEdit.setFocusable(false);
-        }
-    }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -549,7 +544,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     /**
      * 初始化用户数据
      */
-    public void initUserMessage(){
+    public void initUserMessage() {
         //用户头像，昵称外层的布局参数
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMarginEnd(dip2px(20));
@@ -557,46 +552,72 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         LinearLayout.LayoutParams paramsImg = new LinearLayout.LayoutParams(dip2px(37), dip2px(37));
         //用户昵称布局参数
         LinearLayout.LayoutParams paramsTV = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        paramsTV.setMargins(0,dip2px(5),0,0);
+        paramsTV.setMargins(0, dip2px(5), 0, 0);
 
-        for (int i=0;i<mUserData.size();i++){
+        for (int i = 0; i < mUserData.size(); i++) {
+            final int k = i;
             //用户布局
             LinearLayout linearLayout = new LinearLayout(this.getContext());
+            linearLayout.setId(View.generateViewId());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setGravity(Gravity.CENTER);
             linearLayout.setLayoutParams(params);
 
             //用户头像
-            RoundImageView roundImageView=new RoundImageView(this.getContext());
+            RoundImageView roundImageView = new RoundImageView(this.getContext());
             roundImageView.setImageResource(R.mipmap.item01);
             roundImageView.setLayoutParams(paramsImg);
 
             //用户昵称
 
-            TextView textView=new TextView(this.getContext());
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+            TextView textView = new TextView(this.getContext());
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             textView.setTextColor(Color.parseColor("#25f368"));
-            textView.setText("用户3");
+            textView.setText("用户"+i);
             textView.setLayoutParams(paramsTV);
 
             linearLayout.addView(roundImageView);
             linearLayout.addView(textView);
             mAllUser_ll.addView(linearLayout);
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), mUserData.get(k)+"", Toast.LENGTH_SHORT).show();
+                   heightBloodData.clear();
+                    heightBloodData.add(120);
+                    heightBloodData.add(80);
+                    heightBloodData.add(90);
+                    heightBloodData.add(75);
+                    heightBloodData.add(130);
+                    heightBloodData.add(110);
+                    heightBloodData.add(95);
+                    lowBloodData.clear();
+                    lowBloodData.add(50);
+                    lowBloodData.add(58);
+                    lowBloodData.add(59);
+                    lowBloodData.add(50);
+                    lowBloodData.add(51);
+                    lowBloodData.add(52);
+                    lowBloodData.add(58);
+                    mBloodView.setInfo(YbloodNum,XdateNum,heightBloodData,lowBloodData);
+                    mBloodView.invalidate();
+                }
+            });
         }
 
         //首页添加用户按钮
-        if (mUserData.size()<6){
+        if (mUserData.size() < 6) {
             //添加按钮的外层布局参数
             LinearLayout.LayoutParams addparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //添加布局
-            LinearLayout addlinear=new LinearLayout(this.getContext());
+            LinearLayout addlinear = new LinearLayout(this.getContext());
             addlinear.setId(View.generateViewId());
             addlinear.setOrientation(LinearLayout.VERTICAL);
             addlinear.setLayoutParams(addparams);
             addlinear.setGravity(Gravity.CENTER);
 
             //添加图片
-            ImageView imageView=new ImageView(this.getContext());
+            ImageView imageView = new ImageView(this.getContext());
             imageView.setImageResource(R.mipmap.add_icon_1);
             imageView.setLayoutParams(paramsImg);
 
