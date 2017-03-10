@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <!--头部-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp">
@@ -39,8 +40,9 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/search"/>
+                    android:src="@mipmap/screen"/>
             </RelativeLayout>
+            <!--分类标题-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp">
@@ -83,12 +85,14 @@
                         </LinearLayout>
 
                     </RelativeLayout>
+
                     <RelativeLayout
+                        android:id="@+id/activity_ms_allkinds_rela"
                         android:layout_marginRight="10dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -106,24 +110,177 @@
                             android:layout_centerVertical="true"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:src="@mipmap/open"/>
-
-
+                            android:src="@drawable/ms_allkinds_image_sort_select"/>
                     </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
-
-            <com.technology.yuyi.lzh_utils.MyGridView
-                android:paddingTop="10dp"
-                android:id="@+id/ms_allkinds_myGridview"
+            <!--分类药品与全部分类-->
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:background="#cccccc"
-                android:horizontalSpacing="10dp"
-                android:verticalSpacing="10dp"
-                android:numColumns="2"
                 android:layout_height="match_parent">
+<!--全部分类-->
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/activity_my_allkinds"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="15dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#cccccc"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            </com.technology.yuyi.lzh_utils.MyGridView>
+                        <TextView
+                            android:id="@+id/ms_allkindssort_textV1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="常用"
+                            android:textColor="#6a6a6a"
+                            android:textSize="13sp" />
+
+                        <com.technology.yuyi.lzh_utils.MyGridView
+                            android:id="@+id/ms_allkindssort_gridview1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ms_allkindssort_textV1"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="4"
+                            android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/ms_allkindssort_textV2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="肠胃用药"
+                            android:textColor="#6a6a6a"
+                            android:textSize="13sp" />
+
+                        <com.technology.yuyi.lzh_utils.MyGridView
+                            android:id="@+id/ms_allkindssort_gridview2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ms_allkindssort_textV2"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="4"
+                            android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/ms_allkindssort_textV3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="滋补疗养"
+                            android:textColor="#6a6a6a"
+                            android:textSize="13sp" />
+
+                        <com.technology.yuyi.lzh_utils.MyGridView
+                            android:id="@+id/ms_allkindssort_gridview3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ms_allkindssort_textV3"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="4"
+                            android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/ms_allkindssort_textV4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="女性用药"
+                            android:textColor="#6a6a6a"
+                            android:textSize="13sp" />
+
+                        <com.technology.yuyi.lzh_utils.MyGridView
+                            android:id="@+id/ms_allkindssort_gridview4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ms_allkindssort_textV4"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="4"
+                            android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/ms_allkindssort_textV5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:text="风湿骨病"
+                            android:textColor="#6a6a6a"
+                            android:textSize="13sp" />
+
+                        <com.technology.yuyi.lzh_utils.MyGridView
+                            android:id="@+id/ms_allkindssort_gridview5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ms_allkindssort_textV5"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:horizontalSpacing="5dp"
+                            android:numColumns="4"
+                            android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
+                    </RelativeLayout>
+                </LinearLayout>
+<!--分类药品-->
+                <com.technology.yuyi.lzh_utils.MyGridView
+                    android:paddingTop="10dp"
+                    android:id="@+id/ms_allkinds_myGridview"
+                    android:layout_width="match_parent"
+                    android:background="#cccccc"
+                    android:horizontalSpacing="10dp"
+                    android:verticalSpacing="10dp"
+                    android:numColumns="2"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true">
+                </com.technology.yuyi.lzh_utils.MyGridView>
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 

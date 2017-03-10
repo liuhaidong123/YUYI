@@ -5,6 +5,7 @@
     android:id="@+id/my_address_parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,8 +35,23 @@
                 android:layout_centerInParent="true"
                 android:textColor="@color/color_ms_home_titleclolr"
                 android:textSize="@dimen/ms_home_Titletextsize17"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="15dp"
+                android:text="确定"
+                android:textSize="17sp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:clickable="true"
+                android:onClick="submit"
+                android:id="@+id/my_address_submit"
+                android:textColor="#25f368"/>
         </RelativeLayout>
     </RelativeLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:background="@drawable/my_address_layout"
@@ -135,6 +151,7 @@
                     android:maxLines="1"
                     android:textSize="14sp"
                     android:textColor="#333333"
+                    android:id="@+id/my_address_addressSelect"
                     android:gravity="center_vertical"
                     android:text="河北省 保定市 涿州市"
                     android:layout_marginRight="10dp"
@@ -205,15 +222,15 @@
                 android:layout_centerVertical="true"
                 android:textSize="14sp"
                 android:textColor="#333333"/>
-            <TextView
+            <EditText
                 android:id="@+id/my_address_postCode"
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textSize="14sp"
                 android:textColor="#333333"
-                android:paddingLeft="13dp"
                 android:text="@string/my_address_postcode"
+                android:paddingLeft="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

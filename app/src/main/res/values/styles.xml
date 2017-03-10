@@ -12,6 +12,12 @@
         <item name="android:windowEnterAnimation">@anim/popupwindow_in</item>
         <item name="android:windowExitAnimation">@anim/popupwindow_out</item>
     </style>
+
+    <!--弹窗样式-->
+    <style name="popup2_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/pop_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
     <!-- Navigation Header -->
     <style name="NavPage">
         <item name="android:layout_width">fill_parent</item>

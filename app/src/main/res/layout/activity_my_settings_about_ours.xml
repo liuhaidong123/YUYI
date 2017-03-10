@@ -26,11 +26,10 @@
     </RelativeLayout>
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
         <com.technology.yuyi.lzh_utils.XCRoundRectImageView
             android:layout_width="70dp"

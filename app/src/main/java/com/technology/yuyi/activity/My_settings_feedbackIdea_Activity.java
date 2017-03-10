@@ -51,6 +51,9 @@ public class My_settings_feedbackIdea_Activity extends Activity {
                     int length=text.length();
                     my_settings_idea_textNum.setText(length+"/"+200);
                 }
+                else {
+                    my_settings_idea_textNum.setText(0+"/"+200);
+                }
             }
         });
 

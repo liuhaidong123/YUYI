@@ -28,9 +28,8 @@ public class MS_allkinds_sort_activity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ms_allkinds_sort);
-
-        initView();
-        initData();
+//        initView();
+//        initData();
     }
 
     private void initData() {
@@ -65,12 +64,12 @@ public class MS_allkinds_sort_activity extends Activity{
         ms_allkindssort_gridview4= (MyGridView) findViewById(R.id.ms_allkindssort_gridview4);
         ms_allkindssort_gridview5= (MyGridView) findViewById(R.id.ms_allkindssort_gridview5);
     }
-
-    public void goBack(View view) {
-        if (view!=null){
-            if (view.getId()==R.id.ms_allkinds_sort_return){
-                finish();
-            }
-        }
-    }
+//
+//    public void goBack(View view) {
+//        if (view!=null){
+//            if (view.getId()==R.id.ms_allkinds_sort_return){
+//                finish();
+//            }
+//        }
+//    }
 }

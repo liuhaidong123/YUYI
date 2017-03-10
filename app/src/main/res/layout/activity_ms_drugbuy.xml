@@ -7,20 +7,8 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/ms_drugbuy_submit"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="确认订单"
-        android:clickable="true"
-        android:onClick="SubmitShoppingOrder"
-        android:background="@drawable/ms_druginfo_shoppingbuy"
-        android:textSize="18sp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:textColor="#6a6a6a"/>
     <ScrollView
-        android:layout_above="@+id/ms_drugbuy_submit"
+        android:layout_above="@+id/ms_drugbuy_submitBuy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -69,6 +57,8 @@
                 android:textColor="#999999"
                 android:textSize="12sp"/>
                 <ImageView
+                    android:clickable="true"
+                    android:onClick="selectPayment"
                     android:id="@+id/ms_drugbuy_addressEdit"
                     android:layout_width="wrap_content"
                     android:layout_marginRight="20dp"
@@ -293,4 +283,18 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/ms_drugbuy_submitBuy"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="确认订单"
+        android:clickable="true"
+        android:onClick="SubmitOrder"
+        android:background="@drawable/ms_druginfo_shoppingbuy"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#6a6a6a"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
