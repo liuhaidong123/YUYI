@@ -39,7 +39,7 @@
             android:layout_height="match_parent">
             <RelativeLayout
                 android:id="@+id/rl_head"
-                android:background="@mipmap/main_background4"
+                android:background="@mipmap/logo"
                 android:layout_width="match_parent"
                 android:layout_height="225dp">
 

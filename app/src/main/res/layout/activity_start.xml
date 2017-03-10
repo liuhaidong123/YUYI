@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/logo"
+    tools:context="com.technology.yuyi.activity.StartActivity">
+
+    <Button
+        android:background="@color/color_ee"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/color_normal"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/intent_id_btn"
+        android:layout_width="65dp"
+        android:text="3s后跳转"
+        android:textSize="12sp"
+        android:layout_height="30dp" />
+</RelativeLayout>

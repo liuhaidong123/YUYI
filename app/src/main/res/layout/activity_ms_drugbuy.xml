@@ -120,8 +120,8 @@
                     android:background="@drawable/ms_drugbuy_lin">
                     <ImageView
                         android:layout_centerInParent="true"
-                        android:src="@mipmap/testdrug"
-                        android:scaleType="fitXY"
+                        android:src="@mipmap/logo"
+                        android:scaleType="centerCrop"
                         android:id="@+id/ms_drugbuy_image"
                         android:layout_width="74dp"
                         android:layout_height="74dp" />

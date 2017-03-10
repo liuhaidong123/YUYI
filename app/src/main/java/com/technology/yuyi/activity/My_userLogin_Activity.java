@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
@@ -125,12 +126,16 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 userPsd=my_userlogin_edit_smdCode.getText().toString();
                 if (isPhoneNum(userName)&&!"".equals(userPsd)&&!TextUtils.isEmpty(userPsd)){
                     Toast.makeText(My_userLogin_Activity.this,"登陆成功",Toast.LENGTH_SHORT).show();
-                    finish();
                     SharedPreferences pre=getSharedPreferences("USER",MODE_APPEND);
                     SharedPreferences.Editor edi=pre.edit();
                     edi.putString("username",userName);
                     edi.putString("userpsd",userPsd);
                     edi.commit();
+                    //d点击登录注释
+                    Intent intent=new Intent();
+                    intent.setClass(My_userLogin_Activity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(My_userLogin_Activity.this,"用户名或密码不正确",Toast.LENGTH_SHORT).show();

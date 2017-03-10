@@ -36,6 +36,7 @@
             android:src="@mipmap/logo"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="92dp"
+            android:scaleType="centerCrop"
             android:id="@+id/my_settings_aboutOurs_imageview"
             android:layout_height="70dp" />
         <TextView

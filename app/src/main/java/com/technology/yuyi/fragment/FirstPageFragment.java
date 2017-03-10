@@ -154,11 +154,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void initView(View view) {
         //首页全部用户布局
         mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
-        mUserData.add(1);
-        mUserData.add(2);
-        mUserData.add(3);
-        mUserData.add(4);
-        mUserData.add(5);
+          mUserData.add(1);
+//        mUserData.add(2);
+//        mUserData.add(3);
+//        mUserData.add(4);
+//        mUserData.add(5);
         //跳转到定位页面
         mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
@@ -565,7 +565,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
             //用户头像
             RoundImageView roundImageView = new RoundImageView(this.getContext());
-            roundImageView.setImageResource(R.mipmap.item01);
+            roundImageView.setImageResource(R.mipmap.logo);
             roundImageView.setLayoutParams(paramsImg);
 
             //用户昵称
@@ -618,7 +618,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
             //添加图片
             ImageView imageView = new ImageView(this.getContext());
-            imageView.setImageResource(R.mipmap.add_icon_1);
+            imageView.setImageResource(R.mipmap.add_icon1);
             imageView.setLayoutParams(paramsImg);
 
             addlinear.addView(imageView);

@@ -43,7 +43,7 @@
         android:layout_height="210dp"
         android:layout_below="@id/details_line"
         android:scaleType="centerCrop"
-        android:src="@mipmap/main_background4" />
+        android:src="@mipmap/logo" />
 
     <TextView
         android:id="@+id/hospital_name"
