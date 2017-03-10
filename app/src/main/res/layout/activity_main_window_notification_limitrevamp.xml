@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#00fafafa"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@drawable/window_notifi"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#333333"
+            android:textSize="13sp"
+            android:padding="10dp"
+            android:text="      您禁止了应用使用通知栏的权限，需要您手动打开通知权限，是否现在就打开（部分手机需要前往软件管家内打开）"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background"/>
+    </LinearLayout>
+</RelativeLayout>

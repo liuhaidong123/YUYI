@@ -53,7 +53,6 @@ public class My_shoppingCart_Adapter extends BaseAdapter{
         hodler.my_shoppingcart_listitem_image.setImageResource(Integer.parseInt(list.get(position).get("image")));
         return convertView;
     }
-
     class ViewHodler{
         ImageView my_shoppingcart_listitem_image;
 //        TextView

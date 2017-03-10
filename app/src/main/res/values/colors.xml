@@ -66,6 +66,8 @@
     <color name="wheel_textColorDikn">#999999</color>
     <color name="wheelNotselectColor">#999999</color>
     <color name="sheelselectColor">#333333</color>
+    <color name="dialog">#00ffffff</color>
+    <color name="navpage">#FFE1E8EB</color>
 </resources>
 
 

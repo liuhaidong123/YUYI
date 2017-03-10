@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,11 +25,16 @@ import android.widget.Toast;
 import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
 import com.technology.yuyi.R;
+import com.technology.yuyi.lzh_WXutils.Constants;
 import com.technology.yuyi.lzh_alipay.AuthResult;
 import com.technology.yuyi.lzh_alipay.OrderInfoUtil2_0;
 import com.technology.yuyi.lzh_alipay.PayResult;
 import com.technology.yuyi.lzh_alipay.alipayEnvironment;
 import com.technology.yuyi.lzh_alipay.alipayId;
+import com.technology.yuyi.lzh_utils.ResCode;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +66,9 @@ public class MS_drugBuy_activity extends Activity{
     private static final int SDK_PAY_FLAG = 1;
     private static final int SDK_AUTH_FLAG = 2;
     //以上支付宝
+    //微信
+    private IWXAPI api;
+    //微信
     private PopupWindow popupW;//显示支付方式的window
     private TextView ms_drugbuy_price;//单价
     private TextView ms_drugbuy_numX;//x数量
@@ -73,6 +82,18 @@ public class MS_drugBuy_activity extends Activity{
     private TextView ms_drugbuy_paymentAlipay,ms_drugbuy_paymentWX,ms_drugbuy_paymentCashOnDelivery,ms_drugbuy_paymentSubmit;//支付宝，微信，货到付款，确认
     private List<TextView>li;
 
+
+    private PopupWindow popSucc;
+    ImageView drugbuy_window_succ_close;
+    TextView drug_window_succ_bottom_submit;
+
+    PopupWindow popFail;
+    ImageView drugbuy_window_fail_close;
+    TextView drug_window_fail_bottom_submit;
+
+
+    TextView ms_drugbuy_addressName;
+    TextView ms_drugbuy_address,ms_drugbuy_phonenum;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
@@ -90,9 +111,11 @@ public class MS_drugBuy_activity extends Activity{
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(MS_drugBuy_activity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        showSuccessPay();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(MS_drugBuy_activity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                        showFailurePay();
                     }
                     break;
                 }
@@ -129,6 +152,8 @@ public class MS_drugBuy_activity extends Activity{
         num=Integer.parseInt(getIntent().getStringExtra("num"));
         price=Float.parseFloat(getIntent().getStringExtra("price"));
         initView();
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+        api.registerApp(Constants.APP_ID);
 
     }
 
@@ -150,19 +175,11 @@ public class MS_drugBuy_activity extends Activity{
         ms_drugbuy_imageA.setSelected(true);
         ms_drugbuy_imageB.setSelected(false);
 
-        ms_drugbuy_submit= (TextView) findViewById(R.id.ms_drugbuy_submit);
+        ms_drugbuy_submit= (TextView) findViewById(R.id.ms_drugbuy_submitBuy);
 
-    }
-    //确认付款的按钮
-    public void SubmitShoppingOrder(View view) {
-//        Toast.makeText(MS_drugBuy_activity.this,"选择支付方式",Toast.LENGTH_SHORT).show();
-        if (view!=null){
-            switch (view.getId()){
-                case R.id.ms_drugbuy_submit://提交订单，弹出支付选项
-                    showWindowPayment();//显示可用支付方式
-                    break;
-            }
-        }
+        ms_drugbuy_addressName= (TextView) findViewById(R.id.ms_drugbuy_addressName);
+        ms_drugbuy_address= (TextView) findViewById(R.id.ms_drugbuy_address);
+        ms_drugbuy_phonenum= (TextView) findViewById(R.id.ms_drugbuy_phonenum);
     }
     public void goBack(View view) {
         if (view!=null){
@@ -196,7 +213,6 @@ public class MS_drugBuy_activity extends Activity{
     //弹窗显示支付方式：支付宝，微信，货到付款
     private void showWindowPayment() {
         View v=getLayoutInflater().inflate(R.layout.ms_drugbuy_popupwindow, null);
-
         ms_drugbuy_paymentAlipay= (TextView) v.findViewById(R.id.ms_drugbuy_paymentAlipay);
         ms_drugbuy_paymentWX= (TextView) v.findViewById(R.id.ms_drugbuy_paymentWX);
         ms_drugbuy_paymentCashOnDelivery= (TextView) v.findViewById(R.id.ms_drugbuy_paymentCashOnDelivery);
@@ -270,6 +286,7 @@ public class MS_drugBuy_activity extends Activity{
                             break;
                         case 1:
                             Toast.makeText(MS_drugBuy_activity.this,"微信支付",Toast.LENGTH_SHORT).show();
+                            pay(ms_drugbuy_paymentSubmit);
                             break;
                         case 2:
                             Toast.makeText(MS_drugBuy_activity.this,"货到付款",Toast.LENGTH_SHORT).show();
@@ -279,6 +296,50 @@ public class MS_drugBuy_activity extends Activity{
                         popupW.dismiss();
                     }
                     break;
+                case R.id.drugbuy_window_succ_close://付款成功中的关闭按钮
+                    popSucc.dismiss();
+
+                    break;
+                case R.id.drug_window_succ_bottom_submit://付款成功中的确定按钮,许改动，跳转到订单详情页面
+                    popSucc.dismiss();
+                    break;
+                case  R.id.drugbuy_window_fail_close:
+                    popFail.dismiss();
+                    break;
+                case R.id.drug_window_fail_bottom_submit:
+                    popFail.dismiss();
+                    showWindowPayment();
+                    break;
+                case R.id.ms_drugbuy_addressEdit://
+                    startActivityForResult(new Intent(MS_drugBuy_activity.this,My_address_Activity.class), ResCode.Requst_drugbuy);
+                    break;
+            }
+        }
+    }
+
+    //修改地址返回的数据
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+//        Intent intent=new Intent();
+//        Bundle b=new Bundle();
+//        b.putString("name",name);
+//        b.putString("address",addressSelect+addressInfo);
+//        b.putString("phonenum",phonenum);
+//        intent.putExtra("bundle",b);
+//        setResult(ResCode.Response_drugbuy,intent);
+        if (requestCode==ResCode.Requst_drugbuy){
+            if (resultCode==ResCode.Response_drugbuy){
+                Bundle bundle=data.getBundleExtra("bundle");
+                if (bundle!=null){
+                    ms_drugbuy_addressName.setText("收货人："+bundle.getString("name"));
+                    ms_drugbuy_address.setText("详细地址："+bundle.getString("address"));
+                    ms_drugbuy_phonenum.setText("联系电话："+bundle.getString("phonenum"));
+                }
+                else {
+                    Log.e("MS_drugBuy_activity","-onActivityResult-"+"返回的地址信息等错误，请检查");
+                }
             }
         }
     }
@@ -301,14 +362,8 @@ public class MS_drugBuy_activity extends Activity{
                 postion=i;
             }
         }
-
         return postion;
     }
-
-
-
-
-
 
     /**
      * 支付宝支付业务
@@ -331,7 +386,6 @@ public class MS_drugBuy_activity extends Activity{
          * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
          * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
          * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
-         *
          * orderInfo的获取必须来自服务端；
          */
         alipayEnvironment.setEnvironment();
@@ -359,5 +413,101 @@ public class MS_drugBuy_activity extends Activity{
 
         Thread payThread = new Thread(payRunnable);
         payThread.start();
+    }
+
+
+
+    //吊起微信支付（假订单）
+    public void pay(View view) {
+        PayReq request = new PayReq();
+        request.appId = "wxd930ea5d5a258f4f";
+        request.partnerId = "1900000109";
+        request.prepayId= "1101000000140415649af9fc314aa427";
+        request.packageValue = "Sign=WXPay";
+        request.nonceStr= "1101000000140429eb40476f8896f4c9";
+        request.timeStamp= "1398746574";
+        request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+        api.sendReq(request);
+    }
+
+    public void SubmitOrder(View view) {
+        showWindowPayment();//显示可用支付方式
+    }
+
+    //支付成功的弹窗
+    public void showSuccessPay(){
+        View v=getLayoutInflater().inflate(R.layout.ms_drugbuy_window_paysuccess, null);
+        drugbuy_window_succ_close= (ImageView) v.findViewById(R.id.drugbuy_window_succ_close);
+//        drug_window_succ_img_succ.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popSucc.dismiss();
+//            }
+//        });
+        drug_window_succ_bottom_submit= (TextView) v.findViewById(R.id.drug_window_succ_bottom_submit);
+
+//        drug_window_succ_bottom_submit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                popupW.dismiss();//许改动，应跳转到订单详细信息页面
+//            }
+//        });
+        popSucc=new PopupWindow();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        WindowManager.LayoutParams params=getWindow().getAttributes();
+        params.alpha=0.6f;
+        getWindow().setAttributes(params);
+        popSucc.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popSucc.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popSucc.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popSucc.setContentView(v);
+        popSucc.setBackgroundDrawable(new ColorDrawable(Color.argb(000, 255, 255, 255)));
+        popSucc.setTouchable(true);
+        popSucc.setFocusable(true);
+        popSucc.setOutsideTouchable(true);
+        RelativeLayout parent= (RelativeLayout) findViewById(R.id.ms_drugbuy_parentRelative);
+        popSucc.setAnimationStyle(R.style.popup2_anim);
+        popSucc.showAtLocation(parent, Gravity.CENTER, 0,0);
+        popSucc.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                WindowManager.LayoutParams params=getWindow().getAttributes();
+                params.alpha=1f;
+                getWindow().setAttributes(params);
+            }
+        });
+    }
+    //付款失败的弹窗
+    public void showFailurePay(){
+        View v=getLayoutInflater().inflate(R.layout.ms_drugbuy_window_failure, null);
+        drugbuy_window_fail_close= (ImageView) v.findViewById(R.id.drugbuy_window_fail_close);
+        drug_window_fail_bottom_submit= (TextView) v.findViewById(R.id.drug_window_fail_bottom_submit);
+
+        popFail=new PopupWindow();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        WindowManager.LayoutParams params=getWindow().getAttributes();
+        params.alpha=0.6f;
+        getWindow().setAttributes(params);
+        popFail.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popFail.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popFail.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        popFail.setContentView(v);
+        popFail.setBackgroundDrawable(new ColorDrawable(Color.argb(000, 255, 255, 255)));
+        popFail.setTouchable(true);
+        popFail.setFocusable(true);
+        popFail.setOutsideTouchable(true);
+        RelativeLayout parent= (RelativeLayout) findViewById(R.id.ms_drugbuy_parentRelative);
+        popFail.setAnimationStyle(R.style.popup2_anim);
+        popFail.showAtLocation(parent, Gravity.CENTER, 0,0);
+        popFail.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                WindowManager.LayoutParams params=getWindow().getAttributes();
+                params.alpha=1f;
+                getWindow().setAttributes(params);
+            }
+        });
     }
 }

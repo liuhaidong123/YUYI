@@ -24,6 +24,10 @@ import com.technology.yuyi.fragment.MeasureFragment;
 import com.technology.yuyi.fragment.MyFragment;
 import com.technology.yuyi.lzh_utils.user;
 
+import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout mFirstPage_ll;
     private LinearLayout mMeasure_ll;
@@ -284,5 +288,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(MainActivity.this, "再按一次退出", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(MainActivity.this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(MainActivity.this);
     }
 }

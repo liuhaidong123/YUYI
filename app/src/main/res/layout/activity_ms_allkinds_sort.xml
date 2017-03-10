@@ -4,253 +4,187 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:descendantFocusability="blocksDescendants"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:descendantFocusability="blocksDescendants"-->
+            <!--android:orientation="vertical">-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="44dp">-->
 
-                <ImageView
-                    android:id="@+id/ms_allkinds_sort_return"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:clickable="true"
-                    android:onClick="goBack"
-                    android:paddingEnd="15dp"
-                    android:paddingStart="15dp"
-                    android:src="@mipmap/ms_home_return" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/ms_allkinds_sort_return"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:clickable="true"-->
+                    <!--android:onClick="goBack"-->
+                    <!--android:paddingEnd="15dp"-->
+                    <!--android:paddingStart="15dp"-->
+                    <!--android:src="@mipmap/ms_home_return" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="全部药品"
-                    android:textColor="#333333"
-                    android:textSize="17sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="全部药品"-->
+                    <!--android:textColor="#333333"-->
+                    <!--android:textSize="17sp" />-->
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:src="@mipmap/search" />
-            </RelativeLayout>
+                <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:src="@mipmap/search" />-->
+            <!--</RelativeLayout>-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:background="#cccccc"
-                android:paddingBottom="1dp"
-                android:paddingTop="1dp">
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/background"/>-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/color_white">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                    <RelativeLayout
-                        android:layout_width="85dp"
-                        android:layout_height="25dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/ms_allkinds_rela">
+                <!--<TextView-->
+                    <!--android:id="@+id/ms_allkindssort_textV1"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:text="常用"-->
+                    <!--android:textColor="#6a6a6a"-->
+                    <!--android:textSize="13sp" />-->
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:orientation="horizontal">
+                <!--<com.technology.yuyi.lzh_utils.MyGridView-->
+                    <!--android:id="@+id/ms_allkindssort_gridview1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/ms_allkindssort_textV1"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:horizontalSpacing="5dp"-->
+                    <!--android:numColumns="4"-->
+                    <!--android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>-->
+            <!--</RelativeLayout>-->
 
-                            <TextView
-                                android:id="@+id/ms_allkindssort_textV_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:text="中药调理"
-                                android:textColor="#25f368"
-                                android:textSize="12sp" />
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:src="@mipmap/close" />
-                        </LinearLayout>
-                    </RelativeLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/ms_allkindssort_textV2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:text="肠胃用药"-->
+                    <!--android:textColor="#6a6a6a"-->
+                    <!--android:textSize="13sp" />-->
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp">
+                <!--<com.technology.yuyi.lzh_utils.MyGridView-->
+                    <!--android:id="@+id/ms_allkindssort_gridview2"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/ms_allkindssort_textV2"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:horizontalSpacing="5dp"-->
+                    <!--android:numColumns="4"-->
+                    <!--android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>-->
+            <!--</RelativeLayout>-->
 
-                        <TextView
-                            android:id="@+id/ms_allkindssort_textV_sortName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_toLeftOf="@+id/ms_allkindssort_image_sort"
-                            android:text="全部分类"
-                            android:textColor="#333333"
-                            android:textSize="15sp" />
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                        <ImageView
-                            android:id="@+id/ms_allkindssort_image_sort"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/open" />
-                    </RelativeLayout>
-                </RelativeLayout>
-            </RelativeLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/ms_allkindssort_textV3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:text="滋补疗养"-->
+                    <!--android:textColor="#6a6a6a"-->
+                    <!--android:textSize="13sp" />-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!--<com.technology.yuyi.lzh_utils.MyGridView-->
+                    <!--android:id="@+id/ms_allkindssort_gridview3"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/ms_allkindssort_textV3"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:horizontalSpacing="5dp"-->
+                    <!--android:numColumns="4"-->
+                    <!--android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>-->
+            <!--</RelativeLayout>-->
 
-                <TextView
-                    android:id="@+id/ms_allkindssort_textV1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="常用"
-                    android:textColor="#6a6a6a"
-                    android:textSize="13sp" />
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <com.technology.yuyi.lzh_utils.MyGridView
-                    android:id="@+id/ms_allkindssort_gridview1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ms_allkindssort_textV1"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:horizontalSpacing="5dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
-            </RelativeLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/ms_allkindssort_textV4"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:text="女性用药"-->
+                    <!--android:textColor="#6a6a6a"-->
+                    <!--android:textSize="13sp" />-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <!--<com.technology.yuyi.lzh_utils.MyGridView-->
+                    <!--android:id="@+id/ms_allkindssort_gridview4"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/ms_allkindssort_textV4"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:horizontalSpacing="5dp"-->
+                    <!--android:numColumns="4"-->
+                    <!--android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>-->
+            <!--</RelativeLayout>-->
 
-                <TextView
-                    android:id="@+id/ms_allkindssort_textV2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="肠胃用药"
-                    android:textColor="#6a6a6a"
-                    android:textSize="13sp" />
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <com.technology.yuyi.lzh_utils.MyGridView
-                    android:id="@+id/ms_allkindssort_gridview2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ms_allkindssort_textV2"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:horizontalSpacing="5dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
-            </RelativeLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/ms_allkindssort_textV5"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:text="风湿骨病"-->
+                    <!--android:textColor="#6a6a6a"-->
+                    <!--android:textSize="13sp" />-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/ms_allkindssort_textV3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="滋补疗养"
-                    android:textColor="#6a6a6a"
-                    android:textSize="13sp" />
-
-                <com.technology.yuyi.lzh_utils.MyGridView
-                    android:id="@+id/ms_allkindssort_gridview3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ms_allkindssort_textV3"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:horizontalSpacing="5dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/ms_allkindssort_textV4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="女性用药"
-                    android:textColor="#6a6a6a"
-                    android:textSize="13sp" />
-
-                <com.technology.yuyi.lzh_utils.MyGridView
-                    android:id="@+id/ms_allkindssort_gridview4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ms_allkindssort_textV4"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:horizontalSpacing="5dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/ms_allkindssort_textV5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="15dp"
-                    android:text="风湿骨病"
-                    android:textColor="#6a6a6a"
-                    android:textSize="13sp" />
-
-                <com.technology.yuyi.lzh_utils.MyGridView
-                    android:id="@+id/ms_allkindssort_gridview5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ms_allkindssort_textV5"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:horizontalSpacing="5dp"
-                    android:numColumns="4"
-                    android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+                <!--<com.technology.yuyi.lzh_utils.MyGridView-->
+                    <!--android:id="@+id/ms_allkindssort_gridview5"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/ms_allkindssort_textV5"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:horizontalSpacing="5dp"-->
+                    <!--android:numColumns="4"-->
+                    <!--android:verticalSpacing="10dp"></com.technology.yuyi.lzh_utils.MyGridView>-->
+            <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
+    <!--</ScrollView>-->
 </LinearLayout>
