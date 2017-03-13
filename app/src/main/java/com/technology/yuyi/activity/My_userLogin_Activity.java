@@ -118,7 +118,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
         Matcher m = p.matcher(str);
         return m.matches();
     }
-    //登陆按钮
+//登陆按钮
     public void Login(View view) {
         if (view!=null){
             if (view.getId()==R.id.my_userlogin_logninButton){
@@ -127,13 +127,14 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 if (isPhoneNum(userName)&&!"".equals(userPsd)&&!TextUtils.isEmpty(userPsd)){
                     Toast.makeText(My_userLogin_Activity.this,"登陆成功",Toast.LENGTH_SHORT).show();
                     SharedPreferences pre=getSharedPreferences("USER",MODE_APPEND);
-                    pre.contains("username");
                     SharedPreferences.Editor edi=pre.edit();
                     edi.putString("username",userName);
                     edi.putString("userpsd",userPsd);
                     edi.commit();
+                    //d点击登录注释
                     Intent intent=new Intent();
                     intent.setClass(My_userLogin_Activity.this,MainActivity.class);
+                    startActivity(intent);
                     finish();
                 }
                 else {

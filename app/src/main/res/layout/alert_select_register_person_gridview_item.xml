@@ -14,7 +14,7 @@
             android:id="@+id/person_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@mipmap/main_background4" />
+            android:src="@mipmap/logo" />
 
         <TextView
             android:layout_centerVertical="true"

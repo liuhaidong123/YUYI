@@ -44,7 +44,7 @@
         android:orientation="horizontal">
 
         <ListView
-
+            android:scrollbars="none"
             android:id="@+id/left_listview"
             android:layout_width="120dp"
             android:layout_height="match_parent"
@@ -54,6 +54,7 @@
         </ListView>
 
         <ListView
+            android:scrollbars="none"
             android:id="@+id/right_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

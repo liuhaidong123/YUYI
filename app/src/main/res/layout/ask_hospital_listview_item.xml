@@ -15,7 +15,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/main_background4" />
+            android:src="@mipmap/logo" />
 
         <TextView
             android:id="@+id/tv_name"

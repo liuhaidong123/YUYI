@@ -34,6 +34,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void initView() {
+
+
         //搜索的历史数据
         mFooterView = LayoutInflater.from(this).inflate(R.layout.search_footer_item, null);
         mListView = (ListView) findViewById(R.id.search_history_listview);
@@ -46,6 +48,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mCancel.setOnClickListener(this);
         //输入框
         mEdit = (EditText) findViewById(R.id.edit_box);
+        mEdit.setHint(getIntent().getStringExtra("hint"));
         //点击搜索按钮，回调这个方法
         mEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

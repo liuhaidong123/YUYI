@@ -14,7 +14,7 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/main_background4" />
+            android:src="@mipmap/logo" />
 
         <TextView
             android:id="@+id/tv_item_drugMess"

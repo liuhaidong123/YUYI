@@ -46,16 +46,15 @@
                 android:layout_marginStart="15dp"
                 android:background="@mipmap/search" />
 
-            <EditText
+            <TextView
+                android:gravity="center_vertical"
                 android:id="@+id/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="29dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/search_img"
-                android:background="@null"
-                android:hint="@string/edit_hint"
-                android:inputType="text"
+                android:text="@string/edit_hint"
                 android:maxLines="1"
                 android:textColor="@color/color_edit_hint"
                 android:textSize="14sp" />
