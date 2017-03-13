@@ -29,7 +29,7 @@ public class HttpTools {
         }
     }
 
-    //获取本类的实力对象，并且初始化FinalHttp类
+    //获取本类的实例对象，并且初始化FinalHttp类
     public static HttpTools getHttpToolsInstance() {
         if (mHttpTools == null) {
             //当初始化本类的时候，会初始化mFinalHttp
