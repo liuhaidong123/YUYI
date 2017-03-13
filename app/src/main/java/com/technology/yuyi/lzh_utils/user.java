@@ -15,10 +15,10 @@ public class user {
     public static boolean isLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         String username=preferences.getString("username","0");
-        String userPsd=preferences.getString("userpsd","0");
-        if (!"0".equals(username)&&!"0".equals(userPsd)){
+        String userPs=preferences.getString("userpsd","0");
+        if (!"0".equals(username)&&!"0".equals(userPs)){
             userName=username;//存储到类中
-            userPsd=userPsd;//存储到类中
+            userPsd=userPs;//存储到类中
             return true;
         }
         return false;
@@ -27,8 +27,8 @@ public class user {
     public static void clearLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("username","0");
-        editor.putString("userpsd","0");
+        editor.remove("username");
+        editor.remove("userpsd");
         editor.commit();
     }
 }
