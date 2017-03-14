@@ -42,4 +42,6 @@ dependencies {
     compile files('libs/gson-2.6.2.jar')
     compile files('libs/jpush-android_v3.0.1.jar')
     compile files('libs/jcore-android_v1.1.0.jar')
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
 }
