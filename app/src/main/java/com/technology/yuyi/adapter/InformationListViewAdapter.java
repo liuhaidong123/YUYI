@@ -5,8 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.FirstPageInformationTwoData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liuhaidong on 2017/2/21.
@@ -15,15 +23,21 @@ import com.technology.yuyi.R;
 public class InformationListViewAdapter extends BaseAdapter {
     private LayoutInflater mInfllater;
     private Context mContext;
+    private List<FirstPageInformationTwoData> list = new ArrayList<>();
 
-    public InformationListViewAdapter( Context mContext) {
+    public InformationListViewAdapter(Context mContext, List<FirstPageInformationTwoData> list) {
         this.mContext = mContext;
-        mInfllater=LayoutInflater.from(this.mContext);
+        this.list = list;
+        mInfllater = LayoutInflater.from(this.mContext);
+    }
+
+    public void setList(List<FirstPageInformationTwoData> list) {
+        this.list = list;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return list.size();
     }
 
     @Override
@@ -38,7 +52,29 @@ public class InformationListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view=mInfllater.inflate(R.layout.information_listview_item,null);
-        return view;
+        ViewHolder viewHolder=null;
+        if (convertView==null){
+            convertView=mInfllater.inflate(R.layout.information_listview_item, null);
+            viewHolder=new InformationListViewAdapter.ViewHolder();
+            viewHolder.imageView= (ImageView) convertView.findViewById(R.id.infor_img_mess);
+            viewHolder.hospital_tv= (TextView) convertView.findViewById(R.id.infor_tv_title);
+            viewHolder.hospital_message_tv= (TextView) convertView.findViewById(R.id.infor_tv_mess);
+            convertView.setTag(viewHolder);
+        }else {
+            viewHolder= (ViewHolder) convertView.getTag();
+        }
+        Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getPicture()).into(viewHolder.imageView);
+        viewHolder.hospital_tv.setText(list.get(position).getHospitalName());
+        viewHolder.hospital_message_tv.setText(list.get(position).getIntroduction());
+        return convertView;
+
     }
+
+    class ViewHolder {
+        ImageView imageView;
+        TextView hospital_tv;
+        TextView hospital_message_tv;
+
+    }
+
 }

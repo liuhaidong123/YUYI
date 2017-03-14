@@ -63,155 +63,71 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/first_page_swiperefesh"
         android:layout_below="@id/search_rl"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/scroll_relative"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <RelativeLayout
-                android:id="@+id/viewpager_relative"
-                android:layout_width="match_parent"
-                android:layout_height="175dp">
-
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewpager_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="175dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true" />
-
-                <LinearLayout
-                    android:id="@+id/viewGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/view1"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_below="@id/viewpager_relative"
-                android:background="@color/color_scroll_bg"
-
-                />
-
-            <LinearLayout
-
-                android:id="@+id/mallregister_ll"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_below="@id/view1"
-                android:background="@color/color_white"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:clickable="true"
-                    android:id="@+id/drugmall_ll"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/drug_mall" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_drugmall"
-                        android:textColor="@color/color_drumall"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/register_ll"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/register" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_register"
-                        android:textColor="@color/color_drumall"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_below="@id/mallregister_ll"
-                android:background="@color/color_scroll_bg" />
+            android:layout_height="match_parent"
+           >
 
             <RelativeLayout
-                android:id="@+id/user_relative"
+                android:id="@+id/scroll_relative"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@id/view2"
-                android:background="@color/color_white">
-
-                <LinearLayout
-                    android:id="@+id/user_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/color_white"
-                    android:orientation="horizontal">
+                android:layout_height="match_parent">
 
 
+                <RelativeLayout
+                    android:id="@+id/viewpager_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="175dp">
 
-                </LinearLayout>
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewpager_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="175dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true" />
+
+                    <LinearLayout
+                        android:id="@+id/viewGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <View
-                    android:id="@+id/line"
+                    android:id="@+id/view1"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/user_ll"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/color_scroll_bg" />
+                    android:layout_height="10dp"
+                    android:layout_below="@id/viewpager_relative"
+                    android:background="@color/color_scroll_bg"
+
+                    />
 
                 <LinearLayout
-                    android:id="@+id/usermessage_ll"
+
+                    android:id="@+id/mallregister_ll"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_below="@id/line"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/view1"
                     android:background="@color/color_white"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/normal_btn_ll"
+                        android:clickable="true"
+                        android:id="@+id/drugmall_ll"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -219,256 +135,348 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/normal_btn_img"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/normal" />
+                            android:src="@mipmap/drug_mall" />
 
                         <TextView
-                            android:id="@+id/normal_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/str_usernomal"
-                            android:textColor="@color/color_normal"
-                            android:textSize="9sp" />
+                            android:text="@string/str_drugmall"
+                            android:textColor="@color/color_drumall"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/heightPress_btn_ll"
+                        android:id="@+id/register_ll"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/heightPress_message_tv"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="129"
-                            android:textColor="@color/color_press"
-                            android:textSize="15sp" />
+                            android:src="@mipmap/register" />
 
                         <TextView
-                            android:id="@+id/heightPress_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/str_userheightpress"
-                            android:textColor="@color/color_bg"
-                            android:textSize="9sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lowPress_btn_ll"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/lowPress_message_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="87"
-                            android:textColor="@color/color_press"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/lowPress_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/str_userlowpress"
-                            android:textColor="@color/color_bg"
-                            android:textSize="9sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/my_btn_ll"
-                        android:layout_width="0dp"
-                        android:layout_height="70dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:id="@+id/temperature_message_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="38°C"
-                            android:textColor="@color/color_press"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/temperature_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-                            android:text="@string/str_usertemperature"
-                            android:textColor="@color/color_bg"
-                            android:textSize="9sp" />
+                            android:text="@string/str_register"
+                            android:textColor="@color/color_drumall"
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/line2"
+                    android:id="@+id/view2"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/usermessage_ll"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
+                    android:layout_height="10dp"
+                    android:layout_below="@id/mallregister_ll"
                     android:background="@color/color_scroll_bg" />
 
-
                 <RelativeLayout
-                    android:id="@+id/viewpager_relative_blood"
+                    android:id="@+id/user_relative"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_below="@+id/line2"
-                    android:layout_marginTop="10dp">
-
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/viewpager_blood_tem"
-                        android:layout_width="match_parent"
-                        android:layout_height="270dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp">
-                    </android.support.v4.view.ViewPager>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/view2"
+                    android:background="@color/color_white">
 
                     <LinearLayout
-                        android:id="@+id/blood_viewGroup"
+                        android:id="@+id/user_ll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/color_white"
+                        android:orientation="horizontal">
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/line"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_below="@id/viewpager_blood_tem"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/user_ll"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/color_scroll_bg" />
+
+                    <LinearLayout
+                        android:id="@+id/usermessage_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_below="@id/line"
+                        android:background="@color/color_white"
                         android:gravity="center"
                         android:orientation="horizontal">
 
+                        <LinearLayout
+                            android:id="@+id/normal_btn_ll"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/normal_btn_img"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/normal" />
+
+                            <TextView
+                                android:id="@+id/normal_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="@string/str_usernomal"
+                                android:textColor="@color/color_normal"
+                                android:textSize="9sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/heightPress_btn_ll"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/heightPress_message_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="129"
+                                android:textColor="@color/color_press"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/heightPress_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="@string/str_userheightpress"
+                                android:textColor="@color/color_bg"
+                                android:textSize="9sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lowPress_btn_ll"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/lowPress_message_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="87"
+                                android:textColor="@color/color_press"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/lowPress_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="@string/str_userlowpress"
+                                android:textColor="@color/color_bg"
+                                android:textSize="9sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_btn_ll"
+                            android:layout_width="0dp"
+                            android:layout_height="70dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/temperature_message_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="38°C"
+                                android:textColor="@color/color_press"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/temperature_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center"
+                                android:text="@string/str_usertemperature"
+                                android:textColor="@color/color_bg"
+                                android:textSize="9sp" />
+                        </LinearLayout>
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/usermessage_ll"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@color/color_scroll_bg" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/viewpager_relative_blood"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_below="@+id/line2"
+                        android:layout_marginTop="10dp">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager_blood_tem"
+                            android:layout_width="match_parent"
+                            android:layout_height="270dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp">
+                        </android.support.v4.view.ViewPager>
+
+                        <LinearLayout
+                            android:id="@+id/blood_viewGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_below="@id/viewpager_blood_tem"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_below="@id/user_relative"
-                android:background="@color/color_scroll_bg" />
-
-            <RelativeLayout
-                android:id="@+id/relative_information"
-                android:background="@color/color_white"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@id/view3"
-                android:layout_marginTop="10dp">
-
-                <TextView
+                <View
+                    android:id="@+id/view3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="资讯"
-                    android:textColor="@color/color_drumall"
-                    android:textSize="14sp" />
+                    android:layout_height="10dp"
+                    android:layout_below="@id/user_relative"
+                    android:background="@color/color_scroll_bg" />
 
-                <ImageView
-                    android:id="@+id/img_information"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/many" />
-
-
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/line3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/relative_information"
-                android:layout_marginStart="10dp"
-                android:background="@color/color_bg" />
-
-            <com.technology.yuyi.myview.InformationListView
-                android:background="@color/color_white"
-                android:id="@+id/listview_firstpage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/line3">
-
-
-            </com.technology.yuyi.myview.InformationListView>
-
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:layout_below="@id/listview_firstpage"
-                android:background="@color/color_scroll_bg" />
-
-            <RelativeLayout
-                android:id="@+id/relative_drug"
-                android:background="@color/color_white"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@id/view4"
-                android:layout_marginTop="10dp">
-
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/relative_information"
+                    android:background="@color/color_white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/str_drug"
-                    android:textColor="@color/color_drumall"
-                    android:textSize="14sp" />
+                    android:layout_height="40dp"
+                    android:layout_below="@id/view3"
+                    android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:id="@+id/img_many"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/many" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="资讯"
+                        android:textColor="@color/color_drumall"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_information"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/many" />
 
 
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/relative_information"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/color_bg" />
+
+                <com.technology.yuyi.myview.InformationListView
+                    android:background="@color/color_white"
+                    android:id="@+id/listview_firstpage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/line3">
+
+
+                </com.technology.yuyi.myview.InformationListView>
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_below="@id/listview_firstpage"
+                    android:background="@color/color_scroll_bg" />
+
+                <RelativeLayout
+                    android:id="@+id/relative_drug"
+                    android:background="@color/color_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/view4"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/str_drug"
+                        android:textColor="@color/color_drumall"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_many"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@mipmap/many" />
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/relative_drug"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/color_bg" />
+
+
+                <com.technology.yuyi.myview.UseDrugGridView
+                    android:background="@color/color_white"
+                    android:id="@+id/firstpage_gridview_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/line4"
+                    android:padding="10dp"
+                    android:numColumns="3">
+
+                </com.technology.yuyi.myview.UseDrugGridView>
             </RelativeLayout>
 
-            <View
-                android:id="@+id/line4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@id/relative_drug"
-                android:layout_marginStart="10dp"
-                android:background="@color/color_bg" />
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-
-            <com.technology.yuyi.myview.UseDrugGridView
-                android:background="@color/color_white"
-                android:id="@+id/firstpage_gridview_id"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/line4"
-                android:padding="10dp"
-                android:numColumns="3">
-
-            </com.technology.yuyi.myview.UseDrugGridView>
-        </RelativeLayout>
-
-    </ScrollView>
 
 
 </RelativeLayout>
