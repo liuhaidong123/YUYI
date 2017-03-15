@@ -24,15 +24,17 @@ public class okhttp {
         okhttpclient.setConnectTimeout(7000, TimeUnit.MILLISECONDS);
         if (state == OK_GET) {
             StringBuilder builderString = new StringBuilder();
-            for (String s : mp.keySet()) {
-                builderString.append(s);
-                builderString.append("=");
-                builderString.append(mp.get(s));
-                builderString.append("&");
+            if (mp!=null&&mp.size()>0){
+                for (String s : mp.keySet()) {
+                    builderString.append(s);
+                    builderString.append("=");
+                    builderString.append(mp.get(s));
+                    builderString.append("&");
+                }
+                String bString=builderString.toString();
+                bString=bString.substring(0,bString.length()-1);
+                url = url +bString;
             }
-            String bString=builderString.toString();
-            bString=bString.substring(0,bString.length()-1);
-            url = url +bString;
             Log.i("url--okHttpGet--",url);
             return okhttpclient.newCall(new Request.Builder().url(url).build());
         }

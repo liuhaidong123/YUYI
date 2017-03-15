@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
-        user.clearLogin(MainActivity.this);
+
     }
 
     //初始化数据
@@ -304,14 +304,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onStart() {
-//        intent.putExtra("username",user.userName);
-//        intent.putExtra("userpsd",user.userPsd);
         super.onStart();
         String usname=getIntent().getStringExtra("username");
         String userpsd=getIntent().getStringExtra("userpsd");
         if (!"".equals(userpsd)&&!TextUtils.isEmpty(userpsd)&&!"".equals(usname)&&!TextUtils.isEmpty(usname)){
             user.userName=usname;
-            user.userPsd=userpsd;
+            user.userPs=userpsd;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        user.clearLogin(MainActivity.this);
     }
 }

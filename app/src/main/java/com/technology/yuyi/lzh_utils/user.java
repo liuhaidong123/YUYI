@@ -11,13 +11,14 @@ import android.text.TextUtils;
 
 public class user {
     public static String userName;
-    public static String userPsd;
+    public static String userPs;
     //当前是否登陆过（未退出登陆）
     public static boolean isLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         String username=preferences.getString("username","0");
-        String userPs=preferences.getString("userpsd","0");
-        if (!"0".equals(username)&&!"0".equals(userPsd)&&!"".equals(username)&&!"".equals(userPsd)&&!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(userPsd)){
+        String userPsd=preferences.getString("userpsd","0");
+        if (!"0".equals(username)&&!"0".equals(userPsd)&&!"".equals(username)&&!""
+                .equals(userPsd)&&!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(userPsd)){
             userName=username;//存储到类中
             userPs=userPsd;//存储到类中
             return true;
@@ -31,5 +32,7 @@ public class user {
         editor.remove("username");
         editor.remove("userpsd");
         editor.commit();
+        userPs="";
+        userName="";
     }
 }

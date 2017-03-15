@@ -85,6 +85,7 @@
 
         <activity android:name=".activity.StartActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme"
             >
             <intent-filter>
@@ -96,6 +97,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan|stateHidden">
             //微信
             <intent-filter>
@@ -142,6 +144,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UserEditorActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ElectronicMessActivity"
@@ -214,6 +217,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddFamilyUserActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FamilyUserMessageActivity"

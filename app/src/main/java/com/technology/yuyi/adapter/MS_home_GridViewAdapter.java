@@ -10,15 +10,16 @@ import android.widget.TextView;
 import com.technology.yuyi.R;
 
 import java.util.List;
+import java.util.Map;
 //医药商城gridview的适配器
 /**
  * Created by wanyu on 2017/2/23.
  */
 
 public class MS_home_GridViewAdapter extends BaseAdapter{
-    private List<String> list;
+    private List<Map<String,String>> list;
     private Context context;
-    public MS_home_GridViewAdapter(List<String> list,Context context){
+    public MS_home_GridViewAdapter(List<Map<String,String>> list,Context context){
         this.context=context;
         this.list=list;
     }
@@ -48,7 +49,7 @@ public class MS_home_GridViewAdapter extends BaseAdapter{
         }
 
         holder= (ViewHolder) convertView.getTag();
-        holder.textView.setText(list.get(position));
+        holder.textView.setText(list.get(position).get("name"));
         return convertView;
     }
     class ViewHolder{

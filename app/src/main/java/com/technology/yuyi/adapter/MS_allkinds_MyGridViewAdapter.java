@@ -9,7 +9,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_MS_allkinds_alldrugs;
+import com.technology.yuyi.lzh_utils.Ip;
 
 import java.util.List;
 import java.util.Map;
@@ -20,8 +23,8 @@ import java.util.Map;
 
 public class MS_allkinds_MyGridViewAdapter extends BaseAdapter{
     private Context context;
-    private List<Map<String,String>> list;
-    public MS_allkinds_MyGridViewAdapter(Context context,List<Map<String,String>>list){
+    private List<bean_MS_allkinds_alldrugs.RowsBean> list;
+    public MS_allkinds_MyGridViewAdapter(Context context,List<bean_MS_allkinds_alldrugs.RowsBean> list){
         this.context=context;
         this.list=list;
 
@@ -53,15 +56,14 @@ public class MS_allkinds_MyGridViewAdapter extends BaseAdapter{
             convertView.setTag(hodler);
         }
         hodler= (ViewHodler) convertView.getTag();
-        hodler.ms_allkinds_gridview_item_image.setImageResource(Integer.parseInt(list.get(position).get("image")));
-        hodler.ms_allkinds_gridview_item_name.setText(list.get(position).get("name"));
+        Picasso.with(context).load(Ip.imagePth_F+list.get(position).getPicture()).into(hodler.ms_allkinds_gridview_item_image);
+        hodler.ms_allkinds_gridview_item_name.setText(list.get(position).getDrugsName());
         StringBuilder builder=new StringBuilder();
         builder.append("¥");
-        builder.append(list.get(position).get("price"));
+        builder.append(list.get(position).getPrice());
         hodler.ms_home_gridview_dailyMitem_price.setText(builder.toString());
         return convertView;
     }
-
      class ViewHodler{
         ImageView ms_allkinds_gridview_item_image;
          TextView ms_allkinds_gridview_item_name,ms_home_gridview_dailyMitem_price;
