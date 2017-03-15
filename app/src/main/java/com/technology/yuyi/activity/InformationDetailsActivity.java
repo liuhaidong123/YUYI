@@ -1,5 +1,7 @@
 package com.technology.yuyi.activity;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -7,29 +9,70 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.HttpTools;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.bean.Information;
 
-public class InformationDetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class InformationDetailsActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mHospitalMess;
     private ImageView mBack;
+
+    private ImageView mHospital_img;
+    private TextView mHospital_name;
+    private TextView mHospital_grade;
+    private TextView mHospital_message;
+
+    private HttpTools mHttptools;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 23) {
+                Object o = msg.obj;
+                if (o != null && o instanceof Information) {
+                    Information information = (Information) o;
+                    Picasso.with(InformationDetailsActivity.this).setIndicatorsEnabled(true);
+                    Picasso.with(InformationDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).into(mHospital_img);
+
+                    mHospital_name.setText(information.getHospitalName());
+                    mHospital_grade.setText(information.getGradeName());
+                    mHospital_message.setText(information.getIntroduction());
+                }
+            }
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_details);
         initView();
     }
-    public void initView(){
-        mHospitalMess= (TextView) findViewById(R.id.hospitals_mess);
+
+    public void initView() {
+        //根据传过来的id,查询对应的医院详情
+        mHttptools = HttpTools.getHttpToolsInstance();
+        mHttptools.getFirstPageInformationTwoDataMessage(handler, getIntent().getIntExtra("id", -1));
+
+        mHospitalMess = (TextView) findViewById(R.id.hospitals_mess);
         mHospitalMess.setMovementMethod(ScrollingMovementMethod.getInstance());
-        mBack= (ImageView) findViewById(R.id.details_back);
+        mBack = (ImageView) findViewById(R.id.details_back);
         mBack.setOnClickListener(this);
 
+        mHospital_img = (ImageView) findViewById(R.id.details_img);
+        mHospital_name = (TextView) findViewById(R.id.hospital_name);
+        mHospital_grade = (TextView) findViewById(R.id.hospital_grade);
+        mHospital_message = (TextView) findViewById(R.id.hospitals_mess);
     }
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
-        if (id==mBack.getId()){
+        int id = v.getId();
+        if (id == mBack.getId()) {
             finish();
         }
     }

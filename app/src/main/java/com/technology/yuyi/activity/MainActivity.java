@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String myTag = "myFragment";
 
     public final String pressColor = "#25f368";
-    public final String noPressColor = "#333333";
+    public final String noPressColor = "#666666";
     private long time = 0;
 
     @Override

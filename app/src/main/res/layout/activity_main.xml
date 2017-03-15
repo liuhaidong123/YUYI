@@ -45,7 +45,7 @@
 
                 <TextView
                     android:id="@+id/firstpage_tv"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
@@ -69,12 +69,12 @@
 
                 <TextView
                     android:id="@+id/measure_tv"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/measure_name"
-                    android:textColor="@color/color_no_press_tv" />
+                    android:textColor="@color/color_press" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,12 +93,12 @@
 
                 <TextView
                     android:id="@+id/ask_tv"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/ask_name"
-                    android:textColor="@color/color_no_press_tv" />
+                    android:textColor="@color/color_press" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,12 +117,12 @@
 
                 <TextView
                     android:id="@+id/my_tv"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/my_name"
-                    android:textColor="@color/color_no_press_tv" />
+                    android:textColor="@color/color_press" />
             </LinearLayout>
         </LinearLayout>
 

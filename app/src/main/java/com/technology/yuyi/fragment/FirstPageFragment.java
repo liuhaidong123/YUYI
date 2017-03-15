@@ -2,32 +2,26 @@ package com.technology.yuyi.fragment;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +34,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AddFamilyUserActivity;
 import com.technology.yuyi.activity.AppointmentActivity;
@@ -54,6 +49,10 @@ import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
 import com.technology.yuyi.adapter.ViewPagerAdAdapter;
 import com.technology.yuyi.adapter.ViewPagerBloodTemAdapter;
+import com.technology.yuyi.bean.FirstPageDrugSixData;
+import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
+import com.technology.yuyi.bean.FirstPageInformationTwoData;
+import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.myview.BloodView;
 import com.technology.yuyi.myview.InformationListView;
 import com.technology.yuyi.myview.RoundImageView;
@@ -73,11 +72,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private RelativeLayout mEdit_rl;//搜索
     private TextView mLocate_tv;
     private RelativeLayout mScrollRelative;
+
+    private SwipeRefreshLayout mSwipeRefresh;
+
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
     private ListView mFirstPageListView;//资讯ListView
+    private List<FirstPageInformationTwoData> mInforList = new ArrayList<>();
 
     private GridView mGridview;//常用药品Gridview
     private UseDrugGridViewAdapter mUseDrugAdapter;//常用药品adapter
+    private List<FirstPageDrugSixData> mGridList = new ArrayList<>();
 
     private ViewPager mViewPagerAD;
     private List<Integer> mListAd = new ArrayList<>();//广告图片集合
@@ -114,6 +118,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
     private LinearLayout mAllUser_ll;//首页全部用户布局
     private ArrayList mUserData = new ArrayList();
+
+    private HttpTools mHttptools;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -127,6 +133,27 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 handler.sendEmptyMessageDelayed(1, 3000);
             }
 
+            //首页常用药品6条数据
+            if (msg.what == 21) {
+                Object o = msg.obj;
+                if (o != null && o instanceof FirstPageDrugSixDataRoot) {
+                    FirstPageDrugSixDataRoot root = (FirstPageDrugSixDataRoot) o;
+                    mGridList = root.getRows();
+                    mUseDrugAdapter.setmList(mGridList);
+                    mUseDrugAdapter.notifyDataSetChanged();
+                }
+                //首页资讯2条数据
+            } else if (msg.what == 22) {
+                Object o = msg.obj;
+                if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
+                    FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
+                    mInforList = root.getRows();
+                    mListViewAdapter.setList(mInforList);
+                    mListViewAdapter.notifyDataSetChanged();
+                }
+            }
+
+
         }
     };
 
@@ -139,11 +166,22 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_first_page, container, false);
         initView(view);
+        initHttp();//请求网络数据
         initUserMessage();//初始化用户的头像和昵称
         checkPermission();//检测定位权限
         return view;
+    }
+
+    /**
+     * 初始化网络数据接口
+     */
+    public void initHttp() {
+        mHttptools = HttpTools.getHttpToolsInstance();
+        mHttptools.getFirstSixDrugData(handler);//首页常用药品6条数据
+        mHttptools.getFirstPageInformationTwoData(handler);//首页资讯2条数据
     }
 
     /**
@@ -152,9 +190,27 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * @param view
      */
     public void initView(View view) {
+        //首页下拉刷新
+        mSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swiperefesh);
+        mSwipeRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
+                        mHttptools.getFirstSixDrugData(handler);//首页常用药品6条数据
+                        mHttptools.getFirstPageInformationTwoData(handler);//首页资讯2条数据
+                        mSwipeRefresh.setRefreshing(false);
+                    }
+                }, 3000);
+            }
+        });
         //首页全部用户布局
         mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
-          mUserData.add(1);
+        mUserData.add(1);
 //        mUserData.add(2);
 //        mUserData.add(3);
 //        mUserData.add(4);
@@ -163,7 +219,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
         //搜索
-        mEdit_rl= (RelativeLayout) view.findViewById(R.id.edit_rl);
+        mEdit_rl = (RelativeLayout) view.findViewById(R.id.edit_rl);
         mEdit_rl.setOnClickListener(this);
         //scrollview
         mScrollRelative = (RelativeLayout) view.findViewById(R.id.search_rl);
@@ -175,12 +231,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         drugmall_ll.setOnClickListener(this);
         //常用药品设置adapter
         mGridview = (GridView) view.findViewById(R.id.firstpage_gridview_id);
-        mUseDrugAdapter = new UseDrugGridViewAdapter(this.getContext());
+        mUseDrugAdapter = new UseDrugGridViewAdapter(this.getContext(), mGridList);
         mGridview.setAdapter(mUseDrugAdapter);
         mGridview.setOnItemClickListener(this);
         //给资讯设置adapter
         mFirstPageListView = (InformationListView) view.findViewById(R.id.listview_firstpage);
-        mListViewAdapter = new FirstPageListViewAdapter(this.getContext());
+        mListViewAdapter = new FirstPageListViewAdapter(this.getContext(), mInforList);
         mFirstPageListView.setAdapter(mListViewAdapter);
         mFirstPageListView.setOnItemClickListener(this);
 
@@ -374,8 +430,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             intent.setClass(getActivity(), MS_home_Activity.class);
             startActivity(intent);
         } else if (id == mEdit_rl.getId()) {//跳转到搜索页
-          Intent intent= new Intent(this.getContext(), SearchActivity.class);
-            intent.putExtra("hint","搜索药品");
+            Intent intent = new Intent(this.getContext(), SearchActivity.class);
+            intent.putExtra("hint", "搜索药品");
             startActivity(intent);
 
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
@@ -404,13 +460,14 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     }
 
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent == mGridview) {//跳转到药品详情页
             startActivity(new Intent(getContext(), MS_drugInfo_activity.class));
         } else if (parent == mFirstPageListView) {//跳转到资讯详情页
-            startActivity(new Intent(getContext(), InformationDetailsActivity.class));
+            Intent intent=new Intent(getContext(), InformationDetailsActivity.class);
+            intent.putExtra("id",mInforList.get(position).getId());
+            startActivity(intent);
         }
     }
 
@@ -573,7 +630,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             TextView textView = new TextView(this.getContext());
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             textView.setTextColor(Color.parseColor("#25f368"));
-            textView.setText("用户"+i);
+            textView.setText("用户" + i);
             textView.setLayoutParams(paramsTV);
 
             linearLayout.addView(roundImageView);
@@ -582,8 +639,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), mUserData.get(k)+"", Toast.LENGTH_SHORT).show();
-                   heightBloodData.clear();
+                    Toast.makeText(getContext(), mUserData.get(k) + "", Toast.LENGTH_SHORT).show();
+                    heightBloodData.clear();
                     heightBloodData.add(120);
                     heightBloodData.add(80);
                     heightBloodData.add(90);
@@ -599,7 +656,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     lowBloodData.add(51);
                     lowBloodData.add(52);
                     lowBloodData.add(58);
-                    mBloodView.setInfo(YbloodNum,XdateNum,heightBloodData,lowBloodData);
+                    mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
                     mBloodView.invalidate();
                 }
             });
