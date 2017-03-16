@@ -7,12 +7,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.HttpTools;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.ElectronicMessActivity;
 import com.technology.yuyi.activity.EquipmentManageActivity;
@@ -25,13 +31,18 @@ import com.technology.yuyi.activity.OrderMessageActivity;
 import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
+import com.technology.yuyi.bean.UserMessage;
 import com.technology.yuyi.lzh_utils.checkNotificationAllowed;
 import com.technology.yuyi.lzh_utils.user;
+import com.technology.yuyi.myview.RoundImageView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyFragment extends Fragment implements View.OnClickListener {
+    private RoundImageView mHead_img;
+    private TextView mNikName;
+    private TextView mUsername;
 
     private RelativeLayout mUserEditor;//用户信息编辑
     private RelativeLayout mElectronicMess;//电子病历
@@ -39,10 +50,27 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout mEquipment;//设备管理
     private RelativeLayout mFamily;//家庭用户管理
     private RelativeLayout mOrder;//订单详情
-    private RelativeLayout my_rela_userLogin,my_rela_userNotLogin;
+    private RelativeLayout my_rela_userLogin, my_rela_userNotLogin;
     private RelativeLayout thing_rl;//gouwuche
     private RelativeLayout address_rl;//收货地址
     private RelativeLayout my_message;//消息
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 28) {
+                Object o = msg.obj;
+                if (o != null && o instanceof UserMessage) {
+                    UserMessage root= (UserMessage) o;
+                    Picasso.with(getContext()).load(UrlTools.BASE+root.getAvatar()).error(R.mipmap.error_small).into(mHead_img);
+                    mNikName.setText(root.getId()+"");
+                    mUsername.setText("用户名:"+root.getId());
+                }
+            }
+        }
+    };
+    private HttpTools mHttptools;
+
     public MyFragment() {
 
     }
@@ -58,6 +86,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     //初始化数据
     public void initView(View view) {
+        mHttptools = HttpTools.getHttpToolsInstance();
+        mHttptools.getUserMessage(handler, user.userPsd);
+        //用户信息
+        mHead_img= (RoundImageView) view.findViewById(R.id.my_head_img);
+        mNikName= (TextView) view.findViewById(R.id.my_name);
+        mUsername=(TextView) view.findViewById(R.id.my_name2);
         //用户编辑
         mUserEditor = (RelativeLayout) view.findViewById(R.id.rl_title);
         mUserEditor.setOnClickListener(this);
@@ -65,61 +99,60 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         mElectronicMess = (RelativeLayout) view.findViewById(R.id.elec_rl);
         mElectronicMess.setOnClickListener(this);
         //设置
-        mSetBtn= (RelativeLayout) view.findViewById(R.id.set_relative);
+        mSetBtn = (RelativeLayout) view.findViewById(R.id.set_relative);
         mSetBtn.setOnClickListener(this);
         //设备管理
-        mEquipment=(RelativeLayout) view.findViewById(R.id.equtment_rl);
+        mEquipment = (RelativeLayout) view.findViewById(R.id.equtment_rl);
         mEquipment.setOnClickListener(this);
         //家庭用户管理
-        mFamily=(RelativeLayout) view.findViewById(R.id.home_rl);
+        mFamily = (RelativeLayout) view.findViewById(R.id.home_rl);
         mFamily.setOnClickListener(this);
 
         //订单详情
-        mOrder= (RelativeLayout) view.findViewById(R.id.order_rl);
+        mOrder = (RelativeLayout) view.findViewById(R.id.order_rl);
         mOrder.setOnClickListener(this);
 
-        thing_rl= (RelativeLayout) view.findViewById(R.id.thing_rl);
+        thing_rl = (RelativeLayout) view.findViewById(R.id.thing_rl);
         thing_rl.setOnClickListener(this);
 
-        address_rl= (RelativeLayout) view.findViewById(R.id.address_rl);
+        address_rl = (RelativeLayout) view.findViewById(R.id.address_rl);
         address_rl.setOnClickListener(this);
 
-        my_message= (RelativeLayout) view.findViewById(R.id.my_message);
+        my_message = (RelativeLayout) view.findViewById(R.id.my_message);
         my_message.setOnClickListener(this);
 
-        my_rela_userLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userLogin);
-        my_rela_userNotLogin= (RelativeLayout) view.findViewById(R.id.my_rela_userNotLogin);
+        my_rela_userLogin = (RelativeLayout) view.findViewById(R.id.my_rela_userLogin);
+        my_rela_userNotLogin = (RelativeLayout) view.findViewById(R.id.my_rela_userNotLogin);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (user.isLogin(getActivity())){
+        if (user.isLogin(getActivity())) {
             my_rela_userLogin.setVisibility(View.VISIBLE);
             my_rela_userNotLogin.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             my_rela_userLogin.setVisibility(View.GONE);
             my_rela_userNotLogin.setVisibility(View.VISIBLE);
         }
 
-        if (checkNotificationAllowed.isNOtificationOpen(getActivity())==false){//当用户没有通知栏权限时
-            SharedPreferences preferences=getActivity().getSharedPreferences("NOTIFICATION", Context.MODE_APPEND);
-            if (preferences.contains("notifi")==false){//用户第一次点击修改权限弹窗时写入，用于判断是否显示跳转到权限修改到界面（true：用户之前已经进入过修改权限到页面，但不给予通知但权限，false：用户没有进入过）
+        if (checkNotificationAllowed.isNOtificationOpen(getActivity()) == false) {//当用户没有通知栏权限时
+            SharedPreferences preferences = getActivity().getSharedPreferences("NOTIFICATION", Context.MODE_APPEND);
+            if (preferences.contains("notifi") == false) {//用户第一次点击修改权限弹窗时写入，用于判断是否显示跳转到权限修改到界面（true：用户之前已经进入过修改权限到页面，但不给予通知但权限，false：用户没有进入过）
                 showWindowRevampLimit();
             }
         }
     }
 
-        //跳转到修改权限页面到弹窗
+    //跳转到修改权限页面到弹窗
     private void showWindowRevampLimit() {
         new AlertDialog.Builder(getActivity()).setTitle("应用通知栏权限被禁止").
                 setMessage("无法接收到应用发送的相关通知，需要您手动打开通知权限，是否现在去打开？").setIcon(R.mipmap.logo).
                 setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                            getActivity().getSharedPreferences("NOTIFICATION",Context.MODE_APPEND).edit().putBoolean("notifi",true).commit();
-                            checkNotificationAllowed.goToSet(getActivity());
+                        getActivity().getSharedPreferences("NOTIFICATION", Context.MODE_APPEND).edit().putBoolean("notifi", true).commit();
+                        checkNotificationAllowed.goToSet(getActivity());
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
@@ -134,10 +167,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         int id = v.getId();
         //用户信息编辑
         if (id == mUserEditor.getId()) {
-            if (user.isLogin(getActivity())){
+            if (user.isLogin(getActivity())) {
                 startActivity(new Intent(this.getContext(), UserEditorActivity.class));
-            }
-            else {
+            } else {
                 startActivity(new Intent(this.getContext(), My_userLogin_Activity.class));
             }
             //电子病历
@@ -147,22 +179,19 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         } else if (id == mSetBtn.getId()) {
             startActivity(new Intent(this.getContext(), SetActivity.class));
             //设备管理
-        }else if (id == mEquipment.getId()) {
+        } else if (id == mEquipment.getId()) {
             startActivity(new Intent(this.getContext(), EquipmentManageActivity.class));
             //家庭用户管理
-        }else if (id == mFamily.getId()) {
+        } else if (id == mFamily.getId()) {
             startActivity(new Intent(this.getContext(), FamilyManageActivity.class));
             //订单详情
-        }else if (id == mOrder.getId()) {
+        } else if (id == mOrder.getId()) {
             startActivity(new Intent(this.getContext(), MyOrderActivity.class));
-        }
-        else if (id==R.id.thing_rl){
+        } else if (id == R.id.thing_rl) {
             startActivity(new Intent(this.getContext(), My_shoppingCart_Activity.class));
-        }
-        else if (id==R.id.address_rl){//收货地址
+        } else if (id == R.id.address_rl) {//收货地址
             startActivity(new Intent(this.getContext(), My_address_Activity.class));
-        }
-        else if (id==R.id.my_message){//消息
+        } else if (id == R.id.my_message) {//消息
             startActivity(new Intent(this.getContext(), My_message_Activity.class));
         }
     }

@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -37,69 +37,81 @@
         android:layout_below="@id/details_title"
         android:background="@color/color_bg" />
 
-    <ImageView
-        android:id="@+id/details_img"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_below="@id/details_line"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/logo" />
-
-    <TextView
-        android:id="@+id/hospital_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_img"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/str_hospital"
-        android:textColor="@color/color_normal"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/hospital_grade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/hospital_name"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10.5dp"
-        android:text="@string/str_tv_y"
-        android:textColor="@color/color_normal"
-        android:textSize="15sp" />
-
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/hospital_grade"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:background="@color/color_bg" />
-
-    <TextView
-        android:id="@+id/hospitals_jj"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_line"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/hospital_jj"
-        android:textColor="@color/color_username"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/hospitals_mess"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/hospitals_jj"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="19dp"
-        android:scrollbars="vertical"
-        android:singleLine="false"
-        android:text="@string/str_hospiytal_mess"
-        android:textColor="@color/color_normal"
-        android:textSize="14sp" />
+        android:layout_below="@id/details_line"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/details_img"
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/logo" />
+
+            <TextView
+                android:id="@+id/hospital_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_img"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/str_hospital"
+                android:textColor="@color/color_normal"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/hospital_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hospital_name"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10.5dp"
+                android:text="@string/str_tv_y"
+                android:textColor="@color/color_normal"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/hospital_grade"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:background="@color/color_bg" />
+
+            <TextView
+                android:id="@+id/hospitals_jj"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_line"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/hospital_jj"
+                android:textColor="@color/color_username"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/hospitals_mess"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/hospitals_jj"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="19dp"
+                android:text="@string/str_hospiytal_mess"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </ScrollView>
+
+
 </RelativeLayout>

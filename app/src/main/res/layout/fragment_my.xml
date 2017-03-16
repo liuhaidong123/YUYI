@@ -365,6 +365,7 @@
         android:id="@+id/rl_title"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:paddingEnd="5dp"
         android:background="@color/color_white"
         android:layout_below="@+id/mea_line"
         android:layout_alignParentStart="true">
@@ -391,6 +392,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/str_li"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/color_normal"
                 android:textSize="14sp" />
 
@@ -401,6 +404,8 @@
                 android:layout_below="@+id/my_name"
                 android:layout_marginTop="10dp"
                 android:text="@string/str_name2"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/color_normal"
                 android:textSize="13sp" />
         </RelativeLayout>

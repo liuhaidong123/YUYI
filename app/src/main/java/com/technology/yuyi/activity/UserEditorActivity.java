@@ -21,6 +21,9 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private View mSexAlertView;
     private ImageView mBack;
     private EditText mAgeEdit;
+    private EditText mNikName;
+    private EditText mAdEdit;
+    private EditText mAddressEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,15 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         //年龄编辑框
         mAgeEdit = (EditText) findViewById(R.id.age_edit);
         mAgeEdit.setSelection(mAgeEdit.getText().length());
+        //昵称
+        mNikName=(EditText) findViewById(R.id.nikname_edit);
+        mNikName.setSelection(mNikName.getText().length());
+        //省份证号
+        mAdEdit=(EditText) findViewById(R.id.ad_edit);
+        mAdEdit.setSelection(mAdEdit.getText().length());
+        //籍贯
+        mAddressEdit=(EditText) findViewById(R.id.jg_edit);
+        mAddressEdit.setSelection(mAddressEdit.getText().length());
     }
 
     @Override

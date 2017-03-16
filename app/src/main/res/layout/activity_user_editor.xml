@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/click_change_bgcolor"
             android:text="@string/str_save"
@@ -72,17 +72,54 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/str_head"
             android:textColor="@color/color_normal"
             android:textSize="14sp" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/user_name_rl"
+        android:id="@+id/user_nikname_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@id/select_head"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_white">
+
+        <TextView
+            android:id="@+id/nikname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="昵称"
+            android:textColor="@color/color_normal"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/nikname_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/nikname_tv"
+            android:background="@null"
+            android:gravity="end"
+            android:inputType="text"
+            android:hint="输入昵称"
+            android:maxLength="15"
+            android:paddingEnd="20dp"
+            android:text="@string/str_li"
+            android:textColor="@color/color_press"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_name_rl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/user_nikname_rl"
         android:layout_marginTop="1dp"
         android:background="@color/color_white">
 
@@ -100,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/str_user_num"
             android:textColor="@color/color_press"
             android:textSize="13sp" />
@@ -128,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/str_user_boy"
             android:textColor="@color/color_press"
             android:textSize="13sp" />
@@ -144,10 +181,12 @@
         android:background="@color/color_white">
 
         <TextView
+            android:id="@+id/age_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/str_user_age"
             android:textColor="@color/color_normal"
             android:textSize="14sp" />
@@ -158,15 +197,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
             android:background="@null"
+            android:maxLength="3"
             android:gravity="end"
-            android:inputType="text"
+            android:layout_toEndOf="@id/age_tv"
+            android:inputType="number"
+            android:paddingEnd="20dp"
+            android:hint="输入年龄"
             android:text="26"
             android:textColor="@color/color_press"
             android:textSize="13sp" />
     </RelativeLayout>
-
 
 
     <RelativeLayout
@@ -188,17 +229,21 @@
             android:textColor="@color/color_normal"
             android:textSize="14sp" />
 
-        <TextView
+        <EditText
+            android:id="@+id/ad_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
             android:layout_toEndOf="@id/tv_id_name"
-            android:ellipsize="end"
+            android:background="@null"
+            android:inputType="text"
             android:gravity="end"
+            android:maxLength="18"
             android:maxLines="1"
-            android:text="@string/str_user_id_num"
+            android:paddingEnd="20dp"
+            android:text="123456789012345678"
+            android:hint="省份证号"
             android:textColor="@color/color_press"
             android:textSize="13sp" />
     </RelativeLayout>
@@ -212,21 +257,30 @@
         android:background="@color/color_white">
 
         <TextView
+            android:id="@+id/gj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/str_user_place"
             android:textColor="@color/color_normal"
             android:textSize="14sp" />
 
-        <TextView
+        <EditText
+            android:id="@+id/jg_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:text="@string/str_user_place_mess"
+            android:layout_toEndOf="@id/gj"
+            android:background="@null"
+            android:inputType="text"
+            android:gravity="end"
+            android:maxLines="1"
+            android:paddingEnd="20dp"
+            android:text="山西大同"
+            android:hint="输入籍贯"
             android:textColor="@color/color_press"
             android:textSize="13sp" />
     </RelativeLayout>

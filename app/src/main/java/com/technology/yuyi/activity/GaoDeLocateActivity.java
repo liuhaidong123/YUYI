@@ -42,6 +42,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.bean.City;
 import com.technology.yuyi.hide.input.keyboard.HideKeyboardUtils;
 import com.technology.yuyi.lhd.utils.PingYinUtil;
+import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.MyLetterListView;
 
 import java.io.IOException;
@@ -514,8 +515,8 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
             if (aMapLocation.getErrorCode() == 0) {
                 //可在其中解析aMapLocation获取相应内容。
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
+                user.Latitude=aMapLocation.getLatitude();//获取纬度
+                user.Longitude=aMapLocation.getLongitude();//获取经度
                 aMapLocation.getAccuracy();//获取精度信息
                 aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
                 aMapLocation.getCountry();//国家信息

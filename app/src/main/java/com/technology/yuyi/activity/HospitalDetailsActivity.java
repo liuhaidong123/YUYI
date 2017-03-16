@@ -1,6 +1,10 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +16,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.HttpTools;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.Information;
 
 public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,6 +36,29 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     private Button mVideoBtn;
     private Button mCharBtn;
 
+    private TextView mHospital_name;
+    private TextView mGrade_tv;
+    private TextView mHospital_message;
+    private ImageView mImg;
+    private HttpTools mHttptools;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 25) {
+                Object o = msg.obj;
+                if (o != null && o instanceof Information) {
+                    Information information = (Information) o;
+                    mHospital_name.setText(information.getHospitalName());
+                    mGrade_tv.setText(information.getGradeName());
+                    mHospital_message.setText(information.getIntroduction());
+                    Picasso.with(HospitalDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).error(R.mipmap.error_big).into(mImg);
+
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +67,15 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     }
 
     public void initView() {
+        //获取网络数据
+        mHttptools = HttpTools.getHttpToolsInstance();
+        mHttptools.getAskDataMessage(mHandler, getIntent().getIntExtra("id", -1));
+
+        mHospital_name = (TextView) findViewById(R.id.tv_hospital);//医院名称
+        mGrade_tv = (TextView) findViewById(R.id.grade_tv);//等级
+        mHospital_message = (TextView) findViewById(R.id.hospital_message);//详情
+        mImg = (ImageView) findViewById(R.id.img);
+
         mBack = (ImageView) findViewById(R.id.detail_back);
         mBack.setOnClickListener(this);
         //设置透明度
@@ -65,7 +106,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
         if (id == mBtn.getId()) {
             mAlertDialog.show();
-            setAlertWidth(0.7f,mAlertDialog);
+            setAlertWidth(0.7f, mAlertDialog);
         } else if (id == mSpeechBtn.getId()) {//语音咨询
             startActivity(new Intent(this, VoiceActivity.class));
             mAlertDialog.dismiss();
@@ -74,14 +115,14 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             mAlertDialog.dismiss();
         } else if (id == mCharBtn.getId()) {//文字资讯
             mAlertDialog.dismiss();
-            startActivity(new Intent(this,WordActivity.class));
+            startActivity(new Intent(this, WordActivity.class));
         } else if (id == mBack.getId()) {//返回
             finish();
         }
     }
 
     //设置alert宽度
-    public void setAlertWidth(float a,AlertDialog alertDialog) {
+    public void setAlertWidth(float a, AlertDialog alertDialog) {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager m = getWindowManager();
         m.getDefaultDisplay().getMetrics(dm);

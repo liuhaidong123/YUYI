@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
-        user.clearLogin(MainActivity.this);
+
     }
 
     //初始化数据
