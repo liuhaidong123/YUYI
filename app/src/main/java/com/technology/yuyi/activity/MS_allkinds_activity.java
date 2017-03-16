@@ -1,10 +1,15 @@
 package com.technology.yuyi.activity;
 
 import android.app.Activity;
+import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -12,12 +17,28 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.adapter.MS_allkinds_ExAdapter;
 import com.technology.yuyi.adapter.MS_allkinds_MyGridViewAdapter;
 import com.technology.yuyi.adapter.MS_allkindssort_Adapter;
 import com.technology.yuyi.adapter.MS_home_DailyGridViewAdapter;
+import com.technology.yuyi.bean.bean_MS_allkinds;
+import com.technology.yuyi.bean.bean_MS_allkinds_alldrugs;
+import com.technology.yuyi.lzh_utils.Intent_Code;
+import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyExpanListview;
 import com.technology.yuyi.lzh_utils.MyGridView;
+import com.technology.yuyi.lzh_utils.MyIntent;
+import com.technology.yuyi.lzh_utils.conn;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,168 +49,212 @@ import java.util.Map;
  * Created by wanyu on 2017/2/27.
  */
 
-public class MS_allkinds_activity extends Activity{
-    private int type;
+public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdapter.childSelectListener {
+    private String TAG=getClass().getSimpleName();
+
     private ImageView ms_allkinds_image_sort;
     private ScrollView ms_allkinds_scrollview;
     private TextView ms_allkinds_textV_name;//当前的分类
     private List<String> listKinds;
-    private MyGridView ms_allkinds_myGridview;
-    private String[]str=new String[]{"中药调理","肠胃用药","保健滋补","眼鼻喉耳","皮肤用药","全部","常用药品","保健滋补"};
-    private MS_allkinds_MyGridViewAdapter adapter;
+
+
     private List<Map<String,String>>list;//adapter数据源
     private int[] Id={R.mipmap.c1,R.mipmap.c2,R.mipmap.c3,R.mipmap.z1,R.mipmap.z2,R.mipmap.z3};
-    private String[] Name=new String[]{"地塞米松注射液","健胃颗粒","健胃消食片","牛黄蛇胆川贝液","氨芬曲马多片","天马胶囊"};
-    private String[]Price=new String[]{"35","21","17","77","37","99"};
 
     private  RelativeLayout activity_ms_allkinds_rela;//切换药品与分类的按钮
 
     //以下时所有药品分类相关数据
     private LinearLayout activity_my_allkinds;//所有药品的布局
-    private MyGridView ms_allkindssort_gridview1,ms_allkindssort_gridview2,ms_allkindssort_gridview3
-            ,ms_allkindssort_gridview4,ms_allkindssort_gridview5;
-    private List<String> list1,list2,list3,list4,list5;
-    private String[]str1=new String[]{"中药调理","肠胃用药","保健滋补","眼鼻喉耳","皮肤用药","感冒发烧","调节免疫","维生素钙片"};
-    private String[]str2=new String[]{"胃炎胃疼","胃肠溃疡","胃肠不适","腹泻","便秘","消化不良","小儿肠胃病","减肥药"};
-    private String[]str3=new String[]{"补肾","补气补血","安神补脑","心脏疾病"};
-    private String[]str4=new String[]{"避孕","月经不调","更年期","痛经","产后用药","保胎促孕"};
-    private String[]str5=new String[]{"跌打损伤","关节炎","保健滋补","骨质增生","颈肩腰腿疼"};
+//-------------------------------------------------------------------------------------------
+    private int SelecedDrugId;
+    private MyExpanListview ms_allkinds_expandlist;
+    private List<bean_MS_allkinds.CategoryBean>listK;//存放所有分类的view
+    private MS_allkinds_ExAdapter exAdapter;
+    private String resultStr;//请求结果string
+
+
+    //-----------------------------------------------------
+
+    private List<bean_MS_allkinds_alldrugs.RowsBean>listAlldrgus;//所有药品的数据源
+    private MyGridView ms_allkinds_myGridview;
+    private MS_allkinds_MyGridViewAdapter adapter;
+    //----------------------------------------------------
+    private int type;//0：查询全部药品，1：查询大类，2：小类
+    private int cId;//类别的id
+    private String Cname;//当前大类的名字
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0://请求失败：网络异常
+                    toast.toast_faild(MS_allkinds_activity.this);
+                    break;
+                case 1://请求全部分类成功
+                    try{
+                        bean_MS_allkinds allkinds=gson.gson.fromJson(resultStr,bean_MS_allkinds.class);
+                        listK=allkinds.getCategory();
+                        if (listK!=null&&listK.size()>0){
+                            exAdapter=new MS_allkinds_ExAdapter(MS_allkinds_activity.this,listK,MS_allkinds_activity.this);
+                            ms_allkinds_expandlist.setAdapter(exAdapter);
+                            ms_allkinds_expandlist.setGroupIndicator(null);
+                            ms_allkinds_expandlist.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                                @Override
+                                public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                                    getDrugsLarge(Integer.parseInt(listK.get(groupPosition).getId()),0,10);//0-10tiao
+//                                    Toast.makeText(MS_allkinds_activity.this,"id--"+listK.get(groupPosition).getId()+"--name--"+listK.get(groupPosition).getName(),Toast.LENGTH_LONG).show();
+                                    ms_allkinds_textV_name.setText(listK.get(groupPosition).getName());
+                                    activity_my_allkinds.setVisibility(View.GONE);
+                                    ms_allkinds_myGridview.setVisibility(View.VISIBLE);
+                                    ms_allkinds_image_sort.setSelected(false);
+                                    return true;
+                                }
+                            });
+                            for(int i = 0; i < exAdapter.getGroupCount(); i++){
+                                ms_allkinds_expandlist.expandGroup(i,false);
+                            }
+                            ms_allkinds_expandlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                }
+                            });
+                        }
+                        else {
+                            toast.toast_gsonEmpty(MS_allkinds_activity.this);
+                        }
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MS_allkinds_activity.this);
+                        Log.e(TAG,e.toString());
+                    }
+                    break;
+                case 2://请求全部药品
+                    try{
+                        bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
+                        listAlldrgus=allDrug.getRows();
+                        if (listAlldrgus!=null&&listAlldrgus.size()>0){
+                            adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
+                            ms_allkinds_myGridview.setAdapter(adapter);
+                            ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
+                                    Intent intent=new Intent();
+                                    intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
+                                    intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        else {
+                            toast.toast_gsonEmpty(MS_allkinds_activity.this);
+                        }
+
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MS_allkinds_activity.this);
+                    }
+
+                    break;
+                case 3://请求小类药品成功
+                    try{
+                        bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
+                        listAlldrgus=allDrug.getRows();
+                        if (listAlldrgus!=null&&listAlldrgus.size()>0){
+                            adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
+                            ms_allkinds_myGridview.setAdapter(adapter);
+                            ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
+                                    Intent intent=new Intent();
+                                    intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
+                                    intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        else {
+                            toast.toast_gsonEmpty(MS_allkinds_activity.this);
+                            adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
+                            ms_allkinds_myGridview.setAdapter(adapter);
+                        }
+
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MS_allkinds_activity.this);
+                    }
+                    break;
+                case 4://获取大类药品
+                    try{
+                        bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
+                        listAlldrgus=allDrug.getRows();
+                        if (listAlldrgus!=null&&listAlldrgus.size()>0){
+                            adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
+                            ms_allkinds_myGridview.setAdapter(adapter);
+                            ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
+                                    Intent intent=new Intent();
+                                    intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
+                                    intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                        else {
+                            toast.toast_gsonEmpty(MS_allkinds_activity.this);
+                            adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
+                            ms_allkinds_myGridview.setAdapter(adapter);
+                        }
+
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MS_allkinds_activity.this);
+                    }
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ms_allkinds);
-
-        initData();
         initView();
-
         activity_my_allkinds= (LinearLayout) findViewById(R.id.activity_my_allkinds);
-        initViewKinds();//所有药品分类布局
-        initDataKinds();//所有药品分类布局的测试数据
-        setListenerKinds();//
-    }
+        listK=new ArrayList<>();
 
-    private void setListenerKinds() {
-        ms_allkindssort_gridview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ms_allkinds_textV_name.setText(list1.get(position));
-                activity_my_allkinds.setVisibility(View.GONE);
-                ms_allkinds_myGridview.setVisibility(View.VISIBLE);
-                ms_allkinds_image_sort.setSelected(false);
-            }
-        });
-        ms_allkindssort_gridview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ms_allkinds_textV_name.setText(list2.get(position));
-                activity_my_allkinds.setVisibility(View.GONE);
-                ms_allkinds_myGridview.setVisibility(View.VISIBLE);
-                ms_allkinds_image_sort.setSelected(false);
-            }
-        });
-        ms_allkindssort_gridview3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ms_allkinds_textV_name.setText(list3.get(position));
-                activity_my_allkinds.setVisibility(View.GONE);
-                ms_allkinds_myGridview.setVisibility(View.VISIBLE);
-                ms_allkinds_image_sort.setSelected(false);
-            }
-        });
-        ms_allkindssort_gridview4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ms_allkinds_textV_name.setText(list4.get(position));
-                activity_my_allkinds.setVisibility(View.GONE);
-                ms_allkinds_myGridview.setVisibility(View.VISIBLE);
-                ms_allkinds_image_sort.setSelected(false);
-            }
-        });
-        ms_allkindssort_gridview5.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ms_allkinds_textV_name.setText(list5.get(position));
-                activity_my_allkinds.setVisibility(View.GONE);
-                ms_allkinds_myGridview.setVisibility(View.VISIBLE);
-                ms_allkinds_image_sort.setSelected(false);
-            }
-        });
-    }
 
-    //所有药品分类布局
-    private void initViewKinds() {
-        ms_allkindssort_gridview1= (MyGridView) findViewById(R.id.ms_allkindssort_gridview1);
-        ms_allkindssort_gridview2= (MyGridView) findViewById(R.id.ms_allkindssort_gridview2);
-        ms_allkindssort_gridview3= (MyGridView) findViewById(R.id.ms_allkindssort_gridview3);
-        ms_allkindssort_gridview4= (MyGridView) findViewById(R.id.ms_allkindssort_gridview4);
-        ms_allkindssort_gridview5= (MyGridView) findViewById(R.id.ms_allkindssort_gridview5);
-    }
-//所有药品分类的测试数据
-    private void initDataKinds() {
-        list1=new ArrayList<>(); list2=new ArrayList<>(); list3=new ArrayList<>();
-        list4=new ArrayList<>(); list5=new ArrayList<>();
-        for (int i=0;i<str1.length;i++){
-            list1.add(str1[i]);
         }
-        for (int i=0;i<str2.length;i++){
-            list2.add(str2[i]);
-        }
-        for (int i=0;i<str3.length;i++){
-            list3.add(str3[i]);
-        }
-        for (int i=0;i<str4.length;i++){
-            list4.add(str4[i]);
-        }
-        for (int i=0;i<str5.length;i++){
-            list5.add(str5[i]);
-        }
-        ms_allkindssort_gridview1.setAdapter(new MS_allkindssort_Adapter(list1,MS_allkinds_activity.this));
-        ms_allkindssort_gridview2.setAdapter(new MS_allkindssort_Adapter(list2,MS_allkinds_activity.this));
-        ms_allkindssort_gridview3.setAdapter(new MS_allkindssort_Adapter(list3,MS_allkinds_activity.this));
-        ms_allkindssort_gridview4.setAdapter(new MS_allkindssort_Adapter(list4,MS_allkinds_activity.this));
-        ms_allkindssort_gridview5.setAdapter(new MS_allkindssort_Adapter(list5,MS_allkinds_activity.this));
 
-    }
     @Override
     protected void onStart() {
         super.onStart();
-        type=getIntent().getIntExtra("type",-1);
-        if(type!=-1){
-            ms_allkinds_textV_name.setText(str[type]);
-        }
-
-    }
-
-    //测试用数据
-    private void initData() {
-        listKinds=new ArrayList<>();
-        for(int i=0;i<str.length;i++){
-            listKinds.add(str[i]);
-        }
-        list=new ArrayList<>();
-        for (int i=0;i<Id.length;i++){
-            Map<String,String>mp=new HashMap<>();
-            mp.put("image",Id[i]+"");
-            mp.put("name",Name[i]);
-            mp.put("price",Price[i]);
-            list.add(mp);
+        //        type;//0：查询全部药品，1：查询小类，2：大类
+        type = getIntent().getIntExtra(MyIntent.intent_MS_allkinds_type, -1);
+        cId = getIntent().getIntExtra(MyIntent.intent_MS_allkinds_id, -1);
+        Cname = getIntent().getStringExtra(MyIntent.intent_MS_allkinds_name);//大类的名字
+        ms_allkinds_textV_name.setText(Cname);
+        switch (type) {
+            case Intent_Code.code_MS_allkinds_typeAll://查询全部
+                getAllDrugs();
+                break;
+            case Intent_Code.code_MS_allkinds_typeSmall://查询小类
+                getDrugsSmall(cId, 0, 10);
+                break;
+            case Intent_Code.code_MS_allkinds_typeLarge://查询大类
+                getDrugsLarge(cId, 0, 10);
+                break;
         }
     }
-
     private void initView() {
+        ms_allkinds_expandlist= (MyExpanListview) findViewById(R.id.ms_allkinds_expandlist);
         ms_allkinds_image_sort= (ImageView) findViewById(R.id.ms_allkinds_image_sort);
         ms_allkinds_scrollview= (ScrollView) findViewById(R.id.ms_allkinds_scrollview);
         ms_allkinds_textV_name= (TextView) findViewById(R.id.ms_allkinds_textV_name);
         ms_allkinds_myGridview= (MyGridView) findViewById(R.id.ms_allkinds_myGridview);
-        adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,list);
-        ms_allkinds_myGridview.setAdapter(adapter);
-        ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
-                getDrugInfo();
-            }
-        });
     }
 
     public void getAllKinds(View view) {
@@ -198,23 +263,22 @@ public class MS_allkinds_activity extends Activity{
                 activity_my_allkinds.setVisibility(View.GONE);
                 ms_allkinds_myGridview.setVisibility(View.VISIBLE);
                 ms_allkinds_image_sort.setSelected(false);
+
             }
             else {
                 activity_my_allkinds.setVisibility(View.VISIBLE);
                 ms_allkinds_myGridview.setVisibility(View.GONE);
                 ms_allkinds_image_sort.setSelected(true);
+                getKinds();//请求获取全部分类
                 }
-//
-//            Intent intent=new Intent();
-//            intent.setClass(MS_allkinds_activity.this, MS_allkinds_sort_activity.class);
-//            startActivity(intent);
         }
     }
 
     //药品详情页面
-    public void getDrugInfo(){
+    public void getDrugInfo(int drugId){
         Intent intent=new Intent();
         intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
+        intent.putExtra(MyIntent.intent_MS_drugInfo,drugId);
         startActivity(intent);
     }
 
@@ -224,5 +288,101 @@ public class MS_allkinds_activity extends Activity{
                 finish();
             }
         }
+    }
+
+    //获取全部分类的请求
+    public void getKinds() {
+        if (listK!=null&&listK.size()>0){
+           return;
+        }
+        Map<String,String>mp=new HashMap<>();
+        okhttp.getCall(Ip.url+Ip.interface_MS_allkinds,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                resultStr= conn.conn_FAILE;
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resultStr=response.body().string();
+                handler.sendEmptyMessage(1);
+                Log.i(TAG+"-返回数据-",resultStr.toString());
+            }
+        });
+    }
+
+
+
+
+    @Override
+    public void onChildSelect(int ChildId, String ChildName) {
+        ms_allkinds_textV_name.setText(ChildName);
+        activity_my_allkinds.setVisibility(View.GONE);
+        ms_allkinds_myGridview.setVisibility(View.VISIBLE);
+        ms_allkinds_image_sort.setSelected(false);
+        getDrugsSmall(ChildId,0,10);
+    }
+
+
+//获取某小类下的药品//        http://192.168.1.42:8080/yuyi/drugs/getcid2.do?start=0&limit=10&cid2=14
+    public void getDrugsSmall(int drugId,int start,int limit){//获取小类药品，从全部分类返回小类大id
+
+        Map<String,String>mp=new HashMap<>();
+        mp.put("start",0+"");  mp.put("limit",10+"");  mp.put("cid2",drugId+"");
+        okhttp.getCall(Ip.url_F+Ip.interface_MS_smallDrugs,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                    resultStr=response.body().string();
+                    handler.sendEmptyMessage(3);//获取小类药品成功
+                    Log.i("获取全部小类药品---",resultStr.toString());
+            }
+        });
+    }
+
+    //获取某一大类的药品start=0&limit=10&cid1=1
+    public void getDrugsLarge(int drugId,int start ,int limit){//获取大类药品(大类大id)
+        Map<String,String>mp=new HashMap<>();
+        mp.put("start",start+"");  mp.put("limit",limit+"");  mp.put("cid1",drugId+"");
+        okhttp.getCall(Ip.url_F+Ip.interface_MS_largeDrugs,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resultStr=response.body().string();
+                handler.sendEmptyMessage(4);//获取小类药品成功
+                Log.i("获取某一大类药品---",resultStr.toString());
+            }
+        });
+    }
+    //获取全部药品
+    public void getAllDrugs() {
+//        start=0&limit=10
+        Map<String,String>mp=new HashMap<>();
+        mp.put("start","0");
+        mp.put("limit","10");
+        Log.i(TAG,"获取全部药品--");
+        okhttp.getCall(Ip.url_F+Ip.interface_MS_home_allDrugs,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+                Log.e(TAG,e.toString());
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resultStr=response.body().string();
+                handler.sendEmptyMessage(2);
+                Log.i(TAG+"----",resultStr.toString());
+            }
+        });
     }
 }

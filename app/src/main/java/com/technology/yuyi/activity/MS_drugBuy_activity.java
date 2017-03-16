@@ -367,7 +367,6 @@ public class MS_drugBuy_activity extends Activity{
 
     /**
      * 支付宝支付业务
-     *
      * @param v
      */
     public void payV2(View v) {

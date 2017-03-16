@@ -52,13 +52,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/equip_line"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/family_listview_bg">
+        android:background="@drawable/family_listview_bg"
+        android:layout_below="@+id/equip_line"
+        android:layout_centerHorizontal="true">
 
-        <TextView
+        <com.technology.yuyi.myview.RoundImageView
             android:id="@+id/add_head_tv"
             android:layout_width="60dp"
             android:layout_height="60dp"

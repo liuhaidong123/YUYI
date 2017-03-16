@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_MS_allkinds;
 
 import org.w3c.dom.Text;
 
@@ -18,9 +19,9 @@ import java.util.List;
  */
 
 public class MS_allkindssort_Adapter extends BaseAdapter{
-    private List<String> list;
+    private List<bean_MS_allkinds.CategoryBean.ChildrenBean>list;
     private Context context;
-    public MS_allkindssort_Adapter(List<String> list,Context context){
+    public MS_allkindssort_Adapter(List<bean_MS_allkinds.CategoryBean.ChildrenBean>list,Context context){
         this.list=list;
         this.context=context;
     }
@@ -49,7 +50,7 @@ public class MS_allkindssort_Adapter extends BaseAdapter{
                 convertView.setTag(hodler);
         }
         hodler= (ViewHodler) convertView.getTag();
-        hodler.textView.setText(list.get(position));
+        hodler.textView.setText(list.get(position).getName());
         return convertView;
     }
     class ViewHodler{

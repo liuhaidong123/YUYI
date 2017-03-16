@@ -50,20 +50,20 @@ public class MS_allkinds_sort_activity extends Activity{
         for (int i=0;i<str5.length;i++){
             list5.add(str5[i]);
         }
-        ms_allkindssort_gridview1.setAdapter(new MS_allkindssort_Adapter(list1,MS_allkinds_sort_activity.this));
-        ms_allkindssort_gridview2.setAdapter(new MS_allkindssort_Adapter(list2,MS_allkinds_sort_activity.this));
-        ms_allkindssort_gridview3.setAdapter(new MS_allkindssort_Adapter(list3,MS_allkinds_sort_activity.this));
-        ms_allkindssort_gridview4.setAdapter(new MS_allkindssort_Adapter(list4,MS_allkinds_sort_activity.this));
-        ms_allkindssort_gridview5.setAdapter(new MS_allkindssort_Adapter(list5,MS_allkinds_sort_activity.this));
+//        ms_allkindssort_gridview1.setAdapter(new MS_allkindssort_Adapter(list1,MS_allkinds_sort_activity.this));
+//        ms_allkindssort_gridview2.setAdapter(new MS_allkindssort_Adapter(list2,MS_allkinds_sort_activity.this));
+//        ms_allkindssort_gridview3.setAdapter(new MS_allkindssort_Adapter(list3,MS_allkinds_sort_activity.this));
+//        ms_allkindssort_gridview4.setAdapter(new MS_allkindssort_Adapter(list4,MS_allkinds_sort_activity.this));
+//        ms_allkindssort_gridview5.setAdapter(new MS_allkindssort_Adapter(list5,MS_allkinds_sort_activity.this));
     }
 
-    private void initView() {
-        ms_allkindssort_gridview1= (MyGridView) findViewById(R.id.ms_allkindssort_gridview1);
-        ms_allkindssort_gridview2= (MyGridView) findViewById(R.id.ms_allkindssort_gridview2);
-        ms_allkindssort_gridview3= (MyGridView) findViewById(R.id.ms_allkindssort_gridview3);
-        ms_allkindssort_gridview4= (MyGridView) findViewById(R.id.ms_allkindssort_gridview4);
-        ms_allkindssort_gridview5= (MyGridView) findViewById(R.id.ms_allkindssort_gridview5);
-    }
+//    private void initView() {
+//        ms_allkindssort_gridview1= (MyGridView) findViewById(R.id.ms_allkindssort_gridview1);
+//        ms_allkindssort_gridview2= (MyGridView) findViewById(R.id.ms_allkindssort_gridview2);
+//        ms_allkindssort_gridview3= (MyGridView) findViewById(R.id.ms_allkindssort_gridview3);
+//        ms_allkindssort_gridview4= (MyGridView) findViewById(R.id.ms_allkindssort_gridview4);
+//        ms_allkindssort_gridview5= (MyGridView) findViewById(R.id.ms_allkindssort_gridview5);
+//    }
 //
 //    public void goBack(View view) {
 //        if (view!=null){

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -289,8 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -301,5 +300,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(MainActivity.this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String usname=getIntent().getStringExtra("username");
+        String userpsd=getIntent().getStringExtra("userpsd");
+        if (!"".equals(userpsd)&&!TextUtils.isEmpty(userpsd)&&!"".equals(usname)&&!TextUtils.isEmpty(usname)){
+            user.userName=usname;
+            user.userPs=userpsd;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        user.clearLogin(MainActivity.this);
     }
 }

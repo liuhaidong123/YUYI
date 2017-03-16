@@ -37,6 +37,8 @@ public class user {
         editor.remove("username");
         editor.remove("userpsd");
         editor.commit();
+        userPs="";
+        userName="";
     }
 
 }

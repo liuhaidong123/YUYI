@@ -2,50 +2,132 @@ package com.technology.yuyi.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.adapter.MS_allkinds_ExAdapter;
 import com.technology.yuyi.adapter.MS_home_DailyGridViewAdapter;
 import com.technology.yuyi.adapter.MS_home_GridViewAdapter;
+import com.technology.yuyi.bean.bean_MS_allkinds;
+import com.technology.yuyi.bean.bean_MS_home;
+import com.technology.yuyi.lzh_utils.Intent_Code;
+import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyExpanListview;
 import com.technology.yuyi.lzh_utils.MyGridView;
+import com.technology.yuyi.lzh_utils.MyIntent;
+import com.technology.yuyi.lzh_utils.conn;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MS_home_Activity extends AppCompatActivity {
-    private List<String> listMedicineKind;//药品种类的数据源
+    private final String TAG=getClass().getSimpleName();
     private MyGridView ms_home_gridview;//药品种类展示的view
-    private String[]Name=new String[]{"中药调理","肠胃用药","保健滋补","眼鼻喉耳","皮肤用药","全部"};
     private MS_home_GridViewAdapter adapter;
-//    常用药的adapter与数据源
-    private MyGridView ms_home_gridview_dailyM;
-    private MS_home_DailyGridViewAdapter adapterDailly;
-    private List<Map<String,String>>listDailly;
-    private int[] daillyId={R.mipmap.c1,R.mipmap.c2,R.mipmap.c3};
-    private String[] daillyName=new String[]{"地塞米松注射液","健胃颗粒","健胃消食片"
-    };
-    private String[]daillyPrice=new String[]{"35","21","17"};
 
-    //   滋补药的适配器与数据源
-    private MyGridView ms_home_gridview_Nu;
-    private MS_home_DailyGridViewAdapter adapterNu;
-    private List<Map<String,String>>listNu;
-    private int[] nuId={R.mipmap.z1,R.mipmap.z2,R.mipmap.z3};
-    private String[] nuName=new String[]{"牛黄蛇胆川贝液","氨芬曲马多片","天马胶囊"
-    };
-    private String[]nuPrice=new String[]{"77","37","99"};
-    //常用药的gridview
+//    adapter=new MS_home_GridViewAdapter(liKinds,MS_home_Activity.this);
+//    ms_home_gridview.setAdapter(adapter);
+    private List<bean_MS_home.CategoryBean>listCategory;//分类（大类）
+    private List<bean_MS_home.DrugsBean>listDrugs;//获取到的所有药品
+    private MyExpanListview ms_home_exlistview;
+    private List<Map<String,String>>listCat;//大类的集合
+    private String resultStr;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0://请求失败：网络异常，服务器异常
+                    toast.toast_faild(MS_home_Activity.this);
+                    break;
+                case 1://查询首页信息返回的数据
+                    try{
+                        bean_MS_home homeSource=gson.gson.fromJson(resultStr,bean_MS_home.class);
+                        listCategory=homeSource.getCategory();
+                        listDrugs=homeSource.getDrugs();
+                        if (listCategory!=null&&listCategory.size()>0&&listDrugs!=null&&listDrugs.size()>0){
+                            listCat=new ArrayList<>();
+                            for (int i=0;i<listCategory.size();i++){
+                                Map<String,String>mp=new HashMap<>();
+                                mp.put("name",listCategory.get(i).getName());
+                                mp.put("id",listCategory.get(i).getId()+"");
+                                listCat.add(mp);
+                            }
+                            Map<String,String>mp=new HashMap<>();
+                            mp.put("name","全部");
+                            mp.put("id","-1");
+                            listCat.add(mp);
+                            adapter=new MS_home_GridViewAdapter(listCat,MS_home_Activity.this);
+                            ms_home_gridview.setAdapter(adapter);
+                            ms_home_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+//                                    type = getIntent().getIntExtra(MyIntent.intent_MS_allkinds_type, -1);
+//                                    cId = getIntent().getIntExtra(MyIntent.intent_MS_allkinds_id, -1);
+//                                    Cname = getIntent().getStringExtra(MyIntent.intent_MS_allkinds_name);//大类的名字
+//                                    ms_allkinds_textV_name.setText(Cname);
+//                                    switch (type) {
+//                                        case Intent_Code.code_MS_allkinds_typeAll://查询全部
+//                                            getAllDrugs();
+//                                            break;
+//                                        case Intent_Code.code_MS_allkinds_typeSmall://查询小类
+//                                            getDrugsSmall(cId, 0, 10);
+//                                            break;
+//                                        case Intent_Code.code_MS_allkinds_typeLarge://查询大类
+//                                            getDrugsLarge(cId, 0, 10);
+//                                            break;
+//                                    }
+                                    Intent intent=new Intent();
+                                    intent.setClass(MS_home_Activity.this,MS_allkinds_activity.class);
+                                    if (position==adapter.getCount()-1){
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_type,Intent_Code.code_MS_allkinds_typeAll);
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_name,listCat.get(position).get("name"));
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_id,listCat.get(position).get("id"));
+                                    }
+                                    else {
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_type,Intent_Code.code_MS_allkinds_typeLarge);
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_name,listCat.get(position).get("name"));
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_id,listCat.get(position).get("id"));
+                                    }
+                                    startActivity(intent);
+                                }
+                            });
+                            }
+                        else {
+                            toast.toast_gsonEmpty(MS_home_Activity.this);
+                        }
+
+
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MS_home_Activity.this);
+                    }
+
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ms_home);
-        initData();
         initView();
     }
 
@@ -54,65 +136,9 @@ public class MS_home_Activity extends AppCompatActivity {
     //初始化view
     private void initView() {
         ms_home_gridview= (MyGridView) findViewById(R.id.ms_home_gridview);
-        ms_home_gridview.setAdapter(adapter);
-        ms_home_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                IntentClick(position);
-            }
-        });
-        //常用
-        ms_home_gridview_dailyM= (MyGridView) findViewById(R.id.ms_home_gridview_dailyM);//常用药的gridview（只显示1行，3个选项）
-        ms_home_gridview_dailyM.setAdapter(adapterDailly);
-        ms_home_gridview_dailyM.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getDrugInfo();
-            }
-        });
-       //滋补
-        ms_home_gridview_Nu= (MyGridView) findViewById(R.id.ms_home_gridview_Nutritious);//滋补药的gridview（只显示1行，3个选项）
-        ms_home_gridview_Nu.setAdapter(adapterNu);
-        ms_home_gridview_Nu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getDrugInfo();
-            }
-        });
+        ms_home_exlistview= (MyExpanListview) findViewById(R.id.ms_home_exlistview);
 
     }
-
-    //初始化数据
-    private void initData() {
-        listMedicineKind=new ArrayList<>();
-        for (int i=0;i<Name.length;i++){
-            listMedicineKind.add(Name[i]);
-        }
-        adapter=new MS_home_GridViewAdapter(listMedicineKind,MS_home_Activity.this);
-//常用药
-        listDailly=new ArrayList<>();
-        for (int i=0;i<3;i++){
-            Map<String,String>mp=new HashMap<>();
-            mp.put("image",daillyId[i]+"");
-            mp.put("name",daillyName[i]);
-            mp.put("price",daillyPrice[i]);
-            listDailly.add(mp);
-        }
-        adapterDailly=new MS_home_DailyGridViewAdapter(listDailly,MS_home_Activity.this);
-
-//滋补药
-
-        listNu=new ArrayList<>();
-        for (int i=0;i<3;i++){
-            Map<String,String>mp=new HashMap<>();
-            mp.put("image",nuId[i]+"");
-            mp.put("name",nuName[i]);
-            mp.put("price",nuPrice[i]);
-            listNu.add(mp);
-        }
-        adapterNu=new MS_home_DailyGridViewAdapter(listNu,MS_home_Activity.this);
-    }
-
 
     //    view的点击事件
     public void ms_homeClick(View v){
@@ -127,29 +153,6 @@ public class MS_home_Activity extends AppCompatActivity {
     }
 
 
-
-
-    public void IntentClick(int pos){
-        Intent intent=new Intent();
-        intent.putExtra("type",pos);
-        intent.setClass(MS_home_Activity.this,MS_allkinds_activity.class);
-        startActivity(intent);
-
-
-    }
-
-    public void selectMs(View view) {
-        if (view!=null){
-            switch (view.getId()){
-                case R.id.ms_home_rela1:
-                    IntentClick(6);
-                    break;
-                case R.id.ms_home_rela2:
-                    IntentClick(7);
-                    break;
-            }
-        }
-    }
     //药品详情页面
     public void getDrugInfo(){
         Intent intent=new Intent();
@@ -159,6 +162,35 @@ public class MS_home_Activity extends AppCompatActivity {
 
 
 
+    //---------------请求数据--------------------------------
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (listCategory!=null&&listCategory.size()>0&&listDrugs!=null&&listDrugs.size()>0){
+            return;
+        }
+      else {
+            getHomeSource();//获取首页数据信息
+        }
+    }
+
+    //获取首页信息数据
+    public void getHomeSource() {
+        Map<String,String>mp=new HashMap<>();
+       okhttp.getCall(Ip.url+Ip.inteface_MS_home_date,mp,okhttp.OK_GET).enqueue(new Callback() {
+           @Override
+           public void onFailure(Request request, IOException e) {
+               handler.sendEmptyMessage(0);
+           }
+
+           @Override
+           public void onResponse(Response response) throws IOException {
+                    resultStr=response.body().string();
+                    handler.sendEmptyMessage(1);
+               Log.i(TAG,"药品商城首页返回的数据----"+resultStr.toString());
+           }
+       });
+    }
 }
 
 

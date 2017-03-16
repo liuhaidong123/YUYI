@@ -52,6 +52,7 @@
         android:background="@color/color_bg" />
 
     <RelativeLayout
+        android:clickable="true"
         android:id="@+id/select_head"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -63,6 +64,7 @@
         <com.technology.yuyi.myview.RoundImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:id="@+id/usereditor_image_userphoto"
             android:layout_centerVertical="true"
             android:layout_marginStart="25dp"
             android:src="@mipmap/logo" />

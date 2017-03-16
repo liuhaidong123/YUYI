@@ -5,11 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.technology.yuyi.activity.MS_drugInfo_activity">
+    <LinearLayout
+    android:id="@+id/ms_drug_info_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:textSize="18sp"
+        android:textColor="#6a6a6a"
+        android:text="加入购物车"
+        android:onClick="shopping"
+        android:clickable="true"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/ms_druginfo_shoppingcart"
+        android:id="@+id/ms_drug_info_shoppingCart"/>
+    <TextView
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/color_white"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:textSize="18sp"
+        android:textColor="#6a6a6a"
+        android:layout_weight="1"
+        android:text="立即购买"
+        android:onClick="shopping"
+        android:clickable="true"
+        android:gravity="center"
+        android:background="@drawable/ms_druginfo_shoppingbuy"
+        android:id="@+id/ms_drug_info_shoppingbuy"/>
+</LinearLayout>
+
     <ScrollView
-        android:layout_above="@+id/ms_drug_info_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_above="@+id/ms_drug_info_bottom"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -80,7 +118,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="#cccccc"/>
+                    android:background="#eeeeee"/>
                 <RelativeLayout
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="15dp"
@@ -103,6 +141,7 @@
                         android:text="商品详情"/>
                 </RelativeLayout>
                 <TextView
+                    android:id="@+id/ms_drug_info_b_name"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="产品名称：氨基酸口服液"
@@ -111,6 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_kind"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="药品分类：口服液"
@@ -119,6 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_size"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="包装大小：250ml x3"
@@ -127,6 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_goodsName"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="药品商品名：氨基酸口服液"
@@ -135,6 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_Tname"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="药品通用名：氨基酸口服液"
@@ -143,6 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_code"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="批准文号：国药准字Z2017021412934"
@@ -151,6 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_provider"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="生产企业：华润三九医药公司"
@@ -159,6 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_pinpai"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="品牌：999"
@@ -167,6 +213,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_leixing"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="药品类型：口服液"
@@ -175,6 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_jixing"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="剂型：液体"
@@ -183,6 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/ms_drug_info_b_shiyongren"
                     android:layout_marginLeft="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="适用人群：不限"
@@ -193,39 +242,4 @@
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-<LinearLayout
-    android:id="@+id/ms_drug_info_bottom"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_alignParentBottom="true">
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:textSize="18sp"
-        android:textColor="#6a6a6a"
-        android:text="加入购物车"
-        android:onClick="shopping"
-        android:clickable="true"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:background="@drawable/ms_druginfo_shoppingcart"
-        android:id="@+id/ms_drug_info_shoppingCart"/>
-    <TextView
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:background="@color/color_white"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:textSize="18sp"
-        android:textColor="#6a6a6a"
-        android:layout_weight="1"
-        android:text="立即购买"
-        android:onClick="shopping"
-        android:clickable="true"
-        android:gravity="center"
-        android:background="@drawable/ms_druginfo_shoppingbuy"
-        android:id="@+id/ms_drug_info_shoppingbuy"/>
-</LinearLayout>
 </RelativeLayout>
