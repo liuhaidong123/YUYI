@@ -38,6 +38,10 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private View mSexAlertView;
     private ImageView mBack;
     private EditText mAgeEdit;
+    private EditText mNikName;
+    private EditText mAdEdit;
+    private EditText mAddressEdit;
+
     private RelativeLayout select_head;
     private TextView usereditor_textv_cancle,usereditor_textv_picture,usereditor_textv_camera;
     private PopupWindow pop;
@@ -70,6 +74,20 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         select_head.setOnClickListener(this);
 
         usereditor_image_userphoto= (RoundImageView) findViewById(R.id.usereditor_image_userphoto);
+        //昵称
+        mNikName=(EditText) findViewById(R.id.nikname_edit);
+        mNikName.setSelection(mNikName.getText().length());
+        //省份证号
+        mAdEdit=(EditText) findViewById(R.id.ad_edit);
+        mAdEdit.setSelection(mAdEdit.getText().length());
+        //籍贯
+        mAddressEdit=(EditText) findViewById(R.id.jg_edit);
+        mAddressEdit.setSelection(mAddressEdit.getText().length());
+
+        select_head= (RelativeLayout) findViewById(R.id.select_head);
+        select_head.setOnClickListener(this);
+
+        usereditor_image_userphoto= (RoundImageView) findViewById(R.id.usereditor_image_userphoto);
     }
 
     @Override
@@ -96,12 +114,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                 pop.dismiss();
                 break;
         }
-//        if (id == mSex.getId()) {//点击个人编辑性别
-//            mAlertDialog.show();
-//            setAlertWidth();
-//        } else if (id == mBack.getId()) {//返回
-//            finish();
-//        }
     }
 
 

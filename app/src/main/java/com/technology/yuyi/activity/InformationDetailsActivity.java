@@ -59,7 +59,6 @@ public class InformationDetailsActivity extends AppCompatActivity implements Vie
         mHttptools.getFirstPageInformationTwoDataMessage(handler, getIntent().getIntExtra("id", -1));
 
         mHospitalMess = (TextView) findViewById(R.id.hospitals_mess);
-        mHospitalMess.setMovementMethod(ScrollingMovementMethod.getInstance());
         mBack = (ImageView) findViewById(R.id.details_back);
         mBack.setOnClickListener(this);
 

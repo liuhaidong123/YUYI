@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String userpsd=getIntent().getStringExtra("userpsd");
         if (!"".equals(userpsd)&&!TextUtils.isEmpty(userpsd)&&!"".equals(usname)&&!TextUtils.isEmpty(usname)){
             user.userName=usname;
-            user.userPs=userpsd;
+            user.userPsd=userpsd;
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.lzh_utils.user;
 
 public class SetActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,6 +52,9 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
                         break;
 
                     case R.id.tv_exit://退出
+                        user.clearLogin(this);
+                        startActivity(new Intent(SetActivity.this,My_userLogin_Activity.class));
+                        finish();
                         break;
             }
         }

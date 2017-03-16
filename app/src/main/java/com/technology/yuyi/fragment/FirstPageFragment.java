@@ -34,6 +34,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AddFamilyUserActivity;
@@ -53,6 +54,7 @@ import com.technology.yuyi.bean.FirstPageDrugSixData;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.BloodView;
 import com.technology.yuyi.myview.InformationListView;
 import com.technology.yuyi.myview.RoundImageView;
@@ -120,6 +122,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private ArrayList mUserData = new ArrayList();
 
     private HttpTools mHttptools;
+    //广告
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -133,6 +136,14 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 handler.sendEmptyMessageDelayed(1, 3000);
             }
 
+        }
+    };
+    //网络请求
+    private Handler mHttpHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
             //首页常用药品6条数据
             if (msg.what == 21) {
                 Object o = msg.obj;
@@ -141,6 +152,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     mGridList = root.getRows();
                     mUseDrugAdapter.setmList(mGridList);
                     mUseDrugAdapter.notifyDataSetChanged();
+                    mSwipeRefresh.setRefreshing(false);
                 }
                 //首页资讯2条数据
             } else if (msg.what == 22) {
@@ -150,13 +162,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     mInforList = root.getRows();
                     mListViewAdapter.setList(mInforList);
                     mListViewAdapter.notifyDataSetChanged();
+                    mSwipeRefresh.setRefreshing(false);
                 }
             }
-
-
         }
     };
-
 
     public FirstPageFragment() {
         // Required empty public constructor
@@ -180,8 +190,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      */
     public void initHttp() {
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getFirstSixDrugData(handler);//首页常用药品6条数据
-        mHttptools.getFirstPageInformationTwoData(handler);//首页资讯2条数据
+        mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
+        mHttptools.getFirstPageInformationTwoData(mHttpHandler);//首页资讯2条数据
     }
 
     /**
@@ -196,14 +206,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                handler.postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
-                        mHttptools.getFirstSixDrugData(handler);//首页常用药品6条数据
-                        mHttptools.getFirstPageInformationTwoData(handler);//首页资讯2条数据
-                        mSwipeRefresh.setRefreshing(false);
+                        mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
+                        mHttptools.getFirstPageInformationTwoData(mHttpHandler);//首页资讯2条数据
                     }
                 }, 3000);
             }
@@ -211,10 +219,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //首页全部用户布局
         mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
         mUserData.add(1);
-//        mUserData.add(2);
-//        mUserData.add(3);
-//        mUserData.add(4);
-//        mUserData.add(5);
+        mUserData.add(2);
+        mUserData.add(3);
+        mUserData.add(4);
+        mUserData.add(5);
         //跳转到定位页面
         mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
@@ -277,9 +285,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //常用药品跳转
         mStaple_drug_rl = (RelativeLayout) view.findViewById(R.id.relative_drug);
         mStaple_drug_rl.setOnClickListener(this);
-        //添加用户按钮
-//        mAddUserImg = (LinearLayout) view.findViewById(R.id.adduser_ll);
-//        mAddUserImg.setOnClickListener(this);
     }
 
     /**
@@ -316,8 +321,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             mViewPagerAD.setCurrentItem(0);
             //当数据大于1条时，才可以滑动监听，才可以延迟发送消息进行轮播
             if (mListAd.size() > 1) {
-                mViewPagerAD.addOnPageChangeListener(new AdListenerImpl(mArrImageView, handler, mViewPagerAD, mListAd));
+                mViewPagerAD.addOnPageChangeListener(new AdListenerImpl(mArrImageView, handler, mViewPagerAD, mListAd, mSwipeRefresh));
                 //开始轮播效果
+                mViewPagerAD.setFocusable(true);
                 handler.sendEmptyMessageDelayed(1, 3000);
             }
         }
@@ -436,7 +442,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
             Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
-            intent.putExtra("type", 6);
+            intent.putExtra("type", 2);
+            intent.putExtra("name", "常用药品");
+            intent.putExtra("Cid", 11);
             startActivity(intent);
         } else if (id == mLocate_tv.getId()) {//跳转到定位页面
             Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
@@ -463,10 +471,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent == mGridview) {//跳转到药品详情页
-            startActivity(new Intent(getContext(), MS_drugInfo_activity.class));
+            Intent intent = new Intent(getContext(), MS_drugInfo_activity.class);
+            intent.putExtra("id", mGridList.get(position).getId());
+            startActivity(intent);
         } else if (parent == mFirstPageListView) {//跳转到资讯详情页
-            Intent intent=new Intent(getContext(), InformationDetailsActivity.class);
-            intent.putExtra("id",mInforList.get(position).getId());
+            Intent intent = new Intent(getContext(), InformationDetailsActivity.class);
+            intent.putExtra("id", mInforList.get(position).getId());
             startActivity(intent);
         }
     }
@@ -553,8 +563,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             if (aMapLocation.getErrorCode() == 0) {
                 //可在其中解析aMapLocation获取相应内容。
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                aMapLocation.getLatitude();//获取纬度
-                aMapLocation.getLongitude();//获取经度
+                user.Latitude = aMapLocation.getLatitude();//获取纬度
+                user.Longitude = aMapLocation.getLongitude();//获取经度
                 aMapLocation.getAccuracy();//获取精度信息
                 aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
                 aMapLocation.getCountry();//国家信息
@@ -622,7 +632,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
             //用户头像
             RoundImageView roundImageView = new RoundImageView(this.getContext());
-            roundImageView.setImageResource(R.mipmap.logo);
+            //roundImageView.setImageResource(R.mipmap.logo);
+            Picasso.with(getContext()).load(R.mipmap.logo).into(roundImageView);
             roundImageView.setLayoutParams(paramsImg);
 
             //用户昵称

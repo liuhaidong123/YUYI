@@ -1,57 +1,41 @@
 package com.technology.yuyi.bean;
 
 /**
- * Created by liuhaidong on 2017/3/13.
+ * Created by liuhaidong on 2017/3/15.
  */
 
-public class FirstPageInformationTwoData {
+public class UserMessage {
     private String createTimeString;
 
     private String updateTimeString;
 
+    private int gender;
+
+    private String idCard;
+
+    private String origin;
+
     private String updateTime;
 
-    private String hospitalName;
+    private String avatar;
 
-    private int oid;
+    private String userName;
 
     private String localId;
 
-    private String picture;
+    private String trueName;
 
-    private int areaCode;
+    private int marital;
 
     private String createTime;
 
-    private int grade;
+    private long id;
 
-    private int id;
-
-    private String introduction;
+    private int age;
 
     private String info;
 
     private int status;
-
-    private String address;
-
-    private String tell;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getTell() {
-        return tell;
-    }
-
-    public void setTell(String tell) {
-        this.tell = tell;
-    }
 
     public void setCreateTimeString(String createTimeString){
         this.createTimeString = createTimeString;
@@ -65,23 +49,41 @@ public class FirstPageInformationTwoData {
     public String getUpdateTimeString(){
         return this.updateTimeString;
     }
+    public void setGender(int gender){
+        this.gender = gender;
+    }
+    public int getGender(){
+        return this.gender;
+    }
+    public void setIdCard(String idCard){
+        this.idCard = idCard;
+    }
+    public String getIdCard(){
+        return this.idCard;
+    }
+    public void setOrigin(String origin){
+        this.origin = origin;
+    }
+    public String getOrigin(){
+        return this.origin;
+    }
     public void setUpdateTime(String updateTime){
         this.updateTime = updateTime;
     }
     public String getUpdateTime(){
         return this.updateTime;
     }
-    public void setHospitalName(String hospitalName){
-        this.hospitalName = hospitalName;
+    public void setAvatar(String avatar){
+        this.avatar = avatar;
     }
-    public String getHospitalName(){
-        return this.hospitalName;
+    public String getAvatar(){
+        return this.avatar;
     }
-    public void setOid(int oid){
-        this.oid = oid;
+    public void setUserName(String userName){
+        this.userName = userName;
     }
-    public int getOid(){
-        return this.oid;
+    public String getUserName(){
+        return this.userName;
     }
     public void setLocalId(String localId){
         this.localId = localId;
@@ -89,17 +91,17 @@ public class FirstPageInformationTwoData {
     public String getLocalId(){
         return this.localId;
     }
-    public void setPicture(String picture){
-        this.picture = picture;
+    public void setTrueName(String trueName){
+        this.trueName = trueName;
     }
-    public String getPicture(){
-        return this.picture;
+    public String getTrueName(){
+        return this.trueName;
     }
-    public void setAreaCode(int areaCode){
-        this.areaCode = areaCode;
+    public void setMarital(int marital){
+        this.marital = marital;
     }
-    public int getAreaCode(){
-        return this.areaCode;
+    public int getMarital(){
+        return this.marital;
     }
     public void setCreateTime(String createTime){
         this.createTime = createTime;
@@ -107,23 +109,17 @@ public class FirstPageInformationTwoData {
     public String getCreateTime(){
         return this.createTime;
     }
-    public void setGrade(int grade){
-        this.grade = grade;
-    }
-    public int getGrade(){
-        return this.grade;
-    }
     public void setId(int id){
         this.id = id;
     }
-    public int getId(){
+    public long getId(){
         return this.id;
     }
-    public void setIntroduction(String introduction){
-        this.introduction = introduction;
+    public void setAge(int age){
+        this.age = age;
     }
-    public String getIntroduction(){
-        return this.introduction;
+    public int getAge(){
+        return this.age;
     }
     public void setInfo(String info){
         this.info = info;

@@ -11,28 +11,32 @@ import android.text.TextUtils;
 
 public class user {
     public static String userName;
-    public static String userPs;
+    public static String userPsd;
+
+    public static double Latitude;//纬度
+    public static double Longitude;//经度
     //当前是否登陆过（未退出登陆）
     public static boolean isLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         String username=preferences.getString("username","0");
-        String userPsd=preferences.getString("userpsd","0");
-        if (!"0".equals(username)&&!"0".equals(userPsd)&&!"".equals(username)&&!""
-                .equals(userPsd)&&!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(userPsd)){
+        String userPs=preferences.getString("userpsd","0");
+        if (!"0".equals(username)&&!"0".equals(userPs)&&!"".equals(username)&&!""
+                .equals(userPs)&&!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(userPs)){
             userName=username;//存储到类中
-            userPs=userPsd;//存储到类中
+            userPsd=userPs;//存储到类中
             return true;
         }
         return false;
     }
-    //清楚登陆信息测试用:在登陆页面：MainActivity会执行清楚操作
+    //清除登陆信息测试用:在登陆页面：MainActivity会执行清除操作A
     public static void clearLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         SharedPreferences.Editor editor=preferences.edit();
         editor.remove("username");
         editor.remove("userpsd");
         editor.commit();
-        userPs="";
+        userPsd="";
         userName="";
     }
+
 }

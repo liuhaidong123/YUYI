@@ -3,7 +3,11 @@ package com.technology.yuyi.viewpager.impl;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.technology.yuyi.R;
 
@@ -21,13 +25,18 @@ public class AdListenerImpl implements ViewPager.OnPageChangeListener {
     private List<Integer> mImgList = new ArrayList<>();
     private ViewPager mAdViewpager;
     private Handler mHandler;
+    private SwipeRefreshLayout mResfresh;
 
-    public AdListenerImpl(ImageView[] mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Integer> mImgList) {
+    public AdListenerImpl(ImageView[] mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Integer> mImgList, SwipeRefreshLayout swipeRefreshLayout
+    ) {
         this.mImgCircleArr = mImgCircleArr;
         this.mHandler = mHandler;
         this.mAdViewpager = mAdViewpager;
         this.mImgList = mImgList;
+        this.mResfresh=swipeRefreshLayout;
     }
+
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -44,12 +53,17 @@ public class AdListenerImpl implements ViewPager.OnPageChangeListener {
         //手指开始滑动
         if (state == mAdViewpager.SCROLL_STATE_DRAGGING) {
             mHandler.removeMessages(1);
+            mResfresh.setFocusable(false);
+            mResfresh.setRefreshing(false);
             //手指松开后自动滑动
         } else if (state == mAdViewpager.SCROLL_STATE_SETTLING) {
             mHandler.removeMessages(1);
+            mResfresh.setFocusable(false);
+            mResfresh.setRefreshing(false);
             //停在某一页
         } else {
             mHandler.sendEmptyMessageDelayed(1, 3000);
+            mResfresh.setFocusable(true);
         }
     }
 
