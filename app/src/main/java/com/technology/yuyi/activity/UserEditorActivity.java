@@ -83,6 +83,11 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         //籍贯
         mAddressEdit=(EditText) findViewById(R.id.jg_edit);
         mAddressEdit.setSelection(mAddressEdit.getText().length());
+
+        select_head= (RelativeLayout) findViewById(R.id.select_head);
+        select_head.setOnClickListener(this);
+
+        usereditor_image_userphoto= (RoundImageView) findViewById(R.id.usereditor_image_userphoto);
     }
 
     @Override

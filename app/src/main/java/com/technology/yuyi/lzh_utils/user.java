@@ -32,12 +32,10 @@ public class user {
     public static void clearLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         SharedPreferences.Editor editor=preferences.edit();
-//        editor.putString("username","0");
-//        editor.putString("userpsd","0");
         editor.remove("username");
         editor.remove("userpsd");
         editor.commit();
-        userPs="";
+        userPsd="";
         userName="";
     }
 
