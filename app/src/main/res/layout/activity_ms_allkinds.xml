@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_white"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <com.technology.yuyi.lzh_utils.MybottomScro
         android:scrollbars="none"
         android:id="@+id/ms_allkinds_scrollview"
@@ -132,6 +133,8 @@
                         android:layout_height="1dp"
                         android:background="#cccccc"/>
                     <com.technology.yuyi.lzh_utils.MyExpanListview
+                        android:divider="@null"
+                        android:childDivider="@null"
                         android:id="@+id/ms_allkinds_expandlist"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -168,9 +171,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="10dp"
                             android:background="#f3f3f3"/>
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_below="@+id/fg"
-                            android:layout_centerInParent="true"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp"
+                            android:layout_centerHorizontal="true"
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
@@ -178,19 +183,20 @@
                                 android:id="@+id/ms_allkinds_progress"
                                 style="@style/Base.Widget.AppCompat.ProgressBar"
                                 android:layout_width="20dp"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
                                 android:layout_height="20dp"
                                 android:layout_gravity="center"/>
                             <TextView
+                                android:layout_toRightOf="@+id/ms_allkinds_progress"
                                 android:id="@+id/ms_allkinds_loadingText"
                                 android:layout_marginLeft="10dp"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="10dp"
                                 android:text="正在加载"
-                                android:gravity="center"
                                 android:textSize="15sp"
-                                android:paddingBottom="10dp"/>
-                        </LinearLayout>
+                                />
+                        </RelativeLayout>
 
                     </RelativeLayout>
                 </LinearLayout>

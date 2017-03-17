@@ -139,7 +139,6 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
-                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -165,7 +164,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                 case 3://请求小类药品成功
                     try{
                         bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
-                        listAlldrgus=allDrug.getRows();
+                        listAlldrgus.addAll(allDrug.getRows());
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
@@ -211,17 +210,19 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                                     startActivity(intent);
                                 }
                             });
-                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+
                         }
                         else {
                             toast.toast_gsonEmpty(MS_allkinds_activity.this);
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
+                            activity_my_allkinds.setVisibility(View.GONE);
                         }
 
                     }
                     catch (Exception e){
                         toast.toast_gsonFaild(MS_allkinds_activity.this);
+                        activity_my_allkinds.setVisibility(View.GONE);
                     }
                     break;
                 case 5://加载更多返回的数据
@@ -235,17 +236,6 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                             listAlldrgus.addAll(drugsMore.getRows());
                             adapter.notifyDataSetChanged();
                             ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
-//                            switch (type) {
-//                                case Intent_Code.code_MS_allkinds_typeAll://查询全部
-//
-//                                    break;
-//                                case Intent_Code.code_MS_allkinds_typeSmall://查询小类
-//
-//                                    break;
-//                                case Intent_Code.code_MS_allkinds_typeLarge://查询大类
-//
-//                                    break;
-//                            }
                         }
                         else {
                             ms_allkinds_bottom_loading.setVisibility(View.GONE);
@@ -316,8 +306,10 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
     }
 
     public void getAllKinds(View view) {
+        ms_allkinds_bottom_loading.setVisibility(View.GONE);
         if (view.getId()==R.id.ms_allkinds_relative_allkinds){
             if (ms_allkinds_image_sort.isSelected()){//当前显示的时全部分类
+                ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
                 activity_my_allkinds.setVisibility(View.GONE);
                 ms_allkinds_allkinds.setVisibility(View.VISIBLE);
                 ms_allkinds_image_sort.setSelected(false);
@@ -373,10 +365,14 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
 
     @Override
     public void onChildSelect(int ChildId, String ChildName) {
-        ms_allkinds_textV_name.setText(ChildName);
+
         activity_my_allkinds.setVisibility(View.GONE);
-        ms_allkinds_myGridview.setVisibility(View.VISIBLE);
+        ms_allkinds_allkinds.setVisibility(View.VISIBLE);
         ms_allkinds_image_sort.setSelected(false);
+
+
+        ms_allkinds_textV_name.setText(ChildName);
+        ms_allkinds_myGridview.setVisibility(View.VISIBLE);
         getDrugsSmall(ChildId,0,10);
     }
 
@@ -426,6 +422,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
             }
         });
     }
+
     //获取全部药品
     public void getAllDrugs(int start,int limt) {
         listAlldrgus=new ArrayList<>();
@@ -452,12 +449,6 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
             }
         });
     }
-
-
-
-
-
-
 
     public void getMoreDrugs(int type,int start){//每次多取10个
         ms_allkinds_loadingText.setText("正在加载");
