@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.FamilyManageListViewAdapter;
 
-public class FamilyManageActivity extends AppCompatActivity implements View.OnClickListener ,AdapterView.OnItemClickListener{
+public class FamilyManageActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView mLisView;
     private FamilyManageListViewAdapter mAdapter;
     private TextView mAddFamily;
@@ -45,7 +45,9 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
         int id = v.getId();
         //添加
         if (id == mAddFamily.getId()) {
-            startActivity(new Intent(this, AddFamilyUserActivity.class));
+            Intent intent = new Intent(this, AddFamilyUserActivity.class);
+            intent.putExtra("title", "添加家庭用户");
+            startActivity(intent);
             //返回
         } else if (id == mBack.getId()) {
             finish();
@@ -54,6 +56,6 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      startActivity(new Intent(this,FamilyUserMessageActivity.class));
+        startActivity(new Intent(this, FamilyUserMessageActivity.class));
     }
 }

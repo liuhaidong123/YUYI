@@ -75,7 +75,10 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
         } else if (id == mMyData_rl.getId()) {//我的数据分析
             startActivity(new Intent(this, MyDataAnalyseActivity.class));
         } else if (id == mEditImg.getId()) {//编辑图片(将用户信息传过去)
-            startActivity(new Intent(this, AddFamilyUserActivity.class));
+          Intent intent=  new Intent(this, AddFamilyUserActivity.class);
+            intent.putExtra("title","修改家庭用户");
+            startActivity(intent);
+
         } else if (id == mMyFiles_rl.getId()) {//病历档案(将用户信息传过去)
             startActivity(new Intent(this, LookElectronicMessActivity.class));
         } else if (id == mDelete_btn.getId()) {//删除用户

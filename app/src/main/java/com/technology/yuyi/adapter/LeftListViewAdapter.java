@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.HospitalDepartmentMessage;
 import com.technology.yuyi.bean.MyEntity;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.List;
 public class LeftListViewAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<MyEntity> mList = new ArrayList();
+    private List<HospitalDepartmentMessage> mList = new ArrayList();
 
 
     public LeftListViewAdapter(Context mContext, List mList) {
@@ -30,6 +31,9 @@ public class LeftListViewAdapter extends BaseAdapter {
         mInflater = LayoutInflater.from(this.mContext);
     }
 
+    public void setmList(List<HospitalDepartmentMessage> mList) {
+        this.mList = mList;
+    }
 
     @Override
     public int getCount() {
@@ -59,32 +63,32 @@ public class LeftListViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        final MyEntity entity=mList.get(position);
-        String title=entity.getTitle();
+        final HospitalDepartmentMessage entity=mList.get(position);
+        String title=entity.getDepartmentName();
         TextView tv=viewHolder.textView;
         tv.setText(title);
 
         //点击的时候文字和背景变颜色
-        if(entity.isSelected()){
+        if(entity.isOpen()){
             tv.setBackgroundColor(Color.parseColor("#ffffff"));
             tv.setTextColor(Color.parseColor("#25f368"));
         }else{
             tv.setBackgroundColor(Color.parseColor("#f2f2f2"));
             tv.setTextColor(Color.parseColor("#333333"));
         }
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for(MyEntity e:mList){
-                    if(e==entity){
-                        e.setSelected(true);
-                    }else {
-                        e.setSelected(false);
-                    }
-                }
-                notifyDataSetChanged();
-            }
-        });
+//        tv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for(HospitalDepartmentMessage e:mList){
+//                    if(e==entity){
+//                        e.setOpen(true);
+//                    }else {
+//                        e.setOpen(false);
+//                    }
+//                }
+//                notifyDataSetChanged();
+//            }
+//        });
         return convertView;
 
     }

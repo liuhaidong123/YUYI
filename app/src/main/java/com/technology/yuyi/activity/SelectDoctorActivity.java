@@ -1,6 +1,8 @@
 package com.technology.yuyi.activity;
 
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.SelectDoctorListViewAdapter;
+import com.technology.yuyi.bean.UserRegisterRoot;
 
 import java.util.ArrayList;
 
 public class SelectDoctorActivity extends AppCompatActivity implements View.OnClickListener {
+    private TextView mName_ke;
     private ImageView mBack;
     private ListView mListView;
     private SelectDoctorListViewAdapter mAdapter;
@@ -47,6 +52,22 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     private ArrayList<TextView> mMorninng = new ArrayList<>();
     private ArrayList<TextView> mAfternoon = new ArrayList<>();
 
+    private HttpTools mHttptools;
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what==30){
+                Object o=msg.obj;
+                if (o!=null&& o instanceof UserRegisterRoot){
+                    UserRegisterRoot root= (UserRegisterRoot) o;
+                    if (root.getCode().equals("0")){
+
+                    }
+                }
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +76,12 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void initView() {
+        //获取网络数据
+        mHttptools=HttpTools.getHttpToolsInstance();
+        mHttptools.getUserRegisterData(mHandler,getIntent().getIntExtra("cid",-1));
+
+        mName_ke= (TextView) findViewById(R.id.name_ke);
+        mName_ke.setText(getIntent().getStringExtra("name"));
         //返回
         mBack = (ImageView) findViewById(R.id.doctor_back);
         mBack.setOnClickListener(this);

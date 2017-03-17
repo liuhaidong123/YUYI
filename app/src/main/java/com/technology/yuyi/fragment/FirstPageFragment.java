@@ -164,6 +164,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     mListViewAdapter.notifyDataSetChanged();
                     mSwipeRefresh.setRefreshing(false);
                 }
+            }else if (msg.what==101){
+                mSwipeRefresh.setRefreshing(false);
             }
         }
     };
@@ -191,7 +193,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void initHttp() {
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
-        mHttptools.getFirstPageInformationTwoData(mHttpHandler);//首页资讯2条数据
+        mHttptools.getFirstPageInformationTwoData(mHttpHandler,0,2);//首页资讯2条数据
     }
 
     /**
@@ -206,14 +208,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
                         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
-                        mHttptools.getFirstPageInformationTwoData(mHttpHandler);//首页资讯2条数据
-                    }
-                }, 3000);
+                        mHttptools.getFirstPageInformationTwoData(mHttpHandler,0,2);//首页资讯2条数据
             }
         });
         //首页全部用户布局
@@ -444,7 +440,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
             intent.putExtra("type", 2);
             intent.putExtra("name", "常用药品");
-            intent.putExtra("Cid", 11);
+            intent.putExtra("Cid", 1);
             startActivity(intent);
         } else if (id == mLocate_tv.getId()) {//跳转到定位页面
             Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
@@ -695,7 +691,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             addlinear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), AddFamilyUserActivity.class));
+                  Intent intent=  new Intent(getContext(), AddFamilyUserActivity.class);
+                    intent.putExtra("title","添加家庭用户");
+                    startActivity(intent);
                 }
             });
         }

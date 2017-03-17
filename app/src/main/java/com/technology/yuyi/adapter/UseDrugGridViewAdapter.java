@@ -64,9 +64,9 @@ public class UseDrugGridViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-          viewHolder.drugname.setText(mList.get(position).getDrugsName());
-          viewHolder.drugprice.setText("¥"+mList.get(position).getPrice());
-         Picasso.with(mContext).load(UrlTools.BASE+mList.get(position).getPicture()) .into(viewHolder.drugimg);
+        viewHolder.drugname.setText(mList.get(position).getDrugsName());
+        viewHolder.drugprice.setText("¥" + mList.get(position).getPrice());
+        Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.drugimg);
         return convertView;
     }
 

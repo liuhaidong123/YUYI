@@ -26,6 +26,8 @@ import com.technology.yuyi.lzh_utils.ResCode;
 import com.technology.yuyi.myview.RoundImageView;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class AddFamilyUserActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
@@ -34,6 +36,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     private File file;
     private TextView usereditor_textv_cancle,usereditor_textv_picture,usereditor_textv_camera;
     private PopupWindow pop;
+    private TextView title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
     public void initView() {
+        title= (TextView) findViewById(R.id.title);
+        title.setText(getIntent().getStringExtra("title"));
         //返回
         mBack = (ImageView) findViewById(R.id.add_family_back);
         mBack.setOnClickListener(this);
@@ -67,10 +73,17 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             showWindowUploading();
         }
         else if (id==usereditor_textv_picture.getId()){
-            SearchPhoto();
+            if (pop!=null) {
+                pop.dismiss();
+                SearchPhoto();
+            }
+
         }
         else if (id==usereditor_textv_camera.getId()){
-            TakePhoto();
+
+                TakePhoto();
+
+
         }
         else if (id==usereditor_textv_cancle.getId()){
                 if (pop!=null){
@@ -79,6 +92,34 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    /**
+     * 将图片读到本地
+     * @param url
+     * @param bitmap
+     */
+    private void write2Local(String url, Bitmap bitmap) {
+        String name="";
+        FileOutputStream fos = null;
+        try {
+           // name = MD5Encoder.encode(url);
+            File file = new File(getCacheDir(), name);
+            fos = new FileOutputStream(file);
+
+            // 将图像写到流中
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                    fos = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 
     private void showWindowUploading() {
@@ -123,7 +164,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    //浏览图片库
+    //拍照
     private void TakePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file=new File(getExternalFilesDir("DCIM").getAbsolutePath(),System.currentTimeMillis()+".jpg");
@@ -133,7 +174,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    //拍照
+    //浏览图片库
     private void SearchPhoto() {
         Intent intent=new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -185,6 +226,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                         Bitmap btm=data.getExtras().getParcelable("data");
                         if (btm!=null){
                             add_head_tv.setImageBitmap(btm);
+
                             if (pop!=null){
                                 pop.dismiss();
                             }

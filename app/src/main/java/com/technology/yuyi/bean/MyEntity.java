@@ -6,15 +6,13 @@ package com.technology.yuyi.bean;
 
 public class MyEntity {
     private String title;
-    private boolean isSelected;
+    private String name;
+    private int id;
 
-    public MyEntity() {
-
-    }
-
-    public MyEntity(String title, boolean isSelected) {
+    public MyEntity(String title, String name, int id) {
         this.title = title;
-        this.isSelected = isSelected;
+        this.name = name;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -25,11 +23,19 @@ public class MyEntity {
         this.title = title;
     }
 
-    public boolean isSelected() {
-        return isSelected;
+    public String getName() {
+        return name;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

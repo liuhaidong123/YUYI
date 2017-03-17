@@ -5,12 +5,13 @@ import android.os.Message;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.technology.yuyi.bean.City;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.bean.HospitalDepartmentRoot;
 import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.UserMessage;
+import com.technology.yuyi.bean.UserRegisterRoot;
 import com.technology.yuyi.bean.ValidateCodeRoot;
 
 import net.tsz.afinal.FinalHttp;
@@ -71,6 +72,7 @@ public class HttpTools {
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败6条数据：", strMsg);
+                handler.sendEmptyMessage(101);
             }
         });
     }
@@ -79,8 +81,8 @@ public class HttpTools {
     /**
      * 获取首页资讯2条数据
      */
-    public void getFirstPageInformationTwoData(final Handler handler) {
-        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA;
+    public void getFirstPageInformationTwoData(final Handler handler,int start,int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA+"start="+start+"&limit="+limit;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -103,6 +105,7 @@ public class HttpTools {
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败资讯2条数据：", strMsg);
+                handler.sendEmptyMessage(101);
             }
         });
     }
@@ -141,8 +144,8 @@ public class HttpTools {
     /**
      * 获取咨询页面数据
      */
-    public void getAskData(final Handler handler) {
-        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA;
+    public void getAskData(final Handler handler,int start,int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA+"start="+start+"&limit="+limit;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -165,6 +168,7 @@ public class HttpTools {
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败咨询页面数据：", strMsg);
+                handler.sendEmptyMessage(101);
             }
         });
     }
@@ -301,6 +305,111 @@ public class HttpTools {
         });
 
     }
+
+
+    /**
+     *
+     *预约挂号接口
+     */
+
+    public void getAppintmentData(final Handler handler,int start,int limit){
+        String url=UrlTools.BASE+UrlTools.URL_FIRST_PAGE_TWO_DATA+"start="+start+"&limit="+limit;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始预约挂号数据");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功预约挂号数据：", s);
+                FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
+                Message message = new Message();
+                message.what = 28;
+                message.obj = root;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败预约挂号数据：", strMsg);
+                handler.sendEmptyMessage(101);
+            }
+        });
+
+
+    }
+
+
+    /**
+     *
+     *医院科室接口
+     */
+
+    public void getHospitalDepartmentData(final Handler handler ,int hid ){
+        String url=UrlTools.BASE+UrlTools.URL_HOSPITAL_DEPARTMENT+"hid="+hid;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始医院科室数据");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功医院科室数据：", s);
+                HospitalDepartmentRoot root = mGson.fromJson(s, HospitalDepartmentRoot.class);
+                Message message = new Message();
+                message.what = 29;
+                message.obj = root;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败医院科室数据：", strMsg);
+            }
+        });
+    }
+
+    /**
+     *
+     *医院挂号接口
+     */
+    public void getUserRegisterData(final Handler handler ,int cid ){
+        String url=UrlTools.BASE+UrlTools.URL_USER_REGISTER+"cid="+cid;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始医院科室数据");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功医院科室数据：", s);
+                UserRegisterRoot root = mGson.fromJson(s, UserRegisterRoot.class);
+                Message message = new Message();
+                message.what = 30;
+                message.obj = root;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败医院科室数据：", strMsg);
+            }
+        });
+    }
+
+
 
     //获取网络数据(get方法)
     public void getMessage(final Handler handler, String param1, String param2, String param3) {

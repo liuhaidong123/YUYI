@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -37,30 +37,38 @@
         android:layout_below="@id/depart_title"
         android:background="@color/color_bg" />
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/left_right_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/depart_line"
-        android:orientation="horizontal">
+        android:layout_below="@id/depart_line">
 
-        <ListView
-            android:scrollbars="none"
-            android:id="@+id/left_listview"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
-            android:background="@color/color_scroll_bg"
-            android:divider="@null">
-
-        </ListView>
-
-        <ListView
-            android:scrollbars="none"
-            android:id="@+id/right_listview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_white"
-            android:divider="@null">
+            android:orientation="horizontal">
 
-        </ListView>
-    </LinearLayout>
+            <ListView
+                android:id="@+id/left_listview"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:background="@color/color_scroll_bg"
+                android:divider="@null"
+                android:scrollbars="none">
+
+            </ListView>
+
+            <ListView
+                android:id="@+id/right_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_white"
+                android:divider="@null"
+                android:scrollbars="none">
+
+            </ListView>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
 </RelativeLayout>

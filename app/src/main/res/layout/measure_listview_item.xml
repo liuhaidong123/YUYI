@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -8,19 +10,20 @@
         android:background="@color/color_white">
 
         <ImageView
-            android:layout_marginStart="28dp"
             android:id="@+id/blood_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginStart="28dp"
             android:src="@mipmap/mea_bpg_icon_norm_1" />
 
         <RelativeLayout
-            android:layout_toEndOf="@id/blood_img"
-            android:layout_marginStart="20dp"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/blood_img">
+
             <TextView
                 android:id="@+id/tv_blood"
                 android:layout_width="wrap_content"
@@ -30,10 +33,11 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tv_mess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:layout_below="@id/tv_blood"
+                android:layout_marginTop="6dp"
                 android:text="@string/str_record"
                 android:textColor="@color/color_press"
                 android:textSize="13sp" />

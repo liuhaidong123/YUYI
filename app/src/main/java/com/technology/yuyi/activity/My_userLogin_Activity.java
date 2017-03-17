@@ -19,6 +19,7 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
+import com.technology.yuyi.lzh_utils.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,9 +81,12 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         edi.putString("userpsd", root.getResult());
                         Log.e("token：",root.getResult());
                         edi.commit();
+                        user.userName=userName;
+                        user.userPsd=root.getResult();
                         //d点击登录注释
                         Intent intent = new Intent();
                         intent.setClass(My_userLogin_Activity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
                     }else {
@@ -189,5 +193,11 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
     }
 }

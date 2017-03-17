@@ -64,7 +64,7 @@ public class FirstPageListViewAdapter extends BaseAdapter {
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getPicture()).into(viewHolder.imageView);
+        Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.imageView);
         viewHolder.hospital_tv.setText(list.get(position).getHospitalName());
         viewHolder.hospital_message_tv.setText(list.get(position).getIntroduction());
         return convertView;

@@ -37,6 +37,7 @@
         android:layout_below="@id/infor_title"
         android:background="@color/color_bg" />
 
+
     <RelativeLayout
         android:id="@+id/search_relative"
         android:layout_width="match_parent"
@@ -66,7 +67,6 @@
                     android:background="@mipmap/search" />
 
                 <TextView
-                   android:gravity="center"
                     android:id="@+id/app_edit_box"
                     android:layout_width="wrap_content"
                     android:layout_height="29dp"
@@ -74,8 +74,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/app_search_img"
                     android:background="@null"
-                    android:text="搜索医院"
+                    android:gravity="center"
                     android:maxLines="1"
+                    android:text="搜索医院"
                     android:textColor="@color/color_edit_hint"
                     android:textSize="14sp" />
             </RelativeLayout>
@@ -92,12 +93,62 @@
         android:layout_below="@id/search_relative"
         android:background="@color/color_bg" />
 
-    <ListView
-        android:id="@+id/app_listview_id"
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/app_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/app_line2">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </ListView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.technology.yuyi.myview.InformationListView
+                    android:id="@+id/app_listview_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.technology.yuyi.myview.InformationListView>
+
+                <RelativeLayout
+                    android:id="@+id/in_many_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/app_listview_id"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/footer_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:paddingBottom="15dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingTop="15dp"
+                        android:text="加载更多"
+                        android:textColor="@color/color_normal"
+                        android:textSize="13sp" />
+
+                    <ProgressBar
+                        android:id="@+id/in_pbLocate"
+                        style="?android:attr/progressBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/footer_tv"
+                        android:paddingTop="15dp"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>

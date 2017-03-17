@@ -1,50 +1,50 @@
 package com.technology.yuyi.bean;
 
+import java.util.List;
+
 /**
- * Created by liuhaidong on 2017/3/13.
+ * Created by liuhaidong on 2017/3/16.
  */
 
-public class FirstPageInformationTwoData {
-
-    private String gradeName;
+public class HospitalDepartmentMessage {
+    private String departmentName;
 
     private String createTimeString;
 
-    private String address;
-
     private String updateTimeString;
 
-    private String tell;
-
     private String updateTime;
-
-    private String hospitalName;
 
     private int oid;
 
     private String localId;
 
-    private String picture;
-
-    private int areaCode;
+    private List<HospitalOutPatient> clinicList;
 
     private String createTime;
 
-    private int grade;
+    private int hospitalId;
 
     private int id;
-
-    private String introduction;
 
     private String info;
 
     private int status;
 
-    public void setGradeName(String gradeName){
-        this.gradeName = gradeName;
+    public boolean isOpen() {
+        return open;
     }
-    public String getGradeName(){
-        return this.gradeName;
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    private boolean open;
+    public void setDepartmentName(String departmentName){
+        this.departmentName = departmentName;
+    }
+    public String getDepartmentName(){
+        return this.departmentName;
     }
     public void setCreateTimeString(String createTimeString){
         this.createTimeString = createTimeString;
@@ -52,35 +52,17 @@ public class FirstPageInformationTwoData {
     public String getCreateTimeString(){
         return this.createTimeString;
     }
-    public void setAddress(String address){
-        this.address = address;
-    }
-    public String getAddress(){
-        return this.address;
-    }
     public void setUpdateTimeString(String updateTimeString){
         this.updateTimeString = updateTimeString;
     }
     public String getUpdateTimeString(){
         return this.updateTimeString;
     }
-    public void setTell(String tell){
-        this.tell = tell;
-    }
-    public String getTell(){
-        return this.tell;
-    }
     public void setUpdateTime(String updateTime){
         this.updateTime = updateTime;
     }
     public String getUpdateTime(){
         return this.updateTime;
-    }
-    public void setHospitalName(String hospitalName){
-        this.hospitalName = hospitalName;
-    }
-    public String getHospitalName(){
-        return this.hospitalName;
     }
     public void setOid(int oid){
         this.oid = oid;
@@ -94,17 +76,11 @@ public class FirstPageInformationTwoData {
     public String getLocalId(){
         return this.localId;
     }
-    public void setPicture(String picture){
-        this.picture = picture;
+    public void setClinicList(List<HospitalOutPatient> clinicList){
+        this.clinicList = clinicList;
     }
-    public String getPicture(){
-        return this.picture;
-    }
-    public void setAreaCode(int areaCode){
-        this.areaCode = areaCode;
-    }
-    public int getAreaCode(){
-        return this.areaCode;
+    public List<HospitalOutPatient> getClinicList(){
+        return this.clinicList;
     }
     public void setCreateTime(String createTime){
         this.createTime = createTime;
@@ -112,23 +88,17 @@ public class FirstPageInformationTwoData {
     public String getCreateTime(){
         return this.createTime;
     }
-    public void setGrade(int grade){
-        this.grade = grade;
+    public void setHospitalId(int hospitalId){
+        this.hospitalId = hospitalId;
     }
-    public int getGrade(){
-        return this.grade;
+    public int getHospitalId(){
+        return this.hospitalId;
     }
     public void setId(int id){
         this.id = id;
     }
     public int getId(){
         return this.id;
-    }
-    public void setIntroduction(String introduction){
-        this.introduction = introduction;
-    }
-    public String getIntroduction(){
-        return this.introduction;
     }
     public void setInfo(String info){
         this.info = info;
@@ -142,5 +112,4 @@ public class FirstPageInformationTwoData {
     public int getStatus(){
         return this.status;
     }
-
 }

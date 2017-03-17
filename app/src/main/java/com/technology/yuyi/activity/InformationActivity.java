@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
@@ -27,6 +29,11 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     private InformationListViewAdapter mInformationAdapter;
     private List<FirstPageInformationTwoData> mList = new ArrayList<>();
     private ImageView mBack;
+
+    private RelativeLayout mMany_more;
+    private ProgressBar mBar;
+    private int mStart = 0;
+    private int mAddNum = 5;
     private SwipeRefreshLayout mSwipeLayout;//刷新
     private HttpTools mHttptools;
     private Handler handler = new Handler() {
@@ -37,10 +44,25 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
                 Object o = msg.obj;
                 if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
                     FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
-                    mList = root.getRows();
+                    List<FirstPageInformationTwoData> list = new ArrayList<>();
+                    list = root.getRows();
+                    mList.addAll(list);
                     mInformationAdapter.setList(mList);
                     mInformationAdapter.notifyDataSetChanged();
+                    mSwipeLayout.setRefreshing(false);
+                    Toast.makeText(InformationActivity.this, "刷新成功", Toast.LENGTH_SHORT).show();
+                    mBar.setVisibility(View.INVISIBLE);
+                    if (list.size() == 5) {
+                        mMany_more.setVisibility(View.VISIBLE);
+                    } else {
+                        mMany_more.setVisibility(View.GONE);
+
+                    }
+
                 }
+            } else if (msg.what == 101) {
+                mSwipeLayout.setRefreshing(false);
+                Toast.makeText(InformationActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -59,22 +81,32 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     public void initView() {
         //获取资讯页面数据
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getFirstPageInformationTwoData(handler);
+        mHttptools.getFirstPageInformationTwoData(handler, 0, 5);
 
+        mMany_more = (RelativeLayout) findViewById(R.id.in_many_relative);
+        mBar = (ProgressBar) findViewById(R.id.in_pbLocate);
+        //加载更多
+        mMany_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBar.setVisibility(View.VISIBLE);
+                mStart+=5;
+                mHttptools.getFirstPageInformationTwoData(handler, mStart, mAddNum);
+
+            }
+        });
         //刷新
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refreshlayout_id);
+        mSwipeLayout.setRefreshing(true);
         mSwipeLayout.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(InformationActivity.this, "刷新完成", Toast.LENGTH_SHORT).show();
-                        mHttptools.getFirstPageInformationTwoData(handler);
-                        mSwipeLayout.setRefreshing(false);
-                    }
-                }, 3000);
+                mList.clear();
+                mStart=0;
+                mHttptools.getFirstPageInformationTwoData(handler, 0, 5);
+
+
             }
         });
         //资讯adapter
@@ -87,7 +119,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(InformationActivity.this, InformationDetailsActivity.class);
                 intent.putExtra("id", mList.get(position).getId());//将医院的id传过去
-                Log.e("id=",mList.get(position).getId()+"");
+                Log.e("id=", mList.get(position).getId() + "");
                 startActivity(intent);
             }
         });

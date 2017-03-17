@@ -28,6 +28,10 @@ import com.technology.yuyi.activity.CurrentTemActivity;
 import com.technology.yuyi.activity.HandInputBloodActivity;
 import com.technology.yuyi.activity.HandInputTemActivity;
 import com.technology.yuyi.adapter.MeasureListViewAdapter;
+import com.technology.yuyi.bean.MyEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +48,8 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
     private Button mCancelBtn;
     private RelativeLayout mAddRelative;
     private int mPosition;
+
+    private List<MyEntity> list=new ArrayList<>();
     public MeasureFragment() {
         // Required empty public constructor
     }
@@ -58,10 +64,12 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     public void initView(View view) {
+        list.add(new MyEntity("体温计","测量记录",R.mipmap.mea_bpg_icon_norm_1));
+        list.add(new MyEntity("血压计","血压测量记录",R.mipmap.mea_therm_icon_norm_2));
         //设备
         mMeasureListView = (ListView) view.findViewById(R.id.measure_listview_id);
         mMeasureListView.setOnItemClickListener(this);
-        mAdapter = new MeasureListViewAdapter(this.getContext());
+        mAdapter = new MeasureListViewAdapter(this.getContext(),list);
         mMeasureListView.setAdapter(mAdapter);
         //点击设备弹框
         mBuilder = new AlertDialog.Builder(this.getContext());
@@ -77,42 +85,43 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
         mHandBtn.setOnClickListener(this);
         mCancelBtn = (Button) mAlertView.findViewById(R.id.btn_cancel);
         mCancelBtn.setOnClickListener(this);
-        //添加设备
-        mAddRelative= (RelativeLayout) view.findViewById(R.id.add_relative);
-        mAddRelative.setOnClickListener(this);
+//        //添加设备
+//        mAddRelative= (RelativeLayout) view.findViewById(R.id.add_relative);
+//        mAddRelative.setOnClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mAlertDialog.show();
-        mPosition=position;
+        mPosition = position;
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == mAutoBtn.getId()) {
-           mAlertDialog.dismiss();
-            if (mPosition==0){//自动输入体温
-                startActivity(new Intent(this.getContext(),CurrentTemActivity.class));
-            }else if (mPosition==1){//自动输入血压
-                startActivity(new Intent(this.getContext(),CurrentBloodActivity.class));
+            mAlertDialog.dismiss();
+            if (mPosition == 0) {//自动输入体温
+                startActivity(new Intent(this.getContext(), CurrentTemActivity.class));
+            } else if (mPosition == 1) {//自动输入血压
+                startActivity(new Intent(this.getContext(), CurrentBloodActivity.class));
             }
 
         } else if (id == mHandBtn.getId()) {
             mAlertDialog.dismiss();
 
-            if (mPosition==0){//手动输入体温
-                startActivity(new Intent(this.getContext(),HandInputTemActivity.class));
-            }else if (mPosition==1){//手动输入血压
-                startActivity(new Intent(this.getContext(),HandInputBloodActivity.class));
+            if (mPosition == 0) {//手动输入体温
+                startActivity(new Intent(this.getContext(), HandInputTemActivity.class));
+            } else if (mPosition == 1) {//手动输入血压
+                startActivity(new Intent(this.getContext(), HandInputBloodActivity.class));
             }
 
         } else if (id == mCancelBtn.getId()) {
             mAlertDialog.dismiss();
-        }else if (id == mAddRelative.getId()) {//添加设备
-           startActivity(new Intent(this.getContext(),AddEquipmentActivity.class));
         }
+        //else if (id == mAddRelative.getId()) {//添加设备
+//           startActivity(new Intent(this.getContext(),AddEquipmentActivity.class));
+//        }
     }
 
 }

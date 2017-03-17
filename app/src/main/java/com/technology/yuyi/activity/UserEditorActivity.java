@@ -99,6 +99,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             setAlertWidth();
                 break;
             case R.id.editor_back://返回
+                finish();
                 break;
             case R.id.select_head://上传头像
                 showWindowUploading();//
