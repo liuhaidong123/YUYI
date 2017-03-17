@@ -52,11 +52,6 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/background"/>
-
     <ScrollView
         android:scrollbars="none"
         android:layout_width="match_parent"
@@ -137,5 +132,10 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background"/>
 
 </LinearLayout>

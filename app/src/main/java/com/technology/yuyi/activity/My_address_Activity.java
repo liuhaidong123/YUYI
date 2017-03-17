@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,9 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_UserAddress;
+import com.technology.yuyi.bean.bean_UserEditAddress;
+import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.MyActivity;
 import com.technology.yuyi.lzh_utils.ResCode;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
+import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.lzh_view.ArrayWheelAdapter;
 import com.technology.yuyi.lzh_view.MyWheelAdapter;
 import com.technology.yuyi.lzh_view.OnWheelChangedListener;
@@ -56,18 +68,88 @@ public class My_address_Activity extends Activity implements OnWheelChangedListe
     private MyWheelAdapter adapterPro,adapterCity,adapterAres;
     private EditText my_address_name,my_address_phoneNum,my_address_addressinfo,my_address_postCode;//xingming,dianhua,填写的地址,邮编
     private TextView my_address_addressSelect;//选择的地址
-
+    private TextView activity_address_title;
 
     private String selectAddress;//被选中等address（省市县）
     private String pro,cit,area;
+    private String resultStr;
+    private String id;
+
+    String name;
+    String addressSelect;
+    String addressInfo;
+    String postCode;
+    String phonenum;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    toast.toast_faild(My_address_Activity.this);
+                    break;
+                case 1://请求用户信息的接口返回
+                    if (!"".equals(resultStr)&&!TextUtils.isEmpty(resultStr)){//用户已经添加了收货地址
+                        try{
+                            bean_UserAddress ad= gson.gson.fromJson(resultStr,bean_UserAddress.class);
+                            id=ad.getId()+"";
+                            my_address_name.setText(ad.getTrueName());
+                            my_address_addressSelect.setText(ad.getAreaName());
+                            my_address_phoneNum.setText(ad.getTelephone());
+                            my_address_addressinfo.setText(ad.getAddress());
+                            my_address_postCode.setText(ad.getPostCode());
+                        }
+                        catch (Exception e){
+                            toast.toast_gsonFaild(My_address_Activity.this);
+                        }
+                        activity_address_title.setText("地址编辑");
+                    }
+
+                    else {//用户还没有添加地址,不做处理
+                        activity_address_title.setText("收货地址");
+                    }
+                    break;
+                case 2://添加／修改地址成功
+                    try{
+                       bean_UserEditAddress edi=gson.gson.fromJson(resultStr,bean_UserEditAddress.class);
+                       String code=edi.getCode();
+                        if ("-1".equals(code)){
+                            Toast.makeText(My_address_Activity.this,"用户登陆状态失效：当前用户在其他设备登陆",Toast.LENGTH_SHORT).show();
+                            user.clearLogin(My_address_Activity.this);
+                        }
+                        else if ("0".equals(code)){
+                            Toast.makeText(My_address_Activity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent();
+                            Bundle b=new Bundle();
+                            b.putString("name",name);
+                            b.putString("address",addressSelect+addressInfo);
+                            b.putString("phonenum",phonenum);
+                            intent.putExtra("bundle",b);
+                            setResult(ResCode.Response_drugbuy,intent);
+                            finish();
+
+                        }
+                        else {
+                            Toast.makeText(My_address_Activity.this,"修改失败",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(My_address_Activity.this);
+                    }
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_address);
         initView();
+        getUserAddress();
     }
 
     private void initView() {
+        activity_address_title= (TextView) findViewById(R.id.activity_address_title);
         my_address_name= (EditText) findViewById(R.id.my_address_name);
         my_address_phoneNum= (EditText) findViewById(R.id.my_address_phoneNum);
         my_address_addressinfo= (EditText) findViewById(R.id.my_address_addressinfo);
@@ -156,8 +238,6 @@ public class My_address_Activity extends Activity implements OnWheelChangedListe
                 List<String>li=mCity.get(mProvince.get(currentPro));
                 area=mArea.get(li.get(0)).get(0);
 
-                //        private String selectAddress;//被选中等address（省市县）
-//        private String pro,cit,area;
             }
         });
         my_address_pop_wheelV_City.addChangingListener(new OnWheelChangedListener() {
@@ -291,32 +371,71 @@ public class My_address_Activity extends Activity implements OnWheelChangedListe
 
     public void submit(View view) {
         if (view.getId()==R.id.my_address_submit) {//提交地址信息
-            String name = my_address_name.getText().toString();
-            String addressSelect = my_address_addressSelect.getText().toString();
-            String addressInfo = my_address_addressinfo.getText().toString();
-            String postCode = my_address_postCode.getText().toString();
-            String phonenum=my_address_phoneNum.getText().toString();
+            name = my_address_name.getText().toString();
+           addressSelect = my_address_addressSelect.getText().toString();
+            addressInfo = my_address_addressinfo.getText().toString();
+            postCode = my_address_postCode.getText().toString();
+           phonenum=my_address_phoneNum.getText().toString();
             if (IsSuccess(name,addressInfo,addressSelect,postCode,phonenum)){
-                Intent intent=new Intent();
-                Bundle b=new Bundle();
-                b.putString("name",name);
-                b.putString("address",addressSelect+addressInfo);
-                b.putString("phonenum",phonenum);
-                intent.putExtra("bundle",b);
-                setResult(ResCode.Response_drugbuy,intent);
-                finish();
+
+                submitAddress();//提交信息
+
             }
             else {
                 Toast.makeText(My_address_Activity.this,"信息不完整",Toast.LENGTH_SHORT).show();
             }
         }
     }
+    //提交信息修改／新增
+    private void submitAddress() {
+        Map<String,String>mp=new HashMap<>();
+        if (!"".equals(id)&&!TextUtils.isEmpty(id)){
+            mp.put("id",id);
+        }
+        mp.put("token",user.userPsd);
+        mp.put("trueName",my_address_name.getText().toString()); //说货人
+        mp.put("address",my_address_addressinfo.getText().toString());//说货地址
+        mp.put("telephone",my_address_phoneNum.getText().toString());//电话
+        mp.put("postCode",my_address_postCode.getText().toString());//邮编
+        mp.put("areaCode",""); //地区编码
+        mp.put("oid","0"); //序号--序号为0的作为默认地址
+        mp.put("areaName",my_address_addressSelect.getText().toString());//地区名称，选择的地址
+//        private Long id;
+//        //收货人
+//        private String trueName;
+//        //收货地址
+//        private String address;
+//        //联系电话
+//        private String telephone;
+//        //邮编
+//        private String postCode;
+//        //用户ID--个人基本信息表personal--外键
+//        private Long personalId;
+//        //地区编码
+//        private Long areaCode;
+//        //序号--序号为0的作为默认地址
+//        private Integer oid;
+//        //地区名称，选择地址
+//        private String areaName;
+        okhttp.getCall(Ip.url+Ip.interface_User_editAddress,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resultStr=response.body().string();
+                handler.sendEmptyMessage(2);
+                Log.i("----修改／上传收说地址---",resultStr.toString());
+            }
+        });
+    }
+
     private boolean IsSuccess(String st1,String st2,String st3,String st4,String str5){
         if (!"".equals(st1)&&!TextUtils.isEmpty(st1)){
             if (!"".equals(st2)&&!TextUtils.isEmpty(st2)){
-
                 if (!"".equals(st3)&&!TextUtils.isEmpty(st3)){
-
                     if (!"".equals(st4)&&!TextUtils.isEmpty(st4)){
                            if (!"".equals(str5)&&!TextUtils.isEmpty(str5)){
                                return true;
@@ -327,5 +446,31 @@ public class My_address_Activity extends Activity implements OnWheelChangedListe
 
         }
           return false;
+    }
+
+
+
+
+
+
+    //获取用户的信息
+    public void getUserAddress(){
+        if (user.userPsd!=null&&!"0".equals(user.userPsd)){
+            Map<String,String>mp=new HashMap<>();
+            mp.put("token",user.userPsd);
+            okhttp.getCall(Ip.url+Ip.interface_User_Address,mp,okhttp.OK_GET).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    resultStr=response.body().string();
+                    handler.sendEmptyMessage(1);
+                    Log.i("去获取用户默认地址---","---"+resultStr.toString());
+                }
+            });
+        }
     }
 }

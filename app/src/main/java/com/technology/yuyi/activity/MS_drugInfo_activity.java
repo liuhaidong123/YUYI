@@ -13,7 +13,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,8 +27,10 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
+import com.technology.yuyi.adapter.Ms_druginfo_popAdapter;
 import com.technology.yuyi.bean.bean_MS_drguInfo;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyGridView;
 import com.technology.yuyi.lzh_utils.MyIntent;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -33,6 +38,7 @@ import com.technology.yuyi.lzh_utils.toast;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 //intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
 //药品详细信息页面
@@ -43,7 +49,7 @@ public class MS_drugInfo_activity extends Activity {
     private ImageView ms_druginfo_pop_numAdd,ms_druginfo_pop_numMinus;//弹窗中加减的view
     private TextView ms_druginfo_pop_num;//pop中显示购买数量的view
     private TextView ms_druginfo_pop_price;//pop中显示单价的view
-    private TextView ms_druginfo_pop_r1,ms_druginfo_pop_r2;//弹窗的中的属性1，2
+
     private int type=-1;
     private String resultStr="";
     private ImageView imageView;
@@ -52,6 +58,9 @@ public class MS_drugInfo_activity extends Activity {
     private TextView ms_drug_info_b_code,ms_drug_info_b_provider,ms_drug_info_b_pinpai,ms_drug_info_b_leixing,ms_drug_info_b_jixing;//国药准字,生产企业，品牌,类型,剂型
     private TextView ms_drug_info_b_shiyongren;//适用人群
     private bean_MS_drguInfo info;
+    private MyGridView ms_drug_info_pop_gridveiw;
+    private Ms_druginfo_popAdapter adapter;
+    private List<bean_MS_drguInfo.SpecificationsdListBean>listSpi;//属性的list
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -62,22 +71,41 @@ public class MS_drugInfo_activity extends Activity {
                    break;
                case 1:
                     try{
-//
-//                                 "createTimeString": "",
+//                        "createTimeString": "",
 //                                "productSpecification": "产品规格",
-//                                "drugsName": "999感冒灵12",:药品名称
+//                                "drugsName": "999感冒灵1",
 //                                "specificationsd": "一盒3包",
-//                                "oid": 2,
+//                                "oid": 1,
 //                                "packing": "10g x3",
 //                                "drugsCurrencyName": "999感冒灵1",
 //                                "localId": "",
 //                                "drugsFunction": "适用症/功能主治",
-//                                "number": 20,：库存数量
-//                                "price": 20,：单价
+//                                "number": 20,
+//                                "price": 20,
 //                                "drugsType": "颗粒",
 //                                "drugsDosage": "用法用量",
-//                                "details": "专治感冒",
-//                                "id": 2,
+//                                "specificationsdList": [
+//                        {
+//                            "createTimeString": "",
+//                                "updateTimeString": "",
+//                                "specificationsdNumber": 3,
+//                                "updateTime": null,
+//                                "oid": 1,
+//                                "localId": "",
+//                                "unit": "包",
+//                                "specificationsdName": "1盒3包",
+//                                "createTime": null,
+//                                "drugsId": 1,
+//                                "price": 45,
+//                                "id": 1,
+//                                "info": "",
+//                                "status": 1
+//                        },
+//                        {},
+//                        {}
+//                        ],
+//                        "details": "专治感冒",
+//                                "id": 1,
 //                                "brand": "999",
 //                                "businesses": "华润三九医药公司",
 //                                "info": "",
@@ -85,7 +113,7 @@ public class MS_drugInfo_activity extends Activity {
 //                                "dosageForm": "颗粒",
 //                                "updateTime": null,
 //                                "approvalNumber": "国药准字Z2017021423434",
-//                                "picture": "/static/image/999.jpg",：药品图片
+//                                "picture": "/static/image/999.jpg",
 //                                "categoryId1": 1,
 //                                "categoryId2": 11,
 //                                "createTime": null,
@@ -97,7 +125,7 @@ public class MS_drugInfo_activity extends Activity {
                         ms_drug_info_price.setText("￥"+info.getPrice());
                         ms_drug_info_b_name.setText("产品名称："+info.getDrugsName());
                         ms_drug_info_b_kind.setVisibility(View.GONE);
-
+                        listSpi=info.getSpecificationsdList();
                         if (!"".equals(info.getPacking())&&!TextUtils.isEmpty(info.getPacking())){//包装大小ms_drug_info_b_size
                             ms_drug_info_b_size.setText("包装大小："+info.getPacking());
                         }
@@ -217,6 +245,8 @@ public class MS_drugInfo_activity extends Activity {
         ms_drug_info_b_name= (TextView) findViewById(R.id.ms_drug_info_b_name);
         ms_drug_info_b_name= (TextView) findViewById(R.id.ms_drug_info_b_name);
         ms_drug_info_b_name= (TextView) findViewById(R.id.ms_drug_info_b_name);
+
+
     }
 
     //立即购买／加入购物车
@@ -233,13 +263,26 @@ public class MS_drugInfo_activity extends Activity {
         }
     }
     //加入购物车，立即购买pos=0：加入购物车 pos=1:立即购买
-    private void showWindow(int pos) {
+    private void showWindow(final int pos) {
         type=pos;
         View v=getLayoutInflater().inflate(R.layout.ms_druginfo_popupwindow, null);
-        ms_druginfo_pop_r1= (TextView) v.findViewById(R.id.ms_druginfo_pop_r1);
-        ms_druginfo_pop_r2= (TextView) v.findViewById(R.id.ms_druginfo_pop_r2);
-        ms_druginfo_pop_r1.setSelected(true);
-        ms_druginfo_pop_r2.setSelected(false);
+            ms_drug_info_pop_gridveiw= (MyGridView) v.findViewById(R.id.ms_drug_info_pop_gridveiw);
+        LinearLayout ms_drug_bu= (LinearLayout) v.findViewById(R.id.ms_drug_bu);
+
+        if (listSpi!=null&&listSpi.size()>0){
+            ms_drug_bu.setVisibility(View.VISIBLE);
+            adapter=new Ms_druginfo_popAdapter(listSpi,MS_drugInfo_activity.this);
+            ms_drug_info_pop_gridveiw.setAdapter(adapter);
+            ms_drug_info_pop_gridveiw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    adapter.setSelectId(position);
+                }
+            });
+        }
+        else {
+            ms_drug_bu.setVisibility(View.GONE);
+        }
         final RelativeLayout popOutside= (RelativeLayout) v.findViewById(R.id.popOutside);
         TextView ms_druginfo_popupwindow_buy= (TextView) v.findViewById(R.id.ms_druginfo_popupwindow_buy);
         switch (type){
@@ -342,22 +385,7 @@ public class MS_drugInfo_activity extends Activity {
 
     }
 
-    public void selectPro(View view){
-        switch (view.getId()){
-            case R.id.ms_druginfo_pop_r1:
-                if (!ms_druginfo_pop_r1.isSelected()) {
-                    ms_druginfo_pop_r1.setSelected(true);
-                    ms_druginfo_pop_r2.setSelected(false);
-                }
-                break;
-            case R.id.ms_druginfo_pop_r2:
-                if (!ms_druginfo_pop_r2.isSelected()){
-                    ms_druginfo_pop_r2.setSelected(true);
-                    ms_druginfo_pop_r1.setSelected(false);
-                }
-                break;
-        }
-    }
+
 
     @Override
     protected void onStart() {
@@ -385,4 +413,22 @@ public class MS_drugInfo_activity extends Activity {
             }
         });
     }
+
+//
+//    public void selectPro(View view){
+//        switch (view.getId()){
+//            case R.id.ms_druginfo_pop_r1:
+//                if (!ms_druginfo_pop_r1.isSelected()) {
+//                    ms_druginfo_pop_r1.setSelected(true);
+//                    ms_druginfo_pop_r2.setSelected(false);
+//                }
+//                break;
+//            case R.id.ms_druginfo_pop_r2:
+//                if (!ms_druginfo_pop_r2.isSelected()){
+//                    ms_druginfo_pop_r2.setSelected(true);
+//                    ms_druginfo_pop_r1.setSelected(false);
+//                }
+//                break;
+//        }
+//    }
 }

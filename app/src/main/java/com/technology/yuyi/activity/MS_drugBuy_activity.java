@@ -24,19 +24,30 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.PayTask;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_UserAddress;
 import com.technology.yuyi.lzh_WXutils.Constants;
 import com.technology.yuyi.lzh_alipay.AuthResult;
 import com.technology.yuyi.lzh_alipay.OrderInfoUtil2_0;
 import com.technology.yuyi.lzh_alipay.PayResult;
 import com.technology.yuyi.lzh_alipay.alipayEnvironment;
 import com.technology.yuyi.lzh_alipay.alipayId;
+import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.ResCode;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
+import com.technology.yuyi.lzh_utils.user;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +93,7 @@ public class MS_drugBuy_activity extends Activity{
     private TextView ms_drugbuy_paymentAlipay,ms_drugbuy_paymentWX,ms_drugbuy_paymentCashOnDelivery,ms_drugbuy_paymentSubmit;//支付宝，微信，货到付款，确认
     private List<TextView>li;
 
-
+    private RelativeLayout  ms_drug_buy_Address,ms_drug_buy_noAddress;
     private PopupWindow popSucc;
     ImageView drugbuy_window_succ_close;
     TextView drug_window_succ_bottom_submit;
@@ -145,6 +156,34 @@ public class MS_drugBuy_activity extends Activity{
             }
         };
     };
+
+
+
+    private String resultStr;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    toast.toast_faild(MS_drugBuy_activity.this);
+                    break;
+                case 1:
+                    if (!"".equals(resultStr)&&!TextUtils.isEmpty(resultStr)){
+                        bean_UserAddress ad= gson.gson.fromJson(resultStr,bean_UserAddress.class);
+                        ms_drugbuy_addressName.setText("收货人："+ad.getTrueName());
+                        ms_drugbuy_address.setText("详细信息："+ad.getAreaName()+ad.getAddress());
+                        ms_drugbuy_phonenum.setText("联系电话："+ad.getTelephone());
+                    }
+                    else {//用户还没有添加地址
+                        ms_drug_buy_Address.setVisibility(View.GONE);
+                        ms_drug_buy_noAddress.setVisibility(View.VISIBLE);
+                    }
+
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +193,8 @@ public class MS_drugBuy_activity extends Activity{
         initView();
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
         api.registerApp(Constants.APP_ID);
+
+        getUserAddress();//获取默认收货地址
 
     }
 
@@ -180,6 +221,16 @@ public class MS_drugBuy_activity extends Activity{
         ms_drugbuy_addressName= (TextView) findViewById(R.id.ms_drugbuy_addressName);
         ms_drugbuy_address= (TextView) findViewById(R.id.ms_drugbuy_address);
         ms_drugbuy_phonenum= (TextView) findViewById(R.id.ms_drugbuy_phonenum);
+        ms_drug_buy_Address= (RelativeLayout) findViewById(R.id.ms_drug_buy_Address);
+        ms_drug_buy_noAddress= (RelativeLayout) findViewById(R.id.ms_drug_buy_noAddress);
+
+        ms_drug_buy_noAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(MS_drugBuy_activity.this,My_address_Activity.class), ResCode.Requst_drugbuy);
+            }
+        });
+
     }
     public void goBack(View view) {
         if (view!=null){
@@ -321,14 +372,6 @@ public class MS_drugBuy_activity extends Activity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-//        Intent intent=new Intent();
-//        Bundle b=new Bundle();
-//        b.putString("name",name);
-//        b.putString("address",addressSelect+addressInfo);
-//        b.putString("phonenum",phonenum);
-//        intent.putExtra("bundle",b);
-//        setResult(ResCode.Response_drugbuy,intent);
         if (requestCode==ResCode.Requst_drugbuy){
             if (resultCode==ResCode.Response_drugbuy){
                 Bundle bundle=data.getBundleExtra("bundle");
@@ -336,6 +379,8 @@ public class MS_drugBuy_activity extends Activity{
                     ms_drugbuy_addressName.setText("收货人："+bundle.getString("name"));
                     ms_drugbuy_address.setText("详细地址："+bundle.getString("address"));
                     ms_drugbuy_phonenum.setText("联系电话："+bundle.getString("phonenum"));
+                    ms_drug_buy_noAddress.setVisibility(View.GONE);
+                    ms_drug_buy_Address.setVisibility(View.VISIBLE);
                 }
                 else {
                     Log.e("MS_drugBuy_activity","-onActivityResult-"+"返回的地址信息等错误，请检查");
@@ -508,5 +553,29 @@ public class MS_drugBuy_activity extends Activity{
                 getWindow().setAttributes(params);
             }
         });
+    }
+
+
+    //获取用户的信息
+    public void getUserAddress(){
+        ms_drug_buy_Address.setVisibility(View.VISIBLE);
+        ms_drug_buy_noAddress.setVisibility(View.GONE);
+        if (user.userPsd!=null&&!"0".equals(user.userPsd)){
+            Map<String,String>mp=new HashMap<>();
+            mp.put("token",user.userPsd);
+            okhttp.getCall(Ip.url+Ip.interface_User_Address,mp,okhttp.OK_GET).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    resultStr=response.body().string();
+                    handler.sendEmptyMessage(1);
+                    Log.i("去获取用户默认地址---","---"+resultStr.toString());
+                }
+            });
+        }
     }
 }

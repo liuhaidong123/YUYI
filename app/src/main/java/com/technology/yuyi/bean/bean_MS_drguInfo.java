@@ -1,5 +1,7 @@
 package com.technology.yuyi.bean;
 
+import java.util.List;
+
 /**
  * Created by wanyu on 2017/3/15.
  */
@@ -9,9 +11,9 @@ public class bean_MS_drguInfo {
     /**
      * createTimeString :
      * productSpecification : 产品规格
-     * drugsName : 999感冒灵12
+     * drugsName : 999感冒灵1
      * specificationsd : 一盒3包
-     * oid : 2
+     * oid : 1
      * packing : 10g x3
      * drugsCurrencyName : 999感冒灵1
      * localId :
@@ -20,8 +22,9 @@ public class bean_MS_drguInfo {
      * price : 20
      * drugsType : 颗粒
      * drugsDosage : 用法用量
+     * specificationsdList : [{"createTimeString":"","updateTimeString":"","specificationsdNumber":3,"updateTime":null,"oid":1,"localId":"","unit":"包","specificationsdName":"1盒3包","createTime":null,"drugsId":1,"price":45,"id":1,"info":"","status":1},{"createTimeString":"","updateTimeString":"","specificationsdNumber":6,"updateTime":null,"oid":2,"localId":"","unit":"","specificationsdName":"1盒6包","createTime":null,"drugsId":1,"price":65,"id":2,"info":"","status":1},{"createTimeString":"","updateTimeString":"","specificationsdNumber":8,"updateTime":null,"oid":3,"localId":"","unit":"","specificationsdName":"1盒9包","createTime":null,"drugsId":1,"price":75,"id":3,"info":"","status":1}]
      * details : 专治感冒
-     * id : 2
+     * id : 1
      * brand : 999
      * businesses : 华润三九医药公司
      * info :
@@ -65,6 +68,7 @@ public class bean_MS_drguInfo {
     private Object createTime;
     private String commodityName;
     private int status;
+    private List<SpecificationsdListBean> specificationsdList;
 
     public String getCreateTimeString() {
         return createTimeString;
@@ -288,5 +292,159 @@ public class bean_MS_drguInfo {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<SpecificationsdListBean> getSpecificationsdList() {
+        return specificationsdList;
+    }
+
+    public void setSpecificationsdList(List<SpecificationsdListBean> specificationsdList) {
+        this.specificationsdList = specificationsdList;
+    }
+
+    public static class SpecificationsdListBean {
+        /**
+         * createTimeString :
+         * updateTimeString :
+         * specificationsdNumber : 3
+         * updateTime : null
+         * oid : 1
+         * localId :
+         * unit : 包
+         * specificationsdName : 1盒3包
+         * createTime : null
+         * drugsId : 1
+         * price : 45
+         * id : 1
+         * info :
+         * status : 1
+         */
+
+        private String createTimeString;
+        private String updateTimeString;
+        private int specificationsdNumber;
+        private Object updateTime;
+        private int oid;
+        private String localId;
+        private String unit;
+        private String specificationsdName;
+        private Object createTime;
+        private int drugsId;
+        private int price;
+        private int id;
+        private String info;
+        private int status;
+
+        public String getCreateTimeString() {
+            return createTimeString;
+        }
+
+        public void setCreateTimeString(String createTimeString) {
+            this.createTimeString = createTimeString;
+        }
+
+        public String getUpdateTimeString() {
+            return updateTimeString;
+        }
+
+        public void setUpdateTimeString(String updateTimeString) {
+            this.updateTimeString = updateTimeString;
+        }
+
+        public int getSpecificationsdNumber() {
+            return specificationsdNumber;
+        }
+
+        public void setSpecificationsdNumber(int specificationsdNumber) {
+            this.specificationsdNumber = specificationsdNumber;
+        }
+
+        public Object getUpdateTime() {
+            return updateTime;
+        }
+
+        public void setUpdateTime(Object updateTime) {
+            this.updateTime = updateTime;
+        }
+
+        public int getOid() {
+            return oid;
+        }
+
+        public void setOid(int oid) {
+            this.oid = oid;
+        }
+
+        public String getLocalId() {
+            return localId;
+        }
+
+        public void setLocalId(String localId) {
+            this.localId = localId;
+        }
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
+
+        public String getSpecificationsdName() {
+            return specificationsdName;
+        }
+
+        public void setSpecificationsdName(String specificationsdName) {
+            this.specificationsdName = specificationsdName;
+        }
+
+        public Object getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(Object createTime) {
+            this.createTime = createTime;
+        }
+
+        public int getDrugsId() {
+            return drugsId;
+        }
+
+        public void setDrugsId(int drugsId) {
+            this.drugsId = drugsId;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
     }
 }

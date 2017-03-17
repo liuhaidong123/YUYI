@@ -151,47 +151,53 @@
             android:layout_height="1dp"
             android:background="#e4e4e4"
             android:id="@+id/f1"/>
-
         <TextView
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#e4e4e4"
             android:id="@+id/f2"/>
-
         <LinearLayout
+            android:id="@+id/ms_drug_bu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true">
-            <TextView
-                android:id="@+id/ms_druginfo_pop_r1"
-                android:background="@drawable/ms_druginfo_textselect_true"
-                android:text="3支装"
-                android:gravity="center"
-                android:clickable="true"
-                android:onClick="selectPro"
-                android:textSize="12sp"
-                android:textColor="@drawable/ms_druginfo_pop_textcolor"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_width="75dp"
-                android:layout_height="35dp"/>
-            <TextView
-                android:id="@+id/ms_druginfo_pop_r2"
-                android:clickable="true"
-                android:onClick="selectPro"
-                android:background="@drawable/ms_druginfo_textselect"
-                android:text="6支装"
-                android:gravity="center"
-                android:layout_marginLeft="15dp"
-                android:textSize="12sp"
-                android:textColor="@drawable/ms_druginfo_pop_textcolor"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_width="75dp"
-                android:layout_height="35dp"/>
+            <com.technology.yuyi.lzh_utils.MyGridView
+                android:id="@+id/ms_drug_info_pop_gridveiw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3">
+
+            </com.technology.yuyi.lzh_utils.MyGridView>
+            <!--<TextView-->
+                <!--android:id="@+id/ms_druginfo_pop_r1"-->
+                <!--android:background="@drawable/ms_druginfo_textselect_true"-->
+                <!--android:text="3支装"-->
+                <!--android:gravity="center"-->
+                <!--android:clickable="true"-->
+                <!--android:onClick="selectPro"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@drawable/ms_druginfo_pop_textcolor"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:layout_width="75dp"-->
+                <!--android:layout_height="35dp"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/ms_druginfo_pop_r2"-->
+                <!--android:clickable="true"-->
+                <!--android:onClick="selectPro"-->
+                <!--android:background="@drawable/ms_druginfo_textselect"-->
+                <!--android:text="6支装"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="@drawable/ms_druginfo_pop_textcolor"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginBottom="20dp"-->
+                <!--android:layout_width="75dp"-->
+                <!--android:layout_height="35dp"/>-->
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

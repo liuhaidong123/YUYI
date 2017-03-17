@@ -92,6 +92,8 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         SharedPreferences.Editor edi = pre.edit();
                         edi.putString("username", userName);
                         edi.putString("userpsd", root.getResult());
+                        userPsd=root.getResult();
+                        userPsd=userName;
                         Log.e("token：",root.getResult());
                         edi.commit();
                         //d点击登录注释

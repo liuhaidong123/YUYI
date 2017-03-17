@@ -137,6 +137,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                         bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
                         listAlldrgus=allDrug.getRows();
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
+                            startIndex=listAlldrgus.size()+startIndex-1;
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -166,6 +167,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                         bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
                         listAlldrgus.addAll(allDrug.getRows());
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
+                            startIndex=listAlldrgus.size()+startIndex-1;
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
                             ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
@@ -197,6 +199,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                         bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
                         listAlldrgus=allDrug.getRows();
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
+                            startIndex=listAlldrgus.size()+startIndex-1;
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
                             ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
@@ -381,7 +384,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
     public void getDrugsSmall(int drugId,int start,int limit){//获取小类药品，从全部分类返回小类大id
         listAlldrgus=new ArrayList<>();
         cId=drugId;
-        startIndex=10;
+        startIndex=0;
         type=1;
         Map<String,String>mp=new HashMap<>();
         mp.put("start",0+"");  mp.put("limit",10+"");  mp.put("cid2",drugId+"");
@@ -404,7 +407,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
     public void getDrugsLarge(int drugId,int start ,int limit){//获取大类药品(大类大id)
         listAlldrgus=new ArrayList<>();
         cId=drugId;
-        startIndex=10;
+        startIndex=0;
         type=2;
         Map<String,String>mp=new HashMap<>();
         mp.put("start",start+"");  mp.put("limit",limit+"");  mp.put("cid1",drugId+"");
@@ -428,7 +431,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
         listAlldrgus=new ArrayList<>();
 //        start=0&limit=10
         cId=-1;
-        startIndex=10;
+        startIndex=0;
         type=0;
         Map<String,String>mp=new HashMap<>();
         mp.put("start",start+"");

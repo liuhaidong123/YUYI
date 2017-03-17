@@ -444,7 +444,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
             intent.putExtra("type", 2);
             intent.putExtra("name", "常用药品");
-            intent.putExtra("Cid", 11);
+            intent.putExtra("Cid", 1);
             startActivity(intent);
         } else if (id == mLocate_tv.getId()) {//跳转到定位页面
             Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
