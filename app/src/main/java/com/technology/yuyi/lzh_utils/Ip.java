@@ -5,8 +5,14 @@ package com.technology.yuyi.lzh_utils;
  */
 
 public interface Ip {
-   public final static String url_F="http://192.168.1.42:8080/yuyi/";
+   public final static String url_F="http://192.168.1.55:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
+
+   //添加家庭用户的接口
+   public final static String interface_addFamilyUser="homeuser/save.do";
+
+
+
    //药品商城全部药品接口（只用于查询全部药品）
 //   192.168.1.43:8080/yuyi/drugs/findall.do?start=0&limit=10
    public final static String interface_MS_home_allDrugs="drugs/findall.do?";
@@ -37,4 +43,5 @@ public interface Ip {
    //图片url
    public final static String imagePth_F="http://192.168.1.42:8080/yuyi";
    public final static String imagePth="http://192.168.1.55:8080/yuyi";
+
 }

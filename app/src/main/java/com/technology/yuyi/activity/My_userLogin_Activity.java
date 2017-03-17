@@ -19,6 +19,7 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
+import com.technology.yuyi.lzh_utils.MyDialog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,6 @@ import java.util.regex.Pattern;
 
 public class My_userLogin_Activity extends AppCompatActivity {
     private int timeOut = 60;//计时器
-    private boolean isClick = true;//获取验证码按钮是否可用点击
     private TextView my_userlogin_getSMScode;//获取验证码按钮
     private TextView my_userlogin_SMStimer;//显示计时器的view
     private EditText my_userlogin_edit_name, my_userlogin_edit_smdCode;//用户名与验证码输入框
@@ -40,18 +40,29 @@ public class My_userLogin_Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what != 0 && timeOut != -1) {
-                my_userlogin_SMStimer.setText(timeOut + "S");
-            } else if (msg.what == 0) {
+            int what=msg.what;
+            if (what>0){
+                my_userlogin_SMStimer.setText(what+ "S");
+                my_userlogin_SMStimer.setVisibility(View.VISIBLE);
+            }
+            else if (what==0){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            handler.sendEmptyMessage(-2);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 my_userlogin_SMStimer.setVisibility(View.GONE);
+            }
+            else if(msg.what==-2){
                 my_userlogin_getSMScode.setClickable(true);
                 my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
-                isClick = true;
-            } else if (msg.what == -1) {
-                timeOut = 60;
-
             }
-
         }
     };
 
@@ -59,7 +70,9 @@ public class My_userLogin_Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
             if (msg.what == 26) {//获取验证码
+                MyDialog.stopDia();
                 Object o = msg.obj;
                 if (o != null && o instanceof ValidateCodeRoot) {
                     ValidateCodeRoot root = (ValidateCodeRoot) o;
@@ -69,6 +82,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
                     }
                 }
             } else if (msg.what == 27) {//登录
+                MyDialog.stopDia();
                 Object o = msg.obj;
                 if (o != null && o instanceof LoginSuccess) {
                     LoginSuccess root = (LoginSuccess) o;
@@ -87,6 +101,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         finish();
                     }else {
                         Toast.makeText(My_userLogin_Activity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                        MyDialog.stopDia();
                     }
                 }
             }
@@ -103,15 +118,10 @@ public class My_userLogin_Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        isClick = true;//可点击
-        timeOut = 60;//计数器归60
-        my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
-        my_userlogin_SMStimer.setVisibility(View.GONE);
     }
 
     private void initView() {
         mHttptools = HttpTools.getHttpToolsInstance();
-
         my_userlogin_getSMScode = (TextView) findViewById(R.id.my_userlogin_getSMScode);
         my_userlogin_SMStimer = (TextView) findViewById(R.id.my_userlogin_SMStimer);
         my_userlogin_SMStimer.setVisibility(View.INVISIBLE);
@@ -123,16 +133,8 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 userName = my_userlogin_edit_name.getText().toString();
                 if (!"".equals(userName) && !TextUtils.isEmpty(userName)) {
                     if (isPhoneNum(userName)) {
-
-                        my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
-                        my_userlogin_SMStimer.setVisibility(View.VISIBLE);
-                        my_userlogin_SMStimer.setText(timeOut + "S");
-                        my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_unclick));
-                        if (isClick) {
                             mMap.put("id", userName);//验证码需要的map集合
                             getSMScode();
-                            isClick = false;
-                        }
 
                     } else {
                         Toast.makeText(My_userLogin_Activity.this, "用户名不正确", Toast.LENGTH_SHORT).show();
@@ -142,24 +144,31 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 }
             }
         });
+        my_userlogin_SMStimer.setVisibility(View.GONE);
+        my_userlogin_getSMScode.setClickable(true);
+        my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
     }
 
     //获取验证码
     private void getSMScode() {
-        Toast.makeText(My_userLogin_Activity.this, "点击了获取验证码", Toast.LENGTH_SHORT).show();
+        MyDialog.showDialog(My_userLogin_Activity.this);
+        my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
+        my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_unclick));
         mHttptools.getValidateCode(mHandler, mMap);//获取验证码接口
+        timeOut=60;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (timeOut != -1) {
-                    try {
-                        timeOut--;
-                        handler.sendEmptyMessage(timeOut);
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                        while (timeOut>0) {
+                            try {
+                                timeOut--;
+                                handler.sendEmptyMessage(timeOut);
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
             }
         }).start();
     }
@@ -183,7 +192,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
                     mLoginMap.put("id", userName);
                     mLoginMap.put("vcode", userPsd);
                     mHttptools.login(mHandler, mLoginMap);
-
+                    MyDialog.showDialog(My_userLogin_Activity.this);
                 } else {
                     Toast.makeText(My_userLogin_Activity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                 }

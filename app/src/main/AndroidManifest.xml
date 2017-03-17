@@ -161,7 +161,6 @@
         <activity
             android:name=".activity.EquipmentManageActivity"
             android:screenOrientation="portrait" />
-
         <!-- create by liuzonghao -->
         <activity
             android:name=".activity.MS_home_Activity"
