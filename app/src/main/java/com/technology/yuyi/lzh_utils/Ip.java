@@ -8,6 +8,15 @@ public interface Ip {
    public final static String url_F="http://192.168.1.55:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
 
+   //意见反馈页面:http://localhost:8080/yuyi/feedback//save.do?content=“”&contact=192873637&token=2E8B4C79121FBC6CB1377B190C663F52
+   public final static String interface_User_feedus="feedback//save.do?";
+
+   //获取用户默认地址的接口 token=07503A48193E12437B25F38471141FEA
+   public final static String interface_User_Address="address/get.do?";
+
+   //获取用户默认地址的接口 token=07503A48193E12437B25F38471141FEA
+   public final static String interface_User_editAddress="address/save.do?";
+
    //添加家庭用户的接口
    public final static String interface_addFamilyUser="homeuser/save.do";
 

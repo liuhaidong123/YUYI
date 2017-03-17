@@ -7,8 +7,21 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/ms_drugbuy_submitBuy"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="确认订单"
+        android:clickable="true"
+        android:onClick="SubmitOrder"
+        android:background="@drawable/ms_druginfo_shoppingbuy"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="#6a6a6a"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
     <ScrollView
-        android:layout_above="@+id/ms_drugbuy_submitBuy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -43,7 +56,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#cccccc"/>
+           <RelativeLayout
+               android:id="@+id/ms_drug_buy_noAddress"
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+               <TextView
+                   android:paddingLeft="20dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:textColor="#999999"
+                   android:text="亲，您还没有添加收货地址"
+                   android:gravity="center_vertical"
+                   android:textSize="15sp"
+                   />
+               <ImageView
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:src="@mipmap/many"
+                   android:layout_marginRight="15dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+           </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/ms_drug_buy_Address"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
                 android:layout_marginBottom="20dp"
@@ -74,18 +110,7 @@
                     android:textColor="#333333"
                     android:text="收货人：刘文"
                     android:layout_below="@+id/ms_drugbuy_addressmsg"/>
-                <TextView
-                    android:id="@+id/ms_drugbuy_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_toLeftOf="@+id/ms_drugbuy_addressEdit"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#333333"
-                    android:text="详细地址：北京市大兴区清远里枣园小区1号楼"
-                    android:layout_below="@+id/ms_drugbuy_addressName"/>
+
                 <TextView
                     android:id="@+id/ms_drugbuy_phonenum"
                     android:layout_width="wrap_content"
@@ -98,6 +123,17 @@
                     android:textColor="#333333"
                     android:text="联系电话：17743516301"
                     android:layout_below="@+id/ms_drugbuy_address"/>
+
+                <TextView
+                    android:id="@+id/ms_drugbuy_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#333333"
+                    android:text="详细地址：北京市大兴区清远里枣园小区1号楼"
+                    android:layout_below="@+id/ms_drugbuy_addressName"
+                    android:layout_alignParentStart="true" />
             </RelativeLayout>
             <TextView
                 android:layout_marginLeft="10dp"
@@ -283,18 +319,4 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/ms_drugbuy_submitBuy"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="确认订单"
-        android:clickable="true"
-        android:onClick="SubmitOrder"
-        android:background="@drawable/ms_druginfo_shoppingbuy"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:textColor="#6a6a6a"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
 </RelativeLayout>
