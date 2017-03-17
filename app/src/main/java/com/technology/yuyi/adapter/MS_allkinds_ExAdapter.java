@@ -98,7 +98,7 @@ public class MS_allkinds_ExAdapter extends BaseExpandableListAdapter {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 List<bean_MS_allkinds.CategoryBean.ChildrenBean>lit= (List<bean_MS_allkinds.CategoryBean.ChildrenBean>) parent.getTag();
-                Toast.makeText(context,"当前点击-pos-"+position+"--id==="+lit.get(position).getId()+"name==="+lit.get(position).getName(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"当前点击-pos-"+position+"--id==="+lit.get(position).getId()+"name==="+lit.get(position).getName(),Toast.LENGTH_SHORT).show();
                 listener.onChildSelect(Integer.parseInt(lit.get(position).getId()),lit.get(position).getName());
             }
         });

@@ -8,12 +8,17 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -21,13 +26,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.ResCode;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddFamilyUserActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
@@ -38,6 +54,11 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     private PopupWindow pop;
     private TextView title;
 
+    private Bitmap bit;
+
+    private EditText edit_relation,edit_age,edit_name,edit_telnum;
+    private CheckBox checkbox;
+    private String relation,age,name,telnum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +81,34 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         add_head_tv.setOnClickListener(this);
     }
 
+        //-----------------------------------------------------------
+        edit_relation= (EditText) findViewById(R.id.edit_relation);
+        edit_age= (EditText) findViewById(R.id.edit_age);
+        edit_name= (EditText) findViewById(R.id.edit_name);
+        edit_telnum= (EditText) findViewById(R.id.edit_telnum);
+        checkbox= (CheckBox) findViewById(R.id.checkbox);
+
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (edit_telnum.getText()!=null&&isPhoneNum(edit_telnum.getText().toString())){
+
+                }
+                else {
+                    Toast.makeText(AddFamilyUserActivity.this,"请输入正确的手机号",Toast.LENGTH_SHORT).show();
+                    checkbox.setChecked(false);
+                }
+            }
+        });
+
+    }
+    //判断是否输入的为手机号
+    public boolean isPhoneNum(String str) {
+        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        Pattern p = Pattern.compile(regExp);
+        Matcher m = p.matcher(str);
+        return m.matches();
+    }
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -67,7 +116,13 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         if (id == mBack.getId()) {
             finish();
         }else if (id==mSure_tv.getId()){//确定
-            finish();
+          //检查用户输入的信息是否完整
+           if (checkInput()){
+               sendMsg();//上传信息
+           }
+            else {
+               Toast.makeText(AddFamilyUserActivity.this,"信息填写不完整",Toast.LENGTH_SHORT).show();
+           }
         }
         else if (id==add_head_tv.getId()){//上传头像
             showWindowUploading();
@@ -91,34 +146,53 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                 }
         }
     }
+    //检查用户输入信息是否完整
+    private boolean checkInput() {
+//        private EditText edit_relation,edit_age,edit_name,edit_telnum;
+//        private CheckBox checkbox;
+//        private String relation,age,name,telnum;
+        relation=edit_relation.getText().toString();
+        age=edit_age.getText().toString();
+        name=edit_name.getText().toString();
+        telnum=edit_telnum.getText().toString();
+        return false;
+    }
 
-    /**
-     * 将图片读到本地
-     * @param url
-     * @param bitmap
-     */
-    private void write2Local(String url, Bitmap bitmap) {
-        String name="";
-        FileOutputStream fos = null;
-        try {
-           // name = MD5Encoder.encode(url);
-            File file = new File(getCacheDir(), name);
-            fos = new FileOutputStream(file);
+    //确定上传家庭用户信息
+    private void sendMsg() {
+        Map<String,String> mp=new HashMap<>();
+//        参数：
+////令牌
+//        String token
+////家人手机号
+//        Long familyId
+////称呼
+//        String nickName
+//        15:54
+//        李朋伟
+//                朋伟
+////真实姓名
+//        private String trueName;
+//        //年龄
+//        private Integer age;
+//        李朋伟
+//                朋伟
+////头像
+//        private String avatar;
+        mp.put("token", user.userPsd);  mp.put("familyId", user.userPsd);
+        mp.put("nickName", user.userPsd);  mp.put("trueName", user.userPsd);
+        mp.put("age", user.userPsd);  mp.put("avatar", user.userPsd);
+        okhttp.getCall(Ip.url+ Ip.interface_addFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
 
-            // 将图像写到流中
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                    fos = null;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
-        }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+
+            }
+        });
     }
 
 
@@ -164,7 +238,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    //拍照
+    //浏览图片库
     private void TakePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file=new File(getExternalFilesDir("DCIM").getAbsolutePath(),System.currentTimeMillis()+".jpg");
@@ -174,7 +248,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    //浏览图片库
+    //拍照
     private void SearchPhoto() {
         Intent intent=new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -227,6 +301,9 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                         if (btm!=null){
                             add_head_tv.setImageBitmap(btm);
 
+                        bit=data.getExtras().getParcelable("data");
+                        if (bit!=null){
+                            add_head_tv.setImageBitmap(bit);
                             if (pop!=null){
                                 pop.dismiss();
                             }

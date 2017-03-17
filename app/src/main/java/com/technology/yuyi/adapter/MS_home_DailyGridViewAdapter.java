@@ -9,14 +9,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
+import com.technology.yuyi.lzh_utils.Ip;
 
 import java.util.List;
 import java.util.Map;
-//医药商城首页常用药与滋补药品的gridview适配器
-//hodler.imageView.setImageResource(Integer.parseInt(list.get(position).get("image")));
-//        hodler.textViewName.setText(list.get(position).get("name"));
-//        hodler.textViewPrice.setText(list.get(position).get("price"));
+
 /**
  * Created by wanyu on 2017/2/23.
  */
@@ -56,10 +55,15 @@ public class MS_home_DailyGridViewAdapter extends BaseAdapter{
             convertView.setTag(hodler);
 
         }
+
+//        m.put("childname",listDrugs.get(j).getDrugsName());
+//                m.put("childid",listDrugs.get(j).getPrice()+"");
+//                m.put("childurl",listDrugs.get(j).getPicture());
+//          m.put("childprice",listDrugs.get(j).getPrice()+"");
         hodler= (ViewHodler) convertView.getTag();
-        hodler.imageView.setImageResource(Integer.parseInt(list.get(position).get("image")));
-        hodler.textViewName.setText(list.get(position).get("name"));
-        hodler.textViewPrice.setText("￥"+list.get(position).get("price"));
+        Picasso.with(context).load(Ip.url+list.get(position).get("childurl")).into( hodler.imageView);
+        hodler.textViewName.setText(list.get(position).get("childname"));
+        hodler.textViewPrice.setText("￥"+list.get(position).get("childprice"));
         return convertView;
     }
     class ViewHodler{

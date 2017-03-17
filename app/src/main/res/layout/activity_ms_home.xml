@@ -6,228 +6,140 @@
     android:layout_height="match_parent"
     android:background="@color/color_white"
     tools:context="com.technology.yuyi.activity.MS_home_Activity">
-
-    <ScrollView
-        android:scrollbars="none"
+    <RelativeLayout
+        android:id="@+id/ms_top_relayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="44dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
-        <RelativeLayout
+        <ImageView
+            android:clickable="true"
+            android:onClick="ms_homeClick"
+            android:id="@+id/ms_home_return"
+            android:layout_alignParentLeft="true"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ms_home_return"/>
+        <TextView
+            android:id="@+id/ms_home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ms_home_titleText"
+            android:layout_centerInParent="true"
+            android:textColor="@color/color_ms_home_titleclolr"
+            android:textSize="@dimen/ms_home_Titletextsize17"/>
+        <TextView
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="1dp"
+            android:background="#f3f3f3"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/ms_top_relayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.technology.yuyi.lzh_utils.MyScrollow
+            android:scrollbars="none"
+            android:background="@color/color_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
             <RelativeLayout
-                android:id="@+id/ms_top_relayout"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true">
-                <ImageView
-                    android:clickable="true"
-                    android:onClick="ms_homeClick"
-                    android:id="@+id/ms_home_return"
-                    android:layout_alignParentLeft="true"
-                    android:paddingStart="15dp"
-                    android:paddingEnd="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ms_home_return"/>
-                <TextView
-                    android:id="@+id/ms_home_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ms_home_titleText"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/color_ms_home_titleclolr"
-                    android:textSize="@dimen/ms_home_Titletextsize17"/>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/ms_linerlayout"
-                android:layout_width="match_parent"
-                android:background="@color/color_ms_home_disc"
-                android:layout_height="@dimen/ms_home_dicHeight"
-                android:layout_below="@+id/ms_top_relayout"
-                android:layout_alignParentStart="true">
-
-                <TextView
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/ms_linerlayout"
                     android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/ms_home_dictextsize12"
-                    android:text="@string/ms_home_textDisc"
-                    android:textColor="@color/color_white"
-                    android:id="@+id/textView" />
-            </LinearLayout>
-
-<!--搜索-->
-            <RelativeLayout
-                android:id="@+id/ms_searchlayout"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:paddingLeft="@dimen/ms_home_searchleftAndrightMar20"
-                android:paddingRight="@dimen/ms_home_searchleftAndrightMar20"
-                android:layout_below="@+id/ms_linerlayout">
-
-                <RelativeLayout
-                    android:background="@drawable/ms_home_searchbackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:background="@color/color_ms_home_disc"
+                    android:layout_height="@dimen/ms_home_dicHeight"
                     android:layout_alignParentStart="true">
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_height="29dp">
-                        <ImageView
-                            android:src="@mipmap/screen"
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
 
-                        <TextView
-                            android:layout_marginLeft="10dp"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/ms_home_dictextsize12"
+                        android:text="@string/ms_home_textDisc"
+                        android:textColor="@color/color_white"
+                        android:id="@+id/textView" />
+                </LinearLayout>
+
+                <!--搜索-->
+                <RelativeLayout
+                    android:id="@+id/ms_searchlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:paddingLeft="@dimen/ms_home_searchleftAndrightMar20"
+                    android:paddingRight="@dimen/ms_home_searchleftAndrightMar20"
+                    android:layout_below="@+id/ms_linerlayout">
+
+                    <RelativeLayout
+                        android:background="@drawable/ms_home_searchbackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true">
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:textSize="@dimen/ms_home_searchTextsize"
-                            android:text="@string/ms_home_textSearch"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:textColor="@color/color_ms_home_serachtextcolor"
-                            android:id="@+id/textView2" />
-                    </LinearLayout>
+                            android:layout_centerInParent="true"
+                            android:layout_height="29dp">
+                            <ImageView
+                                android:src="@mipmap/screen"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="wrap_content"
+                                android:textSize="@dimen/ms_home_searchTextsize"
+                                android:text="@string/ms_home_textSearch"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="@color/color_ms_home_serachtextcolor"
+                                android:id="@+id/textView2" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
                 </RelativeLayout>
+                <!--药品种类-->
+                <com.technology.yuyi.lzh_utils.MyGridView
+                    android:id="@+id/ms_home_gridview"
+                    android:numColumns="3"
+                    android:layout_marginLeft="@dimen/ms_home_searchleftAndrightMar20"
+                    android:layout_marginRight="@dimen/ms_home_searchleftAndrightMar20"
+                    android:listSelector="@color/color_white"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:layout_below="@+id/ms_searchlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-
+                </com.technology.yuyi.lzh_utils.MyGridView>
+                <TextView
+                    android:id="@+id/ms_home_exP_textfg"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_below="@+id/ms_home_gridview"
+                    android:background="@color/color_white"/>
+                <com.technology.yuyi.lzh_utils.MyExpanListview
+                    android:id="@+id/ms_home_exlistview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:childDivider="#ffffff"
+                    android:divider="#ffffff"
+                    android:layout_below="@+id/ms_home_exP_textfg">
+                </com.technology.yuyi.lzh_utils.MyExpanListview>
             </RelativeLayout>
-            <!--药品种类-->
-            <com.technology.yuyi.lzh_utils.MyGridView
-                android:id="@+id/ms_home_gridview"
-                android:numColumns="3"
-                android:layout_marginLeft="@dimen/ms_home_searchleftAndrightMar20"
-                android:layout_marginRight="@dimen/ms_home_searchleftAndrightMar20"
-                android:listSelector="@color/color_white"
-                android:verticalSpacing="10dp"
-                android:horizontalSpacing="10dp"
-                android:layout_below="@+id/ms_searchlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        </com.technology.yuyi.lzh_utils.MyScrollow>
+    </RelativeLayout>
 
-            </com.technology.yuyi.lzh_utils.MyGridView>
-
-<com.technology.yuyi.lzh_utils.MyExpanListview
-    android:id="@+id/ms_home_exlistview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/ms_home_gridview">
-</com.technology.yuyi.lzh_utils.MyExpanListview>
-            <!---->
-            <!--<TextView-->
-                <!--android:id="@+id/ms_home_textfg"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="10dp"-->
-                <!--android:layout_marginTop="15dp"-->
-                <!--android:layout_below="@+id/ms_home_gridview"-->
-                <!--android:background="@color/color_ms_home_serachback"/>-->
-            <!--&lt;!&ndash;常用药品&ndash;&gt;-->
-            <!--<LinearLayout-->
-                <!--android:id="@+id/ms_home_gridview_layoutDailly"-->
-                <!--android:layout_below="@+id/ms_home_textfg"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ms_home_rela1"-->
-                    <!--android:clickable="true"-->
-                    <!--android:onClick="selectMs"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="40dp">-->
-                <!--<TextView-->
-                    <!--android:layout_marginLeft="15dp"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:textColor="#6a6a6a"-->
-                    <!--android:textSize="@dimen/ms_home_gridviewitemTextsize14"-->
-                    <!--android:text="@string/ms_home_dailyM"/>-->
-                    <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:src="@mipmap/many"/>-->
-                <!--</RelativeLayout>-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/color_ms_home_serachback"/>-->
-
-              <!--<com.technology.yuyi.lzh_utils.MyGridView-->
-                  <!--android:id="@+id/ms_home_gridview_dailyM"-->
-                  <!--android:layout_width="match_parent"-->
-                  <!--android:numColumns="3"-->
-                  <!--android:horizontalSpacing="1dp"-->
-                  <!--android:background="@color/color_ms_home_serachback"-->
-                  <!--android:layout_height="wrap_content">-->
-              <!--</com.technology.yuyi.lzh_utils.MyGridView>-->
-            <!--</LinearLayout>-->
-            <!--<TextView-->
-                <!--android:id="@+id/ms_home_textfg2"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="10dp"-->
-                <!--android:layout_below="@+id/ms_home_gridview_layoutDailly"-->
-                <!--android:background="@color/color_ms_home_serachback"/>-->
-            <!--&lt;!&ndash;滋补保健药&ndash;&gt;-->
-            <!--<LinearLayout-->
-                <!--android:id="@+id/ms_home_gridview_layoutNutritious"-->
-                <!--android:layout_below="@+id/ms_home_textfg2"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
-                <!--<RelativeLayout-->
-                    <!--android:id="@+id/ms_home_rela2"-->
-                    <!--android:clickable="true"-->
-                    <!--android:onClick="selectMs"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="40dp">-->
-                    <!--<TextView-->
-                        <!--android:layout_marginLeft="15dp"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:textColor="#6a6a6a"-->
-                        <!--android:textSize="@dimen/ms_home_gridviewitemTextsize14"-->
-                        <!--android:text="@string/ms_home_nutritiousM"/>-->
-                    <!--<ImageView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:src="@mipmap/many"/>-->
-                <!--</RelativeLayout>-->
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="1dp"-->
-                    <!--android:background="@color/color_ms_home_serachback"/>-->
-
-                <!--<com.technology.yuyi.lzh_utils.MyGridView-->
-                    <!--android:id="@+id/ms_home_gridview_Nutritious"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:numColumns="3"-->
-                    <!--android:horizontalSpacing="1dp"-->
-                    <!--android:background="@color/color_ms_home_serachback"-->
-                    <!--android:layout_height="wrap_content">-->
-                <!--</com.technology.yuyi.lzh_utils.MyGridView>-->
-            <!--</LinearLayout>-->
-
-
-
-        </RelativeLayout>
-    </ScrollView>
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.MS_allkinds_ExAdapter;
 import com.technology.yuyi.adapter.MS_home_DailyGridViewAdapter;
+import com.technology.yuyi.adapter.MS_home_ExAdapter;
 import com.technology.yuyi.adapter.MS_home_GridViewAdapter;
 import com.technology.yuyi.bean.bean_MS_allkinds;
 import com.technology.yuyi.bean.bean_MS_home;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MS_home_Activity extends AppCompatActivity {
     private final String TAG=getClass().getSimpleName();
@@ -48,6 +50,8 @@ public class MS_home_Activity extends AppCompatActivity {
     private MyExpanListview ms_home_exlistview;
     private List<Map<String,String>>listCat;//大类的集合
     private String resultStr;
+
+    private List<Map<String,Object>>listInfo;//存放expanlistview数据源
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -61,13 +65,17 @@ public class MS_home_Activity extends AppCompatActivity {
                         bean_MS_home homeSource=gson.gson.fromJson(resultStr,bean_MS_home.class);
                         listCategory=homeSource.getCategory();
                         listDrugs=homeSource.getDrugs();
+                        final List<Integer>listId=new ArrayList<>();//存放所有大类的id
                         if (listCategory!=null&&listCategory.size()>0&&listDrugs!=null&&listDrugs.size()>0){
+
                             listCat=new ArrayList<>();
                             for (int i=0;i<listCategory.size();i++){
                                 Map<String,String>mp=new HashMap<>();
                                 mp.put("name",listCategory.get(i).getName());
                                 mp.put("id",listCategory.get(i).getId()+"");
                                 listCat.add(mp);
+
+                                listId.add(listCategory.get(i).getId());
                             }
                             Map<String,String>mp=new HashMap<>();
                             mp.put("name","全部");
@@ -78,33 +86,19 @@ public class MS_home_Activity extends AppCompatActivity {
                             ms_home_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-//                                    type = getIntent().getIntExtra(MyIntent.intent_MS_allkinds_type, -1);
-//                                    cId = getIntent().getIntExtra(MyIntent.intent_MS_allkinds_id, -1);
-//                                    Cname = getIntent().getStringExtra(MyIntent.intent_MS_allkinds_name);//大类的名字
-//                                    ms_allkinds_textV_name.setText(Cname);
-//                                    switch (type) {
-//                                        case Intent_Code.code_MS_allkinds_typeAll://查询全部
-//                                            getAllDrugs();
-//                                            break;
-//                                        case Intent_Code.code_MS_allkinds_typeSmall://查询小类
-//                                            getDrugsSmall(cId, 0, 10);
-//                                            break;
-//                                        case Intent_Code.code_MS_allkinds_typeLarge://查询大类
-//                                            getDrugsLarge(cId, 0, 10);
-//                                            break;
-//                                    }
                                     Intent intent=new Intent();
                                     intent.setClass(MS_home_Activity.this,MS_allkinds_activity.class);
                                     if (position==adapter.getCount()-1){
                                         intent.putExtra(MyIntent.intent_MS_allkinds_type,Intent_Code.code_MS_allkinds_typeAll);
+                                        String ids=listCat.get(position).get("id");
                                         intent.putExtra(MyIntent.intent_MS_allkinds_name,listCat.get(position).get("name"));
-                                        intent.putExtra(MyIntent.intent_MS_allkinds_id,listCat.get(position).get("id"));
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_id,Integer.parseInt(listCat.get(position).get("id")));
                                     }
                                     else {
                                         intent.putExtra(MyIntent.intent_MS_allkinds_type,Intent_Code.code_MS_allkinds_typeLarge);
                                         intent.putExtra(MyIntent.intent_MS_allkinds_name,listCat.get(position).get("name"));
-                                        intent.putExtra(MyIntent.intent_MS_allkinds_id,listCat.get(position).get("id"));
+                                        String ids=listCat.get(position).get("id");
+                                        intent.putExtra(MyIntent.intent_MS_allkinds_id,Integer.parseInt(listCat.get(position).get("id")));
                                     }
                                     startActivity(intent);
                                 }
@@ -113,7 +107,42 @@ public class MS_home_Activity extends AppCompatActivity {
                         else {
                             toast.toast_gsonEmpty(MS_home_Activity.this);
                         }
-
+                            listInfo=new ArrayList<>();
+                        for (int i=0;i<listCategory.size();i++){//大类
+                            Map<String,Object>mp=new HashMap<>();
+                            mp.put("name",listCategory.get(i).getName());
+                            mp.put("id",listCategory.get(i).getId());
+                            List<Map<String,String>>lit=new ArrayList<>();
+                            for (int j=0;j<listDrugs.size();j++){//药品
+                                if (listCategory.get(i).getId()==listDrugs.get(j).getCategoryId1()){
+                                   Map<String,String>m=new HashMap<>();
+                                    m.put("childname",listDrugs.get(j).getDrugsName());
+                                    m.put("childid",listDrugs.get(j).getId()+"");
+                                    m.put("childurl",listDrugs.get(j).getPicture());
+                                    m.put("childprice",listDrugs.get(j).getPrice()+"");
+                                    lit.add(m);
+                                }
+                            }
+                            mp.put("child",lit);
+                            listInfo.add(mp);
+                        }
+                        MS_home_ExAdapter adapter=new MS_home_ExAdapter(listInfo,MS_home_Activity.this);
+                        ms_home_exlistview.setGroupIndicator(null);
+                        ms_home_exlistview.setAdapter(adapter);
+                        ms_home_exlistview.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                            @Override
+                            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                                Intent intent=new Intent(MS_home_Activity.this,MS_allkinds_activity.class);
+                                intent.putExtra(MyIntent.intent_MS_allkinds_type,Intent_Code.code_MS_allkinds_typeLarge);
+                                intent.putExtra(MyIntent.intent_MS_allkinds_name,listInfo.get(groupPosition).get("name")+"");
+                                intent.putExtra(MyIntent.intent_MS_allkinds_id,Integer.parseInt(listInfo.get(groupPosition).get("id")+""));
+                                startActivity(intent);
+                                return true;
+                            }
+                        });
+                        for(int i = 0; i < adapter.getGroupCount(); i++){
+                            ms_home_exlistview.expandGroup(i,false);
+                        }
 
                     }
                     catch (Exception e){
