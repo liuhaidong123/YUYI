@@ -189,10 +189,10 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 userPsd = my_userlogin_edit_smdCode.getText().toString();
                 if (isPhoneNum(userName) && !"".equals(userPsd) && !TextUtils.isEmpty(userPsd)) {
                     //登录
+                    MyDialog.showDialog(My_userLogin_Activity.this);
                     mLoginMap.put("id", userName);
                     mLoginMap.put("vcode", userPsd);
                     mHttptools.login(mHandler, mLoginMap);
-                    MyDialog.showDialog(My_userLogin_Activity.this);
                 } else {
                     Toast.makeText(My_userLogin_Activity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                 }
