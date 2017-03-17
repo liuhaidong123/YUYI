@@ -79,7 +79,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
 
         add_head_tv= (RoundImageView) findViewById(R.id.add_head_tv);
         add_head_tv.setOnClickListener(this);
-    }
 
         //-----------------------------------------------------------
         edit_relation= (EditText) findViewById(R.id.edit_relation);
@@ -276,63 +275,56 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            switch (requestCode){
+        if (resultCode==RESULT_OK) {
+            switch (requestCode) {
                 case ResCode.Request_searchPhoto:
-                    if (data!=null){
-                        Uri uri=data.getData();//获取选中的图片Uri
-                        if (uri!=null){
+                    if (data != null) {
+                        Uri uri = data.getData();//获取选中的图片Uri
+                        if (uri != null) {
                             cutPhoto(uri);
+                        } else {
+                            Toast.makeText(AddFamilyUserActivity.this, "无法获取到图片路径", Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            Toast.makeText(AddFamilyUserActivity.this,"无法获取到图片路径",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else {
-                        Toast.makeText(AddFamilyUserActivity.this,"从图库中选择照片失败",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddFamilyUserActivity.this, "从图库中选择照片失败", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case ResCode.Request_takePhoto:
                     cutPhoto(Uri.fromFile(file));
                     break;
                 case ResCode.Request_cutPhoto:
-                    if (data!=null){
-                        Bitmap btm=data.getExtras().getParcelable("data");
-                        if (btm!=null){
+                    if (data != null) {
+                        Bitmap btm = data.getExtras().getParcelable("data");
+                        if (btm != null) {
                             add_head_tv.setImageBitmap(btm);
 
-                        bit=data.getExtras().getParcelable("data");
-                        if (bit!=null){
-                            add_head_tv.setImageBitmap(bit);
-                            if (pop!=null){
-                                pop.dismiss();
+                            bit = data.getExtras().getParcelable("data");
+                            if (bit != null) {
+                                add_head_tv.setImageBitmap(bit);
+                                if (pop != null) {
+                                    pop.dismiss();
+                                }
+                            } else {
+                                Toast.makeText(AddFamilyUserActivity.this, "图片裁剪失败", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                        else {
-                            Toast.makeText(AddFamilyUserActivity.this,"图片裁剪失败",Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                        } else {
+                            Toast.makeText(AddFamilyUserActivity.this, "图片裁剪失败", Toast.LENGTH_SHORT).show();
 
-                    else{
-                        Toast.makeText(AddFamilyUserActivity.this,"图片裁剪失败",Toast.LENGTH_SHORT).show();
-
+                        }
+                        break;
+                    } else {
+                        Log.i("resultCode--", resultCode + "");
                     }
-                    break;
             }
-        }
-        else {
-            Log.i("resultCode--",resultCode+"");
-        }
-    }
-
+        }}
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        if (file!=null){
-            if (file.exists()&&file.isFile()){
-                file.delete();
-            }
-        }
+                super.onDestroy();
+                if (file != null) {
+                    if (file.exists() && file.isFile()) {
+                        file.delete();
+                    }
+                }
 
-    }
+            }
 }

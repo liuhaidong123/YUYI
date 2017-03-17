@@ -63,10 +63,6 @@ public class My_userLogin_Activity extends AppCompatActivity {
             else if(msg.what==-2){
                 my_userlogin_getSMScode.setClickable(true);
                 my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
-                isClick = true;
-            } else if (msg.what == -1) {
-                timeOut = 60;
-
             }
         }
     };
