@@ -519,13 +519,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             addfamily_getSmsCode= (TextView) v.findViewById(R.id.addfamily_getSmsCode);//获取验证码
             addfamily_edit_smsCode= (EditText) v.findViewById(R.id.addfamily_edit_smsCode);
             addfamily_pop_submit= (TextView) v.findViewById(R.id.addfamily_pop_submit);
-//        RelativeLayout re= (RelativeLayout) v.findViewById(R.id.re);
-//        re.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                popupWindow.dismiss();
-//            }
-//        });
             addfamily_getSmsCode.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {//获取验证码
