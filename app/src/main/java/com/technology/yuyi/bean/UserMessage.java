@@ -15,8 +15,6 @@ public class UserMessage {
 
     private String origin;
 
-    private String updateTime;
-
     private String avatar;
 
     private String userName;
@@ -26,8 +24,6 @@ public class UserMessage {
     private String trueName;
 
     private int marital;
-
-    private String createTime;
 
     private long id;
 
@@ -67,12 +63,6 @@ public class UserMessage {
     public String getOrigin(){
         return this.origin;
     }
-    public void setUpdateTime(String updateTime){
-        this.updateTime = updateTime;
-    }
-    public String getUpdateTime(){
-        return this.updateTime;
-    }
     public void setAvatar(String avatar){
         this.avatar = avatar;
     }
@@ -103,13 +93,7 @@ public class UserMessage {
     public int getMarital(){
         return this.marital;
     }
-    public void setCreateTime(String createTime){
-        this.createTime = createTime;
-    }
-    public String getCreateTime(){
-        return this.createTime;
-    }
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
     public long getId(){

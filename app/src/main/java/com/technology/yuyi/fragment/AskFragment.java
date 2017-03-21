@@ -128,7 +128,6 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
             Intent intent = new Intent(this.getContext(), HospitalDetailsActivity.class);
             intent.putExtra("id", mList.get(position).getId());
             startActivity(intent);

@@ -166,6 +166,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 }
             }else if (msg.what==101){
                 mSwipeRefresh.setRefreshing(false);
+            }else if (msg.what==31){
+                Object o=msg.obj;
+
             }
         }
     };
@@ -194,6 +197,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
         mHttptools.getFirstPageInformationTwoData(mHttpHandler,0,2);//首页资讯2条数据
+        mHttptools.getAdData(mHttpHandler);
     }
 
     /**
@@ -250,9 +254,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
         mListAd.add(R.mipmap.item01);
         mListAd.add(R.mipmap.item02);
-        mListAd.add(R.mipmap.item03);
-        mListAd.add(R.mipmap.item04);
-        mListAd.add(R.mipmap.item05);
+       // mListAd.add(R.mipmap.item03);
+       // mListAd.add(R.mipmap.item04);
+        //mListAd.add(R.mipmap.item05);
         //初始化广告轮播图的小图标，以及设置viewpager滑动监听和自动轮播
         setADCircleImg();
 
@@ -433,7 +437,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             startActivity(intent);
         } else if (id == mEdit_rl.getId()) {//跳转到搜索页
             Intent intent = new Intent(this.getContext(), SearchActivity.class);
-            intent.putExtra("hint", "搜索药品");
+            intent.putExtra("type", "drug");
             startActivity(intent);
 
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品

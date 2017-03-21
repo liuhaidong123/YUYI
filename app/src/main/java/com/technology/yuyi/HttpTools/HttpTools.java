@@ -5,6 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.technology.yuyi.bean.AdBean.Root;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.HospitalDepartmentRoot;
@@ -81,8 +82,8 @@ public class HttpTools {
     /**
      * 获取首页资讯2条数据
      */
-    public void getFirstPageInformationTwoData(final Handler handler,int start,int limit) {
-        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA+"start="+start+"&limit="+limit;
+    public void getFirstPageInformationTwoData(final Handler handler, int start, int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA + "start=" + start + "&limit=" + limit;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -144,8 +145,8 @@ public class HttpTools {
     /**
      * 获取咨询页面数据
      */
-    public void getAskData(final Handler handler,int start,int limit) {
-        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA+"start="+start+"&limit="+limit;
+    public void getAskData(final Handler handler, int start, int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA + "start=" + start + "&limit=" + limit;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -308,12 +309,11 @@ public class HttpTools {
 
 
     /**
-     *
-     *预约挂号接口
+     * 预约挂号接口
      */
 
-    public void getAppintmentData(final Handler handler,int start,int limit){
-        String url=UrlTools.BASE+UrlTools.URL_FIRST_PAGE_TWO_DATA+"start="+start+"&limit="+limit;
+    public void getAppintmentData(final Handler handler, int start, int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA + "start=" + start + "&limit=" + limit;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -343,14 +343,12 @@ public class HttpTools {
 
     }
 
-
     /**
-     *
-     *医院科室接口
+     * 医院科室接口
      */
 
-    public void getHospitalDepartmentData(final Handler handler ,int hid ){
-        String url=UrlTools.BASE+UrlTools.URL_HOSPITAL_DEPARTMENT+"hid="+hid;
+    public void getHospitalDepartmentData(final Handler handler, int hid) {
+        String url = UrlTools.BASE + UrlTools.URL_HOSPITAL_DEPARTMENT + "hid=" + hid;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -377,12 +375,12 @@ public class HttpTools {
         });
     }
 
+
     /**
-     *
-     *医院挂号接口
+     * 医院挂号接口
      */
-    public void getUserRegisterData(final Handler handler ,int cid ){
-        String url=UrlTools.BASE+UrlTools.URL_USER_REGISTER+"cid="+cid;
+    public void getUserRegisterData(final Handler handler, int cid) {
+        String url = UrlTools.BASE + UrlTools.URL_USER_REGISTER + "cid=" + cid;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -409,63 +407,96 @@ public class HttpTools {
         });
     }
 
-
-
-    //获取网络数据(get方法)
-    public void getMessage(final Handler handler, String param1, String param2, String param3) {
-        String url = UrlTools.BASE + UrlTools.URL + "&param1=" + param1 + "&param2=" + param2 + "&param3=" + param3;
+    /**
+     * 首页轮播广告接口
+     */
+    public void getAdData(final Handler handler) {
+        String url = UrlTools.BASE + UrlTools.URL_AD;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
-            //开始网络请求
             @Override
             public void onStart() {
                 super.onStart();
-                Log.e("onStart：", "请求开始");
+                Log.e("onStart：", "请求开始轮播广告接口");
             }
 
-            //网络请求失败
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                super.onFailure(t, errorNo, strMsg);
-                Log.e("onFailure请求失败：", strMsg);
-            }
-
-            //网络请求成功，返回json字符串
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-//                City city = mGson.fromJson(s, City.class);
-//                Message message = new Message();
-//                message.what = 1;
-//                message.obj = city;
-//                handler.sendMessage(message);
-                Log.e("onSuccess请求成功：", s);
+                Log.e("onSuccess请求成功轮播广告接口数据：", s);
+                Root root = mGson.fromJson(s, Root.class);
+                Message message = new Message();
+                message.what = 31;
+                message.obj = root;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败轮播广告接口数据：", strMsg);
             }
         });
     }
 
-    //获取网络数据（post方法）
-    public void submitLoginMessage(final Handler handler, Map<String, String> map) {
-        String url = UrlTools.BASE + UrlTools.URL;
-        mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
+
+    /**
+     * 搜索药品接口
+     */
+    public void getSearchDrugData(final Handler handler, String vague) {
+        String url = UrlTools.BASE + UrlTools.URL_SEARCH_DRUG + "vague=" + vague;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
                 super.onStart();
+                Log.e("onStart：", "请求查找药品接口");
             }
 
-            //获取数据成功
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-//               City city = mGson.fromJson(s, City.class);
-//                Message message = new Message();
-//                message.what = 2;
-//                message.obj = city;
-//                handler.sendMessage(message);
+                Log.e("onSuccess请求成功查找药品数据：", s);
+                com.technology.yuyi.bean.SearchDrugBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SearchDrugBean.Root.class);
+                Message message = new Message();
+                message.what = 32;
+                message.obj = root;
+                handler.sendMessage(message);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败查找药品数据：", strMsg);
+            }
+        });
+    }
+
+    /**
+     * 搜索医院接口
+     */
+    public void getSearchHospitalData(final Handler handler, String vague) {
+        String url = UrlTools.BASE + UrlTools.URL_SEARCH_HOSPITAL + "vague=" + vague;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求查找医院接口");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功查找医院数据：", s);
+               com.technology.yuyi.bean.SearchHospital.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SearchHospital.Root.class);
+                Message message = new Message();
+                message.what = 33;
+                message.obj = root;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败查找医院数据：", strMsg);
             }
         });
     }

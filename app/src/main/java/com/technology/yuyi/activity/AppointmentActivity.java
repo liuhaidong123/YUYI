@@ -124,7 +124,7 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
             finish();
         } else if (id == mSearch_rl.getId()) {//点击edittext跳转
             Intent intent = new Intent(this, SearchActivity.class);
-            intent.putExtra("hint", "搜索医院");
+            intent.putExtra("type", "hospital");
             startActivity(intent);
         }
     }
