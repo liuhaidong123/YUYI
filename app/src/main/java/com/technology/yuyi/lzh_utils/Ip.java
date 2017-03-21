@@ -5,8 +5,21 @@ package com.technology.yuyi.lzh_utils;
  */
 
 public interface Ip {
-   public final static String url_F="http://192.168.1.55:8080/yuyi/";
+   public final static String url_F="http://192.168.1.44:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
+
+   //添加家庭用户的接口
+   public final static String interface_addFamilyUser="homeuser/save.do?";
+
+
+   //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
+   public static String interfce_ListFamilyUser="homeuser/findList.do?";
+
+   //删除家庭用户http://192.168.1.55:8080/yuyi/homeuser/delete.do?token=6DD620E22A92AB0AED590DB66F84D064&id=123
+   public static String interfce_DeleteFamilyUser="homeuser/delete.do?";
+
+
+
 
    //意见反馈页面:http://localhost:8080/yuyi/feedback//save.do?content=“”&contact=192873637&token=2E8B4C79121FBC6CB1377B190C663F52
    public final static String interface_User_feedus="feedback//save.do?";
@@ -17,8 +30,7 @@ public interface Ip {
    //获取用户默认地址的接口 token=07503A48193E12437B25F38471141FEA
    public final static String interface_User_editAddress="address/save.do?";
 
-   //添加家庭用户的接口
-   public final static String interface_addFamilyUser="homeuser/save.do";
+
 
 
 
@@ -45,12 +57,13 @@ public interface Ip {
 
    //查询药品详细信息的url与接口
 //   http://192.168.1.43:8080/yuyi/drugs/getid.do?id=3
-   public final static String url_DrugInfo="http://192.168.1.42:8080/yuyi/";
    public final static String interface_DrugInfo="drugs/getid.do?";
 
+   //获取验证码的接口
+   public final static String interface_SmsCode="/personal/vcode.do?";
 
    //图片url
-   public final static String imagePth_F="http://192.168.1.42:8080/yuyi";
+   public final static String imagePth_F="http://192.168.1.44:8080/yuyi";
    public final static String imagePth="http://192.168.1.55:8080/yuyi";
 
 }

@@ -17,12 +17,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
+import com.technology.yuyi.lzh_utils.RongUri;
+import com.technology.yuyi.lzh_utils.user;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -115,7 +121,10 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             mAlertDialog.dismiss();
         } else if (id == mCharBtn.getId()) {//文字资讯
             mAlertDialog.dismiss();
-            startActivity(new Intent(this, WordActivity.class));
+            if (RongIM.getInstance()!=null){
+                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"医患聊天");
+            }
+
         } else if (id == mBack.getId()) {//返回
             finish();
         }

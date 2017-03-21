@@ -491,4 +491,11 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
             }
         });
     }
+
+    public void SearchDrugs(View view) {
+        Intent inten=new Intent();
+        inten.setClass(MS_allkinds_activity.this,SearchActivity.class);
+        inten.putExtra("type","drug");
+        startActivity(inten);
+    }
 }

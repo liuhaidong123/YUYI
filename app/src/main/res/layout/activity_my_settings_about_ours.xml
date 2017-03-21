@@ -39,16 +39,7 @@
             android:scaleType="centerCrop"
             android:id="@+id/my_settings_aboutOurs_imageview"
             android:layout_height="70dp" />
-        <TextView
-            android:id="@+id/my_settings_aboutOurs_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/my_settings_aboutOurs_imageview"
-            android:layout_marginTop="15dp"
-            android:textColor="#333333"
-            android:textSize="17sp"
-            android:text="宇医1.0"/>
+
         <TextView
             android:paddingRight="50dp"
             android:paddingLeft="50dp"
@@ -70,5 +61,16 @@
             android:textSize="12sp"
             android:layout_marginBottom="25dp"
             android:textColor="#aaaaaa"/>
+
+        <TextView
+            android:id="@+id/my_settings_aboutOurs_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:text="宇医1.0"
+            android:layout_below="@+id/my_settings_aboutOurs_imageview"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </RelativeLayout>

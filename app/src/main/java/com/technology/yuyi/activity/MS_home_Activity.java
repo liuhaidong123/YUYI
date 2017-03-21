@@ -220,6 +220,15 @@ public class MS_home_Activity extends AppCompatActivity {
            }
        });
     }
+
+
+    //搜索按钮
+    public void SearchDrugs(View view) {
+        Intent inten=new Intent();
+        inten.setClass(MS_home_Activity.this,SearchActivity.class);
+        inten.putExtra("type","drug");
+        startActivity(inten);
+    }
 }
 
 

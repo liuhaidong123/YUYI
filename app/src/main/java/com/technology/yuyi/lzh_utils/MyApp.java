@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import cn.jpush.android.api.JPushInterface;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.NativeObject;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * Created by wanyu on 2017/3/8.
@@ -66,5 +69,7 @@ public class MyApp extends Application{
         JPushInterface.setDebugMode(true);//发不时设为false
         JPushInterface.init(getApplicationContext());
 //        Toast.makeText(getApplicationContext(),"jp注册",Toast.LENGTH_SHORT).show();
+        RongIM.init(this);
+
     }
 }

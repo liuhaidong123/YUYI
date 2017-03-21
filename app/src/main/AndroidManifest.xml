@@ -246,9 +246,9 @@
         <activity
             android:name=".activity.VoiceSuccessActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.WordActivity"
-            android:screenOrientation="portrait" />
+        <!--<activity-->
+            <!--android:name=".activity.WordActivity"-->
+            <!--android:screenOrientation="portrait" />-->
         <activity
             android:name=".activity.GaoDeLocateActivity"
             android:screenOrientation="portrait"
@@ -388,6 +388,43 @@
             android:value="dfff8856e1666ede851049d5" />
         <!-- ／／／／／／／／／／／激光推送／／／／／／／／／ -->
 
+
+        <!--                       融云相关（以下）                       -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.technology.yuyi.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
+    <!--会话界面actiity-->
+        <activity android:name=".activity.Roung_imActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.technology.yuyi"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong"/>
+            </intent-filter>
+        </activity>
+        <receiver android:name=".lzh_utils.SealNotificationReceiver"></receiver>
+
+        <!--<provider-->
+        <!--android:name="android.support.v4.content.FileProvider"-->
+        <!--android:authorities="com.technology.yuyi.FileProvider"-->
+        <!--android:grantUriPermissions="true"-->
+        <!--android:exported="false">-->
+        <!--<meta-data-->
+        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--android:resource="@xml/rc_file_path"/>-->
+        <!--</provider>-->
     </application>
 
 </manifest>

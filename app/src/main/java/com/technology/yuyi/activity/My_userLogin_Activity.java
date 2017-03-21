@@ -19,13 +19,16 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
-import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.lzh_utils.MyDialog;
+import com.technology.yuyi.lzh_utils.user;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class My_userLogin_Activity extends AppCompatActivity {
     private int timeOut = 60;//计时器
@@ -97,13 +100,51 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         userPsd=userName;
                         Log.e("token：",root.getResult());
                         edi.commit();
-                        user.userName=userName;
-                        user.userPsd=root.getResult();
+
+
+
+                        RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
+
+                            /**
+                             * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
+                             *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
+                             */
+                            @Override
+                            public void onTokenIncorrect() {
+
+                            }
+
+                            /**
+                             * 连接融云成功
+                             * @param userid 当前 token 对应的用户 id
+                             */
+                            @Override
+                            public void onSuccess(String userid) {
+                                user.userId=userid;
+                                Log.i("融云返回的id---",userid+"--StartActivity---");
+                                Toast.makeText(My_userLogin_Activity.this,"融云token注册成功--"+userid,Toast.LENGTH_SHORT).show();
+                            }
+
+                            /**
+                             * 连接融云失败
+                             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                             */
+                            @Override
+                            public void onError(RongIMClient.ErrorCode errorCode) {
+                                Log.e("token错误--","startActivity----");
+                                Toast.makeText(My_userLogin_Activity.this,"融云token失败--",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                         //d点击登录注释
                         Intent intent = new Intent();
                         intent.setClass(My_userLogin_Activity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
+
+
+
+
                     }else {
                         Toast.makeText(My_userLogin_Activity.this, "登陆失败", Toast.LENGTH_SHORT).show();
                         MyDialog.stopDia();
@@ -138,8 +179,8 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 userName = my_userlogin_edit_name.getText().toString();
                 if (!"".equals(userName) && !TextUtils.isEmpty(userName)) {
                     if (isPhoneNum(userName)) {
-                            mMap.put("id", userName);//验证码需要的map集合
-                            getSMScode();
+                        mMap.put("id", userName);//验证码需要的map集合
+                        getSMScode();
 
                     } else {
                         Toast.makeText(My_userLogin_Activity.this, "用户名不正确", Toast.LENGTH_SHORT).show();
@@ -164,15 +205,15 @@ public class My_userLogin_Activity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                        while (timeOut>0) {
-                            try {
-                                timeOut--;
-                                handler.sendEmptyMessage(timeOut);
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                while (timeOut>0) {
+                    try {
+                        timeOut--;
+                        handler.sendEmptyMessage(timeOut);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         }).start();
@@ -180,7 +221,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
 
     //判断是否输入的为手机号
     public boolean isPhoneNum(String str) {
-        String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
+        String regExp = "^((13[0-9])|(15[^4])|(18[0-9])|(17[0-9])|(147))\\d{8}$";
         Pattern p = Pattern.compile(regExp);
         Matcher m = p.matcher(str);
         return m.matches();
@@ -198,7 +239,6 @@ public class My_userLogin_Activity extends AppCompatActivity {
                     mLoginMap.put("id", userName);
                     mLoginMap.put("vcode", userPsd);
                     mHttptools.login(mHandler, mLoginMap);
-
                 } else {
                     Toast.makeText(My_userLogin_Activity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                 }

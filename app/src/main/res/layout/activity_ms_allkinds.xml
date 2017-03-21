@@ -36,11 +36,14 @@
                     android:textSize="17sp"
                     android:text="全部药品"/>
                 <ImageView
+                    android:onClick="SearchDrugs"
+                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
                     android:src="@mipmap/screen"/>
             </RelativeLayout>
             <!--分类标题-->

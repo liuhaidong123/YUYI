@@ -51,6 +51,7 @@
         android:background="@color/color_bg" />
 
     <RelativeLayout
+        android:id="@+id/ra"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/family_listview_bg"
@@ -119,6 +120,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:maxLength="3"
                 android:id="@+id/edit_age"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
@@ -179,6 +181,7 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:maxLength="11"
                 android:id="@+id/edit_telnum"
                 android:layout_width="130dp"
                 android:layout_height="30dp"

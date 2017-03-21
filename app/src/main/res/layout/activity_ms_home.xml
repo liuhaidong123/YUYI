@@ -78,6 +78,8 @@
                     android:layout_below="@+id/ms_linerlayout">
 
                     <RelativeLayout
+                        android:clickable="true"
+                        android:onClick="SearchDrugs"
                         android:background="@drawable/ms_home_searchbackground"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

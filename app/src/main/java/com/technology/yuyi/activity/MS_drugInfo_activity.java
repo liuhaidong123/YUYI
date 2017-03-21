@@ -398,7 +398,7 @@ public class MS_drugInfo_activity extends Activity {
     public void getDrugInfo() {
         Map<String,String> mp=new HashMap<String,String>();
         mp.put("id",DrugId+"");
-        okhttp.getCall(Ip.url_DrugInfo+Ip.interface_DrugInfo,mp,okhttp.OK_GET).enqueue(new Callback() {
+        okhttp.getCall(Ip.url_F+Ip.interface_DrugInfo,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);

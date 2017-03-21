@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.technology.yuyi.activity.MS_drugInfo_activity">
     <LinearLayout
+        android:visibility="gone"
     android:id="@+id/ms_drug_info_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -101,6 +102,7 @@
                         android:textSize="17sp"
                         android:text="氨基酸口服液"
                         android:textColor="#6a6a6a"
+                        android:layout_marginBottom="15dp"
                         android:layout_marginTop="15dp"/>
 
                     <TextView
@@ -112,6 +114,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
                         android:text="￥45"
+                        android:visibility="gone"
                         android:layout_below="@+id/ms_drug_info_name"
                         android:layout_alignStart="@+id/ms_drug_info_name" />
                 </RelativeLayout>
