@@ -4,10 +4,11 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="999感冒灵"
-        android:textColor="@color/color_edit_hint"
+        android:textColor="@color/color_no_press_tv"
         android:textSize="13sp" />
 </RelativeLayout>

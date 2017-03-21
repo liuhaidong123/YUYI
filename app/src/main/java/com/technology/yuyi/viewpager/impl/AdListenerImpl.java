@@ -53,17 +53,15 @@ public class AdListenerImpl implements ViewPager.OnPageChangeListener {
         //手指开始滑动
         if (state == mAdViewpager.SCROLL_STATE_DRAGGING) {
             mHandler.removeMessages(1);
-            mResfresh.setFocusable(false);
-            mResfresh.setRefreshing(false);
+            mResfresh.setEnabled(false);
             //手指松开后自动滑动
         } else if (state == mAdViewpager.SCROLL_STATE_SETTLING) {
             mHandler.removeMessages(1);
-            mResfresh.setFocusable(false);
-            mResfresh.setRefreshing(false);
+           mResfresh.setEnabled(true);
             //停在某一页
         } else {
             mHandler.sendEmptyMessageDelayed(1, 3000);
-            mResfresh.setFocusable(true);
+            mResfresh.setEnabled(true);
         }
     }
 

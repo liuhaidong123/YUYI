@@ -6,7 +6,6 @@ package com.technology.yuyi.HttpTools;
 
 public class UrlTools {
 
-    public static final String URL="";
     public static final String BASE="http://192.168.1.44:8080/yuyi";
     public static final String URL_FIRST_PAGE_SIX_DATA="/drugs/findList.do?start=0&limit=6&cid=11";//首页常用药品6条数据
     public static final String URL_FIRST_PAGE_TWO_DATA="/hospital/findList.do?";//首页资讯2条数据(也是咨询页面接口，预约挂号接口 需传start=0&limit=2)
@@ -16,5 +15,10 @@ public class UrlTools {
     public static final String URL_USER_MESSAGE="/personal/get.do?";//我的页面用户信息接口（需要token）
     public static  final  String URL_HOSPITAL_DEPARTMENT="/department/gethid.do?";//医院科室接口（需传hid=）
     public static  final  String URL_USER_REGISTER="/physician/getcid.do?";//用户挂号接口（需传门诊cid）
+
+    public static  final  String URL_AD="/article/findall.do";//首页广告轮播接口
+    public static final  String URL_AD_MEssage="/article/getid.do?";//首页轮播详情接口，需传id（id=3）
+    public static final  String URL_SEARCH_DRUG="/drugs/findvague.do?";//药品搜索接口 需传：vague=
+    public static final  String URL_SEARCH_HOSPITAL="/hospital/findvague.do?";//医院搜索接口 需传：vague=
 
 }
