@@ -124,7 +124,7 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
     public void getUserList() {
         Map<String,String>mp=new HashMap<>();
 //        mp.put("token", user.userPsd);
-        mp.put("token",user.token);
+        mp.put("token",user.userPsd);
         okhttp.getCall(Ip.url+Ip.interfce_ListFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {

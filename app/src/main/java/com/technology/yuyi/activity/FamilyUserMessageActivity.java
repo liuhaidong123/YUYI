@@ -171,7 +171,7 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
     //删除用户http://192.168.1.55:8080/yuyi/homeuser/delete.do?token=6DD620E22A92AB0AED590DB66F84D064&id=123
     private void deleteUser() {
         Map<String,String> mp=new HashMap<>();
-        mp.put("token", user.token);
+        mp.put("token", user.userPsd);
         mp.put("id",userInfo.getId()+"");
         okhttp.getCall(Ip.url+Ip.interfce_DeleteFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override

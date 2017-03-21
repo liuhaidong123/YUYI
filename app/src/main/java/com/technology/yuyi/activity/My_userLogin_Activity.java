@@ -98,6 +98,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         edi.putString("userpsd", root.getResult());
                         userPsd=root.getResult();
                         userPsd=userName;
+                        user.token=root.getResult();
                         Log.e("token：",root.getResult());
                         edi.commit();
 

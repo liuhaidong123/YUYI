@@ -343,7 +343,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     // &telephone=13712345678
     private void sendMsg() {
         Map<String,String> mp=new HashMap<>();
-        mp.put("token", user.token);  mp.put("nickName",relation);//家庭关系
+        mp.put("token", user.userPsd);  mp.put("nickName",relation);//家庭关系
         mp.put("trueName",name);  mp.put("age",age);
         mp.put("avatar",bit64);
         telnum=edit_telnum.getText().toString();

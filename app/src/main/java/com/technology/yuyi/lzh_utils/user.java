@@ -27,6 +27,7 @@ public class user {
                 .equals(userPs)&&!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(userPs)){
             userName=username;//存储到类中
             userPsd=userPs;//存储到类中
+            token=userPs;
             return true;
         }
         return false;
