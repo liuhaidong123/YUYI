@@ -2,15 +2,10 @@ package com.technology.yuyi.lzh_utils;
 
 import android.app.Activity;
 import android.app.Application;
-import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.NativeObject;
-import io.rong.imlib.model.UserInfo;
+
 
 /**
  * Created by wanyu on 2017/3/8.
