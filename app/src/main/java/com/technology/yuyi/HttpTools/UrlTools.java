@@ -6,7 +6,7 @@ package com.technology.yuyi.HttpTools;
 
 public class UrlTools {
 
-    public static final String BASE="http://192.168.1.44:8080/yuyi";
+    public static final String BASE="http://192.168.1.55:8080/yuyi";
     public static final String URL_FIRST_PAGE_SIX_DATA="/drugs/findList.do?start=0&limit=6&cid=11";//首页常用药品6条数据
     public static final String URL_FIRST_PAGE_TWO_DATA="/hospital/findList.do?";//首页资讯2条数据(也是咨询页面接口，预约挂号接口 需传start=0&limit=2)
     public static final String URL_FIRST_PAGE_TWO_DATA_MESSAGE="/hospital/get.do?";//首页资讯详情数据（传id）
@@ -20,5 +20,6 @@ public class UrlTools {
     public static final  String URL_AD_MEssage="/article/getid.do?";//首页轮播详情接口，需传id（id=3）
     public static final  String URL_SEARCH_DRUG="/drugs/findvague.do?";//药品搜索接口 需传：vague=
     public static final  String URL_SEARCH_HOSPITAL="/hospital/findvague.do?";//医院搜索接口 需传：vague=
-
+    public static final  String URL_USER_LIST="/homeuser/findList.do?";//或取用户列表（需传token=）
+    public static final  String URL_SUBMIT_TEM="/temperature/save.do";//post(token,humeuserId家庭用户编号,temperaturet体温);
 }
