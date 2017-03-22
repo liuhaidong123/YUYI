@@ -212,6 +212,7 @@
             android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
         <activity
+            android:launchMode="singleTop"
             android:name=".activity.FamilyManageActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -219,6 +220,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:launchMode="singleTop"
             android:name=".activity.FamilyUserMessageActivity"
             android:screenOrientation="portrait" />
         <activity

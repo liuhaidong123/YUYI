@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,40 +34,43 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Headers;
+
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.technology.yuyi.R;
-import com.technology.yuyi.adapter.Ms_druginfo_popAdapter;
+
 import com.technology.yuyi.bean.bean_AddFamilyUser;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
 import com.technology.yuyi.bean.bean_SMScode;
 import com.technology.yuyi.lzh_utils.BitmapTobase64;
 import com.technology.yuyi.lzh_utils.Ip;
-import com.technology.yuyi.lzh_utils.MyGridView;
+
 import com.technology.yuyi.lzh_utils.ResCode;
+
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
 
+
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//Intent intent=  new Intent(this, AddFamilyUserActivity.class);
-//        intent.putExtra("title","修改家庭用户");
-//        Bundle b=new Bundle();
-//        b.putSerializable("family",userInfo);
-//        intent.putExtra("family",b);
-//        startActivity(intent);
+
 public class AddFamilyUserActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
     private TextView mSure_tv;
@@ -78,8 +82,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
 
     private Bitmap bit;
 
-
-
+    private String cooki;
+    private Headers header;
     private EditText edit_relation,edit_age,edit_name,edit_telnum;
     private CheckBox checkbox;
     private String relation,age,name,telnum;
@@ -91,7 +95,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     TextView addfamily_pop_submit;
     private String resStr;
 
-
+    private int first=0;
     //--------------------------------
     private bean_ListFamilyUser.ResultBean userInfo;
     private String type;//0:添加家庭用户，1修改家庭用户
@@ -131,6 +135,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                             }
                            else if ("1".equals(type)){
                                 Toast.makeText(AddFamilyUserActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                                byte[] bytes = Base64.decode(bit64, Base64.DEFAULT);
+                                add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
                             }
 
                         }
@@ -185,7 +191,10 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (edit_telnum.getText()!=null&&isPhoneNum(edit_telnum.getText().toString())){
                     telnum=edit_telnum.getText().toString();
-                    getSMSCode();
+                    if (first!=1){
+                        getSMSCode();
+                    }
+
                 }
                 else {
                     Toast.makeText(AddFamilyUserActivity.this,"请输入正确的手机号",Toast.LENGTH_SHORT).show();
@@ -225,24 +234,27 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                 }
             }
         });
-
+            first=0;
         //-------------------------------------------
         Bundle b=getIntent().getBundleExtra("family");
         if (b!=null){
             userInfo= (bean_ListFamilyUser.ResultBean) b.getSerializable("family");
-            Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth_F+userInfo.getAvatar())).error(R.mipmap.logo).into(new Target() {
+            Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                     bit=bitmap;
                     bit64=BitmapTobase64.bitmapToBase64(bit);
                     add_head_tv.setImageBitmap(bitmap);
+                    Log.e("--bit64--load--1-",bit64.toString());
                 }
 
                 @Override
                 public void onBitmapFailed(Drawable drawable) {
                         bit= BitmapFactory.decodeResource(getResources(),R.mipmap.logo);
                         add_head_tv.setImageBitmap(bit);
-                    bit64=BitmapTobase64.bitmapToBase64(bit);
+                        bit64=BitmapTobase64.bitmapToBase64(bit);
+                    Log.e("--bit64--load--2-",bit64.toString());
                 }
 
                 @Override
@@ -257,13 +269,15 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             if (isPhoneNum(userInfo.getTelephone()+"")){
                 edit_telnum.setText(userInfo.getTelephone()+"");
             }
-            type=getIntent().getStringExtra("type");
-            if (!"1".equals(type)){//1xiugai 0添加
-                type="0";
+            if (userInfo.getRole()==1){//1的时候同意查看
+                first=1;
+                checkbox.setChecked(true);
             }
-
         }
-
+        type=getIntent().getStringExtra("type");
+        if (!"1".equals(type)){//1xiugai 0添加
+            type="0";
+        }
     }
     //判断是否输入的为手机号
     public boolean isPhoneNum(String str) {
@@ -283,7 +297,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                 //检查用户输入的信息是否完整
                 if (checkInput()){
                    sendMsg();
-
                 }
                 else {
                     Toast.makeText(AddFamilyUserActivity.this,"信息填写不完整",Toast.LENGTH_SHORT).show();
@@ -321,7 +334,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         relation=edit_relation.getText().toString();
         age=edit_age.getText().toString();
         name=edit_name.getText().toString();
-
         if (!"".equals(relation)&&!TextUtils.isEmpty(relation)&&
                 !"".equals(age)&&!TextUtils.isEmpty(age)&&
                 !"".equals(name)&&!TextUtils.isEmpty(name)){
@@ -346,6 +358,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         mp.put("token", user.userPsd);  mp.put("nickName",relation);//家庭关系
         mp.put("trueName",name);  mp.put("age",age);
         mp.put("avatar",bit64);
+        Log.e("bit64----map---",bit64.toString());
         telnum=edit_telnum.getText().toString();
         if (checkbox.isChecked()){//当选中了手机号可以查看时，验证码不能为空，手机号不能为空
             if (!"".equals(telnum)&&!TextUtils.isEmpty(telnum)&&isPhoneNum(telnum)&&!TextUtils.isEmpty(SMScode)&&!"".equals(SMScode)){
@@ -354,11 +367,13 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             }
             else {
                 Toast.makeText(AddFamilyUserActivity.this,"手机号或验证码不完整",Toast.LENGTH_SHORT).show();
+                checkbox.setChecked(false);
+                return;
             }
         }
         else{
             if (!"".equals(telnum)&&!TextUtils.isEmpty(telnum)&&isPhoneNum(telnum)){
-              mp.put("telephone",telnum);
+                mp.put("telephone",telnum);
                 Log.i("----------",telnum);
             }
         }
@@ -366,12 +381,11 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         if ("1".equals(type)){//修改信息的时候多一个id字段
             mp.put("id",userInfo.getId()+"");
         }
-        okhttp.getCall(Ip.url+ Ip.interface_addFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
+        okhttp.getCallCookie(Ip.url+ Ip.interface_addFamilyUser,mp,cooki).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                     handler.sendEmptyMessage(0);
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 resStr=response.body().string();
@@ -381,6 +395,11 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        first=0;
+    }
 
     private void showWindowUploading() {
         View vi= LayoutInflater.from(AddFamilyUserActivity.this).inflate(R.layout.usereditor_pop_uploading,null);
@@ -486,6 +505,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                             if (bit != null) {
                                 add_head_tv.setImageBitmap(bit);
                                 bit64= BitmapTobase64.bitmapToBase64(bit);
+                                Log.e("bit64-----",bit64);
                                 if (pop != null) {
                                     pop.dismiss();
                                 }
@@ -531,8 +551,15 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                         }
                         @Override
                         public void onResponse(Response response) throws IOException {
+                            Log.i("------",response.header("Set-Cookie"));
+                            header=response.headers();
+                            for (String s:header.names()){
+                                Log.i("name--"+s,"--"+header.get(s));
+                            }
+                            cooki=header.get("Set-Cookie");
                             resStr=response.body().string();
                             Log.i("添加家庭用户验证码---",resStr);
+                            Log.i("添加家庭用户验证码---",response.toString());
                             handler.sendEmptyMessage(1);
                         }
                     });
@@ -582,7 +609,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         }
 
     }
-
 
 
 

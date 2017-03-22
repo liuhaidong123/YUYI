@@ -41,6 +41,7 @@ public class user {
         editor.commit();
         userPsd="";
         userName="";
+        token="";
     }
 
 }

@@ -130,7 +130,6 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 resStr=response.body().string();

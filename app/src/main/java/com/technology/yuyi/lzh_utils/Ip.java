@@ -8,6 +8,17 @@ public interface Ip {
    public final static String url_F="http://192.168.1.44:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
 
+   //   获取电子病历列表http://localhost:8080/yuyi/medical/token.do?token=1EE359830D68AF676396B06029CCFA61
+   public final static String interface_medicalRecordList="medical/token.do?";
+
+
+
+   //获取个人信息接口http://localhost:8080/yuyi/personal/get.do?token=C0700876FB2F9BEC156AC039F894E92B
+   public final static String interface_UserMsg="personal/get.do?";
+
+   //个人信息修改:http://localhost:8080/yuyi/personal/save.do?token=C0700876FB2F9BEC156AC039F894E92B&idCard=515251635262&age=26
+   public final static String interface_UserMsgRevise="personal/save.do?";
+
    //添加家庭用户的接口
    public final static String interface_addFamilyUser="homeuser/save.do?";
 

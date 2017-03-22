@@ -2,13 +2,18 @@ package com.technology.yuyi.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,15 +25,34 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_My_UserMsg;
+import com.technology.yuyi.lzh_utils.BitmapTobase64;
+import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.ResCode;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
+import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserEditorActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +60,8 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private AlertDialog.Builder mBuilder;
     private AlertDialog mAlertDialog;
     private View mSexAlertView;
+    private RadioGroup user_editor_sex_radioGroup;
+    private RadioButton boyBtn,grilBtn;
     private ImageView mBack;
     private EditText mAgeEdit;
     private EditText mNikName;
@@ -46,22 +72,104 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private TextView usereditor_textv_cancle,usereditor_textv_picture,usereditor_textv_camera;
     private PopupWindow pop;
     private RoundImageView usereditor_image_userphoto;
+    private EditText user_editor_userName;
+    private TextView user_editor_sex;
     private File file;
+    private Bitmap bit;
+    private String bit64;
+    private String resStr;
+    private int SE;//性别标示0女，1男
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0://失败
+                    toast.toast_faild(UserEditorActivity.this);
+                    break;
+                case 1://获取用户信息
+                    try{
+                        bean_My_UserMsg usMsg= gson.gson.fromJson(resStr,bean_My_UserMsg.class);
+                        mNikName.setText(usMsg.getUserName());
+                        user_editor_userName.setText(usMsg.getTrueName()+"");
+                        Picasso.with(UserEditorActivity.this).load(Ip.imagePth_F+usMsg.getAvatar()).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                                    bit64=BitmapTobase64.bitmapToBase64(bitmap);
+                                    usereditor_image_userphoto.setImageBitmap(bitmap);
+                            }
+
+                            @Override
+                            public void onBitmapFailed(Drawable drawable) {
+                                bit64=BitmapTobase64.bitmapToBase64(BitmapFactory.decodeResource(getResources(),R.mipmap.logo));
+                                usereditor_image_userphoto.setImageResource(R.mipmap.logo);
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable drawable) {
+
+                            }
+                        });
+                        int sx=usMsg.getGender();
+                        SE=usMsg.getGender();
+                        if (sx==0){//nv
+                            user_editor_sex.setText("女");
+                        }
+                        else if (sx==1){//nan
+                            user_editor_sex.setText("男");
+                        }
+                        mAgeEdit.setText(usMsg.getAge()+"");
+                        mAdEdit.setText(usMsg.getIdCard());
+
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(UserEditorActivity.this);
+//                        Log.e("----gson-----",e.toString());
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2://修改／添加用户信息
+
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_editor);
         initView();
-
+        getUserData();//获取用户个人信息
     }
 
     private void initView() {
+        user_editor_sex= (TextView) findViewById(R.id.user_editor_sex);
+        user_editor_userName= (EditText) findViewById(R.id.user_editor_userName);
         //选择性别
         mSex = (RelativeLayout) findViewById(R.id.user_sex_rl);
         mSex.setOnClickListener(this);
         mBuilder = new AlertDialog.Builder(this);
         mAlertDialog = mBuilder.create();
         mSexAlertView = LayoutInflater.from(this).inflate(R.layout.sex_alert_box, null);
+        boyBtn= (RadioButton) mSexAlertView.findViewById(R.id.boy_btn);
+        grilBtn= (RadioButton) mSexAlertView.findViewById(R.id.girl_btn);
+        user_editor_sex_radioGroup= (RadioGroup) mSexAlertView.findViewById(R.id.user_editor_sex_radioGroup);
+                user_editor_sex_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId){
+                            case R.id.boy_btn://男
+                                SE=1;
+                                user_editor_sex.setText("男");
+                                break;
+                            case R.id.girl_btn://女
+                                SE=0;
+                                user_editor_sex.setText("女");
+                                break;
+                        }
+                    }
+                });
         mAlertDialog.setView(mSexAlertView);
         //返回
         mBack = (ImageView) findViewById(R.id.editor_back);
@@ -96,6 +204,16 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         switch (id){
             case R.id.user_sex_rl://点击个人信息编辑
                 mAlertDialog.show();
+                switch (SE){
+                    case 0:
+                        boyBtn.setChecked(false);
+                        grilBtn.setChecked(true);
+                        break;
+                    case 1://男
+                        boyBtn.setChecked(true);
+                        grilBtn.setChecked(false);
+                        break;
+                }
             setAlertWidth();
                 break;
             case R.id.editor_back://返回
@@ -232,6 +350,8 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                             Bitmap btm=data.getExtras().getParcelable("data");
                             if (btm!=null){
                                 usereditor_image_userphoto.setImageBitmap(btm);
+                                bit=btm;
+                                bit64= BitmapTobase64.bitmapToBase64(bit);
                                 if (pop!=null){
                                     pop.dismiss();
                                 }
@@ -260,6 +380,100 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             if (file.exists()&&file.isFile()){
                 file.delete();
             }
+        }
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+
+    //获取个人信息接口
+    public void getUserData() {
+        Map<String,String> mp=new HashMap<>();
+        mp.put("token", user.token);
+        okhttp.getCall(Ip.url_F+Ip.interface_UserMsg,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                    resStr=response.body().string();
+                    Log.i("获取用户个人信息--",resStr);
+                    handler.sendEmptyMessage(1);
+            }
+        });
+    }
+
+    //提交用户信息http://localhost:8080/yuyi/personal/save.do?token=C0700876FB2F9BEC156AC039F894E92B&idCard=515251635262&age=26
+    public void sendMsg(){
+//        private EditText user_editor_userName;
+//        private EditText mAgeEdit;
+//        private EditText mNikName;
+//        private EditText mAdEdit;
+//        private EditText mAddressEdit;
+//        private TextView user_editor_sex;
+        Map<String,String>mp=new HashMap<>();
+        mp.put("token",user.token);
+        mp.put("avatar",bit64);
+        mp.put("userName",mNikName.getText().toString());//昵称
+        mp.put("trueName",user_editor_userName.getText().toString());//真实姓名
+        mp.put("age",mAgeEdit.getText().toString());//年龄
+        mp.put("gender",""+SE);//性别
+        Log.i("---性别--","--------"+SE);
+        mp.put("idCard",mAdEdit.getText().toString());//身份证号
+        okhttp.getCall(Ip.url_F+Ip.interface_UserMsgRevise,mp,okhttp.OK_POST).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                    resStr=response.body().string();
+                    Log.i("修改个人信息----",resStr);
+                    handler.sendEmptyMessage(2);
+            }
+        });
+    }
+
+
+    // 提交／上传用户信息
+    public void Submit(View view) {
+         int input=checkInput();
+        if(input==0){
+            sendMsg();
+        }
+        else if (input==1){
+            Toast.makeText(UserEditorActivity.this,"头像未上传",Toast.LENGTH_SHORT).show();
+        }
+        else if (input==2){
+            Toast.makeText(UserEditorActivity.this,"信息填写不完整",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+//检查
+    private int checkInput() {
+        if (!"".equals(bit64)&&!TextUtils.isEmpty(bit64)){
+            if (!"".equals(mNikName.getText().toString())&&!TextUtils.isEmpty(mNikName.getText())
+                    &&!"".equals(user_editor_userName.getText().toString())&&!TextUtils.isEmpty(user_editor_userName.getText().toString())
+                    &&!"".equals(user_editor_sex.getText().toString())&&!TextUtils.isEmpty(user_editor_sex.getText().toString())
+                    &&!"".equals(mAgeEdit.getText().toString())&&!TextUtils.isEmpty(mAgeEdit.getText().toString()
+            )&&!"".equals(mAdEdit.getText().toString())&&!TextUtils.isEmpty(mAdEdit.getText().toString())){
+                return 0;
+
+            }
+            else {
+                return 2;//其他信息不完整
+            }
+        }
+        else {
+            return 1;//头像不完整
         }
 
     }

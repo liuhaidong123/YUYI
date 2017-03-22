@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,8 +64,14 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 if (o != null && o instanceof UserMessage) {
                     UserMessage root= (UserMessage) o;
                     Picasso.with(getContext()).load(UrlTools.BASE+root.getAvatar()).error(R.mipmap.error_small).into(mHead_img);
-                    mNikName.setText(root.getId()+"");
-                    mUsername.setText("用户名:"+root.getId());
+                    if (!"".equals(root.getUserName())&&!TextUtils.isEmpty(root.getUserName())){
+                        mNikName.setText(root.getUserName()+"");
+                        mNikName.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        mNikName.setVisibility(View.GONE);
+                    }
+                    mUsername.setText(root.getId()+"");
                 }
             }
         }
@@ -74,8 +81,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public MyFragment() {
 
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,8 +91,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     //初始化数据
     public void initView(View view) {
-        mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getUserMessage(handler, user.userPsd);
+
         //用户信息
         mHead_img= (RoundImageView) view.findViewById(R.id.my_head_img);
         mNikName= (TextView) view.findViewById(R.id.my_name);
@@ -128,6 +132,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        mHttptools = HttpTools.getHttpToolsInstance();
+        mHttptools.getUserMessage(handler, user.userPsd);
         if (user.isLogin(getActivity())) {
             my_rela_userLogin.setVisibility(View.VISIBLE);
             my_rela_userNotLogin.setVisibility(View.GONE);
