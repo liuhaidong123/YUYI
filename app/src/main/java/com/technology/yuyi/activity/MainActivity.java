@@ -28,6 +28,7 @@ import com.technology.yuyi.lzh_utils.user;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
+import io.rong.imkit.RongIM;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout mFirstPage_ll;
@@ -316,5 +317,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        RongIM.getInstance().disconnect();
     }
+
+
+
 }

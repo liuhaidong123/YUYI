@@ -12,7 +12,8 @@ import android.text.TextUtils;
 public class user {
     public static String userName;
     public static String userPsd;
-    public static String RongToken="VTyYPMVHujXX/5F75amlVouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLY7Vw4k8ZHdx3YvBEYnSw92O0gxI0LSrA==";//融云的token123456
+    public static String RongToken2="VTyYPMVHujXX/5F75amlVouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLY7Vw4k8ZHdx3YvBEYnSw92O0gxI0LSrA==";//融云的token123456
+    public static String RongToken="ESTp2q1f1+2k9XEZHJCsNouZqhNeP62jUkZowKgPQxvQPCl3PhXaC1dqcd65/vqlbgoyXLQqd5kbXyyrcFO8gA==";//56789
     public static String token;//用户的token；
     public static String userId;//融云返回的userId;123456
     public static String targetId="admin";//token=="N/CST9tU8VlEfpnF//D+i4uZqhNeP62jUkZowKgPQxsXdaGtWFcdtGjFzYJd693LF+uKYPfQD5fxbtc2258TCw=="；
@@ -41,6 +42,7 @@ public class user {
         editor.commit();
         userPsd="";
         userName="";
+        token="";
     }
 
 }

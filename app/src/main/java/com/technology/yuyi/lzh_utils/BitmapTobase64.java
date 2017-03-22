@@ -5,7 +5,9 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by wanyu on 2017/3/20.
@@ -43,4 +45,7 @@ public class BitmapTobase64 {
         }
         return result;
     }
+
+
+
 }

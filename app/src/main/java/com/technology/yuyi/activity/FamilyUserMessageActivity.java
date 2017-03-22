@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.bean_DeleteFamilyUser;
@@ -93,7 +95,8 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
 //            private TextView user_name_tv;//名称（与关系）;
 //            private TextView user_name_age;//年龄
 //            private TextView user_telnum;//电话
-            Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth_F+userInfo.getAvatar())).error(R.mipmap.logo).into(user_img_head);
+            Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .networkPolicy(NetworkPolicy.NO_CACHE).into(user_img_head);
             user_name_tv.setText(userInfo.getTrueName()+"（"+userInfo.getNickName()+"）");
             user_name_age.setText(userInfo.getAge()+"岁");
             user_telnum.setText(userInfo.getTelephone()+"");
@@ -146,8 +149,6 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
         } else if (id == mMyData_rl.getId()) {//我的数据分析
             startActivity(new Intent(this, MyDataAnalyseActivity.class));
         } else if (id == mEditImg.getId()) {//编辑图片(将用户信息传过去)
-
-
             Intent intent=  new Intent(this, AddFamilyUserActivity.class);
             intent.putExtra("title","修改家庭用户");
             intent.putExtra("type","1");
@@ -178,7 +179,6 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 resultStr=response.body().string();

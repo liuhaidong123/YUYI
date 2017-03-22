@@ -212,6 +212,7 @@
             android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
         <activity
+            android:launchMode="singleTop"
             android:name=".activity.FamilyManageActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -219,6 +220,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:launchMode="singleTop"
             android:name=".activity.FamilyUserMessageActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -390,6 +392,19 @@
 
 
         <!--                       融云相关（以下）                       -->
+
+        <!--离线消息-->
+        <receiver
+            android:exported="true"
+            android:name=".lzh_utils.SealNotificationReceiver">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+            </intent-filter>
+        </receiver>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.technology.yuyi.FileProvider"
@@ -413,8 +428,9 @@
                     android:pathPrefix="/conversation/"
                     android:scheme="rong"/>
             </intent-filter>
+
         </activity>
-        <receiver android:name=".lzh_utils.SealNotificationReceiver"></receiver>
+
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->
@@ -425,6 +441,8 @@
         <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
         <!--android:resource="@xml/rc_file_path"/>-->
         <!--</provider>-->
+
+
     </application>
 
 </manifest>
