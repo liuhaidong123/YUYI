@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.technology.yuyi.activity.HandInputTemActivity">
+
     <RelativeLayout
         android:id="@+id/hand_title"
         android:layout_width="match_parent"
@@ -16,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -70,14 +71,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/curr_line2"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="6dp"
+            android:paddingTop="6dp"
             android:background="@null"
+            android:inputType="number|numberDecimal"
+            android:maxLength="4"
             android:hint="请输入..."
             android:textColor="@color/color_ad"
             android:textSize="13sp" />
     </RelativeLayout>
-
-
 
     <TextView
         android:id="@+id/tv_prompt_input"
@@ -86,8 +87,7 @@
         android:layout_below="@id/rl_blood_g"
         android:layout_marginStart="25dp"
         android:gravity="center_vertical"
-        android:text="@string/str_prompt"
-        android:textColor="@color/color_tem" />
+         />
 
     <TextView
         android:id="@+id/tv_data"
@@ -133,14 +133,69 @@
             android:textSize="12sp" />
     </RelativeLayout>
 
-
-    <ListView
-        android:id="@+id/hand_tem_listview_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/tem_refresh"
         android:layout_above="@id/rl_sure"
         android:layout_below="@id/curr_line5"
-        android:background="@color/color_white">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
-    </ListView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.technology.yuyi.myview.InformationListView
+                    android:id="@+id/hand_tem_listview_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:scrollbars="none">
+
+                </com.technology.yuyi.myview.InformationListView>
+
+                <View
+                    android:id="@+id/curr_line7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/hand_tem_listview_id"
+                    android:background="@color/color_bg" />
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/curr_line7"
+                    android:background="@color/color_white">
+
+
+                    <ImageView
+                        android:id="@+id/add_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="30dp"
+                        android:src="@mipmap/add_icon_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@id/add_img"
+                        android:text="@string/str_add_per"
+                        android:textColor="@color/color_per"
+                        android:textSize="14sp" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
 </RelativeLayout>
