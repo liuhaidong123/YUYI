@@ -119,7 +119,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(InformationActivity.this, InformationDetailsActivity.class);
                 intent.putExtra("id", mList.get(position).getId());//将医院的id传过去
-                Log.e("id=", mList.get(position).getId() + "");
+                intent.putExtra("type", "information");
                 startActivity(intent);
             }
         });
