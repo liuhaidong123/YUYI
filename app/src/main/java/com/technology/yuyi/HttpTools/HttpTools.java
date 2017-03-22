@@ -5,7 +5,8 @@ import android.os.Message;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.technology.yuyi.bean.AdBean.Root;
+import com.technology.yuyi.bean.ADbean.Result;
+import com.technology.yuyi.bean.ADbean.Root;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.HospitalDepartmentRoot;
@@ -423,17 +424,19 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功轮播广告接口数据：", s);
-                Root root = mGson.fromJson(s, Root.class);
-                Message message = new Message();
-                message.what = 31;
-                message.obj = root;
+                Root root=mGson.fromJson(s,Root.class);
+                Message message=new Message();
+                message.what=31;
+                message.obj=root;
                 handler.sendMessage(message);
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败轮播广告接口数据：", strMsg);
+                handler.sendEmptyMessage(101);
             }
         });
     }
@@ -499,5 +502,107 @@ public class HttpTools {
                 Log.e("onFailure请求失败查找医院数据：", strMsg);
             }
         });
+    }
+
+
+    /**
+     * 广告详情
+     */
+    public void getAdMessageData(final Handler handler,int id) {
+        String url = UrlTools.BASE + UrlTools.URL_AD_MEssage+"id="+id;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始轮播广告详情接口");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功轮播广告详情数据：", s);
+                com.technology.yuyi.bean.ADmessageBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.ADmessageBean.Root.class);
+                Message message=new Message();
+                message.what=34;
+                message.obj=root;
+                handler.sendMessage(message);
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败轮播广告详情数据：", strMsg);
+
+            }
+        });
+    }
+
+    /**
+     *获取用户列表接口
+     */
+    public void getUserLIst(final Handler handler, Map<String, String> map) {
+        String url = UrlTools.BASE + UrlTools.URL_USER_LIST;
+        mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "获取用户列表开始");
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onStart：", "获取用户列表成功" + s);
+                com.technology.yuyi.bean.UserListBean.Root root = mGson.fromJson(s,  com.technology.yuyi.bean.UserListBean.Root.class);
+                Message m = new Message();
+                m.what = 35;
+                m.obj = root;
+                handler.sendMessage(m);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure：", "获取用户列表失败" + strMsg);
+                handler.sendEmptyMessage(102);
+            }
+        });
+
+    }
+
+    /**
+     * 提交用户体温接口
+     */
+    public void submitTemData(final Handler handler, final Map<String, String> map) {
+        String url = UrlTools.BASE + UrlTools.URL_SUBMIT_TEM;
+        mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "提交体温开始开始");
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onStart：", "提交体温成功" + s);
+                com.technology.yuyi.bean.SubmitTemBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.SubmitTemBean.Root.class);
+                Message message=new Message();
+                message.what=36;
+                message.obj=root;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure：", "提交体温失败" + strMsg);
+                handler.sendEmptyMessage(103);
+            }
+        });
+
     }
 }
