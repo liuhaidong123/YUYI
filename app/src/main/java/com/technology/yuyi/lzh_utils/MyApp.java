@@ -70,6 +70,5 @@ public class MyApp extends Application{
         JPushInterface.init(getApplicationContext());
 //        Toast.makeText(getApplicationContext(),"jp注册",Toast.LENGTH_SHORT).show();
         RongIM.init(this);
-
     }
 }

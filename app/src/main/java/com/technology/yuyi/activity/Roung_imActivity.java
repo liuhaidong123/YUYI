@@ -46,4 +46,10 @@ public class Roung_imActivity extends FragmentActivity {
 //            transaction.commit();
 //        }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
 }
