@@ -1,7 +1,7 @@
-package com.technology.yuyi.bean.AdBean;
+package com.technology.yuyi.bean.ADbean;
 
 /**
- * Created by liuhaidong on 2017/3/20.
+ * Created by liuhaidong on 2017/3/21.
  */
 
 public class Rows {
@@ -13,15 +13,9 @@ public class Rows {
 
     private String articleText;
 
-    private String updateTime;
-
     private String title;
 
-    private String localId;
-
     private String picture;
-
-    private CreateTime createTime;
 
     private int hospitalId;
 
@@ -29,92 +23,75 @@ public class Rows {
 
     private String creatTimeString;
 
-    private String info;
+    public String getCreateTimeString() {
+        return createTimeString;
+    }
 
-    private int status;
-
-    public void setCreateTimeString(String createTimeString){
+    public void setCreateTimeString(String createTimeString) {
         this.createTimeString = createTimeString;
     }
-    public String getCreateTimeString(){
-        return this.createTimeString;
+
+    public String getSmalltitle() {
+        return smalltitle;
     }
-    public void setSmalltitle(String smalltitle){
+
+    public void setSmalltitle(String smalltitle) {
         this.smalltitle = smalltitle;
     }
-    public String getSmalltitle(){
-        return this.smalltitle;
+
+    public String getUpdateTimeString() {
+        return updateTimeString;
     }
-    public void setUpdateTimeString(String updateTimeString){
+
+    public void setUpdateTimeString(String updateTimeString) {
         this.updateTimeString = updateTimeString;
     }
-    public String getUpdateTimeString(){
-        return this.updateTimeString;
+
+    public String getArticleText() {
+        return articleText;
     }
-    public void setArticleText(String articleText){
+
+    public void setArticleText(String articleText) {
         this.articleText = articleText;
     }
-    public String getArticleText(){
-        return this.articleText;
+
+    public String getTitle() {
+        return title;
     }
-    public void setUpdateTime(String updateTime){
-        this.updateTime = updateTime;
-    }
-    public String getUpdateTime(){
-        return this.updateTime;
-    }
-    public void setTitle(String title){
+
+    public void setTitle(String title) {
         this.title = title;
     }
-    public String getTitle(){
-        return this.title;
+
+    public String getPicture() {
+        return picture;
     }
-    public void setLocalId(String localId){
-        this.localId = localId;
-    }
-    public String getLocalId(){
-        return this.localId;
-    }
-    public void setPicture(String picture){
+
+    public void setPicture(String picture) {
         this.picture = picture;
     }
-    public String getPicture(){
-        return this.picture;
+
+    public int getHospitalId() {
+        return hospitalId;
     }
-    public void setCreateTime(CreateTime createTime){
-        this.createTime = createTime;
-    }
-    public CreateTime getCreateTime(){
-        return this.createTime;
-    }
-    public void setHospitalId(int hospitalId){
+
+    public void setHospitalId(int hospitalId) {
         this.hospitalId = hospitalId;
     }
-    public int getHospitalId(){
-        return this.hospitalId;
+
+    public int getId() {
+        return id;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
-    public int getId(){
-        return this.id;
+
+    public String getCreatTimeString() {
+        return creatTimeString;
     }
-    public void setCreatTimeString(String creatTimeString){
+
+    public void setCreatTimeString(String creatTimeString) {
         this.creatTimeString = creatTimeString;
-    }
-    public String getCreatTimeString(){
-        return this.creatTimeString;
-    }
-    public void setInfo(String info){
-        this.info = info;
-    }
-    public String getInfo(){
-        return this.info;
-    }
-    public void setStatus(int status){
-        this.status = status;
-    }
-    public int getStatus(){
-        return this.status;
     }
 }
