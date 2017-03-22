@@ -1,4 +1,4 @@
-package com.technology.yuyi.bean.ADbean;
+package com.technology.yuyi.bean.AdBean;
 
 /**
  * Created by liuhaidong on 2017/3/21.

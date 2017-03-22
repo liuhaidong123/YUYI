@@ -5,8 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.technology.yuyi.bean.ADbean.Result;
-import com.technology.yuyi.bean.ADbean.Root;
+import com.technology.yuyi.bean.AdBean.Root;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.HospitalDepartmentRoot;

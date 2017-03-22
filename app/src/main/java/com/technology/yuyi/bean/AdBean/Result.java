@@ -1,4 +1,4 @@
-package com.technology.yuyi.bean.ADbean;
+package com.technology.yuyi.bean.AdBean;
 
 import java.util.List;
 

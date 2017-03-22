@@ -13,7 +13,8 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.InformationDetailsActivity;
-import com.technology.yuyi.bean.ADbean.Rows;
+import com.technology.yuyi.bean.AdBean.Rows;
+
 
 import java.util.ArrayList;
 import java.util.List;

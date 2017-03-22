@@ -2,15 +2,11 @@ package com.technology.yuyi.viewpager.impl;
 
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.technology.yuyi.R;
-import com.technology.yuyi.bean.ADbean.Rows;
+import com.technology.yuyi.bean.AdBean.Rows;
 
 import java.util.ArrayList;
 import java.util.List;
