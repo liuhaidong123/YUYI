@@ -212,8 +212,7 @@
             android:gravity="center"
             android:text="@string/str_user_edi"
             android:textColor="@color/color_normal"
-            android:textSize="17sp" />
-
+            android:textSize="17sp"/>
         <TextView
             android:id="@+id/user_editor_textV_submit"
             android:onClick="Submit"
