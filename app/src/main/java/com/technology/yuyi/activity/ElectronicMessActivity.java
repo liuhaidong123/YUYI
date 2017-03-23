@@ -105,14 +105,17 @@ private ImageView mBack;
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position!=0){
-            startActivity(new Intent(this,LookElectronicMessActivity.class));
+            Intent intent=new Intent();
+            intent.setClass(ElectronicMessActivity.this,LookElectronicMessActivity.class);
+            intent.putExtra("id",list.get(position-1).getId());
+            startActivity(intent);
         }
     }
     //获取所有电子病历
     public void getMsg(){
         Map<String,String>mp=new HashMap<>();
         mp.put("token","1EE359830D68AF676396B06029CCFA61");
-        okhttp.getCall(Ip.url_F+Ip.interface_medicalRecordList,mp,okhttp.OK_GET).enqueue(new Callback() {
+        okhttp.getCall(Ip.url+Ip.interface_medicalRecordList,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                     handler.sendEmptyMessage(0);

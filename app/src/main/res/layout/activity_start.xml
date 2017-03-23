@@ -13,7 +13,7 @@
         android:layout_marginEnd="10dp"
         android:textColor="@color/color_normal"
         android:layout_alignParentEnd="true"
-        android:id="@+id/intent_id_btn"
+        android:id="@+id/intent_id_btnt"
         android:layout_width="65dp"
         android:text="3s后跳转"
         android:textSize="12sp"

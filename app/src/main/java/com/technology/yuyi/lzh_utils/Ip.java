@@ -5,12 +5,14 @@ package com.technology.yuyi.lzh_utils;
  */
 
 public interface Ip {
-   public final static String url_F="http://192.168.1.44:8080/yuyi/";
+   public final static String url_F="http://192.168.1.32:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
 
    //   获取电子病历列表http://localhost:8080/yuyi/medical/token.do?token=1EE359830D68AF676396B06029CCFA61
    public final static String interface_medicalRecordList="medical/token.do?";
 
+   //   电子病历信息://localhost:8080/yuyi/medical/token.do?token=1EE359830D68AF676396B06029CCFA61
+   public final static String interface_medicalRecordMsg="medical/get.do?";
 
 
    //获取个人信息接口http://localhost:8080/yuyi/personal/get.do?token=C0700876FB2F9BEC156AC039F894E92B
@@ -74,7 +76,7 @@ public interface Ip {
    public final static String interface_SmsCode="/personal/vcode.do?";
 
    //图片url
-   public final static String imagePth_F="http://192.168.1.44:8080/yuyi";
+   public final static String imagePth_F="http://192.168.1.55:8080/yuyi";
    public final static String imagePth="http://192.168.1.55:8080/yuyi";
 
 }

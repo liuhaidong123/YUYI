@@ -1,15 +1,21 @@
 package com.technology.yuyi.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +45,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_ChangeUserMsg;
 import com.technology.yuyi.bean.bean_My_UserMsg;
 import com.technology.yuyi.lzh_utils.BitmapTobase64;
 import com.technology.yuyi.lzh_utils.Ip;
@@ -50,6 +57,7 @@ import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -74,10 +82,14 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private RoundImageView usereditor_image_userphoto;
     private EditText user_editor_userName;
     private TextView user_editor_sex;
-    private File file;
+    private File fileaa;
     private Bitmap bit;
     private String bit64;
     private String resStr;
+
+    private File outputImage;
+    private Uri imageUri;
+
     private int SE;//性别标示0女，1男
     private Handler handler=new Handler(){
         @Override
@@ -130,7 +142,17 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                     }
                     break;
                 case 2://修改／添加用户信息
-
+                    try{
+                        bean_ChangeUserMsg changeUserMsg=gson.gson.fromJson(resStr,bean_ChangeUserMsg.class);
+                        if ("0".equals(changeUserMsg.getCode())){
+                            Toast.makeText(UserEditorActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(UserEditorActivity.this,"修改失败",Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception e){
+                        toast.toast_gsonFaild(UserEditorActivity.this);
+                    }
                     break;
             }
         }
@@ -288,107 +310,173 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    //浏览图片库
-    private void TakePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file=new File(getExternalFilesDir("DCIM").getAbsolutePath(),System.currentTimeMillis()+".jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(file));
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-        startActivityForResult(intent,ResCode.Request_takePhoto);
-    }
-
-
     //拍照
-    private void SearchPhoto() {
-        Intent intent=new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, ResCode.Request_searchPhoto);
+    private void TakePhoto() {
+        if (Build.VERSION.SDK_INT>=23){
+            int Permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+            if (Permission!= PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.CAMERA},10);
+            }
+            else {
+                if (pop!=null){
+                    pop.dismiss();
+                }
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                outputImage=new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                startActivityForResult(intent, 21);
+            }
+        }
+        else {
+            if (pop!=null){
+                pop.dismiss();
+            }
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            outputImage=new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            startActivityForResult(intent, 21);
+
+        }
+
     }
-    //图片裁剪
-    public void cutPhoto(Uri uri){
-        Uri u=uri;
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        Log.i("uri=2==", uri.getPath());
-        // crop为true是设置在开启的intent中设置显示的view可以剪裁
-        intent.putExtra("crop", "true");
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);//宽度
-        intent.putExtra("outputY", 300);//高度
-        intent.putExtra("return-data", true);
-        intent.putExtra("noFaceDetection", true);
-        startActivityForResult(intent,ResCode.Request_cutPhoto);
+
+
+    //图库选取
+    private void SearchPhoto() {
+        if (Build.VERSION.SDK_INT>=23){
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED&&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},11);
+            }
+            else {
+                if (pop!=null){
+                    pop.dismiss();
+                }
+                outputImage = new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
+                try {
+                    if (outputImage.exists()) {
+                        outputImage.delete();
+                    }
+                    outputImage.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                Intent intent = new Intent(Intent.ACTION_PICK,null);
+                //此处调用了图片选择器
+                //如果直接写intent.setDataAndType("image/*");
+                //调用的是系统图库
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+                startActivityForResult(intent, 20);
+            }
+        }
+       else {
+            if (pop!=null){
+                pop.dismiss();
+            }
+
+
+            outputImage = new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
+            try {
+                if (outputImage.exists()) {
+                    outputImage.delete();
+                }
+                outputImage.createNewFile();
+                Intent intent = new Intent(Intent.ACTION_PICK,null);
+                //此处调用了图片选择器
+                //如果直接写intent.setDataAndType("image/*");
+                //调用的是系统图库
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+                startActivityForResult(intent, 20);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
+        }
+
+
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 10:
+                if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    TakePhoto();
+                }
+                else {
+                    Toast.makeText(UserEditorActivity.this,"相机权限被禁用，无法拍照",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 11:
+                if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    SearchPhoto();
+                }
+                else {
+                    Toast.makeText(UserEditorActivity.this,"存储权限被禁用，无法选取图片",Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            switch (requestCode){
-                case ResCode.Request_searchPhoto:
-                    if (data!=null){
-                        Uri uri=data.getData();//获取选中的图片Uri
-                        if (uri!=null){
-                            cutPhoto(uri);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 20:
+                        //此处启动裁剪程序
+                        Intent intent = new Intent("com.android.camera.action.CROP");
+                        //此处注释掉的部分是针对android 4.4路径修改的一个测试
+                        //有兴趣的读者可以自己调试看看
+                        intent.setDataAndType(data.getData(), "image/*");
+                        intent.putExtra("scale", true);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+                        startActivityForResult(intent, 12);
+                    break;
+                case 21:
+                        //此处启动裁剪程序
+                        Intent intent2 = new Intent("com.android.camera.action.CROP");
+                        //此处注释掉的部分是针对android 4.4路径修改的一个测试
+                        //有兴趣的读者可以自己调试看看
+                        intent2.setDataAndType(Uri.fromFile(outputImage), "image/*");
+                        intent2.putExtra("scale", true);
+                        intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
+                        startActivityForResult(intent2, 12);
+                    break;
+                case 12:
+                    try{
+                        //将output_image.jpg对象解析成Bitmap对象，然后设置到ImageView中显示出来
+                        Bitmap bitmap = BitmapFactory.decodeFile(outputImage.getAbsolutePath());
+                        if (bitmap!=null){
+                            bit=bitmap;
+                            bit64=BitmapTobase64.bitmapToBase64(bit);
+                            usereditor_image_userphoto.setImageBitmap(bit);
                         }
                         else {
-                            Toast.makeText(UserEditorActivity.this,"无法获取到图片路径",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserEditorActivity.this,"照片截取失败",Toast.LENGTH_SHORT).show();
                         }
                     }
-                    else {
-                        Toast.makeText(UserEditorActivity.this,"从图库中选择照片失败",Toast.LENGTH_SHORT).show();
-                    }
+                  catch (Exception e){
+                      Toast.makeText(UserEditorActivity.this,"照片截取失败",Toast.LENGTH_SHORT).show();
+                  }
                     break;
-                case ResCode.Request_takePhoto:
-                    cutPhoto(Uri.fromFile(file));
-                    break;
-                case ResCode.Request_cutPhoto:
-                        if (data!=null){
-                            Bitmap btm=data.getExtras().getParcelable("data");
-                            if (btm!=null){
-                                usereditor_image_userphoto.setImageBitmap(btm);
-                                bit=btm;
-                                bit64= BitmapTobase64.bitmapToBase64(bit);
-                                if (pop!=null){
-                                    pop.dismiss();
-                                }
-                            }
-                            else {
-                                Toast.makeText(UserEditorActivity.this,"图片裁剪失败",Toast.LENGTH_SHORT).show();
-                            }
-                        }
 
-                    else{
-                            Toast.makeText(UserEditorActivity.this,"图片裁剪失败",Toast.LENGTH_SHORT).show();
-
-                        }
-                    break;
-            }
-        }
-        else {
-            Log.i("resultCode--",resultCode+"");
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (file!=null){
-            if (file.exists()&&file.isFile()){
-                file.delete();
             }
         }
 
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
 
     //获取个人信息接口
@@ -476,5 +564,15 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             return 1;//头像不完整
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (outputImage != null) {
+            if (outputImage.exists() && outputImage.isFile()) {
+                outputImage.delete();
+            }
+        }
     }
 }
