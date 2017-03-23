@@ -27,6 +27,7 @@ import com.technology.yuyi.adapter.DrugHospitalResult;
 import com.technology.yuyi.adapter.SearchHistoryListViewAdapter;
 import com.technology.yuyi.bean.SearchDrugBean.Result;
 import com.technology.yuyi.bean.SearchDrugBean.Root;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.myview.InformationListView;
 
@@ -72,7 +73,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     }
                 }
-            } else if (msg.what == 33) {//医院
+            } else if (msg.what==220){//json解析错误
+                MyDialog.stopDia();
+            }else if (msg.what==221){//请求数据错误
+                MyDialog.stopDia();
+                ToastUtils.myToast(SearchActivity.this,"请求数据失败");
+            }
+            else if (msg.what == 33) {//医院
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SearchHospital.Root) {
                     com.technology.yuyi.bean.SearchHospital.Root root = (com.technology.yuyi.bean.SearchHospital.Root) o;
@@ -98,6 +105,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     }
                 }
+            }else if (msg.what==222){//json解析错误
+                MyDialog.stopDia();
+            }else if (msg.what==223){//请求数据错误
+                MyDialog.stopDia();
+                ToastUtils.myToast(SearchActivity.this,"请求数据失败");
             }
         }
     };

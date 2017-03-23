@@ -17,6 +17,8 @@ public class Root {
 
     private String picture;
 
+    private String   type;
+
     private int hospitalId;
 
     private int id;
@@ -93,5 +95,13 @@ public class Root {
 
     public void setCreatTimeString(String creatTimeString) {
         this.creatTimeString = creatTimeString;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

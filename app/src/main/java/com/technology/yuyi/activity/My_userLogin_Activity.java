@@ -19,6 +19,7 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
 
@@ -44,12 +45,11 @@ public class My_userLogin_Activity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            int what=msg.what;
-            if (what>0){
-                my_userlogin_SMStimer.setText(what+ "S");
+            int what = msg.what;
+            if (what > 0) {
+                my_userlogin_SMStimer.setText(what + "S");
                 my_userlogin_SMStimer.setVisibility(View.VISIBLE);
-            }
-            else if (what==0){
+            } else if (what == 0) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -62,8 +62,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
                     }
                 }).start();
                 my_userlogin_SMStimer.setVisibility(View.GONE);
-            }
-            else if(msg.what==-2){
+            } else if (msg.what == -2) {
                 my_userlogin_getSMScode.setClickable(true);
                 my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
             }
@@ -81,10 +80,16 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 if (o != null && o instanceof ValidateCodeRoot) {
                     ValidateCodeRoot root = (ValidateCodeRoot) o;
                     if (root.getCode() != "" && root.getCode().equals("0")) {
-                        Toast.makeText(My_userLogin_Activity.this, "获取验证码成功", Toast.LENGTH_SHORT).show();
+                        ToastUtils.myToast(My_userLogin_Activity.this, "获取验证码成功");
                         my_userlogin_edit_smdCode.setText(root.getResult());
                     }
                 }
+                //json解析错误
+            } else if (msg.what == 208) {
+                MyDialog.stopDia();
+            } else if (msg.what == 209) {
+                MyDialog.stopDia();
+                ToastUtils.myToast(My_userLogin_Activity.this, "获取验证码失败");
             } else if (msg.what == 27) {//登录
                 MyDialog.stopDia();
                 Object o = msg.obj;
@@ -96,16 +101,12 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         SharedPreferences.Editor edi = pre.edit();
                         edi.putString("username", userName);
                         edi.putString("userpsd", root.getResult());
-                        userPsd=root.getResult();
-                        userPsd=userName;
-                        user.token=root.getResult();
-                        Log.e("token：",root.getResult());
+                        userPsd = root.getResult();
+                        userPsd = userName;
+                        user.token = root.getResult();
+                        Log.e("token：", root.getResult());
                         edi.commit();
-
-
-
                         RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
-
                             /**
                              * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
                              *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
@@ -121,9 +122,9 @@ public class My_userLogin_Activity extends AppCompatActivity {
                              */
                             @Override
                             public void onSuccess(String userid) {
-                                user.userId=userid;
-                                Log.i("融云返回的id---",userid+"--StartActivity---");
-                                Toast.makeText(My_userLogin_Activity.this,"融云token注册成功--"+userid,Toast.LENGTH_SHORT).show();
+                                user.userId = userid;
+                                Log.i("融云返回的id---", userid + "--StartActivity---");
+                                Toast.makeText(My_userLogin_Activity.this, "融云token注册成功--" + userid, Toast.LENGTH_SHORT).show();
                             }
 
                             /**
@@ -132,8 +133,8 @@ public class My_userLogin_Activity extends AppCompatActivity {
                              */
                             @Override
                             public void onError(RongIMClient.ErrorCode errorCode) {
-                                Log.e("token错误--","startActivity----");
-                                Toast.makeText(My_userLogin_Activity.this,"融云token失败--",Toast.LENGTH_SHORT).show();
+                                Log.e("token错误--", "startActivity----");
+                                Toast.makeText(My_userLogin_Activity.this, "融云token失败--", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -142,15 +143,15 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         intent.setClass(My_userLogin_Activity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-
-
-
-
                     }else {
                         Toast.makeText(My_userLogin_Activity.this, "登陆失败", Toast.LENGTH_SHORT).show();
                         MyDialog.stopDia();
                     }
                 }
+            } else if (msg.what == 210) {
+                MyDialog.stopDia();
+            } else if (msg.what == 211) {
+                MyDialog.stopDia();
             }
         }
     };
@@ -202,11 +203,11 @@ public class My_userLogin_Activity extends AppCompatActivity {
         my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
         my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_unclick));
         mHttptools.getValidateCode(mHandler, mMap);//获取验证码接口
-        timeOut=60;
+        timeOut = 60;
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (timeOut>0) {
+                while (timeOut > 0) {
                     try {
                         timeOut--;
                         handler.sendEmptyMessage(timeOut);

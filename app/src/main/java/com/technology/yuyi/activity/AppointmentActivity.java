@@ -20,6 +20,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.AppointmentListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
@@ -61,9 +62,11 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
                         mMany_more.setVisibility(View.GONE);
                     }
                 }
-            } else if (msg.what == 101) {
+            } else if (msg.what == 213) {
                 mRefresh.setRefreshing(false);
-                Toast.makeText(AppointmentActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
+            }else if (msg.what == 214) {
+                mRefresh.setRefreshing(false);
+                ToastUtils.myToast(AppointmentActivity.this, "更新失败");
             }
 
         }

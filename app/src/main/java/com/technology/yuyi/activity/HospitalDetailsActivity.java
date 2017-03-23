@@ -24,6 +24,7 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.RongUri;
 import com.technology.yuyi.lzh_utils.user;
 
@@ -59,8 +60,9 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                     mGrade_tv.setText(information.getGradeName());
                     mHospital_message.setText(information.getIntroduction());
                     Picasso.with(HospitalDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).error(R.mipmap.error_big).into(mImg);
-
                 }
+            }else if (msg.what==207){
+                ToastUtils.myToast(HospitalDetailsActivity.this,"获取数据失败");
             }
         }
     };

@@ -154,6 +154,7 @@
                 android:id="@+id/edit_name"
                 android:layout_width="130dp"
                 android:layout_height="30dp"
+                android:maxLength="5"
                 android:layout_toEndOf="@id/name_tv"
                 android:background="@drawable/edit_family_bg"
                 android:inputType="text"

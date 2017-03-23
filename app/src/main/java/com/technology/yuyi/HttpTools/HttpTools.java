@@ -62,18 +62,23 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功6条数据：", s);
-                FirstPageDrugSixDataRoot root = mGson.fromJson(s, FirstPageDrugSixDataRoot.class);
-                Message message = new Message();
-                message.what = 21;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    FirstPageDrugSixDataRoot root = mGson.fromJson(s, FirstPageDrugSixDataRoot.class);
+                    Message message = new Message();
+                    message.what = 21;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(200);
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败6条数据：", strMsg);
-                handler.sendEmptyMessage(101);
+                handler.sendEmptyMessage(201);
             }
         });
     }
@@ -95,18 +100,23 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功资讯2条数据：", s);
-                FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
-                Message message = new Message();
-                message.what = 22;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
+                    Message message = new Message();
+                    message.what = 22;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(202);
+                }
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败资讯2条数据：", strMsg);
-                handler.sendEmptyMessage(101);
+                handler.sendEmptyMessage(203);
             }
         });
     }
@@ -127,11 +137,17 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功资讯2条数据详情：", s);
-                Information root = mGson.fromJson(s, Information.class);
-                Message message = new Message();
-                message.what = 23;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    Information root = mGson.fromJson(s, Information.class);
+                    Message message = new Message();
+                    message.what = 23;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(204);
+                }
+
             }
 
             @Override
@@ -158,18 +174,24 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功咨询页面数据：", s);
-                FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
-                Message message = new Message();
-                message.what = 24;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
+                    Message message = new Message();
+                    message.what = 24;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(205);
+                    Log.e("错误码", e.toString());
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败咨询页面数据：", strMsg);
-                handler.sendEmptyMessage(101);
+                handler.sendEmptyMessage(206);
             }
         });
     }
@@ -191,17 +213,23 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功资讯2条数据详情：", s);
-                Information root = mGson.fromJson(s, Information.class);
-                Message message = new Message();
-                message.what = 25;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    Information root = mGson.fromJson(s, Information.class);
+                    Message message = new Message();
+                    message.what = 25;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败资讯2条数据详情：", strMsg);
+                handler.sendEmptyMessage(207);
             }
         });
     }
@@ -224,17 +252,25 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess：", "获取验证码成功:" + s);
-                ValidateCodeRoot root = mGson.fromJson(s, ValidateCodeRoot.class);
-                Message m = new Message();
-                m.what = 26;
-                m.obj = root;
-                handler.sendMessage(m);
+                try {
+                    ValidateCodeRoot root = mGson.fromJson(s, ValidateCodeRoot.class);
+                    Message m = new Message();
+                    m.what = 26;
+                    m.obj = root;
+                    handler.sendMessage(m);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(208);
+                    Log.e("错误码：", e.toString());
+                }
+
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure：", "获取验证码失败" + strMsg);
+                handler.sendEmptyMessage(209);
             }
         });
 
@@ -257,18 +293,22 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onStart：", "登录成功" + s);
-                LoginSuccess root = mGson.fromJson(s, LoginSuccess.class);
-                Message m = new Message();
-                m.what = 27;
-                m.obj = root;
-                handler.sendMessage(m);
-
-
+                try {
+                    LoginSuccess root = mGson.fromJson(s, LoginSuccess.class);
+                    Message m = new Message();
+                    m.what = 27;
+                    m.obj = root;
+                    handler.sendMessage(m);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(210);
+                    Log.e("错误码：", e.toString());
+                }
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                handler.sendEmptyMessage(211);
                 Log.e("onFailure：", "登录失败" + strMsg);
             }
         });
@@ -291,17 +331,23 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess：", "获取用户信息成功" + s);
-                UserMessage root = mGson.fromJson(s, UserMessage.class);
-                Message m = new Message();
-                m.what = 28;
-                m.obj = root;
-                handler.sendMessage(m);
+                try {
+                    UserMessage root = mGson.fromJson(s, UserMessage.class);
+                    Message m = new Message();
+                    m.what = 28;
+                    m.obj = root;
+                    handler.sendMessage(m);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure：", "获取用户信息失败" + strMsg);
+                handler.sendEmptyMessage(212);
             }
         });
 
@@ -325,18 +371,24 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功预约挂号数据：", s);
-                FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
-                Message message = new Message();
-                message.what = 28;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    FirstPageInformationTwoDataRoot root = mGson.fromJson(s, FirstPageInformationTwoDataRoot.class);
+                    Message message = new Message();
+                    message.what = 28;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(213);
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败预约挂号数据：", strMsg);
-                handler.sendEmptyMessage(101);
+                handler.sendEmptyMessage(214);
             }
         });
 
@@ -360,16 +412,23 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功医院科室数据：", s);
-                HospitalDepartmentRoot root = mGson.fromJson(s, HospitalDepartmentRoot.class);
-                Message message = new Message();
-                message.what = 29;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    HospitalDepartmentRoot root = mGson.fromJson(s, HospitalDepartmentRoot.class);
+                    Message message = new Message();
+                    message.what = 29;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(215);
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                handler.sendEmptyMessage(216);
                 Log.e("onFailure请求失败医院科室数据：", strMsg);
             }
         });
@@ -377,7 +436,7 @@ public class HttpTools {
 
 
     /**
-     * 医院挂号接口
+     * 挂号选择上午，下午，医生(没做呢)
      */
     public void getUserRegisterData(final Handler handler, int cid) {
         String url = UrlTools.BASE + UrlTools.URL_USER_REGISTER + "cid=" + cid;
@@ -392,17 +451,24 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功医院科室数据：", s);
-                UserRegisterRoot root = mGson.fromJson(s, UserRegisterRoot.class);
-                Message message = new Message();
-                message.what = 30;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    UserRegisterRoot root = mGson.fromJson(s, UserRegisterRoot.class);
+                    Message message = new Message();
+                    message.what = 30;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(217);
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败医院科室数据：", strMsg);
+                handler.sendEmptyMessage(218);
             }
         });
     }
@@ -423,19 +489,22 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功轮播广告接口数据：", s);
-                Root root=mGson.fromJson(s,Root.class);
-                Message message=new Message();
-                message.what=31;
-                message.obj=root;
-                handler.sendMessage(message);
-
+                try {
+                    Root root = mGson.fromJson(s, Root.class);
+                    Message message = new Message();
+                    message.what = 31;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                }
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败轮播广告接口数据：", strMsg);
-                handler.sendEmptyMessage(101);
+                handler.sendEmptyMessage(219);
             }
         });
     }
@@ -457,17 +526,24 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功查找药品数据：", s);
-                com.technology.yuyi.bean.SearchDrugBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SearchDrugBean.Root.class);
-                Message message = new Message();
-                message.what = 32;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    com.technology.yuyi.bean.SearchDrugBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SearchDrugBean.Root.class);
+                    Message message = new Message();
+                    message.what = 32;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(220);
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败查找药品数据：", strMsg);
+                handler.sendEmptyMessage(221);
             }
         });
     }
@@ -488,17 +564,24 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功查找医院数据：", s);
-               com.technology.yuyi.bean.SearchHospital.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SearchHospital.Root.class);
-                Message message = new Message();
-                message.what = 33;
-                message.obj = root;
-                handler.sendMessage(message);
+                try {
+                    com.technology.yuyi.bean.SearchHospital.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SearchHospital.Root.class);
+                    Message message = new Message();
+                    message.what = 33;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(222);
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败查找医院数据：", strMsg);
+                handler.sendEmptyMessage(223);
             }
         });
     }
@@ -507,8 +590,8 @@ public class HttpTools {
     /**
      * 广告详情
      */
-    public void getAdMessageData(final Handler handler,int id) {
-        String url = UrlTools.BASE + UrlTools.URL_AD_MEssage+"id="+id;
+    public void getAdMessageData(final Handler handler, int id) {
+        String url = UrlTools.BASE + UrlTools.URL_AD_MEssage + "id=" + id;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -520,11 +603,15 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功轮播广告详情数据：", s);
-                com.technology.yuyi.bean.ADmessageBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.ADmessageBean.Root.class);
-                Message message=new Message();
-                message.what=34;
-                message.obj=root;
-                handler.sendMessage(message);
+                try {
+                    com.technology.yuyi.bean.ADmessageBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.ADmessageBean.Root.class);
+                    Message message = new Message();
+                    message.what = 34;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码：", e.toString());
+                }
 
             }
 
@@ -532,13 +619,13 @@ public class HttpTools {
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure请求失败轮播广告详情数据：", strMsg);
-
+                handler.sendEmptyMessage(224);
             }
         });
     }
 
     /**
-     *获取用户列表接口
+     * 获取用户列表接口
      */
     public void getUserLIst(final Handler handler, Map<String, String> map) {
         String url = UrlTools.BASE + UrlTools.URL_USER_LIST;
@@ -553,19 +640,25 @@ public class HttpTools {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("onStart：", "获取用户列表成功" + s);
-                com.technology.yuyi.bean.UserListBean.Root root = mGson.fromJson(s,  com.technology.yuyi.bean.UserListBean.Root.class);
-                Message m = new Message();
-                m.what = 35;
-                m.obj = root;
-                handler.sendMessage(m);
+                Log.e("onSuccess：", "获取用户列表成功" + s);
+                try {
+                    com.technology.yuyi.bean.UserListBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.UserListBean.Root.class);
+                    Message m = new Message();
+                    m.what = 35;
+                    m.obj = root;
+                    handler.sendMessage(m);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(225);
+                    Log.e("错误码==", e.toString());
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure：", "获取用户列表失败" + strMsg);
-                handler.sendEmptyMessage(102);
+                handler.sendEmptyMessage(226);
             }
         });
 
@@ -587,19 +680,66 @@ public class HttpTools {
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("onStart：", "提交体温成功" + s);
-                com.technology.yuyi.bean.SubmitTemBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.SubmitTemBean.Root.class);
-                Message message=new Message();
-                message.what=36;
-                message.obj=root;
-                handler.sendMessage(message);
+                Log.e("onSuccess：", "提交体温成功" + s);
+                try {
+                    com.technology.yuyi.bean.SubmitTemBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SubmitTemBean.Root.class);
+                    Message message = new Message();
+                    message.what = 36;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(227);
+                    Log.e("提交体温错误码==", e.toString());
+                }
+
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
                 Log.e("onFailure：", "提交体温失败" + strMsg);
-                handler.sendEmptyMessage(103);
+                handler.sendEmptyMessage(228);
+            }
+        });
+
+    }
+
+
+    /**
+     * 提交用户血压接口
+     */
+    public void submitBloodData(final Handler handler, final Map<String, String> map) {
+        String url = UrlTools.BASE + UrlTools.URL_SUBMIT_BLOOD;
+        mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "提交血压开始");
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess：", "提交血压成功" + s);
+                try {
+                    com.technology.yuyi.bean.SubmitTemBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SubmitTemBean.Root.class);
+                    Message message = new Message();
+                    message.what = 37;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码==", e.toString());
+                    handler.sendEmptyMessage(229);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure：", "提交血压失败" + strMsg);
+                handler.sendEmptyMessage(230);
             }
         });
 

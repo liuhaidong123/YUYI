@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +25,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.HandInputTemListViewAdapter;
 import com.technology.yuyi.bean.UserListBean.Result;
 import com.technology.yuyi.bean.UserListBean.Root;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.InformationListView;
@@ -37,6 +39,7 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
     private InformationListView mListView;
     private HandInputTemListViewAdapter mAdapter;
     private List<Result> mList = new ArrayList<>();
+
     private ImageView mBack;
     private RelativeLayout mAdd_rl;
     private EditText mEdit;
@@ -52,7 +55,7 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 35) {
+            if (msg.what == 35) {//获取用户列表
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
@@ -67,9 +70,11 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
                         mAdd_rl.setVisibility(View.VISIBLE);
                     }
                 }
-            } else if (msg.what == 102) {//获取数据失败
+            } else if (msg.what == 225) {//json解析失败
                 mRefresh.setRefreshing(false);
-                Toast.makeText(HandInputTemActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 226) {//获取数据失败
+                mRefresh.setRefreshing(false);
+                ToastUtils.myToast(HandInputTemActivity.this, "获取用户数据失败");
             } else if (msg.what == 36) {//提交数据接口
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SubmitTemBean.Root) {
@@ -83,8 +88,10 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
                         MyDialog.stopDia();
                     }
                 }
-            } else if (msg.what == 103) {//
-                Toast.makeText(HandInputTemActivity.this, "提交数据失败", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 227) {//json解析失败
+                MyDialog.stopDia();
+            } else if (msg.what == 228) {//提交数据失败
+                ToastUtils.myToast(HandInputTemActivity.this, "提交数据失败");
                 MyDialog.stopDia();
             }
 
@@ -99,9 +106,11 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void initView() {
+        //请求用户列表
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getUserLIst(mHandler, mMap);
+
+        //刷新
         mRefresh = (SwipeRefreshLayout) findViewById(R.id.tem_refresh);
         mRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
         mRefresh.setRefreshing(true);
@@ -131,7 +140,7 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
         mSure_btn = (Button) findViewById(R.id.blood_btn_sure);
         mSure_btn.setOnClickListener(this);
         //添加按钮
-        mAdd_rl = (RelativeLayout) findViewById(R.id.rl_sure);
+        mAdd_rl = (RelativeLayout) findViewById(R.id.add_user_rl);
         mAdd_rl.setOnClickListener(this);
         //体温提示文字
         mPrompt = (TextView) findViewById(R.id.tv_prompt_input);
@@ -175,17 +184,18 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
         } else if (id == mSure_btn.getId()) {//确定提交
             submitTemData();
         } else if (id == mAdd_rl.getId()) {//添加
-
+            Intent intent = new Intent(this, AddFamilyUserActivity.class);
+            intent.putExtra("type", "0");
+            startActivity(intent);
         }
     }
 
     /**
      * 获取体温
      */
-
     public String getTemData() {
         if (!mEdit.getText().toString().trim().equals("") && mEdit.getText().toString() != null) {
-            return mEdit.getText().toString();
+            return mEdit.getText().toString().trim();
         } else {
             return "";
         }
@@ -226,6 +236,13 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
         } else {
             Toast.makeText(this, "请输入体温", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHttptools.getUserLIst(mHandler, mMap);
+        mRefresh.setRefreshing(true);
     }
 
 }

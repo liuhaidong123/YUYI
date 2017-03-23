@@ -22,6 +22,7 @@ import com.technology.yuyi.bean.HospitalDepartmentMessage;
 import com.technology.yuyi.bean.HospitalDepartmentRoot;
 import com.technology.yuyi.bean.HospitalOutPatient;
 import com.technology.yuyi.bean.MyEntity;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,6 +65,13 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                         mRefresh.setEnabled(false);
                     }
                 }
+            }else if (msg.what==215){
+                mRefresh.setRefreshing(false);
+                mRefresh.setEnabled(false);
+            }else if (msg.what==216){
+                mRefresh.setRefreshing(false);
+                mRefresh.setEnabled(false);
+                ToastUtils.myToast(AllHospitalDepartmentActivity.this,"请求失败");
             }
         }
     };

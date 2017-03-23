@@ -25,6 +25,7 @@ import com.technology.yuyi.activity.HospitalDetailsActivity;
 import com.technology.yuyi.adapter.AskListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.InformationListView;
 
@@ -60,7 +61,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
                     mList.addAll(list);
                     mAdapter.setmList(mList);
                     mAdapter.notifyDataSetChanged();
-                    Toast.makeText(getContext(), "刷新完成", Toast.LENGTH_SHORT).show();
+                    ToastUtils.myToast(getContext(), "刷新完成");
                     mRefreshLaout.setRefreshing(false);
                     mProgress.setVisibility(View.INVISIBLE);
                     if (list.size()==10){
@@ -69,8 +70,9 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
                         mMany_more.setVisibility(View.GONE);
                     }
                 }
-            } else if (msg.what == 101) {
-                Toast.makeText(getContext(), "无法获取数据", Toast.LENGTH_SHORT).show();
+            } else if (msg.what == 205) {
+                mRefreshLaout.setRefreshing(false);
+            } else if (msg.what == 206) {
                 mRefreshLaout.setRefreshing(false);
             }
         }

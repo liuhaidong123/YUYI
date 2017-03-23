@@ -33,6 +33,7 @@ import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.bean.UserMessage;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.checkNotificationAllowed;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
@@ -62,17 +63,18 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             if (msg.what == 28) {
                 Object o = msg.obj;
                 if (o != null && o instanceof UserMessage) {
-                    UserMessage root= (UserMessage) o;
-                    Picasso.with(getContext()).load(UrlTools.BASE+root.getAvatar()).error(R.mipmap.error_small).into(mHead_img);
-                    if (!"".equals(root.getUserName())&&!TextUtils.isEmpty(root.getUserName())){
-                        mNikName.setText(root.getUserName()+"");
+                    UserMessage root = (UserMessage) o;
+                    Picasso.with(getContext()).load(UrlTools.BASE + root.getAvatar()).error(R.mipmap.error_small).into(mHead_img);
+                    if (!"".equals(root.getUserName()) && !TextUtils.isEmpty(root.getUserName())) {
+                        mNikName.setText(root.getUserName() + "");
                         mNikName.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         mNikName.setVisibility(View.GONE);
                     }
-                    mUsername.setText(root.getId()+"");
+                    mUsername.setText(root.getId() + "");
                 }
+            } else if (msg.what == 212) {
+                ToastUtils.myToast(getContext(), "获取用户信息失败");
             }
         }
     };
@@ -81,6 +83,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public MyFragment() {
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,9 +96,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void initView(View view) {
 
         //用户信息
-        mHead_img= (RoundImageView) view.findViewById(R.id.my_head_img);
-        mNikName= (TextView) view.findViewById(R.id.my_name);
-        mUsername=(TextView) view.findViewById(R.id.my_name2);
+        mHead_img = (RoundImageView) view.findViewById(R.id.my_head_img);
+        mNikName = (TextView) view.findViewById(R.id.my_name);
+        mUsername = (TextView) view.findViewById(R.id.my_name2);
         //用户编辑
         mUserEditor = (RelativeLayout) view.findViewById(R.id.rl_title);
         mUserEditor.setOnClickListener(this);

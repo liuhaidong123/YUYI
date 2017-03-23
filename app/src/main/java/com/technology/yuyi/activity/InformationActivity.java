@@ -20,6 +20,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.InformationListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
                     mInformationAdapter.setList(mList);
                     mInformationAdapter.notifyDataSetChanged();
                     mSwipeLayout.setRefreshing(false);
-                    Toast.makeText(InformationActivity.this, "刷新成功", Toast.LENGTH_SHORT).show();
+                    ToastUtils.myToast(InformationActivity.this, "刷新成功");
                     mBar.setVisibility(View.INVISIBLE);
                     if (list.size() == 5) {
                         mMany_more.setVisibility(View.VISIBLE);
@@ -60,9 +61,11 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
                     }
 
                 }
-            } else if (msg.what == 101) {
+            } else if (msg.what == 202) {//json错误
                 mSwipeLayout.setRefreshing(false);
-                Toast.makeText(InformationActivity.this, "更新失败", Toast.LENGTH_SHORT).show();
+            }else if (msg.what == 203) {//无法获取网络数据
+                mSwipeLayout.setRefreshing(false);
+                ToastUtils.myToast(InformationActivity.this, "获取数据失败");
             }
 
         }
