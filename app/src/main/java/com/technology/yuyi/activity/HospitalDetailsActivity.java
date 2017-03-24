@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,11 @@ import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.lzh_utils.RongUri;
 import com.technology.yuyi.lzh_utils.user;
 
+import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -109,22 +113,24 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         int id = v.getId();
-
         if (id == mBtn.getId()) {
             mAlertDialog.show();
             setAlertWidth(0.7f, mAlertDialog);
+
         } else if (id == mSpeechBtn.getId()) {//语音咨询
-            startActivity(new Intent(this, VoiceActivity.class));
+//            startActivity(new Intent(this, VoiceActivity.class));
             mAlertDialog.dismiss();
+            RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
         } else if (id == mVideoBtn.getId()) {//视频咨询
-            startActivity(new Intent(this, VideoActivity.class));
+//            startActivity(new Intent(this, VideoActivity.class));
             mAlertDialog.dismiss();
+            RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+
         } else if (id == mCharBtn.getId()) {//文字资讯
             mAlertDialog.dismiss();
             if (RongIM.getInstance()!=null){
-                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"医患聊天");
+                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"与医生对话");
             }
-
         } else if (id == mBack.getId()) {//返回
             finish();
         }

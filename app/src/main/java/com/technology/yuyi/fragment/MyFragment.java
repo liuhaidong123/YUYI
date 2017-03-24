@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
@@ -33,6 +36,7 @@ import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.bean.UserMessage;
+import com.technology.yuyi.bean.bean_My_UserMsg;
 import com.technology.yuyi.lzh_utils.checkNotificationAllowed;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
@@ -44,7 +48,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RoundImageView mHead_img;
     private TextView mNikName;
     private TextView mUsername;
-
     private RelativeLayout mUserEditor;//用户信息编辑
     private RelativeLayout mElectronicMess;//电子病历
     private RelativeLayout mSetBtn;//设置
@@ -63,15 +66,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 Object o = msg.obj;
                 if (o != null && o instanceof UserMessage) {
                     UserMessage root= (UserMessage) o;
-                    Picasso.with(getContext()).load(UrlTools.BASE+root.getAvatar()).error(R.mipmap.error_small).into(mHead_img);
-                    if (!"".equals(root.getUserName())&&!TextUtils.isEmpty(root.getUserName())){
-                        mNikName.setText(root.getUserName()+"");
+                    UserMessage.ResultBean bean=root.getResult();
+                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
+                    if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
+                        mNikName.setText(bean.getTrueName()+"");
                         mNikName.setVisibility(View.VISIBLE);
                     }
                     else {
                         mNikName.setVisibility(View.GONE);
                     }
-                    mUsername.setText(root.getId()+"");
+                    mUsername.setText(bean.getId()+"");
                 }
             }
         }
@@ -86,6 +91,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         initView(view);
+
         return view;
     }
 
@@ -130,8 +136,8 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getUserMessage(handler, user.userPsd);
         if (user.isLogin(getActivity())) {
@@ -148,6 +154,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 showWindowRevampLimit();
             }
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     //跳转到修改权限页面到弹窗

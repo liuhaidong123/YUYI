@@ -102,38 +102,43 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                 case 1://获取用户信息
                     try{
                         bean_My_UserMsg usMsg= gson.gson.fromJson(resStr,bean_My_UserMsg.class);
-                        mNikName.setText(usMsg.getUserName());
-                        user_editor_userName.setText(usMsg.getTrueName()+"");
-                        Picasso.with(UserEditorActivity.this).load(Ip.imagePth_F+usMsg.getAvatar()).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
-                                .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
-                            @Override
-                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                        if ("0".equals(usMsg.getCode())){
+                            bean_My_UserMsg.ResultBean bean=usMsg.getResult();
+                            mNikName.setText(bean.getUserName());
+                            user_editor_userName.setText(bean.getTrueName());
+                            Picasso.with(UserEditorActivity.this).load(Ip.imagePth+bean.getAvatar()).error(R.mipmap.logo).into(new Target() {
+                                @Override
+                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                                     bit64=BitmapTobase64.bitmapToBase64(bitmap);
                                     usereditor_image_userphoto.setImageBitmap(bitmap);
-                            }
+                                }
 
-                            @Override
-                            public void onBitmapFailed(Drawable drawable) {
-                                bit64=BitmapTobase64.bitmapToBase64(BitmapFactory.decodeResource(getResources(),R.mipmap.logo));
-                                usereditor_image_userphoto.setImageResource(R.mipmap.logo);
-                            }
+                                @Override
+                                public void onBitmapFailed(Drawable drawable) {
+                                    bit64=BitmapTobase64.bitmapToBase64(BitmapFactory.decodeResource(getResources(),R.mipmap.logo));
+                                    usereditor_image_userphoto.setImageResource(R.mipmap.logo);
+                                }
 
-                            @Override
-                            public void onPrepareLoad(Drawable drawable) {
+                                @Override
+                                public void onPrepareLoad(Drawable drawable) {
 
+                                }
+                            });
+                            int sx=bean.getGender();
+                            SE=bean.getGender();
+                            if (sx==0){//nv
+                                user_editor_sex.setText("女");
                             }
-                        });
-                        int sx=usMsg.getGender();
-                        SE=usMsg.getGender();
-                        if (sx==0){//nv
-                            user_editor_sex.setText("女");
+                            else if (sx==1){//nan
+                                user_editor_sex.setText("男");
+                            }
+                            mAgeEdit.setText(bean.getAge()+"");
+                            mAdEdit.setText(bean.getIdCard());
                         }
-                        else if (sx==1){//nan
-                            user_editor_sex.setText("男");
-                        }
-                        mAgeEdit.setText(usMsg.getAge()+"");
-                        mAdEdit.setText(usMsg.getIdCard());
 
+                        else {
+                            Toast.makeText(UserEditorActivity.this,"获取信息失败：",Toast.LENGTH_SHORT).show();
+                        }
                     }
                     catch (Exception e){
                         toast.toast_gsonFaild(UserEditorActivity.this);
@@ -146,6 +151,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         bean_ChangeUserMsg changeUserMsg=gson.gson.fromJson(resStr,bean_ChangeUserMsg.class);
                         if ("0".equals(changeUserMsg.getCode())){
                             Toast.makeText(UserEditorActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                         else {
                             Toast.makeText(UserEditorActivity.this,"修改失败",Toast.LENGTH_SHORT).show();
@@ -244,7 +250,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             case R.id.select_head://上传头像
                 showWindowUploading();//
                 break;
-
             case R.id.usereditor_textv_picture://图库选取头像
                 SearchPhoto();
                 break;
@@ -440,6 +445,13 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         //有兴趣的读者可以自己调试看看
                         intent.setDataAndType(data.getData(), "image/*");
                         intent.putExtra("scale", true);
+
+                    intent.putExtra("aspectX", 1);
+                    intent.putExtra("aspectY", 1);
+                    intent.putExtra("outputX", 200);//宽度
+                    intent.putExtra("outputY", 200);//高度
+//                    intent.putExtra("return-data", true);
+//                    intent.putExtra("noFaceDetection", true);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
                         startActivityForResult(intent, 12);
                     break;
@@ -450,6 +462,11 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         //有兴趣的读者可以自己调试看看
                         intent2.setDataAndType(Uri.fromFile(outputImage), "image/*");
                         intent2.putExtra("scale", true);
+
+                        intent2.putExtra("aspectX", 1);
+                        intent2.putExtra("aspectY", 1);
+                        intent2.putExtra("outputX", 200);//宽度
+                        intent2.putExtra("outputY", 200);//高度
                         intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
                         startActivityForResult(intent2, 12);
                     break;
@@ -509,7 +526,8 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         Map<String,String>mp=new HashMap<>();
         mp.put("token",user.token);
         mp.put("avatar",bit64);
-        mp.put("userName",mNikName.getText().toString());//昵称
+//        mp.put("userName",mNikName.getText().toString());//昵称
+        mp.put("userName","");
         mp.put("trueName",user_editor_userName.getText().toString());//真实姓名
         mp.put("age",mAgeEdit.getText().toString());//年龄
         mp.put("gender",""+SE);//性别
@@ -520,7 +538,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                     resStr=response.body().string();
@@ -529,8 +546,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
-
-
     // 提交／上传用户信息
     public void Submit(View view) {
          int input=checkInput();
@@ -548,8 +563,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
 //检查
     private int checkInput() {
         if (!"".equals(bit64)&&!TextUtils.isEmpty(bit64)){
-            if (!"".equals(mNikName.getText().toString())&&!TextUtils.isEmpty(mNikName.getText())
-                    &&!"".equals(user_editor_userName.getText().toString())&&!TextUtils.isEmpty(user_editor_userName.getText().toString())
+            if (!"".equals(user_editor_userName.getText().toString())&&!TextUtils.isEmpty(user_editor_userName.getText().toString())
                     &&!"".equals(user_editor_sex.getText().toString())&&!TextUtils.isEmpty(user_editor_sex.getText().toString())
                     &&!"".equals(mAgeEdit.getText().toString())&&!TextUtils.isEmpty(mAgeEdit.getText().toString()
             )&&!"".equals(mAdEdit.getText().toString())&&!TextUtils.isEmpty(mAdEdit.getText().toString())){

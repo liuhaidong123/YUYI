@@ -380,7 +380,7 @@
 
         <RelativeLayout
             android:id="@+id/my_rela_userLogin"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -416,6 +416,7 @@
 
         </RelativeLayout>
        <RelativeLayout
+           android:visibility="gone"
            android:id="@+id/my_rela_userNotLogin"
            android:layout_height="80dp"
            android:layout_marginStart="10dp"
