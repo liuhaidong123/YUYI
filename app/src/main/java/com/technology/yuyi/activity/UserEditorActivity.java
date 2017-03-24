@@ -104,7 +104,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         bean_My_UserMsg usMsg= gson.gson.fromJson(resStr,bean_My_UserMsg.class);
                         mNikName.setText(usMsg.getUserName());
                         user_editor_userName.setText(usMsg.getTrueName()+"");
-                        Picasso.with(UserEditorActivity.this).load(Ip.imagePth_F+usMsg.getAvatar()).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                        Picasso.with(UserEditorActivity.this).load(Ip.imagePth_F+usMsg.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
                                 .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
                             @Override
                             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
@@ -115,7 +115,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                             @Override
                             public void onBitmapFailed(Drawable drawable) {
                                 bit64=BitmapTobase64.bitmapToBase64(BitmapFactory.decodeResource(getResources(),R.mipmap.logo));
-                                usereditor_image_userphoto.setImageResource(R.mipmap.logo);
+                                usereditor_image_userphoto.setImageResource(R.mipmap.error_small);
                             }
 
                             @Override

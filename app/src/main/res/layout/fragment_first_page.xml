@@ -185,18 +185,17 @@
                     android:layout_below="@id/view2"
                     android:background="@color/color_white">
 
-                    <LinearLayout
-                        android:id="@+id/user_ll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/color_white"
-                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/user_ll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/color_white"
+                            android:orientation="horizontal">
 
+                        </LinearLayout>
 
-
-                    </LinearLayout>
 
                     <View
                         android:id="@+id/line"

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class BloodView extends View {
     private ArrayList<Integer> YBlood = new ArrayList<>();
-    private ArrayList<Integer> XDate = new ArrayList<>();
+    private ArrayList<String> XDate = new ArrayList<>();
     private ArrayList<Integer> mHeightBloodData = new ArrayList<>();
     private ArrayList<Integer> mLowBloodData = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class BloodView extends View {
         initPaint();
 
     }
-    public void setInfo(ArrayList<Integer> YBlood, ArrayList<Integer> XDate, ArrayList<Integer> mHeightBloodData, ArrayList<Integer> mLowBloodData) {
+    public void setInfo(ArrayList<Integer> YBlood, ArrayList<String> XDate, ArrayList<Integer> mHeightBloodData, ArrayList<Integer> mLowBloodData) {
         this.YBlood = YBlood;
         this.XDate = XDate;
         this.mHeightBloodData = mHeightBloodData;
@@ -126,12 +126,12 @@ public class BloodView extends View {
         }
         //x轴日期刻度
         for (int i = 0; i < XDate.size(); i++) {
-            if (i==0){
-                canvas.drawText("3月"+XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
-            }else {
-                canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
-            }
-
+//            if (i==0){
+//                canvas.drawText("3月"+XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
+//            }else {
+//                canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
+//            }
+            canvas.drawText(XDate.get(i), XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
         }
         //折线走势
         for (int i = 0; i < mHeightBloodData.size(); i++) {

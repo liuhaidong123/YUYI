@@ -27,12 +27,12 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
     private BloodView mBloodView;
     private TemView mTemView;
     private ArrayList<Integer> YbloodNum = new ArrayList<>();//y轴血压数据
-    private ArrayList<Integer> XdateNum = new ArrayList<>();//x轴日期数据
+    private ArrayList<String> XdateNum = new ArrayList<>();//x轴日期数据
     private ArrayList<Integer> heightBloodData = new ArrayList<>();  //血压高压数据
     private ArrayList<Integer> lowBloodData = new ArrayList<>();//血压低压数据
 
     private ArrayList<Integer> YTemData = new ArrayList<>();//Y轴温度
-    private ArrayList<Integer> XTemdateNum = new ArrayList<>();  //x轴日期数据
+    private ArrayList<String> XTemdateNum = new ArrayList<>();  //x轴日期数据
     private ArrayList<Float> temData = new ArrayList<>(); //体温
 
     private TextView mBloodTv;//血压文字（默认绿色）
@@ -100,7 +100,7 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
 
         //x轴日期数据
         for (int i = 1; i <= 7; i += 1) {
-            XdateNum.add(i);
+            XdateNum.add(i+"");
         }
 
         //血压高压数据
@@ -129,7 +129,7 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
         }
 
         for (int i = 1; i <= 7; i += 1) {
-            XTemdateNum.add(i);
+            XTemdateNum.add(i+"");
         }
 
 

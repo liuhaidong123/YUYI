@@ -24,4 +24,5 @@ public class UrlTools {
     public static final  String URL_SUBMIT_TEM="/temperature/save.do";//提交体温数据post(token,humeuserId家庭用户编号,temperaturet体温);
     public static final  String URL_SUBMIT_BLOOD="/bloodpressure/save.do";//提交体温数据post(token,humeuserId家庭用户编号,systolic收缩压（高压）,diastolic舒张压（低压）);
 
+    public static final  String URL_FIRST_PAGE_USER_DATA="/homeuser/findListHome.do?";//首页用户列表及默认用户的血压体温数据（token=）
 }

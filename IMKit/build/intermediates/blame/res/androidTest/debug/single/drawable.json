@@ -208,12 +208,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_keyboard_selector.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_emoji_grid_item_selector.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_emoji_grid_item_selector.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_bg_menu.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_bg_menu.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_emoji_grid_item_selector.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_emoji_grid_item_selector.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_cs_back_selector.xml",

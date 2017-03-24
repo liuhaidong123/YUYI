@@ -744,4 +744,44 @@ public class HttpTools {
         });
 
     }
+
+
+    /**
+     * 获取首页用户列表以及默认用户的数据
+     */
+    public void getFirstPageUserDataData(final Handler handler, String token) {
+        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_USER_DATA + "token=" + token;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始获取首页用户列表以及默认用户的数据");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功首页用户列表数据：", s);
+                try {
+                    com.technology.yuyi.bean.FirstPageUserDataBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.FirstPageUserDataBean.Root.class);
+                    Message message = new Message();
+                    message.what = 38;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码：", e.toString());
+                    handler.sendEmptyMessage(231);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败首页用户列表数据：", strMsg);
+                handler.sendEmptyMessage(232);
+            }
+        });
+    }
+
 }

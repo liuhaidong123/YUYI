@@ -32,12 +32,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f48d.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_emoji_block.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_emoji_block.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_def_msg_portrait.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_def_msg_portrait.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_emoji_block.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_emoji_block.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_phone_pressed.png",

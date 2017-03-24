@@ -36,6 +36,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.HttpTools;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.AddFamilyUserActivity;
 import com.technology.yuyi.activity.AppointmentActivity;
@@ -56,6 +57,9 @@ import com.technology.yuyi.bean.FirstPageDrugSixData;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.bean.FirstPageUserDataBean.BloodpressureList;
+import com.technology.yuyi.bean.FirstPageUserDataBean.Result;
+import com.technology.yuyi.bean.FirstPageUserDataBean.TemperatureList;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.BloodView;
@@ -65,6 +69,7 @@ import com.technology.yuyi.myview.TemView;
 import com.technology.yuyi.viewpager.impl.AdListenerImpl;
 import com.technology.yuyi.viewpager.impl.BloodTemImpl;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,12 +106,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private TemView mTemView;
     private LinearLayout drugmall_ll;
     private ArrayList<Integer> YbloodNum = new ArrayList<>();//y轴血压数据
-    private ArrayList<Integer> XdateNum = new ArrayList<>();//x轴日期数据
+    private ArrayList<String> XdateNum = new ArrayList<>();//x轴日期数据
     private ArrayList<Integer> heightBloodData = new ArrayList<>();  //血压高压数据
     private ArrayList<Integer> lowBloodData = new ArrayList<>();//血压低压数据
 
     private ArrayList<Integer> YTemData = new ArrayList<>();//Y轴温度
-    private ArrayList<Integer> XTemdateNum = new ArrayList<>();  //x轴日期数据
+    private ArrayList<String> XTemdateNum = new ArrayList<>(); //x轴日期数据
     private ArrayList<Float> temData = new ArrayList<>(); //体温
     private ArrayList<View> mViewList = new ArrayList<>();
     private ViewGroup mBloodGroup;
@@ -123,7 +128,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private final int LOCATE_CODE = 123;
 
     private LinearLayout mAllUser_ll;//首页全部用户布局
-    private ArrayList mUserData = new ArrayList();
+    private List<Result> mUserData = new ArrayList();
 
     private HttpTools mHttptools;
     //广告
@@ -192,9 +197,49 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 }
             } else if (msg.what == 219) {
                 ToastUtils.myToast(getContext(), "广告数据错误");
+            } else if (msg.what == 38) {//首页用户列表及默认数据
+                Object o = msg.obj;
+                if (o != null && o instanceof com.technology.yuyi.bean.FirstPageUserDataBean.Root) ;
+                com.technology.yuyi.bean.FirstPageUserDataBean.Root root = (com.technology.yuyi.bean.FirstPageUserDataBean.Root) o;
+                mUserData.clear();
+                mUserData = root.getResult();
+                mAllUser_ll.removeAllViews();
+                initUserMessage();//初始化用户的头像和昵称
+                mSwipeRefresh.setRefreshing(false);
+            } else if (msg.what == 231) {
+                mSwipeRefresh.setRefreshing(false);
+            } else if (msg.what == 232) {
+                mSwipeRefresh.setRefreshing(false);
+                ToastUtils.myToast(getContext(), "获用户列表失败");
             }
         }
     };
+    //用户头像，昵称外层的布局参数
+    private LinearLayout.LayoutParams params;
+    //用户头像布局参数
+    private LinearLayout.LayoutParams paramsImg;
+    //用户昵称布局参数
+    private LinearLayout.LayoutParams paramsTV;
+    //用户布局
+    private LinearLayout linearLayout;
+    //用户头像
+    private RoundImageView roundImageView;
+    //用户真实姓名
+    private TextView textView;
+    //添加用户布局参数
+    private LinearLayout.LayoutParams addparams;
+    //添加布局
+    private LinearLayout addlinear;
+    //添加图片
+    private ImageView imageView;
+
+
+    private ImageView mPromptImg;
+    private TextView mPromptTv;
+    private TextView mHeightBloodTv;
+    private TextView mLowBloodTv;
+    private TextView mTem;
+    private SimpleDateFormat simpleDateFormat;
 
     public FirstPageFragment() {
         // Required empty public constructor
@@ -207,8 +252,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
         View view = inflater.inflate(R.layout.fragment_first_page, container, false);
         initView(view);
+        initLayout(view);
         initHttp();//请求网络数据
-        initUserMessage();//初始化用户的头像和昵称
         checkPermission();//检测定位权限
         return view;
     }
@@ -220,7 +265,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
         mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
-        mHttptools.getAdData(mHttpHandler);
+        mHttptools.getAdData(mHttpHandler);//广告接口
+        mHttptools.getFirstPageUserDataData(mHttpHandler, user.token);//首页用户数据u
     }
 
     /**
@@ -237,15 +283,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             public void onRefresh() {
                 mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
                 mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
+                heightBloodData.clear();
+                lowBloodData.clear();
+                XdateNum.clear();
+                temData.clear();
+                XTemdateNum.clear();
+                mHttptools.getFirstPageUserDataData(mHttpHandler, user.token);//首页用户数据u
             }
         });
-        //首页全部用户布局
-        mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
-        mUserData.add(1);
-        mUserData.add(2);
-        mUserData.add(3);
-        mUserData.add(4);
-        mUserData.add(5);
+        //时间
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //跳转到定位页面
         mLocate_tv = (TextView) view.findViewById(R.id.tv_beijing);
         mLocate_tv.setOnClickListener(this);
@@ -274,7 +321,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //广告viewpager
         mViewPagerAD = (ViewPager) view.findViewById(R.id.viewpager_title);
         AdAdapter = new ViewPagerAdAdapter(getContext(), mListAd);
-        //初始化存放小圆点的容器与viewpager
+        //初始化存放小圆点的容器(广告)
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
 
         //血压图和体温图viewpager
@@ -282,16 +329,22 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         initTemData();//初始化体温
         mViewPagerBlood = (ViewPager) view.findViewById(R.id.viewpager_blood_tem);
         mBloodView = new BloodView(this.getContext());
-        mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
         mTemView = new TemView(this.getContext());
-        mTemView.setTemInfo(YTemData, XTemdateNum, temData);
-
-
         mViewList.add(mBloodView);
         mViewList.add(mTemView);
         mBloodTemAdapter = new ViewPagerBloodTemAdapter(this.getContext(), mViewList);
+        //初始化存放小圆点的容器(血压体温)
         mBloodGroup = (ViewGroup) view.findViewById(R.id.blood_viewGroup);
-        setBloodTemImg();
+        setBloodTemImg();//血压和体温底部小图标初始化
+        mViewPagerBlood.setAdapter(mBloodTemAdapter);
+        mViewPagerBlood.setCurrentItem(0);
+        mViewPagerBlood.addOnPageChangeListener(new BloodTemImpl(mBloodImageViewArr));
+        //用户最后一条数据显示在标题那
+        mPromptImg= (ImageView) view.findViewById(R.id.normal_btn_img);
+        mPromptTv= (TextView) view.findViewById(R.id.normal_tv);
+        mHeightBloodTv= (TextView) view.findViewById(R.id.heightPress_message_tv);
+        mLowBloodTv= (TextView) view.findViewById(R.id.lowPress_message_tv);
+        mTem= (TextView) view.findViewById(R.id.temperature_message_tv);
 
         //跳转资讯
         mInformation_rl = (RelativeLayout) view.findViewById(R.id.relative_information);
@@ -375,12 +428,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 mBloodGroup.addView(mCircleImg);
             }
 
-            mViewPagerBlood.setAdapter(mBloodTemAdapter);
-            mViewPagerBlood.setCurrentItem(0);
-            //当数据大于1条时，才可以滑动监听
-            if (mViewList.size() > 1) {
-                mViewPagerBlood.addOnPageChangeListener(new BloodTemImpl(mBloodImageViewArr));
-            }
         }
     }
 
@@ -392,25 +439,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         for (int i = 40; i <= 180; i += 20) {
             YbloodNum.add(i);
         }
-
-        //x轴日期数据
-        for (int i = 1; i <= 7; i += 1) {
-            XdateNum.add(i);
-        }
-
-        //血压高压数据
-        for (int i = 1; i <= 7; i += 1) {
-            int data = (int) (Math.random() * 100) + 50;
-            heightBloodData.add(data);
-            Log.e("高压血压数据", data + "");
-        }
-
-        //血压低压数据
-        for (int i = 1; i <= 7; i += 1) {
-            int data = (int) (Math.random() * 20) + 50;
-            lowBloodData.add(data);
-            Log.e("低压血压数据", data + "");
-        }
     }
 
     /**
@@ -418,23 +446,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      */
 
     public void initTemData() {
-
         for (int i = 35; i < 43; i++) {
             YTemData.add(i);
         }
-
-        for (int i = 1; i <= 7; i += 1) {
-            XTemdateNum.add(i);
-        }
-
-
-        temData.add(40.0f);
-        temData.add(36.5f);
-        temData.add(42f);
-        temData.add(38.7f);
-        temData.add(36.9f);
-        temData.add(40.5f);
-        temData.add(35.7f);
 
     }
 
@@ -623,84 +637,134 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         return (int) (dpValue * scale + 0.5f);
     }
 
+    //初始化首页用户布局
+    public void initLayout(View view) {
+        //首页全部用户布局
+        mAllUser_ll = (LinearLayout) view.findViewById(R.id.user_ll);
+        //用户头像，昵称外层的布局参数
+        params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(dip2px(10), 0, dip2px(10), 0);
+        //用户头像布局参数
+        paramsImg = new LinearLayout.LayoutParams(dip2px(37), dip2px(37));
+        //用户昵称布局参数
+        paramsTV = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        paramsTV.setMargins(0, dip2px(5), 0, 0);
+        //添加按钮的外层布局参数
+        addparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        addparams.setMargins(dip2px(10), 0, dip2px(10), 0);
+        //添加布局
+        addlinear = new LinearLayout(this.getContext());
+        //添加图片
+        imageView = new ImageView(this.getContext());
+    }
+
     /**
      * 初始化用户数据
      */
     public void initUserMessage() {
-        //用户头像，昵称外层的布局参数
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMarginEnd(dip2px(20));
-        //用户头像布局参数
-        LinearLayout.LayoutParams paramsImg = new LinearLayout.LayoutParams(dip2px(37), dip2px(37));
-        //用户昵称布局参数
-        LinearLayout.LayoutParams paramsTV = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        paramsTV.setMargins(0, dip2px(5), 0, 0);
 
         for (int i = 0; i < mUserData.size(); i++) {
             final int k = i;
             //用户布局
-            LinearLayout linearLayout = new LinearLayout(this.getContext());
+            linearLayout = new LinearLayout(this.getContext());
             linearLayout.setId(View.generateViewId());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setGravity(Gravity.CENTER);
             linearLayout.setLayoutParams(params);
 
             //用户头像
-            RoundImageView roundImageView = new RoundImageView(this.getContext());
-            //roundImageView.setImageResource(R.mipmap.logo);
-            Picasso.with(getContext()).load(R.mipmap.logo).into(roundImageView);
+            roundImageView = new RoundImageView(this.getContext());
+            Picasso.with(getContext()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
             roundImageView.setLayoutParams(paramsImg);
+            Picasso.with(getContext()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
 
-            //用户昵称
-
-            TextView textView = new TextView(this.getContext());
+            //用户真实姓名
+            textView = new TextView(this.getContext());
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             textView.setTextColor(Color.parseColor("#25f368"));
-            textView.setText("用户" + i);
             textView.setLayoutParams(paramsTV);
+            if (mUserData.get(i).getTrueName().length() > 3) {
+                textView.setText(mUserData.get(i).getTrueName().toCharArray(), 0, 3);
+            } else {
+                textView.setText(mUserData.get(i).getTrueName());
+            }
 
             linearLayout.addView(roundImageView);
             linearLayout.addView(textView);
             mAllUser_ll.addView(linearLayout);
+
+
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(), mUserData.get(k) + "", Toast.LENGTH_SHORT).show();
-                    heightBloodData.clear();
-                    heightBloodData.add(120);
-                    heightBloodData.add(80);
-                    heightBloodData.add(90);
-                    heightBloodData.add(75);
-                    heightBloodData.add(130);
-                    heightBloodData.add(110);
-                    heightBloodData.add(95);
-                    lowBloodData.clear();
-                    lowBloodData.add(50);
-                    lowBloodData.add(58);
-                    lowBloodData.add(59);
-                    lowBloodData.add(50);
-                    lowBloodData.add(51);
-                    lowBloodData.add(52);
-                    lowBloodData.add(58);
-                    mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
-                    mBloodView.invalidate();
+//                    mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
+//                    mBloodView.invalidate();
                 }
             });
         }
 
+
+        //为默认用户初始化数据
+        List<BloodpressureList> listBlood = mUserData.get(0).getBloodpressureList();
+        List<TemperatureList> listTem = mUserData.get(0).getTemperatureList();
+        //默认用户血压数据
+        if (listBlood.size() != 0) {
+            int month=0;
+            int day=0;
+            for (int i = 0; i < listBlood.size(); i++) {
+                heightBloodData.add(listBlood.get(i).getSystolic());//高
+                lowBloodData.add(listBlood.get(i).getDiastolic());
+                try {
+                    Date date = simpleDateFormat.parse(listBlood.get(i).getCreateTimeString());
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String date = month + "月" + day + "日";
+                XdateNum.add(date);
+                //用户最后一条数据显示在标题那
+                if (i==listBlood.size()-1){
+
+                }
+            }
+            mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
+            mBloodView.invalidate();
+        }
+        //默认用户体温数据
+        if (listTem.size()!=0){
+            int month=0;
+            int day=0;
+            for(int i=0;i<listTem.size();i++){
+                temData.add(listTem.get(i).getTemperaturet());
+                try {
+                    Date date = simpleDateFormat.parse(listTem.get(i).getCreateTimeString());
+                    month = date.getMonth() + 1;
+                    day = date.getDate();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String date = month + "月" + day + "日";
+                XTemdateNum.add(date);
+            }
+            mTemView.setTemInfo(YTemData, XTemdateNum, temData);
+            mTemView.invalidate();
+        }
+
+
+
         //首页添加用户按钮
         if (mUserData.size() < 6) {
-            //添加按钮的外层布局参数
-            LinearLayout.LayoutParams addparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //添加布局
-            LinearLayout addlinear = new LinearLayout(this.getContext());
+            addlinear = new LinearLayout(this.getContext());
             addlinear.setId(View.generateViewId());
             addlinear.setOrientation(LinearLayout.VERTICAL);
             addlinear.setLayoutParams(addparams);
             addlinear.setGravity(Gravity.CENTER);
 
             //添加图片
-            ImageView imageView = new ImageView(this.getContext());
+            imageView = new ImageView(this.getContext());
             imageView.setImageResource(R.mipmap.add_icon1);
             imageView.setLayoutParams(paramsImg);
 
@@ -711,12 +775,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), AddFamilyUserActivity.class);
-                    intent.putExtra("title", "添加家庭用户");
+                    intent.putExtra("type", "0");
                     startActivity(intent);
                 }
             });
         }
-
-
     }
 }
