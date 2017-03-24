@@ -1,17 +1,15 @@
 package com.technology.yuyi.activity;
 
-import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,12 +23,12 @@ import com.technology.yuyi.fragment.MeasureFragment;
 import com.technology.yuyi.fragment.MyFragment;
 import com.technology.yuyi.lzh_utils.user;
 
-import java.util.Map;
-
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,RongIM.UserInfoProvider{
     private LinearLayout mFirstPage_ll;
     private LinearLayout mMeasure_ll;
     private LinearLayout mAsk_ll;
@@ -60,8 +58,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
+        initRongCon();
 
     }
+
+
 
     //初始化数据
     public void initView() {
@@ -321,5 +322,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    private void initRongCon() {
+        RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
+
+            /**
+             * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
+             *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
+             */
+            @Override
+            public void onTokenIncorrect() {
+
+            }
+
+            /**
+             * 连接融云成功
+             * @param userid 当前 token 对应的用户 id
+             */
+            @Override
+            public void onSuccess(String userid) {
+                user.RonguserId=userid;
+                Log.i("融云返回的id---",userid+"--HospitalDetailsActivity---");
+//                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid,"李四", Uri.parse("http://f.hiphotos.baidu.com/zhidao/pic/item/8b82b9014a90f60326b707453b12b31bb051eda9.jpg")));
+
+                RongIM.setUserInfoProvider(MainActivity.this,true);
+//                RongIM.getInstance().setMessageAttachedUserInfo(true);
+            }
+            /**
+             * 连接融云失败
+             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Toast.makeText(MainActivity.this,"信息注册失败，无法启动咨询程序",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    @Override
+    public UserInfo getUserInfo(String s) {
+//        Log.i("------s----",s+"-------");
+//        Log.i("------s2-----",user.RonguserId);
+//        Log.i("------s2----",user.targetId);
+        if (s.equals(user.RonguserId)){
+//            Log.i("000000000","-----------");
+            return new UserInfo(user.RonguserId,"张三", Uri.parse("http://www.feizl.com/upload2007/2014_03/1403191946156010.jpg"));
+        }
+
+        else if (s.equals(user.targetId)){
+//            Log.i("11111111111111","-----------");
+            return new UserInfo(user.targetId,"李四", Uri.parse("http://f.hiphotos.baidu.com/zhidao/pic/item/8b82b9014a90f60326b707453b12b31bb051eda9.jpg"));
+        }
+        return null;
+    }
 
 }

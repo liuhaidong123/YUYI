@@ -75,7 +75,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+// 0添加,1xiugai
 public class AddFamilyUserActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
     private TextView mSure_tv;
@@ -280,7 +280,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             }
         }
         type=getIntent().getStringExtra("type");
-        if (!"1".equals(type)){//1xiugai 0添加
+        if (!"1".equals(type)){// 0添加,1xiugai
             type="0";
         }
     }
@@ -364,7 +364,9 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         mp.put("trueName",name);  mp.put("age",age);
         mp.put("avatar",bit64);
         Log.e("bit64----map---",bit64.toString());
+//        telnum=edit_telnum.getText().toString();
         telnum=edit_telnum.getText().toString();
+        checkbox.setChecked(false);
         if (checkbox.isChecked()){//当选中了手机号可以查看时，验证码不能为空，手机号不能为空
             if (!"".equals(telnum)&&!TextUtils.isEmpty(telnum)&&isPhoneNum(telnum)&&!TextUtils.isEmpty(SMScode)&&!"".equals(SMScode)){
                 mp.put("vcode",SMScode);
@@ -467,7 +469,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 file=new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
                 startActivityForResult(intent, ResCode.Request_takePhoto);
             }
         }
@@ -478,7 +480,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             file=new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
             startActivityForResult(intent, ResCode.Request_takePhoto);
         }
 
@@ -606,6 +608,10 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         //有兴趣的读者可以自己调试看看
         intent2.setDataAndType(u, "image/*");
         intent2.putExtra("scale", true);
+        intent2.putExtra("aspectX", 1);
+        intent2.putExtra("aspectY", 1);
+        intent2.putExtra("outputX", 200);//宽度
+        intent2.putExtra("outputY", 200);//高度
         intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(intent2, ResCode.Request_cutPhoto);
     }
@@ -629,6 +635,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                             bit=bitmap;
                             bit64=BitmapTobase64.bitmapToBase64(bit);
                             add_head_tv.setImageBitmap(bit);
+                            Log.i("bit大小----",bit.getRowBytes()*bit.getHeight()/1024/1024.0+"----");
+                            Log.i("bit64长度",bit64.length()/1024/1024.0+"--------");
                         }
                         else {
                             Toast.makeText(AddFamilyUserActivity.this, "图片裁剪失败", Toast.LENGTH_SHORT).show();
@@ -640,7 +648,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                         break;
 
                     }
-
         }
     }
     @Override

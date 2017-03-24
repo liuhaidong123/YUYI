@@ -16,7 +16,7 @@ public class SealNotificationReceiver extends PushMessageReceiver {
 
     @Override
     public boolean onNotificationMessageArrived(Context context, PushNotificationMessage message) {
-        Log.i("-----rong-Receicer---","---------");
+        Log.i("-----rong-Receicer---","-------------------------------------------------------------------");
         return false; // 返回 false, 会弹出融云 SDK 默认通知; 返回 true, 融云 SDK 不会弹通知, 通知需要由您自定义。
     }
 

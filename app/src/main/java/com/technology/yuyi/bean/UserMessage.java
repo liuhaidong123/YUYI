@@ -5,116 +5,144 @@ package com.technology.yuyi.bean;
  */
 
 public class UserMessage {
-    private String createTimeString;
 
-    private String updateTimeString;
+    /**
+     * result : {"createTimeString":"2017-03-20 10:34:19","updateTimeString":"","gender":0,"idCard":"418666865666464644","origin":"","avatar":"/static/image/2017/3/23/1490268175255.jpg","userName":"","trueName":"分ll","marital":0,"id":17743516301,"age":0}
+     * code : 0
+     */
 
-    private int gender;
+    private ResultBean result;
+    private String code;
 
-    private String idCard;
+    public ResultBean getResult() {
+        return result;
+    }
 
-    private String origin;
+    public void setResult(ResultBean result) {
+        this.result = result;
+    }
 
-    private String avatar;
+    public String getCode() {
+        return code;
+    }
 
-    private String userName;
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-    private String localId;
+    public static class ResultBean {
+        /**
+         * createTimeString : 2017-03-20 10:34:19
+         * updateTimeString :
+         * gender : 0
+         * idCard : 418666865666464644
+         * origin :
+         * avatar : /static/image/2017/3/23/1490268175255.jpg
+         * userName :
+         * trueName : 分ll
+         * marital : 0
+         * id : 17743516301
+         * age : 0
+         */
 
-    private String trueName;
+        private String createTimeString;
+        private String updateTimeString;
+        private int gender;
+        private String idCard;
+        private String origin;
+        private String avatar;
+        private String userName;
+        private String trueName;
+        private int marital;
+        private long id;
+        private int age;
 
-    private int marital;
+        public String getCreateTimeString() {
+            return createTimeString;
+        }
 
-    private long id;
+        public void setCreateTimeString(String createTimeString) {
+            this.createTimeString = createTimeString;
+        }
 
-    private int age;
+        public String getUpdateTimeString() {
+            return updateTimeString;
+        }
 
-    private String info;
+        public void setUpdateTimeString(String updateTimeString) {
+            this.updateTimeString = updateTimeString;
+        }
 
-    private int status;
+        public int getGender() {
+            return gender;
+        }
 
-    public void setCreateTimeString(String createTimeString){
-        this.createTimeString = createTimeString;
-    }
-    public String getCreateTimeString(){
-        return this.createTimeString;
-    }
-    public void setUpdateTimeString(String updateTimeString){
-        this.updateTimeString = updateTimeString;
-    }
-    public String getUpdateTimeString(){
-        return this.updateTimeString;
-    }
-    public void setGender(int gender){
-        this.gender = gender;
-    }
-    public int getGender(){
-        return this.gender;
-    }
-    public void setIdCard(String idCard){
-        this.idCard = idCard;
-    }
-    public String getIdCard(){
-        return this.idCard;
-    }
-    public void setOrigin(String origin){
-        this.origin = origin;
-    }
-    public String getOrigin(){
-        return this.origin;
-    }
-    public void setAvatar(String avatar){
-        this.avatar = avatar;
-    }
-    public String getAvatar(){
-        return this.avatar;
-    }
-    public void setUserName(String userName){
-        this.userName = userName;
-    }
-    public String getUserName(){
-        return this.userName;
-    }
-    public void setLocalId(String localId){
-        this.localId = localId;
-    }
-    public String getLocalId(){
-        return this.localId;
-    }
-    public void setTrueName(String trueName){
-        this.trueName = trueName;
-    }
-    public String getTrueName(){
-        return this.trueName;
-    }
-    public void setMarital(int marital){
-        this.marital = marital;
-    }
-    public int getMarital(){
-        return this.marital;
-    }
-    public void setId(long id){
-        this.id = id;
-    }
-    public long getId(){
-        return this.id;
-    }
-    public void setAge(int age){
-        this.age = age;
-    }
-    public int getAge(){
-        return this.age;
-    }
-    public void setInfo(String info){
-        this.info = info;
-    }
-    public String getInfo(){
-        return this.info;
-    }
-    public void setStatus(int status){
-        this.status = status;
-    }
-    public int getStatus(){
-        return this.status;
+        public void setGender(int gender) {
+            this.gender = gender;
+        }
+
+        public String getIdCard() {
+            return idCard;
+        }
+
+        public void setIdCard(String idCard) {
+            this.idCard = idCard;
+        }
+
+        public String getOrigin() {
+            return origin;
+        }
+
+        public void setOrigin(String origin) {
+            this.origin = origin;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getTrueName() {
+            return trueName;
+        }
+
+        public void setTrueName(String trueName) {
+            this.trueName = trueName;
+        }
+
+        public int getMarital() {
+            return marital;
+        }
+
+        public void setMarital(int marital) {
+            this.marital = marital;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
     }
 }

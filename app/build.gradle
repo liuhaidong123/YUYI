@@ -47,4 +47,6 @@ dependencies {
     compile files('libs/picasso-2.5.2.jar')
     compile project(':IMLib')
     compile project(':IMKit')
+    compile project(':CallKit')
+    compile project(':CallLib')
 }

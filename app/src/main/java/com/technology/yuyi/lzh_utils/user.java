@@ -15,10 +15,11 @@ public class user {
     public static String RongToken2="VTyYPMVHujXX/5F75amlVouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLY7Vw4k8ZHdx3YvBEYnSw92O0gxI0LSrA==";//融云的token123456
     public static String RongToken="ESTp2q1f1+2k9XEZHJCsNouZqhNeP62jUkZowKgPQxvQPCl3PhXaC1dqcd65/vqlbgoyXLQqd5kbXyyrcFO8gA==";//56789
     public static String token;//用户的token；
-    public static String userId;//融云返回的userId;123456
+    public static String RonguserId;//融云返回的userId;123456
     public static String targetId="admin";//token=="N/CST9tU8VlEfpnF//D+i4uZqhNeP62jUkZowKgPQxsXdaGtWFcdtGjFzYJd693LF+uKYPfQD5fxbtc2258TCw=="；
     public static double Latitude;//纬度
     public static double Longitude;//经度
+    public static int CallType=0;//融云音视频的type:0文字，1音频，2视频
     //当前是否登陆过（未退出登陆）
     public static boolean isLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
