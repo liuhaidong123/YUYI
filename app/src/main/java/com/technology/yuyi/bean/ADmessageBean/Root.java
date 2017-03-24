@@ -1,10 +1,10 @@
-package com.technology.yuyi.bean.AdBean;
+package com.technology.yuyi.bean.ADmessageBean;
 
 /**
  * Created by liuhaidong on 2017/3/21.
  */
 
-public class Rows {
+public class Root {
     private String createTimeString;
 
     private String smalltitle;
@@ -16,6 +16,8 @@ public class Rows {
     private String title;
 
     private String picture;
+
+    private String   type;
 
     private int hospitalId;
 
@@ -93,5 +95,13 @@ public class Rows {
 
     public void setCreatTimeString(String creatTimeString) {
         this.creatTimeString = creatTimeString;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

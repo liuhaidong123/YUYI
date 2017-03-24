@@ -3,24 +3,32 @@ package com.technology.yuyi.bean.AdBean;
 import java.util.List;
 
 /**
- * Created by liuhaidong on 2017/3/20.
+ * Created by liuhaidong on 2017/3/21.
  */
 
 public class Result {
-    private Result result;
+    private int total;
 
-    private String code;
+    private List<Rows> rows;
 
-    public void setResult(Result result){
-        this.result = result;
+    private List<String> colmodel;
+
+    public void setTotal(int total){
+        this.total = total;
     }
-    public Result getResult(){
-        return this.result;
+    public int getTotal(){
+        return this.total;
     }
-    public void setCode(String code){
-        this.code = code;
+    public void setRows(List<Rows> rows){
+        this.rows = rows;
     }
-    public String getCode(){
-        return this.code;
+    public List<Rows> getRows(){
+        return this.rows;
+    }
+    public void setColmodel(List<String> colmodel){
+        this.colmodel = colmodel;
+    }
+    public List<String> getColmodel(){
+        return this.colmodel;
     }
 }

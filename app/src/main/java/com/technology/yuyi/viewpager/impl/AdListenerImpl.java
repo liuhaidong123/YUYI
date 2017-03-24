@@ -2,14 +2,11 @@ package com.technology.yuyi.viewpager.impl;
 
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.AdBean.Rows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +19,12 @@ import java.util.List;
 public class AdListenerImpl implements ViewPager.OnPageChangeListener {
 
     private ImageView[] mImgCircleArr;
-    private List<Integer> mImgList = new ArrayList<>();
+    private List<Rows> mImgList = new ArrayList<>();
     private ViewPager mAdViewpager;
     private Handler mHandler;
     private SwipeRefreshLayout mResfresh;
 
-    public AdListenerImpl(ImageView[] mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Integer> mImgList, SwipeRefreshLayout swipeRefreshLayout
+    public AdListenerImpl(ImageView[] mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Rows> mImgList, SwipeRefreshLayout swipeRefreshLayout
     ) {
         this.mImgCircleArr = mImgCircleArr;
         this.mHandler = mHandler;

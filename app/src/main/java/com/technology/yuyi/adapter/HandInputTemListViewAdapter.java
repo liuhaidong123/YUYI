@@ -5,8 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.UserListBean.Result;
+import com.technology.yuyi.myview.RoundImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liuhaidong on 2017/2/23.
@@ -15,15 +24,21 @@ import com.technology.yuyi.R;
 public class HandInputTemListViewAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context mContext;
+    private List<Result> list = new ArrayList<>();
 
-    public HandInputTemListViewAdapter(Context mContext) {
+    public HandInputTemListViewAdapter(Context mContext, List<Result> list) {
         this.mContext = mContext;
-        mInflater=LayoutInflater.from(this.mContext);
+        this.list = list;
+        mInflater = LayoutInflater.from(this.mContext);
+    }
+
+    public void setList(List<Result> list) {
+        this.list = list;
     }
 
     @Override
     public int getCount() {
-        return 6;
+        return list.size();
     }
 
     @Override
@@ -38,7 +53,23 @@ public class HandInputTemListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView=mInflater.inflate(R.layout.current_tem_listview_item,null);
+        HolderTem holderTem=null;
+        if (convertView==null){
+            holderTem=new HolderTem();
+            convertView = mInflater.inflate(R.layout.current_tem_listview_item, null);
+            holderTem.img= (RoundImageView) convertView.findViewById(R.id.head_img);
+            holderTem.textView= (TextView) convertView.findViewById(R.id.tem_name);
+            convertView.setTag(holderTem);
+        }else {
+            holderTem= (HolderTem) convertView.getTag();
+        }
+        holderTem.textView.setText(list.get(position).getTrueName());
+        Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getAvatar()).error(R.mipmap.error_small).into(holderTem.img);
         return convertView;
+    }
+
+    class HolderTem{
+        RoundImageView img;
+        TextView textView;
     }
 }

@@ -50,10 +50,13 @@ import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
 import com.technology.yuyi.adapter.ViewPagerAdAdapter;
 import com.technology.yuyi.adapter.ViewPagerBloodTemAdapter;
+import com.technology.yuyi.bean.AdBean.Root;
+import com.technology.yuyi.bean.AdBean.Rows;
 import com.technology.yuyi.bean.FirstPageDrugSixData;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.BloodView;
 import com.technology.yuyi.myview.InformationListView;
@@ -86,7 +89,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private List<FirstPageDrugSixData> mGridList = new ArrayList<>();
 
     private ViewPager mViewPagerAD;
-    private List<Integer> mListAd = new ArrayList<>();//广告图片集合
+    private ViewPagerAdAdapter AdAdapter;
+    private List<Rows> mListAd = new ArrayList<>();//广告图片集合
     private ImageView mCircleImg;
     private ImageView[] mArrImageView;//存放广告小圆点的数组
     private ViewGroup mGroup;//存放小圆点容器
@@ -154,8 +158,15 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     mUseDrugAdapter.notifyDataSetChanged();
                     mSwipeRefresh.setRefreshing(false);
                 }
-                //首页资讯2条数据
-            } else if (msg.what == 22) {
+
+            } else if (msg.what == 200) {
+                mSwipeRefresh.setRefreshing(false);
+            } else if (msg.what == 201) {
+                mSwipeRefresh.setRefreshing(false);
+            }
+
+            //首页资讯2条数据
+            else if (msg.what == 22) {
                 Object o = msg.obj;
                 if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
                     FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
@@ -164,11 +175,23 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     mListViewAdapter.notifyDataSetChanged();
                     mSwipeRefresh.setRefreshing(false);
                 }
-            }else if (msg.what==101){
+                //资讯请求失败
+            } else if (msg.what == 202) {
                 mSwipeRefresh.setRefreshing(false);
-            }else if (msg.what==31){
-                Object o=msg.obj;
-
+            } else if (msg.what == 203) {
+                mSwipeRefresh.setRefreshing(false);
+            } else if (msg.what == 31) {//广告接口
+                Object o = msg.obj;
+                if (o != null && o instanceof Root) {
+                    Root root = (Root) o;
+                    mListAd = root.getResult().getRows();
+                    AdAdapter.setmListImgAd(mListAd);
+                    mViewPagerAD.setAdapter(AdAdapter);
+                    AdAdapter.notifyDataSetChanged();
+                    setADCircleImg();
+                }
+            } else if (msg.what == 219) {
+                ToastUtils.myToast(getContext(), "广告数据错误");
             }
         }
     };
@@ -196,7 +219,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void initHttp() {
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
-        mHttptools.getFirstPageInformationTwoData(mHttpHandler,0,2);//首页资讯2条数据
+        mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
         mHttptools.getAdData(mHttpHandler);
     }
 
@@ -212,8 +235,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                        mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
-                        mHttptools.getFirstPageInformationTwoData(mHttpHandler,0,2);//首页资讯2条数据
+                mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
+                mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
             }
         });
         //首页全部用户布局
@@ -250,15 +273,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
         //广告viewpager
         mViewPagerAD = (ViewPager) view.findViewById(R.id.viewpager_title);
+        AdAdapter = new ViewPagerAdAdapter(getContext(), mListAd);
         //初始化存放小圆点的容器与viewpager
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
-        mListAd.add(R.mipmap.item01);
-        mListAd.add(R.mipmap.item02);
-       // mListAd.add(R.mipmap.item03);
-       // mListAd.add(R.mipmap.item04);
-        //mListAd.add(R.mipmap.item05);
-        //初始化广告轮播图的小图标，以及设置viewpager滑动监听和自动轮播
-        setADCircleImg();
 
         //血压图和体温图viewpager
         initBloodData();//初始化血压数据
@@ -317,13 +334,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 //将每一个小圆点添加到容器中
                 mGroup.addView(mCircleImg);
             }
-            mViewPagerAD.setAdapter(new ViewPagerAdAdapter(this.getContext(), mListAd));
-            mViewPagerAD.setCurrentItem(0);
             //当数据大于1条时，才可以滑动监听，才可以延迟发送消息进行轮播
             if (mListAd.size() > 1) {
                 mViewPagerAD.addOnPageChangeListener(new AdListenerImpl(mArrImageView, handler, mViewPagerAD, mListAd, mSwipeRefresh));
                 //开始轮播效果
-                mViewPagerAD.setFocusable(true);
                 handler.sendEmptyMessageDelayed(1, 3000);
             }
         }
@@ -477,6 +491,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         } else if (parent == mFirstPageListView) {//跳转到资讯详情页
             Intent intent = new Intent(getContext(), InformationDetailsActivity.class);
             intent.putExtra("id", mInforList.get(position).getId());
+            intent.putExtra("type", "information");
             startActivity(intent);
         }
     }
@@ -695,8 +710,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             addlinear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  Intent intent=  new Intent(getContext(), AddFamilyUserActivity.class);
-                    intent.putExtra("title","添加家庭用户");
+                    Intent intent = new Intent(getContext(), AddFamilyUserActivity.class);
+                    intent.putExtra("title", "添加家庭用户");
                     startActivity(intent);
                 }
             });

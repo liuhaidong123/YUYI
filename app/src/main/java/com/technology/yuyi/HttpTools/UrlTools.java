@@ -20,5 +20,8 @@ public class UrlTools {
     public static final  String URL_AD_MEssage="/article/getid.do?";//首页轮播详情接口，需传id（id=3）
     public static final  String URL_SEARCH_DRUG="/drugs/findvague.do?";//药品搜索接口 需传：vague=
     public static final  String URL_SEARCH_HOSPITAL="/hospital/findvague.do?";//医院搜索接口 需传：vague=
+    public static final  String URL_USER_LIST="/homeuser/findList.do?";//获取用户列表（需传token=）
+    public static final  String URL_SUBMIT_TEM="/temperature/save.do";//提交体温数据post(token,humeuserId家庭用户编号,temperaturet体温);
+    public static final  String URL_SUBMIT_BLOOD="/bloodpressure/save.do";//提交体温数据post(token,humeuserId家庭用户编号,systolic收缩压（高压）,diastolic舒张压（低压）);
 
 }

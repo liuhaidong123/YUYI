@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -67,12 +67,14 @@
             android:background="@color/color_e" />
 
         <TextView
+            android:id="@+id/current_tem"
             android:layout_width="wrap_content"
             android:layout_height="69dp"
             android:layout_below="@+id/curr_line2"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="38°C"
+            android:maxLength="4"
+            android:text="38"
             android:textColor="@color/color_tem"
             android:textSize="15sp" />
     </RelativeLayout>
@@ -132,15 +134,69 @@
     </RelativeLayout>
 
 
-    <ListView
-        android:id="@+id/userdata_listview"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/current_tem_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@id/rl_sure"
-        android:layout_below="@id/curr_line5"
-        android:background="@color/color_white">
+        android:layout_below="@id/curr_line5">
 
-    </ListView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.technology.yuyi.myview.InformationListView
+                    android:id="@+id/userdata_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:scrollbars="none">
+
+                </com.technology.yuyi.myview.InformationListView>
+
+                <View
+                    android:id="@+id/curr_line7"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/userdata_listview"
+                    android:background="@color/color_bg" />
+
+                <RelativeLayout
+                    android:id="@+id/add_user_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/curr_line7"
+                    android:background="@color/color_white">
+
+
+                    <ImageView
+                        android:id="@+id/add_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="30dp"
+                        android:src="@mipmap/add_icon_1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_toEndOf="@id/add_img"
+                        android:text="@string/str_add_per"
+                        android:textColor="@color/color_per"
+                        android:textSize="14sp" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>

@@ -9,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.InformationDetailsActivity;
+import com.technology.yuyi.bean.AdBean.Rows;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +26,17 @@ import java.util.List;
 public class ViewPagerAdAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<Integer> mListImgAd = new ArrayList<>();//广告图片集合
+    private List<Rows> mListImgAd = new ArrayList<>();//广告图片集合
+    private int mPotision;
 
-    public ViewPagerAdAdapter(Context mContext, List<Integer> list) {
+    public ViewPagerAdAdapter(Context mContext, List<Rows> list) {
         this.mContext = mContext;
         this.mListImgAd = list;
         mInflater = LayoutInflater.from(this.mContext);
+    }
+
+    public void setmListImgAd(List<Rows> mListImgAd) {
+        this.mListImgAd = mListImgAd;
     }
 
     @Override
@@ -44,13 +53,17 @@ public class ViewPagerAdAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mInflater.inflate(R.layout.viewpager_item, null);
-       ImageView img= ((ImageView) view.findViewById(R.id.imageView1));
-        img.setImageResource(mListImgAd.get(position % mListImgAd.size()));
+        ImageView img = ((ImageView) view.findViewById(R.id.imageView1));
+        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(position % mListImgAd.size()).getPicture()).error(R.mipmap.error_big).into(img);
+        mPotision = position % mListImgAd.size();
         //点击轮播图片跳转
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, InformationDetailsActivity.class));
+                Intent intent = new Intent(mContext, InformationDetailsActivity.class);
+                intent.putExtra("type", "ad");
+                intent.putExtra("id", mListImgAd.get(mPotision).getId());
+                mContext.startActivity(intent);
             }
         });
         ((ViewPager) container).addView(view);
