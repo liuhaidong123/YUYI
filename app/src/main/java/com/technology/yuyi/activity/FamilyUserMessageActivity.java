@@ -48,66 +48,66 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
     private AlertDialog mAlertDialog;
     private View mAlertView;
     private TextView mSure_btn;
-    private  TextView mCancel_btn;
+    private TextView mCancel_btn;
     private RoundImageView user_img_head;//头像
     private TextView user_name_tv;//名称（与关系）;
     private TextView user_name_age;//年龄
     private TextView user_telnum;//电话
     private bean_ListFamilyUser.ResultBean userInfo;
     private String resultStr;
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     toast.toast_faild(FamilyUserMessageActivity.this);
                     break;
                 case 1:
-                    try{
-                            bean_DeleteFamilyUser del= gson.gson.fromJson(resultStr,bean_DeleteFamilyUser.class);
-                            if ("0".equals(del.getCode())){
-                                Toast.makeText(FamilyUserMessageActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        else {
-                                Toast.makeText(FamilyUserMessageActivity.this,"删除失败",Toast.LENGTH_SHORT).show();
-                            }
-                    }catch (Exception e){
+                    try {
+                        bean_DeleteFamilyUser del = gson.gson.fromJson(resultStr, bean_DeleteFamilyUser.class);
+                        if ("0".equals(del.getCode())) {
+                            Toast.makeText(FamilyUserMessageActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(FamilyUserMessageActivity.this, "删除失败", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
                         toast.toast_gsonFaild(FamilyUserMessageActivity.this);
                     }
                     break;
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_user_message);
-        Bundle b=getIntent().getBundleExtra("family");
-        if (b!=null){
-            userInfo= (bean_ListFamilyUser.ResultBean) b.getSerializable("family");
+        Bundle b = getIntent().getBundleExtra("family");
+        if (b != null) {
+            userInfo = (bean_ListFamilyUser.ResultBean) b.getSerializable("family");
         }
 
         initView();
-        if (userInfo!=null){
+        if (userInfo != null) {
 //            private RoundImageView user_img_head;//头像
 //            private TextView user_name_tv;//名称（与关系）;
 //            private TextView user_name_age;//年龄
 //            private TextView user_telnum;//电话
-            Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+            Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE).into(user_img_head);
-            user_name_tv.setText(userInfo.getTrueName()+"（"+userInfo.getNickName()+"）");
-            user_name_age.setText(userInfo.getAge()+"岁");
-            user_telnum.setText(userInfo.getTelephone()+"");
+            user_name_tv.setText(userInfo.getTrueName() + "（" + userInfo.getNickName() + "）");
+            user_name_age.setText(userInfo.getAge() + "岁");
+            user_telnum.setText(userInfo.getTelephone() + "");
         }
     }
 
     public void initView() {
-        user_img_head= (RoundImageView) findViewById(R.id.user_img_head);
-        user_name_tv= (TextView) findViewById(R.id.user_name_tv);
-        user_name_age= (TextView) findViewById(R.id.user_name_age);
-        user_telnum= (TextView) findViewById(R.id.user_telnum);
+        user_img_head = (RoundImageView) findViewById(R.id.user_img_head);
+        user_name_tv = (TextView) findViewById(R.id.user_name_tv);
+        user_name_age = (TextView) findViewById(R.id.user_name_age);
+        user_telnum = (TextView) findViewById(R.id.user_telnum);
 
         //返回
         mBack = (ImageView) findViewById(R.id.family_user_back);
@@ -129,10 +129,10 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
         //删除提示弹框
         mAlertView = LayoutInflater.from(this).inflate(R.layout.alert_delete_user_box, null);
         //确定按钮
-        mSure_btn= (TextView) mAlertView.findViewById(R.id.alert_sure);
+        mSure_btn = (TextView) mAlertView.findViewById(R.id.alert_sure);
         mSure_btn.setOnClickListener(this);
         //取消按钮
-        mCancel_btn= (TextView) mAlertView.findViewById(R.id.alert_cancel);
+        mCancel_btn = (TextView) mAlertView.findViewById(R.id.alert_cancel);
         mCancel_btn.setOnClickListener(this);
         //长安设备的弹框
         mBuilder = new AlertDialog.Builder(this);
@@ -147,43 +147,48 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
         if (id == mBack.getId()) {//返回
             finish();
         } else if (id == mMyData_rl.getId()) {//我的数据分析
-            startActivity(new Intent(this, MyDataAnalyseActivity.class));
+
+            Intent intent = new Intent(this, MyDataAnalyseActivity.class);
+            intent.putExtra("id", userInfo.getId());
+            startActivity(intent);
         } else if (id == mEditImg.getId()) {//编辑图片(将用户信息传过去)
-            Intent intent=  new Intent(this, AddFamilyUserActivity.class);
-            intent.putExtra("title","修改家庭用户");
-            intent.putExtra("type","1");
-            Bundle b=new Bundle();
-            b.putSerializable("family",userInfo);
-            intent.putExtra("family",b);
+            Intent intent = new Intent(this, AddFamilyUserActivity.class);
+            intent.putExtra("title", "修改家庭用户");
+            intent.putExtra("type", "1");
+            Bundle b = new Bundle();
+            b.putSerializable("family", userInfo);
+            intent.putExtra("family", b);
             startActivity(intent);
 
         } else if (id == mMyFiles_rl.getId()) {//病历档案(将用户信息传过去)
             startActivity(new Intent(this, LookElectronicMessActivity.class));
         } else if (id == mDelete_btn.getId()) {//删除用户
             mAlertDialog.show();
-        }else if (id==mSure_btn.getId()){//确定按钮
+        } else if (id == mSure_btn.getId()) {//确定按钮
             deleteUser();
             mAlertDialog.dismiss();
-        }else if (id==mCancel_btn.getId()){//取消按钮
+        } else if (id == mCancel_btn.getId()) {//取消按钮
             mAlertDialog.dismiss();
         }
 
     }
+
     //删除用户http://192.168.1.55:8080/yuyi/homeuser/delete.do?token=6DD620E22A92AB0AED590DB66F84D064&id=123
     private void deleteUser() {
-        Map<String,String> mp=new HashMap<>();
+        Map<String, String> mp = new HashMap<>();
         mp.put("token", user.userPsd);
-        mp.put("id",userInfo.getId()+"");
-        okhttp.getCall(Ip.url+Ip.interfce_DeleteFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
+        mp.put("id", userInfo.getId() + "");
+        okhttp.getCall(Ip.url + Ip.interfce_DeleteFamilyUser, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
+
             @Override
             public void onResponse(Response response) throws IOException {
-                resultStr=response.body().string();
+                resultStr = response.body().string();
                 handler.sendEmptyMessage(1);
-                Log.i("删除家庭用户--",resultStr);
+                Log.i("删除家庭用户--", resultStr);
             }
         });
     }

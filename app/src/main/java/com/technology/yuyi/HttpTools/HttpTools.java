@@ -436,10 +436,10 @@ public class HttpTools {
 
 
     /**
-     * 挂号选择上午，下午，医生(没做呢)
+     * 挂号选择上午，下午，医生
      */
     public void getUserRegisterData(final Handler handler, int cid) {
-        String url = UrlTools.BASE + UrlTools.URL_USER_REGISTER + "cid=" + cid;
+        String url = UrlTools.BASE + UrlTools.URL_USER_REGISTER + "clinicId=" + cid;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -452,7 +452,7 @@ public class HttpTools {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功医院科室数据：", s);
                 try {
-                    UserRegisterRoot root = mGson.fromJson(s, UserRegisterRoot.class);
+                    com.technology.yuyi.bean.SelectDoctor.Root root = mGson.fromJson(s, com.technology.yuyi.bean.SelectDoctor.Root.class);
                     Message message = new Message();
                     message.what = 30;
                     message.obj = root;
@@ -461,9 +461,7 @@ public class HttpTools {
                     Log.e("错误码", e.toString());
                     handler.sendEmptyMessage(217);
                 }
-
             }
-
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
@@ -783,5 +781,40 @@ public class HttpTools {
             }
         });
     }
+    /**
+     * 点击首页用户头像用户的数据
+     */
+    public void getClickUserDataData(final Handler handler, String token,long humeuserId) {
+        String url = UrlTools.BASE + UrlTools.URL_CLICK_USER_HEAD_FIRST_PAGE + "token=" + token+"&humeuserId="+humeuserId;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求点击用户的数据");
+            }
 
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功点击数据：", s);
+                try {
+                    com.technology.yuyi.bean.FirstPageClickUserBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.FirstPageClickUserBean.Root.class);
+                    Message message = new Message();
+                    message.what = 39;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码：", e.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求点击失败：", strMsg);
+                handler.sendEmptyMessage(233);
+            }
+        });
+    }
 }

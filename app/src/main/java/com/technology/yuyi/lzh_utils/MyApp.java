@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
@@ -18,7 +19,7 @@ import io.rong.imkit.RongIM;
 
 public class MyApp extends Application{
     public static Activity activityCurrent;
-    private List<Activity> list;
+    private List<Activity> list=new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();

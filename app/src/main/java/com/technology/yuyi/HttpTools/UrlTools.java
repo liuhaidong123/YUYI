@@ -14,7 +14,7 @@ public class UrlTools {
     public static final String URL_LOGIN="/personal/login.do";//登录接口
     public static final String URL_USER_MESSAGE="/personal/get.do?";//我的页面用户信息接口（需要token）
     public static  final  String URL_HOSPITAL_DEPARTMENT="/department/gethid.do?";//医院科室接口（需传hid=）
-    public static  final  String URL_USER_REGISTER="/physician/getcid.do?";//用户挂号接口（需传门诊cid）
+    public static  final  String URL_USER_REGISTER="/datenumber/findList.do?";//用户挂号接口（需传门诊clinicId=3）
 
     public static  final  String URL_AD="/article/findall.do";//首页广告轮播接口
     public static final  String URL_AD_MEssage="/article/getid.do?";//首页轮播详情接口，需传id（id=3）
@@ -25,4 +25,6 @@ public class UrlTools {
     public static final  String URL_SUBMIT_BLOOD="/bloodpressure/save.do";//提交体温数据post(token,humeuserId家庭用户编号,systolic收缩压（高压）,diastolic舒张压（低压）);
 
     public static final  String URL_FIRST_PAGE_USER_DATA="/homeuser/findListHome.do?";//首页用户列表及默认用户的血压体温数据（token=）
+    public static final  String URL_CLICK_USER_HEAD_FIRST_PAGE="/homeuser/findOne.do?";//点击首页用户头像接口（token=6DD620E22A92AB0AED590DB66F84D064&humeuserId=10）
+
 }

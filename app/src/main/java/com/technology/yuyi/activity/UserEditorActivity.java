@@ -172,8 +172,11 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
+        //性别
         user_editor_sex= (TextView) findViewById(R.id.user_editor_sex);
+        //用户名
         user_editor_userName= (EditText) findViewById(R.id.user_editor_userName);
+        user_editor_userName.setSelection(user_editor_userName.getText().length());
         //选择性别
         mSex = (RelativeLayout) findViewById(R.id.user_sex_rl);
         mSex.setOnClickListener(this);

@@ -61,6 +61,7 @@ import com.technology.yuyi.bean.FirstPageUserDataBean.BloodpressureList;
 import com.technology.yuyi.bean.FirstPageUserDataBean.Result;
 import com.technology.yuyi.bean.FirstPageUserDataBean.TemperatureList;
 import com.technology.yuyi.lhd.utils.ToastUtils;
+import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.BloodView;
 import com.technology.yuyi.myview.InformationListView;
@@ -204,13 +205,82 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 mUserData.clear();
                 mUserData = root.getResult();
                 mAllUser_ll.removeAllViews();
-                initUserMessage();//初始化用户的头像和昵称
+                initUserMessage();//初始化用户的头像和昵称，绘制折线图
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 231) {
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 232) {
                 mSwipeRefresh.setRefreshing(false);
                 ToastUtils.myToast(getContext(), "获用户列表失败");
+            } else if (msg.what == 39) {//点击首页用户头像
+                Object o = msg.obj;
+                if (o != null && o instanceof com.technology.yuyi.bean.FirstPageClickUserBean.Root) {
+                    MyDialog.stopDia();
+                    com.technology.yuyi.bean.FirstPageClickUserBean.Root root = (com.technology.yuyi.bean.FirstPageClickUserBean.Root) o;
+                    XdateNum.clear();
+                    heightBloodData.clear();
+                    lowBloodData.clear();
+                    XTemdateNum.clear();
+                    temData.clear();
+                    int month = 0;
+                    int day = 0;
+
+                    List<com.technology.yuyi.bean.FirstPageClickUserBean.BloodpressureList> bloodlist = root.getResult().getBloodpressureList();
+                    List<com.technology.yuyi.bean.FirstPageClickUserBean.TemperatureList> temlist = root.getResult().getTemperatureList();
+                    //血压
+                    if (bloodlist.size() != 0) {
+                        for (int i = 0; i < bloodlist.size(); i++) {
+                            try {
+                                Date date = simpleDateFormat.parse(bloodlist.get(i).getCreateTimeString());
+                                month = date.getMonth() + 1;
+                                day = date.getDate();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String date = month + "月" + day + "日";
+                            XdateNum.add(date);
+                            heightBloodData.add(bloodlist.get(i).getSystolic());//高
+                            lowBloodData.add(bloodlist.get(i).getDiastolic());
+                        }
+
+                    }
+                    // 体温
+                    if (temlist.size() != 0) {
+                        for (int i = 0; i < temlist.size(); i++) {
+                            try {
+                                Date date = simpleDateFormat.parse(temlist.get(i).getCreateTimeString());
+                                month = date.getMonth() + 1;
+                                day = date.getDate();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            String date = month + "月" + day + "日";
+                            XTemdateNum.add(date);
+                            temData.add(temlist.get(i).getTemperaturet());//体温
+
+                        }
+
+                    }
+                    mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
+                    mBloodView.invalidate();
+                    mTemView.setTemInfo(YTemData, XTemdateNum, temData);
+                    mTemView.invalidate();
+
+                    //判断数据是否正常，设置文字图片提示
+                    if (bloodlist.size() != 0 && temlist.size() != 0) {
+                        checkBlood(bloodlist.get(bloodlist.size() - 1).getSystolic(), bloodlist.get(bloodlist.size() - 1).getDiastolic(), temlist.get(temlist.size() - 1).getTemperaturet());
+                    } else if (bloodlist.size() == 0 && temlist.size() != 0) {
+                        checkBlood(0, 0, temlist.get(temlist.size() - 1).getTemperaturet());
+                    } else if (bloodlist.size() != 0 && temlist.size() == 0) {
+                        checkBlood(bloodlist.get(bloodlist.size() - 1).getSystolic(), bloodlist.get(bloodlist.size() - 1).getDiastolic(), 0);
+                    } else {
+                        checkBlood(0, 0, 0);
+                    }
+
+                }
+            } else if (msg.what == 233) {
+                MyDialog.stopDia();
+                ToastUtils.myToast(getContext(), "获取失败");
             }
         }
     };
@@ -233,14 +303,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     //添加图片
     private ImageView imageView;
 
-
+    private String greenColor = "#25f368";
+    private String grayColor = "#6a6a6a";
+    private String redColor = "#ec2e2e";
     private ImageView mPromptImg;
     private TextView mPromptTv;
     private TextView mHeightBloodTv;
     private TextView mLowBloodTv;
     private TextView mTem;
     private SimpleDateFormat simpleDateFormat;
-
+    private List<TextView> tvlist = new ArrayList<>();
     public FirstPageFragment() {
         // Required empty public constructor
     }
@@ -278,11 +350,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //首页下拉刷新
         mSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swiperefesh);
         mSwipeRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
+        mSwipeRefresh.setRefreshing(true);
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
                 mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
+                tvlist.clear();
                 heightBloodData.clear();
                 lowBloodData.clear();
                 XdateNum.clear();
@@ -340,11 +414,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mViewPagerBlood.setCurrentItem(0);
         mViewPagerBlood.addOnPageChangeListener(new BloodTemImpl(mBloodImageViewArr));
         //用户最后一条数据显示在标题那
-        mPromptImg= (ImageView) view.findViewById(R.id.normal_btn_img);
-        mPromptTv= (TextView) view.findViewById(R.id.normal_tv);
-        mHeightBloodTv= (TextView) view.findViewById(R.id.heightPress_message_tv);
-        mLowBloodTv= (TextView) view.findViewById(R.id.lowPress_message_tv);
-        mTem= (TextView) view.findViewById(R.id.temperature_message_tv);
+        mPromptImg = (ImageView) view.findViewById(R.id.normal_btn_img);
+        mPromptTv = (TextView) view.findViewById(R.id.normal_tv);
+        mHeightBloodTv = (TextView) view.findViewById(R.id.heightPress_message_tv);
+        mLowBloodTv = (TextView) view.findViewById(R.id.lowPress_message_tv);
+        mTem = (TextView) view.findViewById(R.id.temperature_message_tv);
 
         //跳转资讯
         mInformation_rl = (RelativeLayout) view.findViewById(R.id.relative_information);
@@ -680,9 +754,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
             //用户真实姓名
             textView = new TextView(this.getContext());
+            textView.setId(View.generateViewId());
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            textView.setTextColor(Color.parseColor("#25f368"));
+            if (i == 0) {
+                textView.setTextColor(Color.parseColor(greenColor));
+            } else {
+                textView.setTextColor(Color.parseColor(grayColor));
+            }
+
             textView.setLayoutParams(paramsTV);
+            tvlist.add(textView);
             if (mUserData.get(i).getTrueName().length() > 3) {
                 textView.setText(mUserData.get(i).getTrueName().toCharArray(), 0, 3);
             } else {
@@ -693,67 +774,24 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             linearLayout.addView(textView);
             mAllUser_ll.addView(linearLayout);
 
-
+            //点击用户头像
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), mUserData.get(k) + "", Toast.LENGTH_SHORT).show();
-//                    mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
-//                    mBloodView.invalidate();
+                    MyDialog.showDialog(getContext());
+                    mHttptools.getClickUserDataData(mHttpHandler, user.token, mUserData.get(k).getId());
+                    //点击头像时，文字变换颜色
+                    for (int i=0;i<tvlist.size();i++){
+                        if (k==i){
+                            tvlist.get(k).setTextColor(Color.parseColor(greenColor));
+                        } else {
+                            tvlist.get(i).setTextColor(Color.parseColor(grayColor));
+                        }
+                    }
+
                 }
             });
         }
-
-
-        //为默认用户初始化数据
-        List<BloodpressureList> listBlood = mUserData.get(0).getBloodpressureList();
-        List<TemperatureList> listTem = mUserData.get(0).getTemperatureList();
-        //默认用户血压数据
-        if (listBlood.size() != 0) {
-            int month=0;
-            int day=0;
-            for (int i = 0; i < listBlood.size(); i++) {
-                heightBloodData.add(listBlood.get(i).getSystolic());//高
-                lowBloodData.add(listBlood.get(i).getDiastolic());
-                try {
-                    Date date = simpleDateFormat.parse(listBlood.get(i).getCreateTimeString());
-                    month = date.getMonth() + 1;
-                    day = date.getDate();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                String date = month + "月" + day + "日";
-                XdateNum.add(date);
-                //用户最后一条数据显示在标题那
-                if (i==listBlood.size()-1){
-
-                }
-            }
-            mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
-            mBloodView.invalidate();
-        }
-        //默认用户体温数据
-        if (listTem.size()!=0){
-            int month=0;
-            int day=0;
-            for(int i=0;i<listTem.size();i++){
-                temData.add(listTem.get(i).getTemperaturet());
-                try {
-                    Date date = simpleDateFormat.parse(listTem.get(i).getCreateTimeString());
-                    month = date.getMonth() + 1;
-                    day = date.getDate();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                String date = month + "月" + day + "日";
-                XTemdateNum.add(date);
-            }
-            mTemView.setTemInfo(YTemData, XTemdateNum, temData);
-            mTemView.invalidate();
-        }
-
-
-
         //首页添加用户按钮
         if (mUserData.size() < 6) {
             //添加布局
@@ -780,5 +818,94 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 }
             });
         }
+
+        if (mUserData.size()!=0){
+            //为默认用户初始化数据
+            List<BloodpressureList> listBlood = mUserData.get(0).getBloodpressureList();
+            List<TemperatureList> listTem = mUserData.get(0).getTemperatureList();
+            //默认用户血压数据
+            if (listBlood.size() != 0) {
+                int month = 0;
+                int day = 0;
+                for (int i = 0; i < listBlood.size(); i++) {
+                    heightBloodData.add(listBlood.get(i).getSystolic());//高
+                    lowBloodData.add(listBlood.get(i).getDiastolic());
+                    try {
+                        Date date = simpleDateFormat.parse(listBlood.get(i).getCreateTimeString());
+                        month = date.getMonth() + 1;
+                        day = date.getDate();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String date = month + "月" + day + "日";
+                    XdateNum.add(date);
+                }
+
+            }
+            //默认用户体温数据
+            if (listTem.size() != 0) {
+                int month = 0;
+                int day = 0;
+                for (int i = 0; i < listTem.size(); i++) {
+                    temData.add(listTem.get(i).getTemperaturet());
+                    try {
+                        Date date = simpleDateFormat.parse(listTem.get(i).getCreateTimeString());
+                        month = date.getMonth() + 1;
+                        day = date.getDate();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String date = month + "月" + day + "日";
+                    XTemdateNum.add(date);
+                }
+            }
+            //判断数据是否正常，设置文字图片提示
+            if (listBlood.size() != 0 && listTem.size() != 0) {
+                checkBlood(listBlood.get(listBlood.size() - 1).getSystolic(), listBlood.get(listBlood.size() - 1).getDiastolic(), listTem.get(listTem.size() - 1).getTemperaturet());
+            } else if (listBlood.size() == 0 && listTem.size() != 0) {
+                checkBlood(0, 0, listTem.get(listTem.size() - 1).getTemperaturet());
+            } else if (listBlood.size() != 0 && listTem.size() == 0) {
+                checkBlood(listBlood.get(listBlood.size() - 1).getSystolic(), listBlood.get(listBlood.size() - 1).getDiastolic(), 0);
+            } else {
+                checkBlood(0, 0, 0);
+            }
+        }
+        mBloodView.setInfo(YbloodNum, XdateNum, heightBloodData, lowBloodData);
+        mBloodView.invalidate();
+        mTemView.setTemInfo(YTemData, XTemdateNum, temData);
+        mTemView.invalidate();
+
+
+
+    }
+
+    /**
+     * 判断血压,体温设置提示
+     * height 高压
+     * low 低压
+     * tem 体温
+     */
+    public void checkBlood(int height, int low, float tem) {
+
+        if (height == 0 && low == 0 && tem == 0) {
+            mPromptImg.setImageResource(R.mipmap.normal);
+            mPromptTv.setText("待测");
+            mPromptTv.setTextColor(Color.parseColor(grayColor));
+        }
+        //显示不正常
+        else if (height > 139 || height < 90 || low > 89 || low < 60 || tem < 36 || tem > 37) {
+
+            mPromptImg.setImageResource(R.mipmap.normal_error);
+            mPromptTv.setText("不正常");
+            mPromptTv.setTextColor(Color.parseColor(redColor));
+
+        } else {
+            mPromptImg.setImageResource(R.mipmap.normal);
+            mPromptTv.setText("正常");
+            mPromptTv.setTextColor(Color.parseColor(grayColor));
+        }
+        mHeightBloodTv.setText(height + "");
+        mLowBloodTv.setText(low + "");
+        mTem.setText(tem + "°C");
     }
 }

@@ -77,6 +77,7 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
     protected void onStart() {
         super.onStart();
         getUserList();
+        Log.e("onStart","");
     }
 
     public void initView() {
@@ -138,4 +139,6 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
+
+
 }
