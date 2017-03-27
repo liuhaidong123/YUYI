@@ -204,12 +204,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_voice_unread.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_back_icon.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_back_icon.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_default_portrait.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_default_portrait.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_back_icon.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_back_icon.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_conversation_list_msg_send_failure.png",
@@ -1016,12 +1016,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_rt_loc_myself.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/u1f60f.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/u1f60f.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/u1f602.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/u1f602.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/u1f60f.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/u1f60f.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/u1f62e.png",

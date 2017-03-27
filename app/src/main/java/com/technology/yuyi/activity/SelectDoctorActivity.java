@@ -91,6 +91,7 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
 
                             mAdapterList=mList.get(0).getDatenumberList();
                             mAdapter.setmListDoctor(mAdapterList);
+                            mAdapter.setFlag(morning);
                             mAdapter.notifyDataSetChanged();
                         }
                     }
@@ -135,31 +136,37 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
         int id = v.getId();
         if (id == mBack.getId()) {
             finish();
-            //第一个日期上午
+            //第1个日期上午
         } else if (id == mDate1Morning.getId()) {
             setColor(id);
         } else if (id == mDate1Afternoon.getId()) {
             setColor(id);
+            //第2个日期上午
         } else if (id == mDate2Morning.getId()) {
             setColor(id);
         } else if (id == mDate2Afternoon.getId()) {
             setColor(id);
+            //第3个日期上午
         } else if (id == mDate3Morning.getId()) {
             setColor(id);
         } else if (id == mDate3Afternoon.getId()) {
             setColor(id);
+            //第4个日期上午
         } else if (id == mDate4Morning.getId()) {
             setColor(id);
         } else if (id == mDate4Afternoon.getId()) {
             setColor(id);
+            //第5个日期上午
         } else if (id == mDate5Morning.getId()) {
             setColor(id);
         } else if (id == mDate5Afternoon.getId()) {
             setColor(id);
+            //第6个日期上午
         } else if (id == mDate6Morning.getId()) {
             setColor(id);
         } else if (id == mDate6Afternoon.getId()) {
             setColor(id);
+            //第7个日期上午
         } else if (id == mDate7Morning.getId()) {
             setColor(id);
         } else if (id == mDate7Afternoon.getId()) {

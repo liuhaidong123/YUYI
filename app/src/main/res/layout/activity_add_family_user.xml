@@ -52,10 +52,11 @@
 
     <RelativeLayout
         android:id="@+id/ra"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/family_listview_bg"
         android:layout_below="@+id/equip_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/family_listview_bg"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
         <com.technology.yuyi.myview.RoundImageView
@@ -163,12 +164,69 @@
 
         </RelativeLayout>
 
+        <CheckBox
+            android:visibility="gone"
+            android:id="@+id/checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telnum_rl"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/agree"
+            android:textColor="@color/color_press" />
+<RelativeLayout
+    android:layout_alignParentStart="true"
+    android:id="@+id/rela_sex"
+    android:layout_marginBottom="20dp"
+    android:orientation="horizontal"
+    android:layout_below="@+id/name_rl"
+    android:layout_width="match_parent"
+    android:layout_height="30dp">
+    <TextView
+        android:id="@+id/text_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/sex"
+        android:textColor="@color/color_normal"
+        android:textSize="14sp"
+        />
+    <RadioGroup
+        android:id="@+id/add_family_group_sex"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@+id/text_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男"
+            style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
+            android:textColor="@color/color_normal"
+            android:textSize="14sp"
+            android:id="@+id/add_fami_boy"/>
+        <RadioButton
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="女"
+            android:checked="true"
+            style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
+            android:textColor="@color/color_normal"
+            android:textSize="14sp"
+            android:id="@+id/add_fami_gril"/>
+    </RadioGroup>
+</RelativeLayout>
         <RelativeLayout
             android:id="@+id/telnum_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name_rl"
-            android:layout_marginBottom="25dp">
+            android:layout_below="@+id/rela_sex"
+            android:layout_alignParentStart="true">
 
             <TextView
                 android:id="@+id/telnum_tv"
@@ -181,40 +239,30 @@
                 android:textColor="@color/color_normal"
                 android:textSize="14sp" />
 
-            <EditText
-                android:maxLength="11"
-                android:id="@+id/edit_telnum"
-                android:layout_width="130dp"
-                android:layout_height="30dp"
-                android:layout_toEndOf="@id/telnum_tv"
-                android:background="@drawable/edit_family_bg"
-                android:inputType="number"
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:layout_toEndOf="@id/edit_telnum"
+                android:layout_toEndOf="@+id/edit_telnum"
                 android:text="@string/select"
                 android:textColor="@color/color_bg"
                 android:textSize="11sp"
 
                 />
-        </RelativeLayout>
 
-        <CheckBox
-            android:visibility="gone"
-            android:id="@+id/checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/telnum_rl"
-            android:layout_marginBottom="25dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/agree"
-            android:textColor="@color/color_press" />
+            <EditText
+                android:maxLength="11"
+                android:id="@+id/edit_telnum"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:background="@drawable/edit_family_bg"
+                android:inputType="number"
+                android:textColor="@color/color_normal"
+                android:textSize="14sp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/telnum_tv" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

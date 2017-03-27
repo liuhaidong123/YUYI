@@ -146,7 +146,8 @@ containing a value of this type.
         public static int rc_conversation_item_data_size=0x7f0a0000;
         public static int rc_conversation_item_name_size=0x7f0a0001;
         public static int rc_conversation_item_time_size=0x7f0a0002;
-        public static int rc_popup_dialog_distance_to_edge=0x7f0a0003;
+        public static int rc_extension_board_height=0x7f0a0003;
+        public static int rc_popup_dialog_distance_to_edge=0x7f0a0004;
     }
     public static final class drawable {
         public static int rc_ac_audio_file_icon=0x7f020000;

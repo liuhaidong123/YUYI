@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
@@ -769,6 +768,4 @@ public class MultiVideoCallActivity extends BaseCallActivity {
                 nameView.setText(userInfo.getName());
         }
     }
-
-
 }

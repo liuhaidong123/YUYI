@@ -441,6 +441,7 @@
     <dimen name="rc_conversation_item_data_size">14sp</dimen>
     <dimen name="rc_conversation_item_name_size">16sp</dimen>
     <dimen name="rc_conversation_item_time_size">13sp</dimen>
+    <dimen name="rc_extension_board_height">282dp</dimen>
     <dimen name="rc_popup_dialog_distance_to_edge">40dp</dimen>
     <item name="rc_actionbar" type="id"/>
     <item name="rc_back" type="id"/>

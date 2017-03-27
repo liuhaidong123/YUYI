@@ -1192,12 +1192,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f44f.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f349.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f349.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f4a4.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f4a4.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f349.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f349.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_location_item_default.png",

@@ -68,6 +68,7 @@
     <color name="sheelselectColor">#333333</color>
     <color name="dialog">#00ffffff</color>
     <color name="navpage">#FFE1E8EB</color>
+    <color name="unselect">#e0e0e0</color>
 </resources>
 
 

@@ -1,5 +1,7 @@
 package com.technology.yuyi.activity;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +9,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.lzh_utils.MyApp;
 import com.technology.yuyi.lzh_utils.user;
+
+import org.json.JSONObject;
 
 public class SetActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,7 +58,10 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
 
                     case R.id.tv_exit://退出
                         user.clearLogin(this);
-                        startActivity(new Intent(SetActivity.this,My_userLogin_Activity.class));
+                        MyApp.removeActivity();
+                        Intent intent=new Intent(SetActivity.this,My_userLogin_Activity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                         finish();
                         break;
             }
