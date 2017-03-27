@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ms_linerlayout"
                     android:layout_width="match_parent"
                     android:background="@color/color_ms_home_disc"
@@ -67,7 +68,7 @@
                         android:textColor="@color/color_white"
                         android:id="@+id/textView" />
                 </LinearLayout>
-
+<!--药品状态-->
                 <!--搜索-->
                 <RelativeLayout
                     android:id="@+id/ms_searchlayout"
@@ -75,7 +76,7 @@
                     android:layout_height="44dp"
                     android:paddingLeft="@dimen/ms_home_searchleftAndrightMar20"
                     android:paddingRight="@dimen/ms_home_searchleftAndrightMar20"
-                    android:layout_below="@+id/ms_linerlayout">
+                    android:layout_below="@+id/ms_home_ms_state">
 
                     <RelativeLayout
                         android:clickable="true"
@@ -139,6 +140,63 @@
                     android:divider="#ffffff"
                     android:layout_below="@+id/ms_home_exP_textfg">
                 </com.technology.yuyi.lzh_utils.MyExpanListview>
+
+                <RelativeLayout
+                    android:clickable="true"
+                    android:onClick="ms_homeClick"
+                    android:id="@+id/ms_home_ms_state"
+                    android:background="#f9f9f9"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true">
+                <ImageView
+                    android:id="@+id/ms_home_image"
+                    android:src="@mipmap/drug"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/ms_home_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true">
+                        <TextView
+                            android:textColor="#333333"
+                            android:textSize="13sp"
+                            android:text="我的药品状态"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:textColor="#333333"
+                            android:textSize="13sp"
+                            android:text="2017-3-24"
+                            android:layout_marginTop="6dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textColor="#333333"
+                        android:textSize="13sp"
+                        android:layout_marginRight="6dp"
+                        android:layout_toLeftOf="@+id/ms_home_image_goto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前状态：煎药中"/>
+                    <ImageView
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/ms_home_image_goto"
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/many"/>
+                </RelativeLayout>
             </RelativeLayout>
         </com.technology.yuyi.lzh_utils.MyScrollow>
     </RelativeLayout>

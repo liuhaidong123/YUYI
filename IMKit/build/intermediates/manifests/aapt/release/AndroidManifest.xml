@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.rong.imkit"
-    android:versionCode="2017030615"
-    android:versionName="2.8.7" >
+    android:versionCode="2017032017"
+    android:versionName="2.8.8" >
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="25" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

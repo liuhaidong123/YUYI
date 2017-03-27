@@ -436,6 +436,7 @@
     <dimen name="rc_conversation_item_data_size">14sp</dimen>
     <dimen name="rc_conversation_item_name_size">16sp</dimen>
     <dimen name="rc_conversation_item_time_size">13sp</dimen>
+    <dimen name="rc_extension_board_height">282dp</dimen>
     <dimen name="rc_popup_dialog_distance_to_edge">40dp</dimen>
     <item name="rc_actionbar" type="id"/>
     <item name="rc_back" type="id"/>
@@ -494,6 +495,8 @@
     <item name="rc_warning" type="id"/>
     <integer name="rc_chatroom_first_pull_message_count">10</integer>
     <integer name="rc_custom_service_evaluation_interval">60</integer>
+    <integer name="rc_extension_emoji_count_per_page">20</integer>
+    <integer name="rc_extension_plugin_count_per_page">8</integer>
     <integer name="rc_message_recall_interval">120</integer>
     <string name="rc_ac_file_download_btn">开始下载</string>
     <string name="rc_ac_file_download_open_file_btn">用其他应用打开</string>

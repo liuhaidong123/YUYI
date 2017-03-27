@@ -143,7 +143,8 @@ containing a value of this type.
         public static final int rc_conversation_item_data_size=0x7f090000;
         public static final int rc_conversation_item_name_size=0x7f090001;
         public static final int rc_conversation_item_time_size=0x7f090002;
-        public static final int rc_popup_dialog_distance_to_edge=0x7f090003;
+        public static final int rc_extension_board_height=0x7f090003;
+        public static final int rc_popup_dialog_distance_to_edge=0x7f090004;
     }
     public static final class drawable {
         public static final int rc_ac_audio_file_icon=0x7f020000;
@@ -825,9 +826,11 @@ containing a value of this type.
         public static final int rc_audio_encoding_bit_rate=0x7f0b0000;
         public static final int rc_chatroom_first_pull_message_count=0x7f0b0001;
         public static final int rc_custom_service_evaluation_interval=0x7f0b0002;
-        public static final int rc_image_quality=0x7f0b0003;
-        public static final int rc_image_size=0x7f0b0004;
-        public static final int rc_message_recall_interval=0x7f0b0005;
+        public static final int rc_extension_emoji_count_per_page=0x7f0b0003;
+        public static final int rc_extension_plugin_count_per_page=0x7f0b0004;
+        public static final int rc_image_quality=0x7f0b0005;
+        public static final int rc_image_size=0x7f0b0006;
+        public static final int rc_message_recall_interval=0x7f0b0007;
     }
     public static final class layout {
         public static final int rc_ac_albums=0x7f030000;

@@ -136,12 +136,12 @@
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f634.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ac_video_file_icon.png",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ac_video_file_icon.png"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voip_audio_left_cancel.png",
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voip_audio_left_cancel.png"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ac_video_file_icon.png",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ac_video_file_icon.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f4de.png",

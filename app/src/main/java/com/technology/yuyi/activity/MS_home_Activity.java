@@ -176,6 +176,9 @@ public class MS_home_Activity extends AppCompatActivity {
                 case R.id.ms_home_return://首页返回按钮
                     finish();
                     break;
+                case R.id.ms_home_ms_state://煎药状态
+                        startActivity(new Intent(MS_home_Activity.this,MS_drugState.class));
+                    break;
             }
         }
 

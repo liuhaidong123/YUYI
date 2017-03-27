@@ -57,7 +57,6 @@ public class MyReceiver extends BroadcastReceiver{
 //                notification.contentIntent=pendingIntent;
 //                manager.notify(notifactionId,notification);
 //            }
-
         }
         else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction()))
         {

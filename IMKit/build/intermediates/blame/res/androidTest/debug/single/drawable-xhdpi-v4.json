@@ -816,12 +816,12 @@
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_volume_0.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f61e.png",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f61e.png"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_group_cancel_normal.png",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_cs_group_cancel_normal.png"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f61e.png",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f61e.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_default_group_portrait.png",

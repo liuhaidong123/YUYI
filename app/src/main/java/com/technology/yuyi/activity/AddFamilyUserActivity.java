@@ -34,6 +34,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,6 +97,9 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     private String SMScode;//验证码
     private String bit64;
     private PopupWindow pop;
+    private RadioGroup radioGroup;//性别
+    private RadioButton add_fami_boy,add_fami_gril;
+    private String gender;//性别参数0女1男
     TextView addfamily_getSmsCode;//获取验证码
     EditText addfamily_edit_smsCode;
     TextView addfamily_pop_submit;
@@ -171,6 +176,21 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
     public void initView() {
+        radioGroup= (RadioGroup) findViewById(R.id.add_family_group_sex);
+        gender="0";
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.add_fami_boy://男1
+                        gender="1";//性别参数0女1男
+                        break;
+                    case R.id.add_fami_gril://女0
+                        gender="0";
+                        break;
+                }
+            }
+        });
         title= (TextView) findViewById(R.id.title);
         title.setText(getIntent().getStringExtra("title"));
         //返回
@@ -244,6 +264,15 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         Bundle b=getIntent().getBundleExtra("family");
         if (b!=null){
             userInfo= (bean_ListFamilyUser.ResultBean) b.getSerializable("family");
+            gender=userInfo.getGender()+"";
+            switch (gender){
+                case "0":
+                    add_fami_gril.setChecked(true);
+                    break;
+                case "1":
+                    add_fami_boy.setChecked(true);
+                    break;
+            }
             Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
                 @Override
@@ -363,6 +392,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         mp.put("token", user.userPsd);  mp.put("nickName",relation);//家庭关系
         mp.put("trueName",name);  mp.put("age",age);
         mp.put("avatar",bit64);
+        mp.put("gender",gender);
         Log.e("bit64----map---",bit64.toString());
 //        telnum=edit_telnum.getText().toString();
         telnum=edit_telnum.getText().toString();

@@ -114,7 +114,7 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
         Intent intent=new Intent();
         intent.setClass(this,FamilyUserMessageActivity.class);
         Bundle b=new Bundle();
-        b.putSerializable("family", list.get(position));
+        b.putSerializable("family",list.get(position));
         intent.putExtra("family",b);
         startActivity(intent);
     }

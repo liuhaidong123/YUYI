@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -17,11 +18,13 @@
         android:smallScreens="true" />
     <!-- 支付宝相关 -->
 
-<!--融云callKit-->
+
+    <!-- 融云callKit -->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
-    <!--融云callKit-->
+    <!-- 融云callKit -->
+
 
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -88,11 +91,11 @@
             android:value="14cf697240503b60713b62354333abd3" /> <!-- 开发者申请的key -->
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".activity.StartActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activity.StartActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme"
-            >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -101,8 +104,8 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
             //微信
             <intent-filter>
@@ -179,7 +182,7 @@
         <!-- 微信支付 -->
         <activity
             android:name=".activity.MS_drugBuy_activity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -217,16 +220,16 @@
             android:launchMode="singleTop" />
         <!-- create by liuzonghao -->
         <activity
-            android:launchMode="singleTop"
             android:name=".activity.FamilyManageActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddFamilyUserActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:launchMode="singleTop"
             android:name=".activity.FamilyUserMessageActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ConnectWifiActivity"
@@ -253,13 +256,13 @@
         <activity
             android:name=".activity.VoiceSuccessActivity"
             android:screenOrientation="portrait" />
-        <!--<activity-->
-            <!--android:name=".activity.WordActivity"-->
-            <!--android:screenOrientation="portrait" />-->
+        <!-- <activity -->
+        <!-- android:name=".activity.WordActivity" -->
+        <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.GaoDeLocateActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <!-- 支付宝相关 -->
         <activity
@@ -316,7 +319,7 @@
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVE"></action>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVE" />
                 <!-- 55555555555 -->
                 <category android:name="com.technology.yuyi" />
             </intent-filter>
@@ -336,7 +339,7 @@
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle"></activity>
+            android:theme="@style/MyDialogStyle" />
         <!-- Required SDK核 功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
@@ -355,7 +358,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
         <!-- Required SDK核 功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
         <!-- User defined.  户 定义的 播接收 -->
@@ -396,19 +399,20 @@
         <!-- ／／／／／／／／／／／激光推送／／／／／／／／／ -->
 
 
-        <!--                       融云相关（以下）                       -->
+        <!-- 融云相关（以下） -->
 
-        <!--离线消息-->
-        <!--<receiver-->
-            <!--android:exported="true"-->
-            <!--android:name=".lzh_utils.SealNotificationReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />-->
-                <!--<action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />-->
-                <!--<action android:name="io.rong.push.intent.MESSAGE_CLICKED" />-->
-                <!--<action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+
+        <!-- 离线消息 -->
+         <receiver
+         android:exported="true"
+         android:name=".lzh_utils.MyNotificationReceiver">
+         <intent-filter>
+         <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+         <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+         <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+         <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+         </intent-filter>
+         </receiver>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -419,8 +423,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/rc_file_path" />
         </provider>
-    <!--会话界面actiity-->
-        <activity android:name=".activity.Roung_imActivity"
+        <!-- 会话界面actiity -->
+        <activity
+            android:name=".activity.Roung_imActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -431,62 +436,10 @@
                 <data
                     android:host="com.technology.yuyi"
                     android:pathPrefix="/conversation/"
-                    android:scheme="rong"/>
+                    android:scheme="rong" />
             </intent-filter>
-
         </activity>
-
-
-        <!--<provider-->
-        <!--android:name="android.support.v4.content.FileProvider"-->
-        <!--android:authorities="com.technology.yuyi.FileProvider"-->
-        <!--android:grantUriPermissions="true"-->
-        <!--android:exported="false">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-        <!--android:resource="@xml/rc_file_path"/>-->
-        <!--</provider>-->
-
-
-
-        <!--<activity-->
-            <!--android:name="io.rong.imkit.MultiVideoCallActivity"-->
-            <!--android:launchMode="singleTop"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="io.rong.intent.action.voip.MULTIVIDEO" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-
-        <!--<activity-->
-            <!--android:name="io.rong.imkit.SingleCallActivity"-->
-            <!--android:launchMode="singleTop"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="io.rong.intent.action.voip.SINGLEVIDEO" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="io.rong.intent.action.voip.SINGLEAUDIO" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name="io.rong.imkit.MultiAudioCallActivity"-->
-            <!--android:launchMode="singleTop"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="io.rong.intent.action.voip.MULTIAUDIO" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-
-        <!--<activity android:name="io.rong.imkit.CallSelectMemberActivity" />-->
-        <!---->
+        <activity android:name=".activity.MS_drugState"></activity>
     </application>
 
 </manifest>

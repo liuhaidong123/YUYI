@@ -2,6 +2,8 @@ package com.technology.yuyi.activity;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,12 +18,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
 import com.technology.yuyi.fragment.AskFragment;
 import com.technology.yuyi.fragment.FirstPageFragment;
 import com.technology.yuyi.fragment.MeasureFragment;
 import com.technology.yuyi.fragment.MyFragment;
+import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.RongUser;
+import com.technology.yuyi.lzh_utils.RongUserList;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
@@ -51,14 +65,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String pressColor = "#25f368";
     public final String noPressColor = "#666666";
     private long time = 0;
+    private String resStr;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    toast.toast_faild(MainActivity.this);
+                    break;
+                case 1:
+                    try{
 
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MainActivity.this);
+                    }
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
+        getRongUserInfo();//向服务器请求融云token
         initRongCon();
+
 
     }
 
@@ -318,7 +353,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        RongIM.getInstance().disconnect();
     }
 
 
@@ -342,10 +376,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(String userid) {
                 user.RonguserId=userid;
                 Log.i("融云返回的id---",userid+"--HospitalDetailsActivity---");
-//                RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid,"李四", Uri.parse("http://f.hiphotos.baidu.com/zhidao/pic/item/8b82b9014a90f60326b707453b12b31bb051eda9.jpg")));
+
 
                 RongIM.setUserInfoProvider(MainActivity.this,true);
-//                RongIM.getInstance().setMessageAttachedUserInfo(true);
+                RongIM.getInstance().setMessageAttachedUserInfo(true);
             }
             /**
              * 连接融云失败
@@ -362,19 +396,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public UserInfo getUserInfo(String s) {
-//        Log.i("------s----",s+"-------");
-//        Log.i("------s2-----",user.RonguserId);
-//        Log.i("------s2----",user.targetId);
-        if (s.equals(user.RonguserId)){
-//            Log.i("000000000","-----------");
-            return new UserInfo(user.RonguserId,"张三", Uri.parse("http://www.feizl.com/upload2007/2014_03/1403191946156010.jpg"));
-        }
-
-        else if (s.equals(user.targetId)){
-//            Log.i("11111111111111","-----------");
-            return new UserInfo(user.targetId,"李四", Uri.parse("http://f.hiphotos.baidu.com/zhidao/pic/item/8b82b9014a90f60326b707453b12b31bb051eda9.jpg"));
+        for (int i=0;i< RongUserList.list.size();i++){
+            if (s.equals(RongUserList.list.get(i).getId())){
+                RongUser us=RongUserList.list.get(i);
+                return new UserInfo(us.getId(),us.getName(),Uri.parse(us.getUrl()));
+            }
         }
         return null;
     }
 
+
+    //获取融云tokenhttp://localhost:8080/yuyi/personal/post.do?personalid=18881882888
+    public void getRongUserInfo() {
+        if (user.userName!=null&&!"0".equals(user.userName)&&!"".equals(user.userName)){
+                Map<String,String> mp=new HashMap<>();
+                mp.put("personalid",user.userName);
+            okhttp.getCall(Ip.url_F+Ip.interface_RongToken,mp,okhttp.OK_GET).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                        resStr=response.body().string();
+                        Log.i("--获取融云token请求--"+user.userName,resStr);
+                        handler.sendEmptyMessage(1);
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
 }
