@@ -13,8 +13,8 @@ public final class R {
 	}
 	public static final class integer {
 		public static int rc_audio_encoding_bit_rate = 0x7f0b0000;
-		public static int rc_image_quality = 0x7f0b0005;
-		public static int rc_image_size = 0x7f0b0006;
+		public static int rc_image_quality = 0x7f0b0003;
+		public static int rc_image_size = 0x7f0b0004;
 	}
 	public static final class string {
 		public static int rc_init_failed = 0x7f050070;

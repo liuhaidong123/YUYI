@@ -65,7 +65,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date1"
+                    android:text=""
                     android:textColor="@color/color_username" />
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date2" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/date2_morning"
@@ -146,7 +146,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date3" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/date3_morning"
@@ -186,7 +186,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date4" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/date4_morning"
@@ -226,7 +226,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date5" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/date5_morning"
@@ -266,7 +266,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date6" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/date6_morning"
@@ -306,7 +306,7 @@
                     android:layout_height="20dp"
                     android:background="@color/color_white"
                     android:gravity="center"
-                    android:text="@string/doctor_date7" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/date7_morning"

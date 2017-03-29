@@ -35,6 +35,7 @@ import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
 public class MyApp extends Application{
     public static Activity activityCurrent;
     private static List<Activity> list;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -57,6 +58,7 @@ public class MyApp extends Application{
                     activityCurrent=activity;
 //                    Log.i("----Myapp----",activityCurrent.getClass().getSimpleName());
 //                    Log.i("activityCurrent==null",(activityCurrent==null)+"");
+
                 }
 
                 @Override
@@ -91,19 +93,12 @@ public class MyApp extends Application{
             @Override
             public boolean onReceived(Message message, int i) {
                 if (message!=null){
+                    Log.e("-MessageListener-",message.getExtra()+"---");
                     Log.e("-MessageListener-",message.getObjectName()+"--");
                     Log.e("--MessageListener----",message.getSenderUserId()+"--");
                     Log.e("--MessageListener----",message.getTargetId()+"--");
                     Log.e("--MessageListener----",message.getConversationType().getName()+"--");
-                    Log.e("-Message--uid--",message.getUId()+"--");
-                    UserInfo userInfo=message.getContent().getUserInfo();
-                    if (userInfo!=null){
-                        Log.e("-Message--userInfo--",userInfo.getName()+"--");
-
-                        Log.e("-MessageListener----",message.getContent().getJsonMentionInfo().toString()+"--");
-                    }
-                    Log.i("-----id-----","---"+  message.getMessageId());
-
+                    Log.e("-MessageListener----",message.getSentTime()+"--");
                 }
                 if (message!=null){
                     NotificationManager manager= (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -129,7 +124,7 @@ public class MyApp extends Application{
                     PendingIntent pendingIntent= PendingIntent.getActivity(getApplicationContext(), 1, intent,PendingIntent.FLAG_CANCEL_CURRENT);
                     notification.contentIntent=pendingIntent;
                     manager.notify(message.getMessageId(),notification);
-                    
+
                 }
                 return false;
             }

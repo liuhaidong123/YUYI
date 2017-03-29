@@ -1,10 +1,10 @@
 package com.technology.yuyi.activity;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,16 +13,22 @@ import android.widget.TextView;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.SelectDoctorListViewAdapter;
-import com.technology.yuyi.bean.UserRegisterRoot;
+import com.technology.yuyi.bean.SelectDoctor.DatenumberList;
+import com.technology.yuyi.bean.SelectDoctor.Result;
+import com.technology.yuyi.bean.SelectDoctor.Root;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class SelectDoctorActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mName_ke;
     private ImageView mBack;
     private ListView mListView;
     private SelectDoctorListViewAdapter mAdapter;
-
+    private List<DatenumberList> mAdapterList=new ArrayList<>();
     private TextView mDate1;//日期
     private TextView mDate1Morning;//上午
     private TextView mDate1Afternoon;//下午
@@ -48,10 +54,14 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     private final String mGay = "#6a6a6a";
     private final String mWhite = "#ffffff";
 
-    private ArrayList<TextView> mDate = new ArrayList<>();
-    private ArrayList<TextView> mMorninng = new ArrayList<>();
-    private ArrayList<TextView> mAfternoon = new ArrayList<>();
 
+    private List<TextView> mDate = new ArrayList<>();
+    private List<TextView> mMorninng = new ArrayList<>();
+    private List<TextView> mAfternoon = new ArrayList<>();
+    private SimpleDateFormat simpleDateFormat;
+    private final int morning=0;
+    private final int afternoon=1;
+    private List<Result> mList=new ArrayList<>();
     private HttpTools mHttptools;
     private Handler mHandler=new Handler(){
         @Override
@@ -59,10 +69,31 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
             super.handleMessage(msg);
             if (msg.what==30){
                 Object o=msg.obj;
-                if (o!=null&& o instanceof UserRegisterRoot){
-                    UserRegisterRoot root= (UserRegisterRoot) o;
+                if (o!=null&& o instanceof Root){
+                    Root root= (Root) o;
                     if (root.getCode().equals("0")){
+                        int month = 0;
+                        int day = 0;
+                        mList=root.getResult();
+                        if (mList.size()!=0){
+                            //设置日期
+                            for (int i=0;i<mList.size();i++){
+                                try {
+                                    Date date = simpleDateFormat.parse(mList.get(i).getDatastr());
+                                    month = date.getMonth() + 1;
+                                    day = date.getDate();
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                String date = month + "/" + day;
+                                mDate.get(i).setText(date);
+                            }
 
+                            mAdapterList=mList.get(0).getDatenumberList();
+                            mAdapter.setmListDoctor(mAdapterList);
+                            mAdapter.setFlag(morning);
+                            mAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
             }
@@ -76,6 +107,8 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void initView() {
+        //时间
+        simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         //获取网络数据
         mHttptools=HttpTools.getHttpToolsInstance();
         mHttptools.getUserRegisterData(mHandler,getIntent().getIntExtra("cid",-1));
@@ -88,7 +121,8 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
 
         //选择医生ListView
         mListView = (ListView) findViewById(R.id.doctor_listview);
-        mAdapter = new SelectDoctorListViewAdapter(this);
+        //0代表上午，1代表下午
+        mAdapter = new SelectDoctorListViewAdapter(this,mAdapterList,morning);
         mListView.setAdapter(mAdapter);
 
         //日期，上午，下午
@@ -102,31 +136,37 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
         int id = v.getId();
         if (id == mBack.getId()) {
             finish();
-            //第一个日期上午
+            //第1个日期上午
         } else if (id == mDate1Morning.getId()) {
             setColor(id);
         } else if (id == mDate1Afternoon.getId()) {
             setColor(id);
+            //第2个日期上午
         } else if (id == mDate2Morning.getId()) {
             setColor(id);
         } else if (id == mDate2Afternoon.getId()) {
             setColor(id);
+            //第3个日期上午
         } else if (id == mDate3Morning.getId()) {
             setColor(id);
         } else if (id == mDate3Afternoon.getId()) {
             setColor(id);
+            //第4个日期上午
         } else if (id == mDate4Morning.getId()) {
             setColor(id);
         } else if (id == mDate4Afternoon.getId()) {
             setColor(id);
+            //第5个日期上午
         } else if (id == mDate5Morning.getId()) {
             setColor(id);
         } else if (id == mDate5Afternoon.getId()) {
             setColor(id);
+            //第6个日期上午
         } else if (id == mDate6Morning.getId()) {
             setColor(id);
         } else if (id == mDate6Afternoon.getId()) {
             setColor(id);
+            //第7个日期上午
         } else if (id == mDate7Morning.getId()) {
             setColor(id);
         } else if (id == mDate7Afternoon.getId()) {

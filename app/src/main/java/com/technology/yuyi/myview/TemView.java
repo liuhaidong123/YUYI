@@ -18,10 +18,10 @@ public class TemView extends View {
     private Context mContext;
     private DisplayMetrics mDisplayMetrics;
     private ArrayList<Integer> YData = new ArrayList<>();
-    private ArrayList<Integer> XDate = new ArrayList<>();
+    private ArrayList<String> XDate = new ArrayList<>();
     private ArrayList<Float> mTemData = new ArrayList<>();
 
-    private final String paintColor="#6a6a6a";
+    private final String paintColor = "#6a6a6a";
     private Paint YXpaint;
     private Paint linePaint;
     private Paint mSolidCirclePaint;
@@ -33,25 +33,26 @@ public class TemView extends View {
     private float YEachBlood;
     private float mBigCircleRadius;
     private float mSmallCircleRadius;
+
     public TemView(Context context) {
         super(context);
-        this.mContext=context;
+        this.mContext = context;
         initData();
     }
 
     public TemView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext=context;
+        this.mContext = context;
         initData();
     }
 
     public TemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mContext=context;
+        this.mContext = context;
         initData();
     }
 
-    public void setTemInfo(ArrayList<Integer> YData, ArrayList<Integer> XDate, ArrayList<Float> temData) {
+    public void setTemInfo(ArrayList<Integer> YData, ArrayList<String> XDate, ArrayList<Float> temData) {
         this.YData = YData;
         this.XDate = XDate;
         this.mTemData = temData;
@@ -98,6 +99,7 @@ public class TemView extends View {
         mStrokeCirclePaint.setStrokeWidth(dip2px(1));
 
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -114,10 +116,12 @@ public class TemView extends View {
 
         //x轴日期刻度
         for (int i = 0; i < XDate.size(); i++) {
-            if (i==0){
-                canvas.drawText("3月"+XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , YXpaint);
-            }else {
-            canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , YXpaint);}
+//            if (i == 0) {
+//                canvas.drawText("3月" + XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale, YXpaint);
+//            } else {
+//                canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale, YXpaint);
+//            }
+            canvas.drawText(XDate.get(i), XScale + XScale * (i + 1), YEndPoint + XScale, YXpaint);
         }
 
         //折线走势
@@ -133,8 +137,8 @@ public class TemView extends View {
             }
             //画折线
             try {
-                canvas.drawLine(XScale + XScale * (i + 1), Ycode(mTemData.get(i)), XScale + XScale * (i + 2), Ycode(mTemData.get(i+1)), linePaint);
-                canvas.drawLine(XScale + XScale * (i + 1), Ycode(mTemData.get(i)), XScale + XScale * (i + 2), Ycode(mTemData.get(i+1)), linePaint);
+                canvas.drawLine(XScale + XScale * (i + 1), Ycode(mTemData.get(i)), XScale + XScale * (i + 2), Ycode(mTemData.get(i + 1)), linePaint);
+                canvas.drawLine(XScale + XScale * (i + 1), Ycode(mTemData.get(i)), XScale + XScale * (i + 2), Ycode(mTemData.get(i + 1)), linePaint);
             } catch (Exception e) {
             }
         }

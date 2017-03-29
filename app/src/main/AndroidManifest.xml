@@ -403,16 +403,6 @@
 
 
         <!-- 离线消息 -->
-         <receiver
-         android:exported="true"
-         android:name=".lzh_utils.MyNotificationReceiver">
-         <intent-filter>
-         <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
-         <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
-         <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
-         <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
-         </intent-filter>
-         </receiver>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -11,10 +11,14 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.SelectDoctor.DatenumberList;
 import com.technology.yuyi.myview.RoundImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liuhaidong on 2017/2/27.
@@ -24,6 +28,8 @@ public class SelectDoctorListViewAdapter extends BaseAdapter implements View.OnC
 
     private LayoutInflater mInflater;
     private Context mContext;
+    private List<DatenumberList> mListDoctor = new ArrayList<>();
+    private int flag;
     private AlertDialog.Builder mBuilder;
     private AlertDialog mAlertDialog;
     private View mAlertView;
@@ -39,8 +45,10 @@ public class SelectDoctorListViewAdapter extends BaseAdapter implements View.OnC
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
 
-    public SelectDoctorListViewAdapter(Context mContext) {
+    public SelectDoctorListViewAdapter(Context mContext, List<DatenumberList> mListDoctor,int flag) {
         this.mContext = mContext;
+        this.mListDoctor = mListDoctor;
+        this.flag=flag;
         mInflater = LayoutInflater.from(this.mContext);
         mBuilder = new AlertDialog.Builder(this.mContext);
         //alert弹框
@@ -67,16 +75,24 @@ public class SelectDoctorListViewAdapter extends BaseAdapter implements View.OnC
         mSureAlertDialog = mSureBuilder.create();
         mSureAlertView = mInflater.inflate(R.layout.alert_sure, null);
         mSureAlertDialog.setView(mSureAlertView);
-       //去完善、取消
+        //去完善、取消
         mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
         mPrompt.setOnClickListener(this);
         mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
         mPrompt_Cancel.setOnClickListener(this);
     }
 
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public void setmListDoctor(List<DatenumberList> mListDoctor) {
+        this.mListDoctor = mListDoctor;
+    }
+
     @Override
     public int getCount() {
-        return 2;
+        return mListDoctor.size();
     }
 
     @Override
@@ -96,11 +112,28 @@ public class SelectDoctorListViewAdapter extends BaseAdapter implements View.OnC
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.select_doctor_listview_item, null);
             viewHolder.register_rl = (RelativeLayout) convertView.findViewById(R.id.right_rl);
-            convertView.setTag(convertView);
+            viewHolder.imageView= (RoundImageView) convertView.findViewById(R.id.doctor_img_head);
+            viewHolder.doc_name= (TextView) convertView.findViewById(R.id.doctor_name_tv);
+            viewHolder.doc_job=(TextView) convertView.findViewById(R.id.doctor_job_tv);
+            viewHolder.good_tv=(TextView) convertView.findViewById(R.id.good_at_tv);
+            viewHolder.num_tv=(TextView) convertView.findViewById(R.id.doc_num);
+            convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        Picasso.with(mContext).load(UrlTools.BASE+mListDoctor.get(position).getAvatar()).error(R.mipmap.error_small).into(viewHolder.imageView);
+        viewHolder.doc_name.setText(mListDoctor.get(position).getTrueName());
+        viewHolder.doc_job.setText(mListDoctor.get(position).getTitle());
+        viewHolder.good_tv.setText("待定");
+        //上午
+        if (flag==0){
+            viewHolder.num_tv.setText("余号 "+mListDoctor.get(position).getBeforNum());
+        }
+        //下午
+        if (flag==1){
+            viewHolder.num_tv.setText(mListDoctor.get(position).getAfterNum());
+        }
         viewHolder.register_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,9 +152,9 @@ public class SelectDoctorListViewAdapter extends BaseAdapter implements View.OnC
         } else if (id == mSure.getId()) {//确定
             mAlertDialog.dismiss();
             mSureAlertDialog.show();
-        }else if (id == mPrompt.getId()) {//去完善
+        } else if (id == mPrompt.getId()) {//去完善
             mSureAlertDialog.dismiss();
-        }else if (id == mPrompt_Cancel.getId()) {
+        } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
         }
 

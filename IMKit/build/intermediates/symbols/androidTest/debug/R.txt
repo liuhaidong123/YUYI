@@ -750,11 +750,9 @@ int id whole_layout 0x7f0a00df
 int integer rc_audio_encoding_bit_rate 0x7f0b0000
 int integer rc_chatroom_first_pull_message_count 0x7f0b0001
 int integer rc_custom_service_evaluation_interval 0x7f0b0002
-int integer rc_extension_emoji_count_per_page 0x7f0b0003
-int integer rc_extension_plugin_count_per_page 0x7f0b0004
-int integer rc_image_quality 0x7f0b0005
-int integer rc_image_size 0x7f0b0006
-int integer rc_message_recall_interval 0x7f0b0007
+int integer rc_image_quality 0x7f0b0003
+int integer rc_image_size 0x7f0b0004
+int integer rc_message_recall_interval 0x7f0b0005
 int layout rc_ac_albums 0x7f030000
 int layout rc_ac_camera 0x7f030001
 int layout rc_ac_file_download 0x7f030002

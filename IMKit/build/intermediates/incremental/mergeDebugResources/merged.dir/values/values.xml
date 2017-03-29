@@ -498,8 +498,6 @@
     <integer name="rc_audio_encoding_bit_rate">7950</integer>
     <integer name="rc_chatroom_first_pull_message_count">10</integer>
     <integer name="rc_custom_service_evaluation_interval">60</integer>
-    <integer name="rc_extension_emoji_count_per_page">20</integer>
-    <integer name="rc_extension_plugin_count_per_page">8</integer>
     <integer name="rc_image_quality">85</integer>
     <integer name="rc_image_size">960</integer>
     <integer name="rc_message_recall_interval">120</integer>
