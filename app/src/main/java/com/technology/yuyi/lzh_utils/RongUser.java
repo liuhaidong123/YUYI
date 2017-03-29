@@ -7,7 +7,11 @@ package com.technology.yuyi.lzh_utils;
 public class RongUser {
     private String name;
     private String id;
-
+    public RongUser(String name,String url,String id){
+        this.id=id;
+        this.url=url;
+        this.name=name;
+    }
     public String getUrl() {
         return url;
     }

@@ -546,7 +546,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
-    // 提交／上传用户信息
+    // 提交／上传用户信息``
     public void Submit(View view) {
          int input=checkInput();
         if(input==0){

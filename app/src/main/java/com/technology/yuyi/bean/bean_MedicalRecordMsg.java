@@ -37,7 +37,7 @@ public class bean_MedicalRecordMsg {
     private int marital;
     private int physicianId;
     private int id;
-    private int persinalId;
+    private long persinalId;
     private int age;
 
     public String getCreateTimeString() {
@@ -144,11 +144,11 @@ public class bean_MedicalRecordMsg {
         this.id = id;
     }
 
-    public int getPersinalId() {
+    public long getPersinalId() {
         return persinalId;
     }
 
-    public void setPersinalId(int persinalId) {
+    public void setPersinalId(long persinalId) {
         this.persinalId = persinalId;
     }
 

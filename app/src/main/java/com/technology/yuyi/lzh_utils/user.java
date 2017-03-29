@@ -12,12 +12,10 @@ import android.text.TextUtils;
 public class user {
     public static String userName;
     public static String userPsd;
-    public static String RongToken2="VTyYPMVHujXX/5F75amlVouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLY7Vw4k8ZHdx3YvBEYnSw92O0gxI0LSrA==";//融云的token123456
-    public static String RongToken="N/CST9tU8VlEfpnF//D+i4uZqhNeP62jUkZowKgPQxsXdaGtWFcdtGjFzYJd693LF+uKYPfQD5fxbtc2258TCw==";
-//            "ESTp2q1f1+2k9XEZHJCsNouZqhNeP62jUkZowKgPQxvQPCl3PhXaC1dqcd65/vqlbgoyXLQqd5kbXyyrcFO8gA==";//56789
+    public static String RongToken="gCh9jqiReop1hkS9Z/Yo4zRTlrMKcBRmqIwMgr2ETx+UHB5xsXwMeRxGW1JU3PqqHXB1+f5TIx+ZEXfMek5EzA==";//155
     public static String token;//用户的token；
-    public static String RonguserId;//融云返回的userId;123456
-    public static String targetId="56789";//token=="N/CST9tU8VlEfpnF//D+i4uZqhNeP62jUkZowKgPQxsXdaGtWFcdtGjFzYJd693LF+uKYPfQD5fxbtc2258TCw=="；
+    public static String RonguserId;//155
+    public static String targetId="166";//
     public static double Latitude;//纬度
     public static double Longitude;//经度
     public static int CallType=0;//融云音视频的type:0文字，1音频，2视频
@@ -48,9 +46,21 @@ public class user {
         token="";
     }
 
+    //保存从服务器获取到到融云的相关信息
+    public static void SaveRongMsg(RongUser user,Context context){
+        SharedPreferences preferences=context.getSharedPreferences("Rong",Context.MODE_APPEND);
+        SharedPreferences.Editor editor=preferences.edit();
+
+        String username=preferences.getString("RongName","0");
+        String userPs=preferences.getString("RongToken","0");
+        String rongToken=preferences.getString("RongId","0");
+    }
+
+    public static void ClearRongMsg(){
+
+    }
     //判断融云的token是否存在
     public static boolean isTokenExits(){
-
         return false;
     }
 }
