@@ -67,16 +67,19 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 if (o != null && o instanceof UserMessage) {
                     UserMessage root= (UserMessage) o;
                     UserMessage.ResultBean bean=root.getResult();
-                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
-                    if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
-                        mNikName.setText(bean.getTrueName()+"");
-                        mNikName.setVisibility(View.VISIBLE);
+                    if (bean!=null){
+                        Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
+                        if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
+                            mNikName.setText(bean.getTrueName()+"");
+                            mNikName.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            mNikName.setVisibility(View.GONE);
+                        }
+                        mUsername.setText(bean.getId()+"");
                     }
-                    else {
-                        mNikName.setVisibility(View.GONE);
-                    }
-                    mUsername.setText(bean.getId()+"");
+
                 }
             }
         }
@@ -139,7 +142,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getUserMessage(handler, user.userPsd);
+        mHttptools.getUserMessage(handler, user.token);
         if (user.isLogin(getActivity())) {
             my_rela_userLogin.setVisibility(View.VISIBLE);
             my_rela_userNotLogin.setVisibility(View.GONE);

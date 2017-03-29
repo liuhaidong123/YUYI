@@ -23,7 +23,7 @@ public class Result {
 
     private String trueName;
 
-    private int id;
+    private long id;
 
     private int age;
 
@@ -81,10 +81,10 @@ public class Result {
     public String getTrueName(){
         return this.trueName;
     }
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
-    public int getId(){
+    public long getId(){
         return this.id;
     }
     public void setAge(int age){

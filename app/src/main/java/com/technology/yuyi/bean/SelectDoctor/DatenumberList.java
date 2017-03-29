@@ -31,7 +31,7 @@ public class DatenumberList {
 
     private int physicianId;
 
-    private int id;
+    private long id;
 
     public void setClinicId(int clinicId){
         this.clinicId = clinicId;
@@ -111,10 +111,10 @@ public class DatenumberList {
     public int getPhysicianId(){
         return this.physicianId;
     }
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
-    public int getId(){
+    public long getId(){
         return this.id;
     }
 }

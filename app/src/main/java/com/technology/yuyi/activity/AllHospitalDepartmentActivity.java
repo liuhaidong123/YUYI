@@ -58,9 +58,13 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                         for (int i = 0; i < mLeftData.size(); i++) {
                             mRightData.add(mLeftData.get(i).getClinicList());
                         }
+
                         //刚进页面，将第一个科室的第一个数据显示
-                        mRightAdapter.setmList((List<HospitalOutPatient>) mRightData.get(0));
-                        mRightAdapter.notifyDataSetChanged();
+                        if (mRightData.size()!=0){
+                            mRightAdapter.setmList((List<HospitalOutPatient>) mRightData.get(0));
+                            mRightAdapter.notifyDataSetChanged();
+
+                        }
                         mRefresh.setRefreshing(false);
                         mRefresh.setEnabled(false);
                     }

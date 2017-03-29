@@ -26,5 +26,7 @@ public class UrlTools {
 
     public static final  String URL_FIRST_PAGE_USER_DATA="/homeuser/findListHome.do?";//首页用户列表及默认用户的血压体温数据（token=）
     public static final  String URL_CLICK_USER_HEAD_FIRST_PAGE="/homeuser/findOne.do?";//点击首页用户头像接口（token=6DD620E22A92AB0AED590DB66F84D064&humeuserId=10）
+    public static final  String URL_REGISTER="/register/save.do";//确定挂号接口（post方法：参数：token String，homeuserId Long家庭成员ID ；datenumberId Long对应可预约号数量表的编号，isAm Boolean 是否为上午）
+
 
 }

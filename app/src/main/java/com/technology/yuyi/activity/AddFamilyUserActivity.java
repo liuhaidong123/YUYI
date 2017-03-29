@@ -210,7 +210,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         edit_name= (EditText) findViewById(R.id.edit_name);
         edit_telnum= (EditText) findViewById(R.id.edit_telnum);
         checkbox= (CheckBox) findViewById(R.id.checkbox);
-
+        add_fami_gril= (RadioButton) findViewById(R.id.add_fami_gril);
+        add_fami_boy= (RadioButton) findViewById(R.id.add_fami_boy);
         checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

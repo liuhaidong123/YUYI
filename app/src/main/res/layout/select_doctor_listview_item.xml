@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                   android:layout_centerHorizontal="true"
                     android:id="@+id/regi_numm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -40,17 +41,29 @@
                     android:textColor="@color/color_gua"
                     android:textSize="15sp" />
 
+
+
                 <TextView
                     android:id="@+id/doc_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/regi_numm"
-                    android:layout_centerHorizontal="true"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@string/doctor_num"
+                    android:text="余号 "
                     android:textColor="@color/color_gua"
                     android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/num_hao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/doc_num"
+                    android:layout_below="@id/regi_numm"
+                    android:text="78"
+                    android:textSize="10sp"
+                    android:textColor="@color/color_gua"
+                    />
 
             </RelativeLayout>
 

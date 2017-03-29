@@ -1,11 +1,17 @@
 package com.technology.yuyi.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,22 +19,28 @@ import android.widget.TextView;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.SelectDoctorListViewAdapter;
+import com.technology.yuyi.adapter.SelectRegisterPersonGridViewAlertAdapter;
 import com.technology.yuyi.bean.SelectDoctor.DatenumberList;
 import com.technology.yuyi.bean.SelectDoctor.Result;
 import com.technology.yuyi.bean.SelectDoctor.Root;
+import com.technology.yuyi.lhd.utils.ToastUtils;
+import com.technology.yuyi.lzh_utils.MyDialog;
+import com.technology.yuyi.lzh_utils.user;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SelectDoctorActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView mName_ke;
     private ImageView mBack;
     private ListView mListView;
     private SelectDoctorListViewAdapter mAdapter;
-    private List<DatenumberList> mAdapterList=new ArrayList<>();
+    private List<DatenumberList> mAdapterList = new ArrayList<>();
     private TextView mDate1;//日期
     private TextView mDate1Morning;//上午
     private TextView mDate1Afternoon;//下午
@@ -59,25 +71,28 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     private List<TextView> mMorninng = new ArrayList<>();
     private List<TextView> mAfternoon = new ArrayList<>();
     private SimpleDateFormat simpleDateFormat;
-    private final int morning=0;
-    private final int afternoon=1;
-    private List<Result> mList=new ArrayList<>();
+    private final int morning = 0;//0代表上午，1代表下午
+    private final int afternoon = 1;
+    private List<Result> mList = new ArrayList<>();
     private HttpTools mHttptools;
-    private Handler mHandler=new Handler(){
+
+
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what==30){
-                Object o=msg.obj;
-                if (o!=null&& o instanceof Root){
-                    Root root= (Root) o;
-                    if (root.getCode().equals("0")){
+            //获取所有的挂号医生
+            if (msg.what == 30) {
+                Object o = msg.obj;
+                if (o != null && o instanceof Root) {
+                    Root root = (Root) o;
+                    if (root.getCode().equals("0")) {
                         int month = 0;
                         int day = 0;
-                        mList=root.getResult();
-                        if (mList.size()!=0){
+                        mList = root.getResult();
+                        if (mList.size() != 0) {
                             //设置日期
-                            for (int i=0;i<mList.size();i++){
+                            for (int i = 0; i < mList.size(); i++) {
                                 try {
                                     Date date = simpleDateFormat.parse(mList.get(i).getDatastr());
                                     month = date.getMonth() + 1;
@@ -88,17 +103,95 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                                 String date = month + "/" + day;
                                 mDate.get(i).setText(date);
                             }
-
-                            mAdapterList=mList.get(0).getDatenumberList();
+                            //刚进页面显示第一个日期，上午的医生数据
+                            mAdapterList = mList.get(0).getDatenumberList();
                             mAdapter.setmListDoctor(mAdapterList);
                             mAdapter.setFlag(morning);
                             mAdapter.notifyDataSetChanged();
                         }
                     }
+
+                }
+                //获取挂号时的用户列表
+            } else if (msg.what == 35) {
+                Object o = msg.obj;
+                if (o != null && o instanceof com.technology.yuyi.bean.UserListBean.Root) {
+                    com.technology.yuyi.bean.UserListBean.Root root = (com.technology.yuyi.bean.UserListBean.Root) o;
+                    userList = root.getResult();
+                    if (userList.size() != 0) {
+                        mRegisterAdapter.setmList(userList);
+                        mRegisterAdapter.notifyDataSetChanged();
+                    }
+                }
+            } else if (msg.what == 226) {
+                ToastUtils.myToast(SelectDoctorActivity.this, "获取列表失败");
+                //挂号是否成功
+            } else if (msg.what == 40) {
+                Object o = msg.obj;
+                if (o!=null&&o instanceof com.technology.yuyi.bean.RegisterResult.Root){
+                    com.technology.yuyi.bean.RegisterResult.Root root= (com.technology.yuyi.bean.RegisterResult.Root) o;
+                    //判断返回的结果
+                    if (root.getCode().equals("0")){//挂号成功
+                        if (isFlag){
+                            mAdapterList.get(mPositionDoc).setBeforNum( mAdapterList.get(mPositionDoc).getBeforNum()-1);
+                        }else {
+                            mAdapterList.get(mPositionDoc).setAfterNum( mAdapterList.get(mPositionDoc).getAfterNum()-1);
+                        }
+                        mAdapter.setmListDoctor(mAdapterList);
+                        mAdapter.notifyDataSetChanged();
+                        ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
+                    }else if (root.getCode().equals("10101")){//一天之内只能挂3个人的号
+                        ToastUtils.myToast(SelectDoctorActivity.this,"挂号失败，一天之内只能挂3个人的号");
+                    }else if (root.getCode().equals("10102")){//请选择挂号的家庭成员
+                        ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
+                    }else if (root.getCode().equals("10103")){//用户信息不完整，无法挂号
+                        ToastUtils.myToast(SelectDoctorActivity.this,"此用户信息不完整，无法挂号");
+                    }else if (root.getCode().equals("10104")){//没有选择挂号门诊的医生
+                        ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
+                    }else if (root.getCode().equals("10105")){//请选择上午还是下午
+                        ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
+                    }else if (root.getCode().equals("10106")){//您选择的医生已经没号了
+                        ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
+                    }else if (root.getCode().equals("10107")){//已经挂过该医生的号了
+                        ToastUtils.myToast(SelectDoctorActivity.this,"您已经挂过该医生的好了，亲");
+                    }else if (root.getCode().equals("10108")){//该医生不出诊
+                        ToastUtils.myToast(SelectDoctorActivity.this,root.getResult()+"亲");
+                    }
                 }
             }
         }
     };
+
+    //获取取用户列表的所有数据
+    private Map<String, String> map = new HashMap<>();
+    private List<com.technology.yuyi.bean.UserListBean.Result> userList = new ArrayList<>();
+
+    private AlertDialog.Builder mBuilder;
+    private AlertDialog mAlertDialog;
+    private View mAlertView;
+    private TextView mSure;//确定
+    private TextView mCancel;//取消
+
+    //确定弹框
+    private AlertDialog.Builder mSureBuilder;
+    private AlertDialog mSureAlertDialog;
+    private View mSureAlertView;
+    private TextView mPrompt;//去完善
+    private TextView mPrompt_Cancel;//取消
+
+
+    private GridView mAlertGridView;
+    private SelectRegisterPersonGridViewAlertAdapter mRegisterAdapter;
+
+
+    private boolean isFlag = true;//默认true上午, false 下午
+    private long docID;
+    private long homeuserId;
+    private int numHao;
+    private int mPosition = -1;
+    private int mPositionDoc=-1;
+    private Map<String, String> registerMap = new HashMap();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,13 +200,16 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void initView() {
+
+        //初始化预约挂号人
+        initSelectUser();
         //时间
         simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         //获取网络数据
-        mHttptools=HttpTools.getHttpToolsInstance();
-        mHttptools.getUserRegisterData(mHandler,getIntent().getIntExtra("cid",-1));
+        mHttptools = HttpTools.getHttpToolsInstance();
 
-        mName_ke= (TextView) findViewById(R.id.name_ke);
+
+        mName_ke = (TextView) findViewById(R.id.name_ke);
         mName_ke.setText(getIntent().getStringExtra("name"));
         //返回
         mBack = (ImageView) findViewById(R.id.doctor_back);
@@ -122,12 +218,26 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
         //选择医生ListView
         mListView = (ListView) findViewById(R.id.doctor_listview);
         //0代表上午，1代表下午
-        mAdapter = new SelectDoctorListViewAdapter(this,mAdapterList,morning);
+        mAdapter = new SelectDoctorListViewAdapter(this, mAdapterList, morning);
         mListView.setAdapter(mAdapter);
+        //点击挂号
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = (TextView) view.findViewById(R.id.num_hao);
+                if (mAdapterList.size() != 0) {
+                    docID = mAdapterList.get(position).getId();
+                    Log.e("docid", docID + "");
+                    numHao = Integer.valueOf(textView.getText().toString());
+                    mPositionDoc=position;
+                }
+
+                mAlertDialog.show();
+            }
+        });
 
         //日期，上午，下午
         initDate();
-
 
     }
 
@@ -139,40 +249,86 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
             //第1个日期上午
         } else if (id == mDate1Morning.getId()) {
             setColor(id);
+            showNum(morning, 0);
         } else if (id == mDate1Afternoon.getId()) {
             setColor(id);
+            showNum(afternoon, 0);
             //第2个日期上午
         } else if (id == mDate2Morning.getId()) {
             setColor(id);
+            showNum(morning, 1);
         } else if (id == mDate2Afternoon.getId()) {
             setColor(id);
+            showNum(afternoon, 1);
             //第3个日期上午
         } else if (id == mDate3Morning.getId()) {
             setColor(id);
+            showNum(morning, 2);
         } else if (id == mDate3Afternoon.getId()) {
             setColor(id);
+            showNum(afternoon, 2);
             //第4个日期上午
         } else if (id == mDate4Morning.getId()) {
             setColor(id);
+            showNum(morning, 3);
         } else if (id == mDate4Afternoon.getId()) {
             setColor(id);
+            showNum(afternoon, 3);
             //第5个日期上午
         } else if (id == mDate5Morning.getId()) {
             setColor(id);
+            showNum(morning, 4);
         } else if (id == mDate5Afternoon.getId()) {
             setColor(id);
+            showNum(afternoon, 4);
             //第6个日期上午
         } else if (id == mDate6Morning.getId()) {
             setColor(id);
+            showNum(morning, 5);
         } else if (id == mDate6Afternoon.getId()) {
             setColor(id);
+            showNum(afternoon, 5);
             //第7个日期上午
         } else if (id == mDate7Morning.getId()) {
             setColor(id);
+            showNum(morning, 6);
         } else if (id == mDate7Afternoon.getId()) {
             setColor(id);
-        }
+            showNum(afternoon, 6);
+        } else if (id == mCancel.getId()) {//取消
+            mPosition = -1;
+            mAlertDialog.dismiss();
 
+        } else if (id == mSure.getId()) {//确定
+            if (mAdapterList.size() != 0) {
+                if (mPosition != -1) {
+                    if (numHao > 0) {
+                        registerMap.put("datenumberId", String.valueOf(docID));//确定预约挂号时的参数
+                        registerMap.put("isAm", String.valueOf(isFlag));//确定预约挂号时的参数
+                        registerMap.put("homeuserId", String.valueOf(homeuserId));
+                        registerMap.put("token", user.token);
+                        mHttptools.sureRegister(mHandler, registerMap);
+                        Log.e("homeuserId", homeuserId + "");
+                        Log.e("Id", docID + "");
+                        Log.e("isAm", isFlag + "");
+                        Log.e("token", user.token + "");
+                        mAlertDialog.dismiss();
+                    } else {
+                        ToastUtils.myToast(this, "无余号，请重新选择");
+                        mAlertDialog.dismiss();
+                    }
+                } else {
+                    ToastUtils.myToast(this, "请选择挂号人");
+                }
+            }
+
+            // mSureAlertDialog.show();
+        }
+        //else if (id == mPrompt.getId()) {//去完善
+//            mSureAlertDialog.dismiss();
+//        } else if (id == mPrompt_Cancel.getId()) {
+//            mSureAlertDialog.dismiss();
+//        }
     }
 
     //初始化日期，上午，下午
@@ -301,4 +457,81 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
+
+    public void showNum(int flag, int position) {
+        mAdapter.setFlag(flag);
+        if (flag == morning) {
+            isFlag = true;//上午为true
+        } else {
+            isFlag = false;
+        }
+
+        if (mList.size() != 0) {
+            mAdapterList = mList.get(position).getDatenumberList();
+            mAdapter.setmListDoctor(mAdapterList);
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    //初始化预约挂号人
+    public void initSelectUser() {
+
+        mBuilder = new AlertDialog.Builder(this);
+        //alert弹框
+        mAlertDialog = mBuilder.create();
+        mAlertDialog.setCanceledOnTouchOutside(false);
+        mAlertView = LayoutInflater.from(this).inflate(R.layout.alert_select_register_person, null);
+        mAlertDialog.setView(mAlertView);
+
+        //弹框设置适配器
+        mAlertGridView = (GridView) mAlertView.findViewById(R.id.be_select_gridview);
+        mAlertGridView.setSelector(R.drawable.nopress_bgcolor);
+        mRegisterAdapter = new SelectRegisterPersonGridViewAlertAdapter(SelectDoctorActivity.this, userList);
+        mAlertGridView.setAdapter(mRegisterAdapter);
+        mAlertGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //添加
+                if (position == userList.size()) {
+                    Intent intent = new Intent(SelectDoctorActivity.this, AddFamilyUserActivity.class);
+                    intent.putExtra("type", "0");
+                    startActivity(intent);
+                    mAlertDialog.dismiss();
+                } else {//选择某一个联系人
+                    homeuserId = userList.get(position).getId();
+                    mPosition = position;
+                }
+
+            }
+        });
+
+
+        //取消，确定
+        mSure = (TextView) mAlertView.findViewById(R.id.alert_sure);
+        mSure.setOnClickListener(this);
+        mCancel = (TextView) mAlertView.findViewById(R.id.alert_cancel);
+        mCancel.setOnClickListener(this);
+
+//        //确定后的弹框
+//        mSureBuilder = new AlertDialog.Builder(this);
+//        mSureAlertDialog = mSureBuilder.create();
+//        mSureAlertView = LayoutInflater.from(this).inflate(R.layout.alert_sure, null);
+//        mSureAlertDialog.setView(mSureAlertView);
+//        //去完善、取消
+//        mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
+//        mPrompt.setOnClickListener(this);
+//        mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
+//        mPrompt_Cancel.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("00000", "123456");
+        map.put("token", user.token);
+        mHttptools.getUserLIst(mHandler, map);//获取所有挂号人
+        mHttptools.getUserRegisterData(mHandler, getIntent().getIntExtra("cid", -1));//获取所有医生列表
+    }
+
+
 }

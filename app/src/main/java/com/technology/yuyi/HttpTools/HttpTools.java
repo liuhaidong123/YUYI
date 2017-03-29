@@ -320,6 +320,7 @@ public class HttpTools {
      */
     public void getUserMessage(final Handler handler, String token) {
         String url = UrlTools.BASE + UrlTools.URL_USER_MESSAGE + "token=" + token;
+        Log.e("onSuccess：",UrlTools.BASE + UrlTools.URL_USER_MESSAGE+token );
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -331,6 +332,7 @@ public class HttpTools {
             public void onSuccess(String s) {
                 super.onSuccess(s);
                 Log.e("onSuccess：", "获取用户信息成功" + s);
+
                 try {
                     UserMessage root = mGson.fromJson(s, UserMessage.class);
                     Message m = new Message();
@@ -804,6 +806,7 @@ public class HttpTools {
                     message.obj = root;
                     handler.sendMessage(message);
                 } catch (Exception e) {
+                    handler.sendEmptyMessage(234);
                     Log.e("错误码：", e.toString());
                 }
 
@@ -816,5 +819,46 @@ public class HttpTools {
                 handler.sendEmptyMessage(233);
             }
         });
+    }
+
+    /**
+     * 确定挂号
+     */
+    public void sureRegister(final Handler handler, Map<String, String> map){
+        String url = UrlTools.BASE + UrlTools.URL_REGISTER;
+        mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "提交挂号开始");
+
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess：", "提交挂号成功" + s);
+                try {
+                    com.technology.yuyi.bean.RegisterResult.Root root=mGson.fromJson(s,com.technology.yuyi.bean.RegisterResult.Root.class);
+                    Message message=new Message();
+                    message.what=40;
+                    message.obj=root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    handler.sendEmptyMessage(235);
+                    Log.e("提交挂号错误码==", e.toString());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure：", "提交挂号失败" + strMsg);
+                handler.sendEmptyMessage(236);
+            }
+        });
+
+
     }
 }

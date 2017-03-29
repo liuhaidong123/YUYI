@@ -19,6 +19,7 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
+import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
 
@@ -80,12 +81,20 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 Object o = msg.obj;
                 if (o != null && o instanceof ValidateCodeRoot) {
                     ValidateCodeRoot root = (ValidateCodeRoot) o;
-                    if (root.getCode() != "" && root.getCode().equals("0")) {
-                        Toast.makeText(My_userLogin_Activity.this, "获取验证码成功", Toast.LENGTH_SHORT).show();
-                        my_userlogin_edit_smdCode.setText(root.getResult());
+                    if (root.getCode() != "" && root.getCode().equals("0")&&root.getResult().equals("Success")) {
+                        ToastUtils.myToast(My_userLogin_Activity.this, "获取验证码成功");
+                    }else {
+                        MyDialog.stopDia();
+                        ToastUtils.myToast(My_userLogin_Activity.this, "获取验证码失败");
                     }
                 }
-            } else if (msg.what == 27) {//登录
+            } else if (msg.what==208){
+                MyDialog.stopDia();
+            } else if (msg.what==209){
+                MyDialog.stopDia();
+            }
+
+            else if (msg.what == 27) {//登录
                 MyDialog.stopDia();
                 Object o = msg.obj;
                 if (o != null && o instanceof LoginSuccess) {
@@ -107,14 +116,16 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
 
-
-
-
                     }else {
                         Toast.makeText(My_userLogin_Activity.this, "登陆失败", Toast.LENGTH_SHORT).show();
                         MyDialog.stopDia();
                     }
                 }
+            }else if (msg.what==210){
+                MyDialog.stopDia();
+            }else if (msg.what==211){
+                MyDialog.stopDia();
+                Toast.makeText(My_userLogin_Activity.this, "登陆失败", Toast.LENGTH_SHORT).show();
             }
         }
     };

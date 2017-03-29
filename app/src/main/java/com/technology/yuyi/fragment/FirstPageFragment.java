@@ -281,6 +281,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             } else if (msg.what == 233) {
                 MyDialog.stopDia();
                 ToastUtils.myToast(getContext(), "获取失败");
+            }else if (msg.what == 234) {
+                MyDialog.stopDia();
             }
         }
     };
