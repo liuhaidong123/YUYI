@@ -111,6 +111,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/two_rl"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -276,12 +277,13 @@
     <RelativeLayout
         android:id="@+id/four_rl"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/three_rl"
         android:layout_marginTop="10dp"
         android:background="@color/color_white">
 
         <View
+            android:visibility="gone"
             android:id="@+id/line4"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
@@ -325,6 +327,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/address_rl"
             android:layout_width="match_parent"
             android:layout_height="40dp"

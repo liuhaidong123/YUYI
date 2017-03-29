@@ -22,6 +22,7 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.beanRongToken;
 import com.technology.yuyi.fragment.AskFragment;
 import com.technology.yuyi.fragment.FirstPageFragment;
 import com.technology.yuyi.fragment.MeasureFragment;
@@ -29,6 +30,7 @@ import com.technology.yuyi.fragment.MyFragment;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.RongUser;
 import com.technology.yuyi.lzh_utils.RongUserList;
+import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
@@ -41,6 +43,8 @@ import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
+
+import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,RongIM.UserInfoProvider{
     private LinearLayout mFirstPage_ll;
@@ -76,7 +80,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case 1:
                     try{
-
+                        beanRongToken tok= gson.gson.fromJson(resStr,beanRongToken.class);
+                        if ("1".equals(tok.getCode())){
+                            user.RongToken=tok.getToken();
+                            Log.i("容云token----",user.RongToken);
+                            RongUser us=new RongUser(tok.getTrueName()+"",Ip.imagePth+tok.getAvatar(),tok.getId()+"");
+                            Log.i("rongImage",Ip.imagePth+tok.getAvatar());
+                            RongUserList.addUser(us);
+                            RongIM.setUserInfoProvider(MainActivity.this,false);
+                            initRongCon();
+                        }
+                        else if ("0".equals(tok.getCode())){
+                            Log.e("融云获取token错误--1---","---后台无法返回token----");
+                        }
+                        else {
+                            Log.e("融云获取token错误--2-","---后台无法返回token----");
+                        }
                     }
                     catch (Exception e){
                         toast.toast_gsonFaild(MainActivity.this);
@@ -92,9 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         showFirstPageFragment();
         getRongUserInfo();//向服务器请求融云token
-        initRongCon();
-
-
     }
 
 
@@ -357,39 +373,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initRongCon() {
-        RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
+        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))){
+            RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
 
-            /**
-             * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
-             *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
-             */
-            @Override
-            public void onTokenIncorrect() {
+                /**
+                 * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
+                 *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
+                 */
+                @Override
+                public void onTokenIncorrect() {
 
-            }
+                }
 
-            /**
-             * 连接融云成功
-             * @param userid 当前 token 对应的用户 id
-             */
-            @Override
-            public void onSuccess(String userid) {
-                user.RonguserId=userid;
-                Log.i("融云返回的id---",userid+"--HospitalDetailsActivity---");
+                /**
+                 * 连接融云成功
+                 * @param userid 当前 token 对应的用户 id
+                 */
+                @Override
+                public void onSuccess(String userid) {
+                    user.RonguserId=userid;
+                    Log.i("融云返回的id---",userid+"--HospitalDetailsActivity---");
+                    RongIM.setUserInfoProvider(MainActivity.this,true);
+                    RongIM.getInstance().setMessageAttachedUserInfo(true);
+                }
+                /**
+                 * 连接融云失败
+                 * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                 */
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    Toast.makeText(MainActivity.this,"信息注册失败，无法启动咨询程序",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
-
-                RongIM.setUserInfoProvider(MainActivity.this,true);
-                RongIM.getInstance().setMessageAttachedUserInfo(true);
-            }
-            /**
-             * 连接融云失败
-             * @param errorCode 错误码，可到官网 查看错误码对应的注释
-             */
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Toast.makeText(MainActivity.this,"信息注册失败，无法启动咨询程序",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 
@@ -408,10 +425,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //获取融云tokenhttp://localhost:8080/yuyi/personal/post.do?personalid=18881882888
     public void getRongUserInfo() {
+        String name=user.userName;
         if (user.userName!=null&&!"0".equals(user.userName)&&!"".equals(user.userName)){
                 Map<String,String> mp=new HashMap<>();
                 mp.put("personalid",user.userName);
-            okhttp.getCall(Ip.url_F+Ip.interface_RongToken,mp,okhttp.OK_GET).enqueue(new Callback() {
+            okhttp.getCall(Ip.url_F+Ip.interface_RongToken,mp,okhttp.OK_POST).enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     handler.sendEmptyMessage(0);

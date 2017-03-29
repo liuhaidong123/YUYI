@@ -122,16 +122,19 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         } else if (id == mSpeechBtn.getId()) {//语音咨询
 //            startActivity(new Intent(this, VoiceActivity.class));
             mAlertDialog.dismiss();
+
+//            RongCallKit.startMultiCall(HospitalDetailsActivity.this,Conversation.ConversationType.PRIVATE,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
         } else if (id == mVideoBtn.getId()) {//视频咨询
 //            startActivity(new Intent(this, VideoActivity.class));
             mAlertDialog.dismiss();
             RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+//            RongCallKit.startMultiCall(HospitalDetailsActivity.this,Conversation.ConversationType.PRIVATE,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
 
         } else if (id == mCharBtn.getId()) {//文字资讯
             mAlertDialog.dismiss();
             if (RongIM.getInstance()!=null){
-                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"与医生对话");
+                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"与"+user.targetId+"聊天中");
             }
         } else if (id == mBack.getId()) {//返回
             finish();

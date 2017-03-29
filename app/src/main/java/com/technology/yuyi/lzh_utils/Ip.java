@@ -9,8 +9,8 @@ public interface Ip {
    public final static String url="http://192.168.1.55:8080/yuyi/";
 
 
-   //获取融云token的请求
-   public final static String interface_RongToken="personal/post.do?";
+   //获取融云token的请求personal/rongyuToken.do?personalid=18782931356
+   public final static String interface_RongToken="personal/rongyuToken.do?";
 
    //   获取电子病历列表http://localhost:8080/yuyi/medical/token.do?token=1EE359830D68AF676396B06029CCFA61
    public final static String interface_medicalRecordList="medical/token.do?";

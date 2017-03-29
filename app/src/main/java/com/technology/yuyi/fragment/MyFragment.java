@@ -12,12 +12,16 @@ import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -37,9 +41,17 @@ import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.bean.UserMessage;
 import com.technology.yuyi.bean.bean_My_UserMsg;
+import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.checkNotificationAllowed;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.RoundImageView;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,28 +70,31 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     private RelativeLayout thing_rl;//gouwuche
     private RelativeLayout address_rl;//收货地址
     private RelativeLayout my_message;//消息
+    private String resStr;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 28) {
-                Object o = msg.obj;
-                if (o != null && o instanceof UserMessage) {
-                    UserMessage root= (UserMessage) o;
-                    UserMessage.ResultBean bean=root.getResult();
-                    if (bean!=null){
-                        Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
-                                .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
-                        if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
-                            mNikName.setText(bean.getTrueName()+"");
-                            mNikName.setVisibility(View.VISIBLE);
-                        }
-                        else {
-                            mNikName.setVisibility(View.GONE);
-                        }
-                        mUsername.setText(bean.getId()+"");
+            if (msg.what==0){
+                toast.toast_faild(getActivity());
+            }
+            else if (msg.what==1){
+                try{
+                    UserMessage userMessage= gson.gson.fromJson(resStr,UserMessage.class);
+                    UserMessage.ResultBean bean=userMessage.getResult();
+                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
+                            .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
+                    if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
+                        mNikName.setText(bean.getTrueName()+"");
+                        mNikName.setVisibility(View.VISIBLE);
                     }
-
+                    else {
+                        mNikName.setVisibility(View.GONE);
+                    }
+                    mUsername.setText(bean.getId()+"");
+                }
+                catch (Exception e){
+                    toast.toast_gsonFaild(getActivity());
                 }
             }
         }
@@ -141,8 +156,24 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getUserMessage(handler, user.token);
+//        mHttptools = HttpTools.getHttpToolsInstance();
+//        mHttptools.getUserMessage(handler, user.userPsd);
+        Map<String,String> mp=new HashMap<>();
+        mp.put("token", user.token);
+        okhttp.getCall(Ip.url+Ip.interface_UserMsg,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                    resStr=response.body().string();
+                Log.i("获取用户信息返回---",resStr);
+
+                    handler.sendEmptyMessage(1);
+            }
+        });
         if (user.isLogin(getActivity())) {
             my_rela_userLogin.setVisibility(View.VISIBLE);
             my_rela_userNotLogin.setVisibility(View.GONE);
