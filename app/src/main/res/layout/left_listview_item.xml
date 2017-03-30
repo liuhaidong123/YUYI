@@ -7,7 +7,7 @@
         android:id="@+id/tv_left"
         android:layout_width="120dp"
         android:layout_height="60dp"
-        android:text="内科"
+        android:text=""
         android:textSize="17sp"
         android:gravity="center"
         android:textColor="@color/color_normal"

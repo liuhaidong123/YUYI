@@ -16,7 +16,7 @@
             android:layout_height="80dp"
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/logo" />
+           />
 
         <TextView
             android:id="@+id/infor_tv_title"
@@ -27,7 +27,7 @@
             android:layout_toEndOf="@id/infor_img_mess"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/str_listview_tv_title"
+            android:text=""
             android:textColor="@color/color_normal"
             android:textSize="15sp" />
 
@@ -35,12 +35,12 @@
             android:id="@+id/infor_tv_mess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/infor_img_mess"
+            android:layout_below="@id/infor_tv_title"
             android:layout_marginStart="15dp"
             android:layout_toEndOf="@id/infor_img_mess"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="@string/str_listview_tv_mess"
+            android:text=""
             android:textColor="@color/color_mess"
             android:textSize="13sp" />
     </RelativeLayout>

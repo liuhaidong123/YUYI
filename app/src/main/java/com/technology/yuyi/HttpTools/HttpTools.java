@@ -11,8 +11,8 @@ import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.HospitalDepartmentRoot;
 import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.LoginSuccess;
+import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.UpdatedInformation;
 import com.technology.yuyi.bean.UserMessage;
-import com.technology.yuyi.bean.UserRegisterRoot;
 import com.technology.yuyi.bean.ValidateCodeRoot;
 
 import net.tsz.afinal.FinalHttp;
@@ -88,6 +88,81 @@ public class HttpTools {
      * 获取首页资讯2条数据
      */
     public void getFirstPageInformationTwoData(final Handler handler, int start, int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_UPDATEA_FIRST + "start=" + start + "&limit=" + limit;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始资讯2条数据");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功资讯2条数据：", s);
+                try {
+                    com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root.class);
+                    Message message = new Message();
+                    message.what = 22;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(202);
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败资讯2条数据：", strMsg);
+                handler.sendEmptyMessage(203);
+            }
+        });
+    }
+
+    /**
+     * 获取首页资讯2条数据的详情
+     */
+    public void getFirstPageInformationTwoDataMessage(final Handler handler, long id) {
+        String url = UrlTools.BASE + UrlTools.URL_UPDATEA_FIRST_MESSAGE + "id=" + id;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("onStart：", "请求开始资讯2条数据详情");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("onSuccess请求成功资讯2条数据详情：", s);
+                try {
+                    UpdatedInformation root = mGson.fromJson(s, UpdatedInformation.class);
+                    Message message = new Message();
+                    message.what = 23;
+                    message.obj = root;
+                    handler.sendMessage(message);
+                } catch (Exception e) {
+                    Log.e("错误码", e.toString());
+                    handler.sendEmptyMessage(204);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e("onFailure请求失败资讯2条数据详情：", strMsg);
+            }
+        });
+    }
+
+
+    /**
+     * 获取咨询数据
+     */
+    public void getAskAllData(final Handler handler, int start, int limit) {
         String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA + "start=" + start + "&limit=" + limit;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
@@ -121,42 +196,7 @@ public class HttpTools {
         });
     }
 
-    /**
-     * 获取首页资讯2条数据的详情
-     */
-    public void getFirstPageInformationTwoDataMessage(final Handler handler, int id) {
-        String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA_MESSAGE + "id=" + id;
-        mFinalHttp.get(url, new AjaxCallBack<String>() {
-            @Override
-            public void onStart() {
-                super.onStart();
-                Log.e("onStart：", "请求开始资讯2条数据详情");
-            }
 
-            @Override
-            public void onSuccess(String s) {
-                super.onSuccess(s);
-                Log.e("onSuccess请求成功资讯2条数据详情：", s);
-                try {
-                    Information root = mGson.fromJson(s, Information.class);
-                    Message message = new Message();
-                    message.what = 23;
-                    message.obj = root;
-                    handler.sendMessage(message);
-                } catch (Exception e) {
-                    Log.e("错误码", e.toString());
-                    handler.sendEmptyMessage(204);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Throwable t, int errorNo, String strMsg) {
-                super.onFailure(t, errorNo, strMsg);
-                Log.e("onFailure请求失败资讯2条数据详情：", strMsg);
-            }
-        });
-    }
 
     /**
      * 获取咨询页面数据
@@ -206,13 +246,13 @@ public class HttpTools {
             @Override
             public void onStart() {
                 super.onStart();
-                Log.e("onStart：", "请求开始资讯2条数据详情");
+                Log.e("onStart：", "请求开始咨询数据详情");
             }
 
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("onSuccess请求成功资讯2条数据详情：", s);
+                Log.e("onSuccess请求成功咨询数据详情：", s);
                 try {
                     Information root = mGson.fromJson(s, Information.class);
                     Message message = new Message();
@@ -228,7 +268,7 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                Log.e("onFailure请求失败资讯2条数据详情：", strMsg);
+                Log.e("onFailure请求失败咨询据详情：", strMsg);
                 handler.sendEmptyMessage(207);
             }
         });

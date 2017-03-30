@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/details_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/logo" />
+              />
 
             <TextView
                 android:id="@+id/hospital_name"
@@ -61,7 +61,7 @@
                 android:layout_below="@id/details_img"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:text="@string/str_hospital"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="18sp" />
 
@@ -72,7 +72,7 @@
                 android:layout_below="@id/hospital_name"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10.5dp"
-                android:text="@string/str_tv_y"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="15sp" />
 
@@ -84,7 +84,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
-                android:background="@color/color_bg" />
+                android:background="@color/color_cancel" />
 
             <TextView
                 android:id="@+id/hospitals_jj"
@@ -93,7 +93,7 @@
                 android:layout_below="@id/view_line"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/hospital_jj"
+                android:text=""
                 android:textColor="@color/color_username"
                 android:textSize="15sp" />
 
@@ -106,7 +106,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="19dp"
-                android:text="@string/str_hospiytal_mess"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="14sp" />
         </RelativeLayout>

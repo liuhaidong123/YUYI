@@ -15,7 +15,7 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/logo" />
+            />
 
         <TextView
             android:id="@+id/tv_name"
@@ -24,7 +24,7 @@
             android:layout_alignTop="@id/hospital_img"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@id/hospital_img"
-            android:text="@string/str_hospital"
+            android:text=""
             android:textColor="@color/color_normal"
             android:textSize="15sp" />
 
@@ -47,7 +47,7 @@
             android:layout_alignTop="@id/tv_tel"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/tv_tel"
-            android:text="@string/str_tel_num"
+            android:text=""
             android:textColor="@color/color_press"
             android:textSize="12sp" />
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/tv_tel_num"
-            android:text="@string/str_km"
+            android:text=""
             android:textColor="@color/color_press"
             android:textSize="12sp" />
 
@@ -77,7 +77,7 @@
             android:layout_alignStart="@id/tv_tel"
             android:layout_below="@+id/tv_tel"
             android:layout_marginTop="2dp"
-            android:text="@string/str_address"
+            android:text=""
             android:textColor="@color/color_press"
             android:textSize="12sp" />
     </RelativeLayout>

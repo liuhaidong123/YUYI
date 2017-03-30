@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/hand_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_blood_g"
@@ -152,6 +152,8 @@
                     android:id="@+id/hand_tem_listview_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:dividerHeight="1dp"
+                    android:divider="@color/color_cancel"
                     android:background="@color/color_white"
                     android:scrollbars="none">
 
@@ -162,7 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@id/hand_tem_listview_id"
-                    android:background="@color/color_bg" />
+                    android:background="@color/color_cancel" />
 
                 <RelativeLayout
                     android:id="@+id/add_user_rl"

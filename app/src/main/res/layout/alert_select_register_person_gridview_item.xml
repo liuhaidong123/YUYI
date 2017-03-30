@@ -15,7 +15,7 @@
             android:id="@+id/person_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@mipmap/logo" />
+             />
 
         <TextView
             android:id="@+id/name_alert"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/person_head"
-            android:text="@string/select_person_name" />
+            android:text="" />
     </RelativeLayout>
 
 

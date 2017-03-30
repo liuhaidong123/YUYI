@@ -37,17 +37,17 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/equip_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_below="@+id/user_rl"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8.5dp"
-        android:background="@drawable/family_listview_bg"
-        android:id="@+id/relativeLayout">
+        android:background="@drawable/family_listview_bg">
 
         <RelativeLayout
             android:id="@+id/my_data_rl"
@@ -122,9 +122,9 @@
         android:id="@+id/user_rl"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:background="@drawable/family_listview_bg"
+        android:layout_alignStart="@+id/relativeLayout"
         android:layout_below="@+id/equip_line"
-        android:layout_alignStart="@+id/relativeLayout">
+        android:background="@drawable/family_listview_bg">
 
         <com.technology.yuyi.myview.RoundImageView
             android:id="@+id/user_img_head"
@@ -132,7 +132,7 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:src="@mipmap/logo" />
+             />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                 android:id="@+id/user_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/select_person_name"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="14sp" />
 
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_toEndOf="@id/user_name_tv"
-                android:text="18岁"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="14sp" />
 
@@ -165,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_name_tv"
                 android:layout_marginTop="15dp"
-                android:text="@string/str_user_num" />
+                android:text="" />
         </RelativeLayout>
 
         <ImageView

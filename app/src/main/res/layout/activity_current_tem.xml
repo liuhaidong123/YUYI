@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/current_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_tem"
@@ -74,7 +74,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:maxLength="4"
-            android:text="38"
+            android:text=""
             android:textColor="@color/color_tem"
             android:textSize="15sp" />
     </RelativeLayout>
@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv_data"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_sure"
@@ -155,6 +155,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp"
                     android:scrollbars="none">
 
                 </com.technology.yuyi.myview.InformationListView>

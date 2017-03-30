@@ -20,6 +20,8 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.InformationListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root;
+import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Rows;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.List;
 public class InformationActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView mInformationListView;
     private InformationListViewAdapter mInformationAdapter;
-    private List<FirstPageInformationTwoData> mList = new ArrayList<>();
+    private List<Rows> mList = new ArrayList<>();
     private ImageView mBack;
 
     private RelativeLayout mMany_more;
@@ -43,9 +45,9 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
             super.handleMessage(msg);
             if (msg.what == 22) {
                 Object o = msg.obj;
-                if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
-                    FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
-                    List<FirstPageInformationTwoData> list = new ArrayList<>();
+                if (o != null && o instanceof Root) {
+                    Root root = (Root) o;
+                    List<Rows> list = new ArrayList<>();
                     list = root.getRows();
                     mList.addAll(list);
                     mInformationAdapter.setList(mList);

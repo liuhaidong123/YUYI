@@ -22,6 +22,7 @@ public class TemView extends View {
     private ArrayList<Float> mTemData = new ArrayList<>();
 
     private final String paintColor = "#6a6a6a";
+    private final String myColor="#74958a";
     private Paint YXpaint;
     private Paint linePaint;
     private Paint mSolidCirclePaint;
@@ -72,9 +73,9 @@ public class TemView extends View {
         //y,x轴数据画笔
         YXpaint = new Paint();
         YXpaint.setAntiAlias(true);
-        YXpaint.setColor(Color.parseColor(paintColor));
+        YXpaint.setColor(Color.parseColor(myColor));
         YXpaint.setTextSize(dip2px(10));
-        YXpaint.setStrokeWidth(dip2px(0.5f));
+        YXpaint.setStrokeWidth(dip2px(0.3f));
         YXpaint.setStyle(Paint.Style.FILL_AND_STROKE);
         YXpaint.setTextAlign(Paint.Align.CENTER);
 

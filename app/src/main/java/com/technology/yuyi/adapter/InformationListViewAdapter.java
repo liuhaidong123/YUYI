@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
+import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Rows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +24,15 @@ import java.util.List;
 public class InformationListViewAdapter extends BaseAdapter {
     private LayoutInflater mInfllater;
     private Context mContext;
-    private List<FirstPageInformationTwoData> list = new ArrayList<>();
+    private List<Rows> list = new ArrayList<>();
 
-    public InformationListViewAdapter(Context mContext, List<FirstPageInformationTwoData> list) {
+    public InformationListViewAdapter(Context mContext, List<Rows> list) {
         this.mContext = mContext;
         this.list = list;
         mInfllater = LayoutInflater.from(this.mContext);
     }
 
-    public void setList(List<FirstPageInformationTwoData> list) {
+    public void setList(List<Rows> list) {
         this.list = list;
     }
 
@@ -64,8 +65,8 @@ public class InformationListViewAdapter extends BaseAdapter {
             viewHolder= (ViewHolder) convertView.getTag();
         }
         Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getPicture()).into(viewHolder.imageView);
-        viewHolder.hospital_tv.setText(list.get(position).getHospitalName());
-        viewHolder.hospital_message_tv.setText(list.get(position).getIntroduction());
+        viewHolder.hospital_tv.setText(list.get(position).getTitle());
+        viewHolder.hospital_message_tv.setText(list.get(position).getArticleText());
         return convertView;
 
     }

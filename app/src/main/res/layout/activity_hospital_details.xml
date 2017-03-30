@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/logo"
+
                     />
                 <RelativeLayout
                     android:id="@+id/bg_relative"
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="10dp"
-                        android:text="@string/str_hospital"
+                        android:text=""
                         android:textColor="@color/color_white"
                         android:textSize="16sp" />
 
@@ -78,7 +78,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="15dp"
                         android:layout_toEndOf="@id/tv_hospital"
-                        android:text="@string/str_tv_y"
+                        android:text=""
                         android:textColor="@color/color_d" />
                 </RelativeLayout>
 
@@ -103,7 +103,7 @@
                 android:layout_below="@id/tv_hospital_mess"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:text="@string/str_hospiytal_mess"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="15sp" />
 

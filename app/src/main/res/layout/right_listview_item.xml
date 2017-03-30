@@ -6,7 +6,7 @@
         android:id="@+id/tv_right"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="呼吸内科门诊"
+        android:text=""
         android:textSize="15sp"
         android:textColor="@color/color_normal"
         android:gravity="center"

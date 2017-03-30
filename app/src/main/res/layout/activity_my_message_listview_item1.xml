@@ -1,77 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/my_message_layout"
-    android:layout_width="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="60dp">
-    <com.technology.yuyi.myview.RoundImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/logo"
-        android:layout_centerVertical="true"
-        android:id="@+id/my_message_listview_item_iamgeview"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="#888888"
-        android:textSize="12sp"
-        android:layout_centerVertical="true"
-        android:id="@+id/my_message_listview_item_time"
-        android:text="8:00"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:textColor="#333333"
-        android:layout_marginLeft="10dp"
-        android:text="宇医公告"
-        android:textSize="14sp"
-        android:maxLines="2"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/my_message_listview_item_time"
-        android:layout_toRightOf="@+id/my_message_listview_item_iamgeview"
-        android:id="@+id/my_message_listview_item_msgName"/>
-</RelativeLayout>
+    android:paddingRight="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <com.technology.yuyi.myview.RoundImageView
+            android:id="@+id/my_message_listview_item_iamgeview"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:id="@+id/my_message_listview_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="8:00"
+            android:textColor="#888888"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/my_message_listview_item_msgName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/my_message_listview_item_time"
+            android:layout_toRightOf="@+id/my_message_listview_item_iamgeview"
+            android:maxLines="2"
+            android:text="宇医公告"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/background"/>
+        android:background="@color/background" />
+
     <TextView
+        android:id="@+id/my_message_listview_item_msgInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
         android:text="更新通知：你已经很久没看我了，最近我有很多好玩的新功能哦，快来更新吧～"
         android:textColor="#333333"
-        android:textSize="12sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/my_message_listview_item_msgInfo" />
+        android:textSize="12sp" />
+
     <RelativeLayout
         android:id="@+id/my_message_listview_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/fg1"
-        android:background="@color/background"/>
+
         <TextView
-            android:clickable="true"
-            android:layout_below="@+id/fg1"
+            android:id="@+id/fg1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background" />
+
+        <TextView
             android:id="@+id/my_message_listview_item_more"
             android:layout_width="match_parent"
-            android:text="查看更多"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fg1"
+            android:clickable="true"
             android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="查看更多"
             android:textColor="#25f368"
-            android:textSize="12sp"
-            android:layout_height="wrap_content" />
+            android:textSize="12sp" />
     </RelativeLayout>
 </LinearLayout>

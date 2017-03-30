@@ -13,7 +13,7 @@
             android:layout_height="75dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:src="@mipmap/logo" />
+             />
 
         <RelativeLayout
             android:id="@+id/right_rl"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@id/doc_num"
                     android:layout_below="@id/regi_numm"
-                    android:text="78"
+                    android:text=""
                     android:textSize="10sp"
                     android:textColor="@color/color_gua"
                     />
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/doctor_name"
+                android:text=""
                 android:textColor="@color/color_drumall"
                 android:textSize="15sp" />
 
@@ -96,7 +96,7 @@
                 android:layout_toEndOf="@id/doctor_name_tv"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@string/doctor_job"
+                android:text=""
                 android:textColor="@color/color_drumall"
                 android:textSize="13sp" />
 

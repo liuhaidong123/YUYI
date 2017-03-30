@@ -368,12 +368,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_btn_open_file_selected.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_voice_receive.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_ic_voice_receive.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_location_normal.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_ic_location_normal.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_voice_receive.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_ic_voice_receive.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png",

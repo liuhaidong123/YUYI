@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
+import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Rows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +24,15 @@ import java.util.List;
 public class FirstPageListViewAdapter extends BaseAdapter {
     private LayoutInflater mInfllater;
     private Context mContext;
-    private List<FirstPageInformationTwoData> list = new ArrayList<>();
+    private List<Rows> list = new ArrayList<>();
 
-    public FirstPageListViewAdapter(Context context, List<FirstPageInformationTwoData> list) {
+    public FirstPageListViewAdapter(Context context, List<Rows> list) {
         this.mContext = context;
-        this.list=list;
+        this.list = list;
         mInfllater = LayoutInflater.from(this.mContext);
     }
 
-    public void setList(List<FirstPageInformationTwoData> list) {
+    public void setList(List<Rows> list) {
         this.list = list;
     }
 
@@ -53,23 +54,24 @@ public class FirstPageListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder=null;
-        if (convertView==null){
-            convertView=mInfllater.inflate(R.layout.listview_firstpage_item, null);
-            viewHolder=new ViewHolder();
-            viewHolder.imageView= (ImageView) convertView.findViewById(R.id.img_mess);
-            viewHolder.hospital_tv= (TextView) convertView.findViewById(R.id.tv_title);
-            viewHolder.hospital_message_tv= (TextView) convertView.findViewById(R.id.tv_mess);
+        ViewHolder viewHolder = null;
+        if (convertView == null) {
+            convertView = mInfllater.inflate(R.layout.listview_firstpage_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.imageView = (ImageView) convertView.findViewById(R.id.img_mess);
+            viewHolder.hospital_tv = (TextView) convertView.findViewById(R.id.tv_title);
+            viewHolder.hospital_message_tv = (TextView) convertView.findViewById(R.id.tv_mess);
             convertView.setTag(viewHolder);
-        }else {
-            viewHolder= (ViewHolder) convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.imageView);
-        viewHolder.hospital_tv.setText(list.get(position).getHospitalName());
-        viewHolder.hospital_message_tv.setText(list.get(position).getIntroduction());
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.imageView);
+        viewHolder.hospital_tv.setText(list.get(position).getTitle());
+        viewHolder.hospital_message_tv.setText(list.get(position).getArticleText());
         return convertView;
     }
-    class ViewHolder{
+
+    class ViewHolder {
         ImageView imageView;
         TextView hospital_tv;
         TextView hospital_message_tv;

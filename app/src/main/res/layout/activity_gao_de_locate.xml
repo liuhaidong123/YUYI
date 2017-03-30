@@ -18,8 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/back" />
 
         <TextView
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/equip_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/search_rl"

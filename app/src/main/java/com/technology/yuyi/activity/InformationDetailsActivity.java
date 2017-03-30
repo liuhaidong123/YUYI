@@ -16,6 +16,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.bean.ADmessageBean.Root;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.Information;
+import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.UpdatedInformation;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 
 public class InformationDetailsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,14 +36,13 @@ public class InformationDetailsActivity extends AppCompatActivity implements Vie
             super.handleMessage(msg);
             if (msg.what == 23) {//医院
                 Object o = msg.obj;
-                if (o != null && o instanceof Information) {
-                    Information information = (Information) o;
-                    Picasso.with(InformationDetailsActivity.this).setIndicatorsEnabled(true);
+                if (o != null && o instanceof UpdatedInformation) {
+                    UpdatedInformation information = (UpdatedInformation) o;
                     Picasso.with(InformationDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).into(mHospital_img);
 
-                    mHospital_name.setText(information.getHospitalName());
-                    mHospital_grade.setText(information.getGradeName());
-                    mHospital_message.setText(information.getIntroduction());
+                    mHospital_name.setText(information.getTitle());
+                    mHospital_grade.setText(information.getSmalltitle());
+                    mHospital_message.setText(information.getArticleText());
                 }
             } else if (msg.what == 204) {//医院详情失败
                 ToastUtils.myToast(InformationDetailsActivity.this, "请求失败");
@@ -74,7 +74,7 @@ public class InformationDetailsActivity extends AppCompatActivity implements Vie
         mHttptools = HttpTools.getHttpToolsInstance();
         //医院资讯
         if (getIntent().getStringExtra("type").equals("information")) {
-            mHttptools.getFirstPageInformationTwoDataMessage(handler, getIntent().getIntExtra("id", -1));
+            mHttptools.getFirstPageInformationTwoDataMessage(handler, getIntent().getLongExtra("id", -1));
         }
         //广告资讯
         if (getIntent().getStringExtra("type").equals("ad")) {

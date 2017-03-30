@@ -10,7 +10,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_tv_date"
+            android:text=""
             android:textSize="14sp"
             android:textColor="@color/color_normal"
             android:layout_centerVertical="true"

@@ -1388,12 +1388,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ic_location_item_default.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_voip_icon_input_video_pressed.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/drawable-xhdpi/rc_voip_icon_input_video_pressed.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_image_default.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_image_default.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_voip_icon_input_video_pressed.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/drawable-xhdpi/rc_voip_icon_input_video_pressed.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_no.png",

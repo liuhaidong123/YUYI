@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/infor_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
 
     <RelativeLayout
@@ -50,9 +50,9 @@
             android:id="@+id/app_edit_rl"
             android:layout_width="match_parent"
             android:layout_height="29dp"
-            android:background="@drawable/edit_back"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
+            android:background="@drawable/edit_back">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/search_relative"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -111,7 +111,9 @@
                 <com.technology.yuyi.myview.InformationListView
                     android:id="@+id/app_listview_id"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp">
 
                 </com.technology.yuyi.myview.InformationListView>
 

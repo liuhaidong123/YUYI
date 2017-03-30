@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="28dp"
-            android:src="@mipmap/mea_bpg_icon_norm_1" />
+            />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
                 android:id="@+id/tv_blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/str_blood"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="16sp" />
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_blood"
                 android:layout_marginTop="6dp"
-                android:text="@string/str_record"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="13sp" />
 
@@ -49,6 +49,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/color_dd" />
+            android:background="@color/color_cancel" />
     </RelativeLayout>
 </RelativeLayout>

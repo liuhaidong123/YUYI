@@ -424,12 +424,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_item_text_message_evaluate.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/layout/rc_voip_item_incoming_maudio.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/layout/rc_voip_item_incoming_maudio.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/layout/rc_share_location_message.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_share_location_message.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/layout/rc_voip_item_incoming_maudio.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/layout/rc_voip_item_incoming_maudio.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/layout/rc_voip_activity_single_call.xml",

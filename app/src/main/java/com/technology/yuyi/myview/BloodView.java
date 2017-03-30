@@ -21,7 +21,8 @@ public class BloodView extends View {
     private ArrayList<Integer> mHeightBloodData = new ArrayList<>();
     private ArrayList<Integer> mLowBloodData = new ArrayList<>();
 
-    private final String paintColor="#6a6a6a";
+    private final String paintColor="#74958a";
+    private final String lineColor="#6a6a6a";
     private Paint mPaintXY;
     private Paint mPaintBloodLine;
     private Paint mPaintSloidCircle;
@@ -85,11 +86,11 @@ public class BloodView extends View {
         mPaintXY.setAntiAlias(true);
         mPaintXY.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaintXY.setTextSize(dip2px(10));
-        mPaintXY.setStrokeWidth(dip2px(0.5f));
+        mPaintXY.setStrokeWidth(dip2px(0.3f));
         mPaintXY.setTextAlign(Paint.Align.CENTER);
         //折线
         mPaintBloodLine = new Paint();
-        mPaintBloodLine.setColor(Color.parseColor(paintColor));
+        mPaintBloodLine.setColor(Color.parseColor(lineColor));
         mPaintBloodLine.setAntiAlias(true);
         mPaintBloodLine.setStyle(Paint.Style.STROKE);
 
@@ -97,14 +98,14 @@ public class BloodView extends View {
         mPaintSloidCircle = new Paint();
         mPaintSloidCircle.setStyle(Paint.Style.FILL);
         mPaintSloidCircle.setStrokeWidth(dip2px(2));
-        mPaintSloidCircle.setColor(Color.parseColor(paintColor));
+        mPaintSloidCircle.setColor(Color.parseColor(lineColor));
         mPaintSloidCircle.setAntiAlias(true);
 
         //实心圆圈外边的圆圈
         mPaintStrokeCircle2 = new Paint();
         mPaintStrokeCircle2.setStyle(Paint.Style.STROKE);
         mPaintStrokeCircle2.setStrokeWidth(dip2px(1));
-        mPaintStrokeCircle2.setColor(Color.parseColor(paintColor));
+        mPaintStrokeCircle2.setColor(Color.parseColor(lineColor));
         mPaintStrokeCircle2.setAntiAlias(true);
 
     }

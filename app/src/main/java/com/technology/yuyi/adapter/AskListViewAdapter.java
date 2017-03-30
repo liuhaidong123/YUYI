@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
+import com.technology.yuyi.lhd.utils.KmUtils;
+import com.technology.yuyi.lzh_utils.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +71,9 @@ public class AskListViewAdapter extends BaseAdapter {
         viewHolder.title_tv.setText(mList.get(position).getHospitalName());
         viewHolder.tel_tv.setText(mList.get(position).getTell());
         viewHolder.address_tv.setText("地址:"+mList.get(position).getAddress());
+
+        viewHolder.km_tv.setText( KmUtils.getDistance(user.Longitude,user.Latitude,mList.get(position).getLng(),mList.get(position).getLat())+"km");
+
 
         return convertView;
     }

@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/hand_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_blood_g"
@@ -152,7 +152,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv_data"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_sure"
@@ -165,7 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentTop="true"
-            android:background="@color/color_e" />
+            android:background="@color/color_cancel" />
 
         <Button
             android:id="@+id/blood_btn_sure"
@@ -199,6 +199,8 @@
                     android:id="@+id/hand_listview_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp"
                     android:background="@color/color_white">
 
                 </com.technology.yuyi.myview.InformationListView>
@@ -208,7 +210,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_below="@id/hand_listview_id"
-                    android:background="@color/color_bg" />
+                    android:background="@color/color_cancel" />
 
                 <RelativeLayout
                     android:id="@+id/add_user_rl"

@@ -27,7 +27,7 @@ public class Information {
 
     private int grade;
 
-    private int id;
+    private long id;
 
     private String introduction;
 
@@ -101,10 +101,10 @@ public class Information {
     public int getGrade(){
         return this.grade;
     }
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
-    public int getId(){
+    public long getId(){
         return this.id;
     }
     public void setIntroduction(String introduction){

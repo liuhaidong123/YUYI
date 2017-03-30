@@ -39,6 +39,24 @@ public class FirstPageInformationTwoData {
     private String info;
 
     private int status;
+    private double lng;
+    private double lat;
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
 
     public void setGradeName(String gradeName){
         this.gradeName = gradeName;

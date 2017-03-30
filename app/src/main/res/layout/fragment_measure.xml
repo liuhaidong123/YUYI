@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/infor_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <ListView
         android:id="@+id/measure_listview_id"
@@ -37,7 +37,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/color_scroll_bg"
-        android:divider="@color/color_scroll_bg"
+        android:divider="@null"
         android:dividerHeight="10dp">
 
     </ListView>

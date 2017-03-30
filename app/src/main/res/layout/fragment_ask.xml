@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/infor_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/ask_swipe_id"
@@ -47,6 +47,8 @@
                 <com.technology.yuyi.myview.InformationListView
                     android:id="@+id/hospital_listview"
                     android:layout_width="match_parent"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp"
                     android:layout_height="match_parent"
                     android:scrollbars="none">
 

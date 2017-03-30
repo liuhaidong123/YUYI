@@ -236,7 +236,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:gravity="center"
-                                android:text="@string/str_usernomal"
+                                android:text=""
                                 android:textColor="@color/color_normal"
                                 android:textSize="9sp" />
                         </LinearLayout>
@@ -253,7 +253,7 @@
                                 android:id="@+id/heightPress_message_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="129"
+                                android:text=""
                                 android:textColor="@color/color_press"
                                 android:textSize="15sp" />
 
@@ -280,7 +280,7 @@
                                 android:id="@+id/lowPress_message_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="87"
+                                android:text=""
                                 android:textColor="@color/color_press"
                                 android:textSize="15sp" />
 
@@ -308,7 +308,7 @@
                                 android:id="@+id/temperature_message_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="38°C"
+                                android:text=""
                                 android:textColor="@color/color_press"
                                 android:textSize="15sp" />
 
@@ -405,11 +405,13 @@
                     android:layout_height="1dp"
                     android:layout_below="@id/relative_information"
                     android:layout_marginStart="10dp"
-                    android:background="@color/color_bg" />
+                    android:background="@color/color_cancel" />
 
                 <com.technology.yuyi.myview.InformationListView
                     android:background="@color/color_white"
                     android:id="@+id/listview_firstpage"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/line3">
@@ -459,7 +461,7 @@
                     android:layout_height="1dp"
                     android:layout_below="@id/relative_drug"
                     android:layout_marginStart="10dp"
-                    android:background="@color/color_bg" />
+                    android:background="@color/color_cancel" />
 
 
                 <com.technology.yuyi.myview.UseDrugGridView

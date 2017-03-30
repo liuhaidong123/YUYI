@@ -760,12 +760,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_radio_button_on.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_praise_hover.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_praise_hover.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_praise_hover.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_praise_hover.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_tab_emoji.png",

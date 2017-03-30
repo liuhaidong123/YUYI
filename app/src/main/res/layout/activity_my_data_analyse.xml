@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/equip_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <LinearLayout
         android:id="@+id/blood_tem_ll"
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="@string/str_usernomal"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="9sp" />
         </LinearLayout>
@@ -134,7 +134,7 @@
                 android:id="@+id/height_blood_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="129"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="15sp" />
 
@@ -161,7 +161,7 @@
                 android:id="@+id/low_blood_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="87"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="15sp" />
 

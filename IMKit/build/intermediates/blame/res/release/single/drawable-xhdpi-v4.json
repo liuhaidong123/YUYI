@@ -112,12 +112,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_ed_pub_service_search_normal.9.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_conversation_list_empty.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_conversation_list_empty.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_ac_text_file_icon.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_ac_text_file_icon.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_conversation_list_empty.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable-xhdpi/rc_conversation_list_empty.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable-xhdpi-v4/rc_cs_group_ok_normal.png",

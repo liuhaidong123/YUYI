@@ -869,9 +869,11 @@ public final class R {
 		public static final int rc_audio_encoding_bit_rate = 0x7f0c0000;
 		public static final int rc_chatroom_first_pull_message_count = 0x7f0c0001;
 		public static final int rc_custom_service_evaluation_interval = 0x7f0c0002;
-		public static final int rc_image_quality = 0x7f0c0003;
-		public static final int rc_image_size = 0x7f0c0004;
-		public static final int rc_message_recall_interval = 0x7f0c0005;
+		public static final int rc_extension_emoji_count_per_page = 0x7f0c0003;
+		public static final int rc_extension_plugin_count_per_page = 0x7f0c0004;
+		public static final int rc_image_quality = 0x7f0c0005;
+		public static final int rc_image_size = 0x7f0c0006;
+		public static final int rc_message_recall_interval = 0x7f0c0007;
 	}
 	public static final class layout {
 		public static final int rc_ac_albums = 0x7f030000;

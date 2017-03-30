@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/current_title"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_blood_g"
@@ -72,7 +72,7 @@
             android:layout_below="@+id/curr_line2"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="150"
+            android:text=""
             android:textColor="@color/color_username"
             android:textSize="15sp" />
     </RelativeLayout>
@@ -112,13 +112,12 @@
             android:layout_below="@id/blood_line2"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="80"
+            android:text=""
             android:textColor="@color/color_username"
             android:textSize="15sp" />
     </RelativeLayout>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_prompt"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -126,17 +125,18 @@
         android:layout_marginStart="25dp"
         android:gravity="center_vertical"
         android:text="@string/str_blood_z"
-        android:textColor="@color/color_username" />
+        android:textColor="@color/color_username"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_below="@id/tv_prompt"
+        android:layout_marginTop="5dp"
         android:background="@color/color_white"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
-        android:layout_marginTop="5dp"
         android:text="@string/str_data"
         android:textColor="@color/color_normal"
         android:textSize="14sp" />
@@ -146,7 +146,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/tv_data"
-        android:background="@color/color_bg" />
+        android:background="@color/color_cancel" />
 
     <RelativeLayout
         android:id="@+id/rl_sure"
@@ -192,7 +192,9 @@
                     android:id="@+id/userdata_listview_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_white">
+                    android:background="@color/color_white"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp">
 
                 </com.technology.yuyi.myview.InformationListView>
 

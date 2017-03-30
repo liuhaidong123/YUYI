@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -146,6 +147,7 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                         ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
                     }else if (root.getCode().equals("10103")){//用户信息不完整，无法挂号
                         ToastUtils.myToast(SelectDoctorActivity.this,"此用户信息不完整，无法挂号");
+                        mSureAlertDialog.show();
                     }else if (root.getCode().equals("10104")){//没有选择挂号门诊的医生
                         ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
                     }else if (root.getCode().equals("10105")){//请选择上午还是下午
@@ -322,13 +324,13 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                 }
             }
 
-            // mSureAlertDialog.show();
         }
-        //else if (id == mPrompt.getId()) {//去完善
-//            mSureAlertDialog.dismiss();
-//        } else if (id == mPrompt_Cancel.getId()) {
-//            mSureAlertDialog.dismiss();
-//        }
+        else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(SelectDoctorActivity.this,UserEditorActivity.class));
+            mSureAlertDialog.dismiss();
+        } else if (id == mPrompt_Cancel.getId()) {
+            mSureAlertDialog.dismiss();
+        }
     }
 
     //初始化日期，上午，下午
@@ -477,7 +479,7 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     public void initSelectUser() {
 
         mBuilder = new AlertDialog.Builder(this);
-        //alert弹框
+        //挂号alert弹框
         mAlertDialog = mBuilder.create();
         mAlertDialog.setCanceledOnTouchOutside(false);
         mAlertView = LayoutInflater.from(this).inflate(R.layout.alert_select_register_person, null);
@@ -512,16 +514,17 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
         mCancel = (TextView) mAlertView.findViewById(R.id.alert_cancel);
         mCancel.setOnClickListener(this);
 
-//        //确定后的弹框
-//        mSureBuilder = new AlertDialog.Builder(this);
-//        mSureAlertDialog = mSureBuilder.create();
-//        mSureAlertView = LayoutInflater.from(this).inflate(R.layout.alert_sure, null);
-//        mSureAlertDialog.setView(mSureAlertView);
-//        //去完善、取消
-//        mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
-//        mPrompt.setOnClickListener(this);
-//        mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
-//        mPrompt_Cancel.setOnClickListener(this);
+        //信息不完整弹框
+        mSureBuilder = new AlertDialog.Builder(this);
+        mSureAlertDialog = mSureBuilder.create();
+        mSureAlertDialog.setCanceledOnTouchOutside(false);
+        mSureAlertView = LayoutInflater.from(this).inflate(R.layout.alert_sure, null);
+        mSureAlertDialog.setView(mSureAlertView);
+        //去完善、取消
+        mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
+        mPrompt.setOnClickListener(this);
+        mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
+        mPrompt_Cancel.setOnClickListener(this);
     }
 
     @Override

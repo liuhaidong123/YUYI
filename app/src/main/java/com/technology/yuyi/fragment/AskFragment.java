@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.technology.yuyi.activity.HospitalDetailsActivity;
 import com.technology.yuyi.adapter.AskListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
+import com.technology.yuyi.lhd.utils.KmUtils;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.InformationListView;
@@ -92,9 +94,10 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
 
     public void initView(View view) {
 
-        //获取网络数据
-        Toast.makeText(getContext(), "纬度" + user.Latitude, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), "经度" + user.Longitude, Toast.LENGTH_SHORT).show();
+
+        Log.e("纬度",user.Latitude+"");
+        Log.e("经度",user.Longitude+"");
+
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getAskData(handler,0,10);
 
