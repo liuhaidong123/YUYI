@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_MyMessage;
 import com.technology.yuyi.myview.RoundImageView;
 
 import java.util.List;
@@ -21,19 +22,19 @@ import java.util.Map;
 
 public class My_messageListView_Adapter extends BaseAdapter{
     private Context context;
-    private List<Map<String,String>> list;
-    public My_messageListView_Adapter(Context context,List<Map<String,String>> list){
+    private List<bean_MyMessage.ResultBean>listBean;
+    public My_messageListView_Adapter(Context context,List<bean_MyMessage.ResultBean>listBean){
         this.context=context;
-        this.list=list;
+        this.listBean=listBean;
     }
     @Override
     public int getCount() {
-        return list==null?0:list.size();
+        return listBean==null?0:listBean.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return listBean.get(position);
     }
 
     @Override
@@ -55,14 +56,28 @@ public class My_messageListView_Adapter extends BaseAdapter{
         TextView my_message_listview_item_msgInfo= (TextView) view.findViewById(R.id.my_message_listview_item_msgInfo);//公告内容
         TextView my_message_listview_item_more= (TextView) view.findViewById(R.id.my_message_listview_item_more);//查看更多
         RelativeLayout my_message_listview_item_layout= (RelativeLayout) view.findViewById(R.id.my_message_listview_item_layout);//查看更多所在的groupView
-        String type=list.get(position).get("type");
-        if ("0".equals(type)){
-            my_message_listview_item_layout.setVisibility(View.GONE);
+        int type=listBean.get(position).getMsgType();
+        String title="";
+        int resId;//图片id
+        switch (type){
+            case 1://公告
+                title="宇医公告";
+                resId=R.mipmap.msg1;
+                break;
+            case 2://挂号信息
+                title="挂号通知";
+                resId=R.mipmap.msg3;
+                break;
+            default:
+                title="宇医消息";
+                resId=R.mipmap.msg2;
+                break;
         }
-        imageView.setImageResource(Integer.parseInt(list.get(position).get("image")));
-        my_message_listview_item_msgName.setText(list.get(position).get("title"));
-        my_message_listview_item_time.setText(list.get(position).get("time"));
-        my_message_listview_item_msgInfo.setText(list.get(position).get("info"));
+        my_message_listview_item_layout.setVisibility(View.GONE);
+        imageView.setImageResource(resId);
+        my_message_listview_item_msgName.setText(title);
+        my_message_listview_item_time.setText(listBean.get(position).getCreateTimeString());
+        my_message_listview_item_msgInfo.setText(listBean.get(position).getContent());
         return view;
     }
 }

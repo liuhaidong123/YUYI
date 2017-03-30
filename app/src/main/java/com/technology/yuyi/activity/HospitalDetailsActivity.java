@@ -1,8 +1,10 @@
 package com.technology.yuyi.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -20,14 +22,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
+import com.technology.yuyi.bean.bean_DocId;
 import com.technology.yuyi.lhd.utils.ToastUtils;
+import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.RongUSerProvider;
 import com.technology.yuyi.lzh_utils.RongUri;
+import com.technology.yuyi.lzh_utils.RongUser;
+import com.technology.yuyi.lzh_utils.RongUserList;
+import com.technology.yuyi.lzh_utils.gson;
+import com.technology.yuyi.lzh_utils.okhttp;
+import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
@@ -35,7 +52,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
-public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RelativeLayout mBgRelative;
     private ImageView mBack;
@@ -46,12 +63,13 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     private Button mSpeechBtn;
     private Button mVideoBtn;
     private Button mCharBtn;
-
+    private String DocId;//医生的userID
     private TextView mHospital_name;
     private TextView mGrade_tv;
     private TextView mHospital_message;
     private ImageView mImg;
     private HttpTools mHttptools;
+    private String resStr;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -70,12 +88,40 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             }
         }
     };
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    toast.toast_faild(HospitalDetailsActivity.this);
+                    break;
+                case 1:
+                    try{
+                        bean_DocId docId= gson.gson.fromJson(resStr,bean_DocId.class);
+                        if (docId!=null){
+                            DocId=docId.getId()+"";
+                            user.targetId=DocId;
+//                            RongUserList.addUser(new RongUser(DocId,docId.getTrueName(),Ip.imagePth_F+docId.getAvatar()));
+                        }
 
+                        else {
+                            Toast.makeText(HospitalDetailsActivity.this,"请求医生信息错误，无法启动聊天程序,请稍后重试",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(HospitalDetailsActivity.this);
+                    }
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital_details);
         initView();
+        getDocId();
     }
 
     public void initView() {
@@ -109,32 +155,45 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         mSpeechBtn.setOnClickListener(this);
         mVideoBtn.setOnClickListener(this);
         mCharBtn.setOnClickListener(this);
-
-    }
+}
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
         if (id == mBtn.getId()) {
             mAlertDialog.show();
             setAlertWidth(0.7f, mAlertDialog);
-
         } else if (id == mSpeechBtn.getId()) {//语音咨询
-//            startActivity(new Intent(this, VoiceActivity.class));
             mAlertDialog.dismiss();
+            if (DocId!=null&&!"".equals(DocId)){
+                RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+            }
+            else {
+                Toast.makeText(HospitalDetailsActivity.this,"无法获取医生信息，启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                getDocId();
+            }
 
-//            RongCallKit.startMultiCall(HospitalDetailsActivity.this,Conversation.ConversationType.PRIVATE,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
-            RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
         } else if (id == mVideoBtn.getId()) {//视频咨询
-//            startActivity(new Intent(this, VideoActivity.class));
             mAlertDialog.dismiss();
-            RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
-//            RongCallKit.startMultiCall(HospitalDetailsActivity.this,Conversation.ConversationType.PRIVATE,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+            if (DocId!=null&&!"".equals(DocId)){
+                RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+
+            }
+            else {
+                Toast.makeText(HospitalDetailsActivity.this,"无法获取医生信息，启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                getDocId();
+            }
 
         } else if (id == mCharBtn.getId()) {//文字资讯
-            mAlertDialog.dismiss();
-            if (RongIM.getInstance()!=null){
-                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"与"+user.targetId+"聊天中");
+                mAlertDialog.dismiss();
+            if (DocId!=null&&!"".equals(DocId)){
+                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"咨询");
+
+            }
+            else {
+                Toast.makeText(HospitalDetailsActivity.this,"无法获取医生信息，启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                getDocId();
             }
         } else if (id == mBack.getId()) {//返回
             finish();
@@ -149,5 +208,24 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         android.view.WindowManager.LayoutParams p = alertDialog.getWindow().getAttributes();  //获取对话框当前的参数值
         p.width = (int) (dm.widthPixels * (a));
         alertDialog.getWindow().setAttributes(p);//设置生效
+    }
+
+
+    //获取医生id
+    public void getDocId() {
+        Map<String,String> m=new HashMap<>();
+        okhttp.getCall(Ip.url_F+Ip.interface_getDocID,m,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                    handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                        resStr=response.body().string();
+                        Log.i("请求医生融云信息---",resStr);
+                        handler.sendEmptyMessage(1);
+            }
+        });
     }
 }

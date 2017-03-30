@@ -225,7 +225,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             }
             //电子病历
         } else if (id == mElectronicMess.getId()) {
-            startActivity(new Intent(this.getContext(), ElectronicMessActivity.class));
+            Intent intent=new Intent(this.getContext(), ElectronicMessActivity.class);
+            intent.putExtra("type","0");
+            startActivity(intent);
             //设置
         } else if (id == mSetBtn.getId()) {
             startActivity(new Intent(this.getContext(), SetActivity.class));

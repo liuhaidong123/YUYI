@@ -15,6 +15,7 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_FamilyUserEleMsg;
 import com.technology.yuyi.bean.bean_MedicalRecordMsg;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.gson;
@@ -24,11 +25,13 @@ import com.technology.yuyi.lzh_utils.toast;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+//intent.putExtra("id",list.get(position-1).getId());
+//        intent.putExtra("type","0");
 public class LookElectronicMessActivity extends AppCompatActivity {
 private ImageView mBack;
     private TextView mText;
     private int id;
+    private String type;//0我的病历，1家人病历
     private TextView tv_username,tv_userSex,tv_t_userAge,user_textv_jiguan,tv_userHunYin,tv_userTime,tv_now_disease;//姓名，性别,年龄,籍贯,采集时间,描述
     private String resStr;
     private Handler handler=new Handler(){
@@ -84,6 +87,44 @@ private ImageView mBack;
                         e.printStackTrace();
                     }
                     break;
+                case 2:
+                    try{
+                        bean_FamilyUserEleMsg eleMsg=gson.gson.fromJson(resStr,bean_FamilyUserEleMsg.class);
+
+                        tv_username.setText(eleMsg.getTrueName());
+                        if ("0".equals(eleMsg.getGender())){
+                            tv_userSex.setText("女");
+                        }
+                        else if ("1".equals(eleMsg.getGender())){
+                            tv_userSex.setText("男");
+                        }
+                        Log.i("--recordMsg.getAge()---",""+eleMsg.getAge());
+                        tv_t_userAge.setText(eleMsg.getAge()+"");
+//                        user_textv_jiguan.setText(eleMsg.getOrigin());
+                        int tp=eleMsg.getMarital();
+                        String mar="未填写";
+                        switch (tp){
+                            case 0:
+                                mar="未婚";
+                                break;
+                            case 1:
+                                mar="已婚";
+                                break;
+                            case 2:
+                                mar="离异";
+                                break;
+                            case 3:
+                                mar="丧偶";
+                                break;
+                        }
+                        tv_userHunYin.setText(mar);
+                        tv_userTime.setText(eleMsg.getCreateTimeString());
+                        tv_now_disease.setText(eleMsg.getMedicalrecord());
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(LookElectronicMessActivity.this);
+                    }
+                    break;
             }
         }
     };
@@ -103,11 +144,20 @@ private ImageView mBack;
         mText= (TextView) findViewById(R.id.tv_now_disease);
         mText.setMovementMethod(ScrollingMovementMethod.getInstance());
         initView();
-
+        type=getIntent().getStringExtra("type");
         id=getIntent().getIntExtra("id",-1);
-        if (id!=-1){
-            getData();
+        if ("0".equals(type)){
+            if (id!=-1){
+                getData();
+            }
         }
+       else if ("1".equals(type)){
+            if (id!=-1){
+                getFamilyData(id+"");
+            }
+
+        }
+
 
     }
 
@@ -138,6 +188,27 @@ private ImageView mBack;
                 resStr=response.body().string();
                 Log.i("电子病历详情",resStr);
                 handler.sendEmptyMessage(1);
+            }
+        });
+    }
+
+
+    //获取家人的病历详细信息http://localhost:8080/yuyi/medical/homeuserMedicalDetails.do?mid=10
+    public void getFamilyData(String pos) {
+        Log.i("id---",pos);
+       Map<String,String>mp=new HashMap<>();
+        mp.put("mid",pos);
+        okhttp.getCall(Ip.url_F+Ip.interface_famiUserEleMsg,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resStr=response.body().string();
+                Log.i("获取家人电子病历信息---"+id,resStr);
+                handler.sendEmptyMessage(2);
             }
         });
     }

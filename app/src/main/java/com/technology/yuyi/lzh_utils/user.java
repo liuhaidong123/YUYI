@@ -12,7 +12,7 @@ import android.text.TextUtils;
 public class user {
     public static String userName;
     public static String userPsd;
-    public static String RongToken="gCh9jqiReop1hkS9Z/Yo4zRTlrMKcBRmqIwMgr2ETx+UHB5xsXwMeRxGW1JU3PqqHXB1+f5TIx+ZEXfMek5EzA==";//155
+    public static String RongToken="pYXW0VkX1wkT1F+nXKjS9ouZqhNeP62jUkZowKgPQxvQPCl3PhXaCyPbUOebIV6L3+usYxTImf3bddFByJixoA==";//155
     public static String token;//用户的token；
     public static String RonguserId;//155
     public static String targetId="166";//

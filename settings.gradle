@@ -1,2 +1,2 @@
-include ':app', ':IMLib', ':IMKit', ':CallLib', ':CallKit'
+include ':app', ':CallLib', ':CallKit', ':IMKit', ':IMLib'
 

@@ -5,9 +5,19 @@ package com.technology.yuyi.lzh_utils;
  */
 
 public interface Ip {
-   public final static String url_F="http://192.168.1.55:8080/yuyi/";
+   public final static String url_F="http://192.168.1.35:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
 
+   //获取最新10消息http://192.168.1.55:8080/yuyi/message/findList.do?
+   public final static String interface_getPushMsg="message/findList.do?";
+   //获取聊天医生id的请求http://192.168.1.35:8080/yuyi/physician/doctory.do
+   public final static String interface_getDocID="physician/doctory.do";
+
+   //获取家庭用户电子病历列表（我的家庭用户,不是我的）//http://localhost:8080/yuyi/medical/homeuserMedicalTime.do?id=1
+   public final static String interface_famiUserEleList="medical/homeuserMedicalTime.do?";
+
+   //获取家庭用户电子病历列表详细信息（我的家庭用户,不是我的http://localhost:8080/yuyi/medical/homeuserMedicalDetails.do?mid=10
+   public final static String interface_famiUserEleMsg="medical/homeuserMedicalDetails.do?";
 
    //获取融云token的请求personal/rongyuToken.do?personalid=18782931356
    public final static String interface_RongToken="personal/rongyuToken.do?";
