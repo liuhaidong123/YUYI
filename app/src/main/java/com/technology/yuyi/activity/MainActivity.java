@@ -28,6 +28,8 @@ import com.technology.yuyi.fragment.FirstPageFragment;
 import com.technology.yuyi.fragment.MeasureFragment;
 import com.technology.yuyi.fragment.MyFragment;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.JPshAliasAndTags;
+import com.technology.yuyi.lzh_utils.RongUSerProvider;
 import com.technology.yuyi.lzh_utils.RongUser;
 import com.technology.yuyi.lzh_utils.RongUserList;
 import com.technology.yuyi.lzh_utils.gson;
@@ -37,7 +39,9 @@ import com.technology.yuyi.lzh_utils.user;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
@@ -83,11 +87,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         beanRongToken tok= gson.gson.fromJson(resStr,beanRongToken.class);
                         if ("1".equals(tok.getCode())){
                             user.RongToken=tok.getToken();
-                            Log.i("容云token----",user.RongToken);
-                            RongUser us=new RongUser(tok.getTrueName()+"",Ip.imagePth+tok.getAvatar(),tok.getId()+"");
+                            Log.i("容云token----",user.RongToken+"--id--"+tok.getId());
+                            RongUser us=new RongUser("张三","http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg",tok.getId()+"");
+                            RongUser us2=new RongUser("李四","http://www.zhiyinlady.com/d/file/20170322/2e3da7aed9d6744388f5497651def758.jpg","166");
                             Log.i("rongImage",Ip.imagePth+tok.getAvatar());
-                            RongUserList.addUser(us);
-                            RongIM.setUserInfoProvider(MainActivity.this,false);
+                            RongUserList.addUser(us2);
+                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse("http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg")));
                             initRongCon();
                         }
                         else if ("0".equals(tok.getCode())){
@@ -110,7 +115,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
+//        RongIM.setUserInfoProvider(this,true);
         getRongUserInfo();//向服务器请求融云token
+        if (JPshAliasAndTags.isJPSHSucc(MainActivity.this)==false){
+            JPshAliasAndTags.setAlias(MainActivity.this,user.userName);
+            Log.e("激光推送在MainActivity注册----","Login激光推送注册失败，重新注册");
+        }
+        else {
+            Log.e("激光推送在LoginActiity注册----","Login激光推送注册成功");
+        }
     }
 
 
@@ -393,8 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onSuccess(String userid) {
                     user.RonguserId=userid;
                     Log.i("融云返回的id---",userid+"--HospitalDetailsActivity---");
-                    RongIM.setUserInfoProvider(MainActivity.this,true);
-                    RongIM.getInstance().setMessageAttachedUserInfo(true);
+//                    RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid,"张三",Uri.parse("http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg")));
                 }
                 /**
                  * 连接融云失败
@@ -444,7 +456,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
     }
-
     @Override
     protected void onStop() {
         super.onStop();

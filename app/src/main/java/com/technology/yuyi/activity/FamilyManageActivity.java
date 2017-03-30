@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -29,8 +30,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-public class FamilyManageActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+//家庭用户列表
+public class FamilyManageActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView mLisView;
     private FamilyManageListViewAdapter mAdapter;
     private TextView mAddFamily;
@@ -76,8 +77,13 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onStart() {
         super.onStart();
-        getUserList();
         Log.e("onStart","");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserList();
     }
 
     public void initView() {
@@ -113,6 +119,12 @@ public class FamilyManageActivity extends AppCompatActivity implements View.OnCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        oken=6DD620E22A92AB0AED590DB66F84D064&id=123
         Intent intent=new Intent();
+        if (position==0){
+            intent.putExtra("type","0");
+        }
+     else {
+            intent.putExtra("type","1");
+        }
         intent.setClass(this,FamilyUserMessageActivity.class);
         Bundle b=new Bundle();
         b.putSerializable("family",list.get(position));

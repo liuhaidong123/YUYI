@@ -23,6 +23,7 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import io.rong.imlib.model.UserInfo;
 
 // 0添加,1xiugai
 public class AddFamilyUserActivity extends AppCompatActivity implements View.OnClickListener {
@@ -145,8 +148,34 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                             }
                            else if ("1".equals(type)){
                                 Toast.makeText(AddFamilyUserActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
-                                byte[] bytes = Base64.decode(bit64, Base64.DEFAULT);
-                                add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+//                                byte[] bytes = Base64.decode(bit64, Base64.DEFAULT);
+//                                add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+
+//                                mp.put("token", user.userPsd);
+//                                mp.put("nickName",relation);//家庭关系
+//                                mp.put("trueName",name);
+//                                mp.put("age",age);
+//                                mp.put("avatar",bit64);
+//                                mp.put("gender",gender);
+//                                Log.e("bit64----map---",bit64.toString());
+//                                telnum=edit_telnum.getText().toString();
+                                userInfo.setAge(Integer.parseInt(age));
+                                userInfo.setNickName(relation);
+                                userInfo.setBit64(bit64);
+                                userInfo.setTrueName(name);
+                                if (telnum!=null&&!"".equals(telnum)){
+                                    userInfo.setTelephone(Long.parseLong(telnum));
+                                }
+                                else {
+                                    userInfo.setTelephone(0);
+                                }
+                                userInfo.setGender(Integer.parseInt(gender));
+                                Intent intent=new Intent();
+                                Bundle bundle=new Bundle();
+                                bundle.putSerializable("user",userInfo);
+                                intent.putExtra("user",bundle);
+                                setResult(200,intent);
+                                finish();
                             }
 
                         }
@@ -274,29 +303,37 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                     add_fami_boy.setChecked(true);
                     break;
             }
-            Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
-                @Override
-                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
-                    bit=bitmap;
-                    bit64=BitmapTobase64.bitmapToBase64(bit);
-                    add_head_tv.setImageBitmap(bitmap);
-                    Log.e("--bit64--load--1-",bit64.toString());
-                }
+            if (!"".equals(userInfo.getBit64())&&!TextUtils.isEmpty(userInfo.getBit64())){
+                bit64=userInfo.getBit64();
+                byte[] bytes = Base64.decode(userInfo.getBit64(), Base64.DEFAULT);
+                add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+            }
+            else {
+                Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                        bit=bitmap;
+                        bit64=BitmapTobase64.bitmapToBase64(bit);
+                        add_head_tv.setImageBitmap(bitmap);
+                        Log.e("--bit64--load--1-",bit64.toString());
+                    }
 
-                @Override
-                public void onBitmapFailed(Drawable drawable) {
+                    @Override
+                    public void onBitmapFailed(Drawable drawable) {
                         bit= BitmapFactory.decodeResource(getResources(),R.mipmap.logo);
                         add_head_tv.setImageBitmap(bit);
                         bit64=BitmapTobase64.bitmapToBase64(bit);
-                    Log.e("--bit64--load--2-",bit64.toString());
-                }
+                        Log.e("--bit64--load--2-",bit64.toString());
+                    }
 
-                @Override
-                public void onPrepareLoad(Drawable drawable) {
+                    @Override
+                    public void onPrepareLoad(Drawable drawable) {
 
-                }
-            });
+                    }
+                });
+            }
+
 
             edit_relation.setText(userInfo.getNickName());
             edit_age.setText(userInfo.getAge()+"");
@@ -390,12 +427,13 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     // &telephone=13712345678
     private void sendMsg() {
         Map<String,String> mp=new HashMap<>();
-        mp.put("token", user.userPsd);  mp.put("nickName",relation);//家庭关系
-        mp.put("trueName",name);  mp.put("age",age);
+        mp.put("token", user.userPsd);
+        mp.put("nickName",relation);//家庭关系
+        mp.put("trueName",name);
+        mp.put("age",age);
         mp.put("avatar",bit64);
         mp.put("gender",gender);
         Log.e("bit64----map---",bit64.toString());
-//        telnum=edit_telnum.getText().toString();
         telnum=edit_telnum.getText().toString();
         checkbox.setChecked(false);
         if (checkbox.isChecked()){//当选中了手机号可以查看时，验证码不能为空，手机号不能为空
@@ -770,5 +808,9 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
 
+    }
 }

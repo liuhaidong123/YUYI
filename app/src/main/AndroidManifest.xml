@@ -395,7 +395,7 @@
         <!-- 9999999999999999 -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="4439dd4f42e0ba09ef4fd4e7"/>
+            android:value="4439dd4f42e0ba09ef4fd4e7" />
         <!-- ／／／／／／／／／／／激光推送／／／／／／／／／ -->
 
 
@@ -403,6 +403,16 @@
 
 
         <!-- 离线消息 -->
+        <receiver
+            android:name=".lzh_utils.SealNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -429,7 +439,8 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MS_drugState"></activity>
+        <!-- 融云 -->
+        <activity android:name=".activity.MS_drugState" />
     </application>
 
 </manifest>

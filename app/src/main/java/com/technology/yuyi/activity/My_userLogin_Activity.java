@@ -20,11 +20,14 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
 import com.technology.yuyi.lhd.utils.ToastUtils;
+import com.technology.yuyi.lzh_utils.JPshAliasAndTags;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -100,6 +103,10 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 if (o != null && o instanceof LoginSuccess) {
                     LoginSuccess root = (LoginSuccess) o;
                     if (root.getCode() != "" && root.getCode().equals("0")) {
+                        //激光注册标签
+                        JPshAliasAndTags.setAlias(My_userLogin_Activity.this,userName);
+
+
                         Toast.makeText(My_userLogin_Activity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                         SharedPreferences pre = getSharedPreferences("USER", MODE_APPEND);
                         SharedPreferences.Editor edi = pre.edit();

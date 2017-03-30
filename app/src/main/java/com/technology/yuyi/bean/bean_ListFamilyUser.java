@@ -35,6 +35,14 @@ public class bean_ListFamilyUser {
     }
 
     public static class ResultBean implements Serializable{
+        public String getBit64() {
+            return bit64;
+        }
+
+        public void setBit64(String bit64) {
+            this.bit64 = bit64;
+        }
+
         /**
          * createTimeString :
          * role : 2
@@ -49,6 +57,7 @@ public class bean_ListFamilyUser {
          * id : 94
          * age : 0
          */
+        private String bit64;
 
         private String createTimeString;
         private int role;

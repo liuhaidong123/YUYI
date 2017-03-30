@@ -2,12 +2,15 @@ package com.technology.yuyi.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.bean_DeleteFamilyUser;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
+import com.technology.yuyi.lzh_utils.BitmapTobase64;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -37,8 +41,16 @@ import com.technology.yuyi.myview.RoundImageView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+//if (position==0){
+//        intent.putExtra("type","0");
+//        }
+//        else {
+//        intent.putExtra("type","1");
+//        }
+//0：用户本人的，1用户家人的
+//家庭用户信息页面
 public class FamilyUserMessageActivity extends AppCompatActivity implements View.OnClickListener {
+    private String type;
     private ImageView mBack;//返回
     private RelativeLayout mMyData_rl;//我的数据分析
     private RelativeLayout mMyFiles_rl;//我的病历档案
@@ -84,6 +96,7 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_user_message);
+        type=getIntent().getStringExtra("type");//本人0，家人1
         Bundle b = getIntent().getBundleExtra("family");
         if (b != null) {
             userInfo = (bean_ListFamilyUser.ResultBean) b.getSerializable("family");
@@ -147,7 +160,6 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
         if (id == mBack.getId()) {//返回
             finish();
         } else if (id == mMyData_rl.getId()) {//我的数据分析
-
             Intent intent = new Intent(this, MyDataAnalyseActivity.class);
             intent.putExtra("id", userInfo.getId());
             startActivity(intent);
@@ -158,10 +170,22 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
             Bundle b = new Bundle();
             b.putSerializable("family", userInfo);
             intent.putExtra("family", b);
-            startActivity(intent);
-
+            startActivityForResult(intent,100);
         } else if (id == mMyFiles_rl.getId()) {//病历档案(将用户信息传过去)
-            startActivity(new Intent(this, LookElectronicMessActivity.class));
+            if ("0".equals(type)){//用户的电子病历
+                Intent intent=new Intent();
+                intent.putExtra("type","0");
+                intent.setClass(this,ElectronicMessActivity.class);
+                startActivity(intent);
+            }
+            else if ("1".equals(type)){//用户家人的电子病历
+                Intent intent=new Intent();
+                intent.putExtra("type","1");
+                intent.putExtra("id",""+userInfo.getId());
+                intent.setClass(this,ElectronicMessActivity.class);
+                startActivity(intent);
+            }
+
         } else if (id == mDelete_btn.getId()) {//删除用户
             mAlertDialog.show();
         } else if (id == mSure_btn.getId()) {//确定按钮
@@ -170,7 +194,6 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
         } else if (id == mCancel_btn.getId()) {//取消按钮
             mAlertDialog.dismiss();
         }
-
     }
 
     //删除用户http://192.168.1.55:8080/yuyi/homeuser/delete.do?token=6DD620E22A92AB0AED590DB66F84D064&id=123
@@ -191,5 +214,39 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
                 Log.i("删除家庭用户--", resultStr);
             }
         });
+    }
+//处里修改信息后的显示问题
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==200){
+            if (requestCode==100){
+                if (data!=null){
+                   Bundle bundle=data.getBundleExtra("user");
+                    if (bundle!=null){
+                        userInfo= (bean_ListFamilyUser.ResultBean)bundle.getSerializable("user");
+                        if (userInfo!=null){
+                            try{
+                                byte[] bytes = Base64.decode(userInfo.getBit64(), Base64.DEFAULT);
+                                user_img_head.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+                            }
+                            catch (Exception e){
+                                Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                                        .networkPolicy(NetworkPolicy.NO_CACHE).into(user_img_head);
+                            }
+
+                            user_name_tv.setText(userInfo.getTrueName() + "（" + userInfo.getNickName() + "）");
+                            user_name_age.setText(userInfo.getAge() + "岁");
+                            if (userInfo.getTelephone()==0){
+                                user_telnum.setText("");
+                            }
+                            else {
+                                user_telnum.setText(userInfo.getTelephone() + "");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
