@@ -147,7 +147,6 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                         ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
                     }else if (root.getCode().equals("10103")){//用户信息不完整，无法挂号
                         ToastUtils.myToast(SelectDoctorActivity.this,"此用户信息不完整，无法挂号");
-                        mSureAlertDialog.show();
                     }else if (root.getCode().equals("10104")){//没有选择挂号门诊的医生
                         ToastUtils.myToast(SelectDoctorActivity.this,root.getResult());
                     }else if (root.getCode().equals("10105")){//请选择上午还是下午
@@ -227,14 +226,21 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView textView = (TextView) view.findViewById(R.id.num_hao);
-                if (mAdapterList.size() != 0) {
-                    docID = mAdapterList.get(position).getId();
-                    Log.e("docid", docID + "");
-                    numHao = Integer.valueOf(textView.getText().toString());
-                    mPositionDoc=position;
+                //判断用户信息是否完善
+                if (userList.get(0).getAge() == 0 | userList.get(0).getTrueName().equals("")|userList.get(0).getGender()==null) {
+                    mSureAlertDialog.show();
+
+                } else {
+                    if (mAdapterList.size() != 0) {
+                        docID = mAdapterList.get(position).getId();
+                        Log.e("docid", docID + "");
+                        numHao = Integer.valueOf(textView.getText().toString());
+                        mPositionDoc=position;
+                    }
+                    mAlertDialog.show();
                 }
 
-                mAlertDialog.show();
+
             }
         });
 

@@ -86,7 +86,7 @@
         android:layout_below="@+id/rl_tem"
         android:layout_marginStart="25dp"
         android:gravity="center_vertical"
-        android:text="@string/str_prompt"
+        android:text=""
         android:textColor="@color/color_tem" />
 
     <TextView

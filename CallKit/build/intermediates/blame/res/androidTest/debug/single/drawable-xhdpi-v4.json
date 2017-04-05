@@ -192,12 +192,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f61f.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_rt_location_bar.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_rt_location_bar.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f61c.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f61c.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_rt_location_bar.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_rt_location_bar.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f601.png",
@@ -624,12 +624,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f494.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_group_list_divide_line.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_cs_group_list_divide_line.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f614.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f614.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_group_list_divide_line.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_cs_group_list_divide_line.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f46a.png",
@@ -760,12 +760,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_radio_button_on.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_praise_hover.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_praise_hover.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_cs_evaluate_plugin_hover.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_tab_emoji.png",
@@ -1504,16 +1504,16 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f60e.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_public_service_menu_bg.9.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_public_service_menu_bg.9.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_file_icon_picture.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_file_icon_picture.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_real_time_location_exit.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_real_time_location_exit.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_public_service_menu_bg.9.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_public_service_menu_bg.9.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voip_audio_right_connected.png",

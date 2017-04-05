@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -43,7 +44,7 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
     private ImageView mBack;
     private RelativeLayout mAdd_rl;
     private EditText mEdit;
-    private TextView mPrompt;
+    private TextView mPrompt_tv;
     private Button mSure_btn;
     private int mPosintion;
     private boolean isSelect = false;
@@ -97,7 +98,12 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
 
         }
     };
-
+    //确定弹框
+    private AlertDialog.Builder mSureBuilder;
+    private AlertDialog mSureAlertDialog;
+    private View mSureAlertView;
+    private TextView mPrompt;//去完善
+    private TextView mPrompt_Cancel;//取消
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +149,19 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
         mAdd_rl = (RelativeLayout) findViewById(R.id.add_user_rl);
         mAdd_rl.setOnClickListener(this);
         //体温提示文字
-        mPrompt = (TextView) findViewById(R.id.tv_prompt_input);
+        mPrompt_tv = (TextView) findViewById(R.id.tv_prompt_input);
+
+        //信息不完整弹框
+        mSureBuilder = new AlertDialog.Builder(this);
+        mSureAlertDialog = mSureBuilder.create();
+        mSureAlertDialog.setCanceledOnTouchOutside(false);
+        mSureAlertView = LayoutInflater.from(this).inflate(R.layout.alert_sure, null);
+        mSureAlertDialog.setView(mSureAlertView);
+        //去完善、取消
+        mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
+        mPrompt.setOnClickListener(this);
+        mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
+        mPrompt_Cancel.setOnClickListener(this);
         //输入框
         mEdit = (EditText) findViewById(R.id.edit_tem);
         mEdit.addTextChangedListener(new TextWatcher() {
@@ -155,17 +173,17 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString() != null && !"".equals(s.toString())) {
                     if (Float.valueOf(s.toString()) <= 36) {
-                        mPrompt.setText("*您当前体温处于低烧状态，请尽快就医");
-                        mPrompt.setTextColor(Color.parseColor("#e80000"));
+                        mPrompt_tv.setText("*您当前体温处于低烧状态，请尽快就医");
+                        mPrompt_tv.setTextColor(Color.parseColor("#e80000"));
                     } else if (Float.valueOf(s.toString()) >= 38) {
-                        mPrompt.setText("*您当前体温处于高烧状态，请尽快就医");
-                        mPrompt.setTextColor(Color.parseColor("#e80000"));
+                        mPrompt_tv.setText("*您当前体温处于高烧状态，请尽快就医");
+                        mPrompt_tv.setTextColor(Color.parseColor("#e80000"));
                     } else {
-                        mPrompt.setText("*您当前体温处于正常状态");
-                        mPrompt.setTextColor(Color.parseColor("#25f368"));
+                        mPrompt_tv.setText("*您当前体温处于正常状态");
+                        mPrompt_tv.setTextColor(Color.parseColor("#25f368"));
                     }
                 } else {
-                    mPrompt.setText("");
+                    mPrompt_tv.setText("");
                 }
             }
 
@@ -184,9 +202,22 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
         } else if (id == mSure_btn.getId()) {//确定提交
             submitTemData();
         } else if (id == mAdd_rl.getId()) {//添加
-            Intent intent = new Intent(this, AddFamilyUserActivity.class);
-            intent.putExtra("type", "0");
-            startActivity(intent);
+
+            if (mList.size()!=0){
+                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("")|mList.get(0).getGender()==null) {
+                    mSureAlertDialog.show();
+                }else {
+                    Intent intent = new Intent(this, AddFamilyUserActivity.class);
+                    intent.putExtra("type", "0");
+                    startActivity(intent);
+                }
+            }
+
+        }else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(HandInputTemActivity.this,UserEditorActivity.class));
+            mSureAlertDialog.dismiss();
+        } else if (id == mPrompt_Cancel.getId()) {
+            mSureAlertDialog.dismiss();
         }
     }
 

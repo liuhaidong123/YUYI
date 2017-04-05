@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -47,6 +48,8 @@ import com.technology.yuyi.activity.MS_allkinds_activity;
 import com.technology.yuyi.activity.MS_drugInfo_activity;
 import com.technology.yuyi.activity.MS_home_Activity;
 import com.technology.yuyi.activity.SearchActivity;
+import com.technology.yuyi.activity.SelectDoctorActivity;
+import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
 import com.technology.yuyi.adapter.ViewPagerAdAdapter;
@@ -176,7 +179,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             else if (msg.what == 22) {
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root) {
-                    com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root root = ( com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root) o;
+                    com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root root = (com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root) o;
                     mInforList = root.getRows();
                     mListViewAdapter.setList(mInforList);
                     mListViewAdapter.notifyDataSetChanged();
@@ -247,22 +250,22 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     }
 
                     //填补血压日期
-                    if (XdateNum.size()!=7){
-                        Calendar calendarBlood=Calendar.getInstance();
-                        int dayNum=7-XdateNum.size();
-                        if (XdateNum.size()==0){
-                            for (int i=0;i<dayNum;i++){
-                                int month2= calendarBlood.get(Calendar.MONTH)+1;
-                                int day2=calendarBlood.get(Calendar.DAY_OF_MONTH);
+                    if (XdateNum.size() != 7) {
+                        Calendar calendarBlood = Calendar.getInstance();
+                        int dayNum = 7 - XdateNum.size();
+                        if (XdateNum.size() == 0) {
+                            for (int i = 0; i < dayNum; i++) {
+                                int month2 = calendarBlood.get(Calendar.MONTH) + 1;
+                                int day2 = calendarBlood.get(Calendar.DAY_OF_MONTH);
                                 String date2 = month2 + "月" + day2 + "日";
                                 XdateNum.add(date2);
-                                calendarBlood.add(Calendar.DAY_OF_MONTH,1);
+                                calendarBlood.add(Calendar.DAY_OF_MONTH, 1);
                             }
-                        }else {
-                            for (int i=0;i<dayNum;i++){
-                                calendarBlood.add(Calendar.DAY_OF_MONTH,1);
-                                int month2= calendarBlood.get(Calendar.MONTH)+1;
-                                int day2=calendarBlood.get(Calendar.DAY_OF_MONTH);
+                        } else {
+                            for (int i = 0; i < dayNum; i++) {
+                                calendarBlood.add(Calendar.DAY_OF_MONTH, 1);
+                                int month2 = calendarBlood.get(Calendar.MONTH) + 1;
+                                int day2 = calendarBlood.get(Calendar.DAY_OF_MONTH);
                                 String date2 = month2 + "月" + day2 + "日";
                                 XdateNum.add(date2);
                             }
@@ -288,24 +291,24 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     }
 
                     //填补体温日期
-                    if (XTemdateNum.size()!=7){
-                        Calendar calendarTem=Calendar.getInstance();
-                        int dayNum=7-XTemdateNum.size();
+                    if (XTemdateNum.size() != 7) {
+                        Calendar calendarTem = Calendar.getInstance();
+                        int dayNum = 7 - XTemdateNum.size();
                         //没有数据时，从当前日期开始
-                        if (XTemdateNum.size()==0){
-                            for (int i=0;i<dayNum;i++){
-                                int month2= calendarTem.get(Calendar.MONTH)+1;
-                                int day2=calendarTem.get(Calendar.DAY_OF_MONTH);
+                        if (XTemdateNum.size() == 0) {
+                            for (int i = 0; i < dayNum; i++) {
+                                int month2 = calendarTem.get(Calendar.MONTH) + 1;
+                                int day2 = calendarTem.get(Calendar.DAY_OF_MONTH);
                                 String date2 = month2 + "月" + day2 + "日";
                                 XTemdateNum.add(date2);
-                                calendarTem.add(Calendar.DAY_OF_MONTH,1);
+                                calendarTem.add(Calendar.DAY_OF_MONTH, 1);
                             }
                             //有数据时，从当前日期的下一天开始
-                        }else {
-                            for (int i=0;i<dayNum;i++){
-                                calendarTem.add(Calendar.DAY_OF_MONTH,1);
-                                int month2= calendarTem.get(Calendar.MONTH)+1;
-                                int day2=calendarTem.get(Calendar.DAY_OF_MONTH);
+                        } else {
+                            for (int i = 0; i < dayNum; i++) {
+                                calendarTem.add(Calendar.DAY_OF_MONTH, 1);
+                                int month2 = calendarTem.get(Calendar.MONTH) + 1;
+                                int day2 = calendarTem.get(Calendar.DAY_OF_MONTH);
                                 String date2 = month2 + "月" + day2 + "日";
                                 XTemdateNum.add(date2);
                             }
@@ -332,7 +335,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             } else if (msg.what == 233) {
                 MyDialog.stopDia();
                 ToastUtils.myToast(getContext(), "获取失败");
-            }else if (msg.what == 234) {
+            } else if (msg.what == 234) {
                 MyDialog.stopDia();
             }
         }
@@ -367,8 +370,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private SimpleDateFormat simpleDateFormat;
     private List<TextView> tvlist = new ArrayList<>();
 
-
-
+    //确定弹框
+    private AlertDialog.Builder mSureBuilder;
+    private AlertDialog mSureAlertDialog;
+    private View mSureAlertView;
+    private TextView mPrompt;//去完善
+    private TextView mPrompt_Cancel;//取消
     public FirstPageFragment() {
         // Required empty public constructor
     }
@@ -485,6 +492,18 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //常用药品跳转
         mStaple_drug_rl = (RelativeLayout) view.findViewById(R.id.relative_drug);
         mStaple_drug_rl.setOnClickListener(this);
+
+        //信息不完整弹框
+        mSureBuilder = new AlertDialog.Builder(getContext());
+        mSureAlertDialog = mSureBuilder.create();
+        mSureAlertDialog.setCanceledOnTouchOutside(false);
+        mSureAlertView = LayoutInflater.from(getContext()).inflate(R.layout.alert_sure, null);
+        mSureAlertDialog.setView(mSureAlertView);
+        //去完善、取消
+        mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
+        mPrompt.setOnClickListener(this);
+        mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
+        mPrompt_Cancel.setOnClickListener(this);
     }
 
     /**
@@ -608,6 +627,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
             intent.putExtra("isNull", mLocate_tv.getText());
             startActivityForResult(intent, 66);
+        }else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(getContext(),UserEditorActivity.class));
+            mSureAlertDialog.dismiss();
+        } else if (id == mPrompt_Cancel.getId()) {
+            mSureAlertDialog.dismiss();
         }
     }
 
@@ -837,8 +861,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     MyDialog.showDialog(getContext());
                     mHttptools.getClickUserDataData(mHttpHandler, user.token, mUserData.get(k).getId());
                     //点击头像时，文字变换颜色
-                    for (int i=0;i<tvlist.size();i++){
-                        if (k==i){
+                    for (int i = 0; i < tvlist.size(); i++) {
+                        if (k == i) {
                             tvlist.get(k).setTextColor(Color.parseColor(greenColor));
                         } else {
                             tvlist.get(i).setTextColor(Color.parseColor(grayColor));
@@ -868,14 +892,20 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             addlinear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), AddFamilyUserActivity.class);
-                    intent.putExtra("type", "0");
-                    startActivity(intent);
+                            //判断主用户信息是否完善
+                    if (mUserData.get(0).getAge() == 0 || mUserData.get(0).getTrueName().equals("")) {
+                        mSureAlertDialog.show();
+
+                    } else {
+                        Intent intent = new Intent(getContext(), AddFamilyUserActivity.class);
+                        intent.putExtra("type", "0");
+                        startActivity(intent);
+                    }
                 }
             });
         }
 
-        if (mUserData.size()!=0){
+        if (mUserData.size() != 0) {
             //为默认用户初始化数据
             List<BloodpressureList> listBlood = mUserData.get(0).getBloodpressureList();
             List<TemperatureList> listTem = mUserData.get(0).getTemperatureList();
@@ -901,29 +931,29 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
 
             //填补血压日期
-           if (XdateNum.size()!=7){
-               int dayNum=7-XdateNum.size();
-               Calendar calendarBlood=Calendar.getInstance();
+            if (XdateNum.size() != 7) {
+                int dayNum = 7 - XdateNum.size();
+                Calendar calendarBlood = Calendar.getInstance();
 
-               if (XdateNum.size()==0){
-                   for (int i=0;i<dayNum;i++){
-                       int month2= calendarBlood.get(Calendar.MONTH)+1;
-                       int day2=calendarBlood.get(Calendar.DAY_OF_MONTH);
-                       String date2 = month2 + "月" + day2 + "日";
-                       XdateNum.add(date2);
-                       calendarBlood.add(Calendar.DAY_OF_MONTH,1);
-                   }
-               }else {
-                   for (int i=0;i<dayNum;i++){
-                       calendarBlood.add(Calendar.DAY_OF_MONTH,1);
-                       int month2= calendarBlood.get(Calendar.MONTH)+1;
-                       int day2=calendarBlood.get(Calendar.DAY_OF_MONTH);
-                       String date2 = month2 + "月" + day2 + "日";
-                       XdateNum.add(date2);
-                   }
-               }
+                if (XdateNum.size() == 0) {
+                    for (int i = 0; i < dayNum; i++) {
+                        int month2 = calendarBlood.get(Calendar.MONTH) + 1;
+                        int day2 = calendarBlood.get(Calendar.DAY_OF_MONTH);
+                        String date2 = month2 + "月" + day2 + "日";
+                        XdateNum.add(date2);
+                        calendarBlood.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                } else {
+                    for (int i = 0; i < dayNum; i++) {
+                        calendarBlood.add(Calendar.DAY_OF_MONTH, 1);
+                        int month2 = calendarBlood.get(Calendar.MONTH) + 1;
+                        int day2 = calendarBlood.get(Calendar.DAY_OF_MONTH);
+                        String date2 = month2 + "月" + day2 + "日";
+                        XdateNum.add(date2);
+                    }
+                }
 
-           }
+            }
 
 
             //默认用户体温数据
@@ -946,24 +976,24 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
 
             //填补体温日期
-            if (XTemdateNum.size()!=7){
-                Calendar calendarTem=Calendar.getInstance();
-                int dayNum=7-XTemdateNum.size();
+            if (XTemdateNum.size() != 7) {
+                Calendar calendarTem = Calendar.getInstance();
+                int dayNum = 7 - XTemdateNum.size();
                 //如果日期数据为0，日期从当天开始
-                if (XTemdateNum.size()==0){
-                    for (int i=0;i<dayNum;i++){
-                        int month2= calendarTem.get(Calendar.MONTH)+1;
-                        int day2=calendarTem.get(Calendar.DAY_OF_MONTH);
+                if (XTemdateNum.size() == 0) {
+                    for (int i = 0; i < dayNum; i++) {
+                        int month2 = calendarTem.get(Calendar.MONTH) + 1;
+                        int day2 = calendarTem.get(Calendar.DAY_OF_MONTH);
                         String date2 = month2 + "月" + day2 + "日";
                         XTemdateNum.add(date2);
-                        calendarTem.add(Calendar.DAY_OF_MONTH,1);
+                        calendarTem.add(Calendar.DAY_OF_MONTH, 1);
                     }
                     //如果日期数据不为0，日期从当天的下一天开始
-                }else {
-                    for (int i=0;i<dayNum;i++){
-                        calendarTem.add(Calendar.DAY_OF_MONTH,1);
-                        int month2= calendarTem.get(Calendar.MONTH)+1;
-                        int day2=calendarTem.get(Calendar.DAY_OF_MONTH);
+                } else {
+                    for (int i = 0; i < dayNum; i++) {
+                        calendarTem.add(Calendar.DAY_OF_MONTH, 1);
+                        int month2 = calendarTem.get(Calendar.MONTH) + 1;
+                        int day2 = calendarTem.get(Calendar.DAY_OF_MONTH);
                         String date2 = month2 + "月" + day2 + "日";
                         XTemdateNum.add(date2);
                     }
@@ -985,7 +1015,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mBloodView.invalidate();
         mTemView.setTemInfo(YTemData, XTemdateNum, temData);
         mTemView.invalidate();
-
 
 
     }

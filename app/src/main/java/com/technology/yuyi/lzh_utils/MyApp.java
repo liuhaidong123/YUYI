@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 import com.technology.yuyi.R;
 
@@ -53,7 +54,6 @@ public class MyApp extends Application{
 
                 @Override
                 public void onActivityResumed(Activity activity) {
-
                     activityCurrent=activity;
 //                    Log.i("----Myapp----",activityCurrent.getClass().getSimpleName());
 //                    Log.i("activityCurrent==null",(activityCurrent==null)+"");

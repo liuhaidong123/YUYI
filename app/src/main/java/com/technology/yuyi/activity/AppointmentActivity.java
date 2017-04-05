@@ -136,6 +136,7 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, AllHospitalDepartmentActivity.class);
         intent.putExtra("hid", mList.get(position).getId());
+        intent.putExtra("hospital_name", mList.get(position).getHospitalName());
         startActivity(intent);
     }
 }

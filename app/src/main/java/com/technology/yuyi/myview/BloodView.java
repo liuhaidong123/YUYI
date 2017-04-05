@@ -21,8 +21,8 @@ public class BloodView extends View {
     private ArrayList<Integer> mHeightBloodData = new ArrayList<>();
     private ArrayList<Integer> mLowBloodData = new ArrayList<>();
 
-    private final String paintColor="#74958a";
-    private final String lineColor="#6a6a6a";
+    private final String paintColor = "#74958a";
+    private final String lineColor = "#6a6a6a";
     private Paint mPaintXY;
     private Paint mPaintBloodLine;
     private Paint mPaintSloidCircle;
@@ -36,45 +36,45 @@ public class BloodView extends View {
     private float mSmallCircleRadius;
     private Context mContext;
     private DisplayMetrics mDisplayMetrics;
+
     public BloodView(Context context) {
         super(context);
         this.mContext = context;
-        initPaint();
+
     }
 
     public BloodView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
-        initPaint();
+
     }
 
     public BloodView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        initPaint();
+
 
     }
+
     public void setInfo(ArrayList<Integer> YBlood, ArrayList<String> XDate, ArrayList<Integer> mHeightBloodData, ArrayList<Integer> mLowBloodData) {
         this.YBlood = YBlood;
         this.XDate = XDate;
         this.mHeightBloodData = mHeightBloodData;
         this.mLowBloodData = mLowBloodData;
+        initPaint();
     }
 
     public void initPaint() {
         //屏幕信息类
         mDisplayMetrics = mContext.getResources().getDisplayMetrics();
-        float widthScreen = (float) mDisplayMetrics.widthPixels;
-        float heightScreen = (float) mDisplayMetrics.heightPixels;
         mBigCircleRadius = dip2px(4);
         mSmallCircleRadius = dip2px(2.5f);
-        YEndPoint = heightScreen / 3.5f;
-        XScale = widthScreen / 10.0f;
-        YScale = YEndPoint / 7.0f - 20;
-        YEachBlood = YScale / 20.0f;
 
-        Log.e("widthScreen", widthScreen + "");
-        Log.e("heightScreen", heightScreen + "");
+        YEndPoint = getHeight();
+        YScale = YEndPoint / 10.0f;
+        YEachBlood = YScale / 20.0f;
+        XScale = getWidth() / 8.0f;
+
         Log.e("YEndPoint", YEndPoint + "");
         Log.e("XScale", XScale + "");
         Log.e("YScale", YScale + "");
@@ -118,45 +118,48 @@ public class BloodView extends View {
             try {
                 //Y血量小横线
                 // canvas.drawLine(YScale-20, YEndPoint-i*YScale,YScale+10 ,YEndPoint-i*YScale, mPaintXY);
+
                 //Y血量刻度值
-                canvas.drawText(YBlood.get(i) + "", XScale-20, YEndPoint - i * YScale, mPaintXY);
+                canvas.drawText(YBlood.get(i) + "", dip2px(20), YEndPoint - (2 + i) * YScale - (mPaintXY.ascent() + mPaintXY.descent() / 2), mPaintXY);
             } catch (Exception e) {
 
             }
 
         }
+
         //x轴日期刻度
         for (int i = 0; i < XDate.size(); i++) {
-//            if (i==0){
-//                canvas.drawText("3月"+XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
-//            }else {
-//                canvas.drawText(XDate.get(i) + "日", XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
-//            }
-            canvas.drawText(XDate.get(i), XScale + XScale * (i + 1), YEndPoint + XScale , mPaintXY);
+            canvas.drawText(XDate.get(i), XScale + XScale * i, YEndPoint - YScale, mPaintXY);
         }
         //折线走势
         for (int i = 0; i < mHeightBloodData.size(); i++) {
             //最后一个数据大圆套小圆
             if (i == mHeightBloodData.size() - 1) {
+
                 //低压
-                canvas.drawCircle(XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
-                canvas.drawCircle(XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
                 //高压
-                canvas.drawCircle(XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
-                canvas.drawCircle(XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+
                 //否则都是小圈
             } else {
-                canvas.drawCircle(XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
-                canvas.drawCircle(XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+
+                canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
             }
             //画折线
             try {
-                canvas.drawLine(XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i)), XScale + XScale * (i + 2), Ycode(mHeightBloodData.get(i + 1)), mPaintBloodLine);
-                canvas.drawLine(XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i)), XScale + XScale * (i + 2), Ycode(mLowBloodData.get(i + 1)), mPaintBloodLine);
+                canvas.drawLine(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i + 1)), mPaintBloodLine);
+                canvas.drawLine(XScale + XScale * i, Ycode(mLowBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i + 1)), mPaintBloodLine);
+
+
             } catch (Exception e) {
             }
         }
     }
+
     /**
      * 每个圆圈的纵坐标
      *
@@ -164,7 +167,8 @@ public class BloodView extends View {
      * @return
      */
     private float Ycode(int a) {
-        float e = YEndPoint - (a - 40) * YEachBlood;
+
+        float e = YEndPoint - a * YEachBlood;
         return e;
     }
 

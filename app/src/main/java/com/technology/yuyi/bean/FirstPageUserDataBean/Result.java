@@ -23,6 +23,7 @@ public class Result {
 
     private int oid;
 
+    private Integer gender;
     private List<BloodpressureList> bloodpressureList;
 
     private String trueName;
@@ -32,6 +33,14 @@ public class Result {
     private List<TemperatureList> temperatureList;
 
     private int age;
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
 
     public void setCreateTimeString(String createTimeString){
         this.createTimeString = createTimeString;

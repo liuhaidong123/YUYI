@@ -33,6 +33,7 @@ import com.technology.yuyi.myview.TemView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -112,6 +113,31 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
                         }
 
                     }
+
+                    //填补血压日期
+                    if (XdateNum.size()!=7){
+                        Calendar calendarBlood=Calendar.getInstance();
+                        int dayNum=7-XdateNum.size();
+                        if (XdateNum.size()==0){
+                            for (int i=0;i<dayNum;i++){
+                                int month2= calendarBlood.get(Calendar.MONTH)+1;
+                                int day2=calendarBlood.get(Calendar.DAY_OF_MONTH);
+                                String date2 = month2 + "月" + day2 + "日";
+                                XdateNum.add(date2);
+                                calendarBlood.add(Calendar.DAY_OF_MONTH,1);
+                            }
+                        }else {
+                            for (int i=0;i<dayNum;i++){
+                                calendarBlood.add(Calendar.DAY_OF_MONTH,1);
+                                int month2= calendarBlood.get(Calendar.MONTH)+1;
+                                int day2=calendarBlood.get(Calendar.DAY_OF_MONTH);
+                                String date2 = month2 + "月" + day2 + "日";
+                                XdateNum.add(date2);
+                            }
+                        }
+
+                    }
+
                     // 体温
                     if (temlist.size() != 0) {
                         for (int i = 0; i < temlist.size(); i++) {
@@ -126,6 +152,33 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
                             XTemdateNum.add(date);
                             temData.add(temlist.get(i).getTemperaturet());//体温
 
+                        }
+
+                    }
+
+
+                    //填补体温日期
+                    if (XTemdateNum.size()!=7){
+                        Calendar calendarTem=Calendar.getInstance();
+                        int dayNum=7-XTemdateNum.size();
+                        //没有数据时，从当前日期开始
+                        if (XTemdateNum.size()==0){
+                            for (int i=0;i<dayNum;i++){
+                                int month2= calendarTem.get(Calendar.MONTH)+1;
+                                int day2=calendarTem.get(Calendar.DAY_OF_MONTH);
+                                String date2 = month2 + "月" + day2 + "日";
+                                XTemdateNum.add(date2);
+                                calendarTem.add(Calendar.DAY_OF_MONTH,1);
+                            }
+                            //有数据时，从当前日期的下一天开始
+                        }else {
+                            for (int i=0;i<dayNum;i++){
+                                calendarTem.add(Calendar.DAY_OF_MONTH,1);
+                                int month2= calendarTem.get(Calendar.MONTH)+1;
+                                int day2=calendarTem.get(Calendar.DAY_OF_MONTH);
+                                String date2 = month2 + "月" + day2 + "日";
+                                XTemdateNum.add(date2);
+                            }
                         }
 
                     }
@@ -302,26 +355,39 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
         mHeightBloodTv = (TextView)findViewById(R.id.height_blood_num_tv);
         mLowBloodTv = (TextView) findViewById(R.id.low_blood_num_tv);
 
-        mTemPromptImg = (ImageView)findViewById(R.id.normal_btn_img);
+        mTemPromptImg = (ImageView)findViewById(R.id.tem_btn_img);
         mTemPromptTv = (TextView)findViewById(R.id.tem_normal_tv);
         mTem = (TextView) findViewById(R.id.tem_num_tv);
 
-
-        if (height == 0 && low == 0 && tem == 0) {
+        //血压
+        if (height == 0 && low == 0 ) {
             mPromptImg.setImageResource(R.mipmap.normal);
             mPromptTv.setText("待测");
             mPromptTv.setTextColor(Color.parseColor(mGayColor));
 
+        }else {
+            if (height > 139 ) {
+                mPromptImg.setImageResource(R.mipmap.height);
+                mPromptTv.setText("偏高");
+                mPromptTv.setTextColor(Color.parseColor(redColor));
+
+            } else if(height <90){
+                mPromptImg.setImageResource(R.mipmap.low);
+                mPromptTv.setText("偏低");
+                mPromptTv.setTextColor(Color.parseColor(redColor));
+            }else {
+                mPromptImg.setImageResource(R.mipmap.normal);
+                mPromptTv.setText("正常");
+                mPromptTv.setTextColor(Color.parseColor(mGayColor));
+            }
+        }
+
+        //体温
+        if(tem == 0){
             mTemPromptImg.setImageResource(R.mipmap.normal);
             mTemPromptTv.setText("待测");
             mTemPromptTv.setTextColor(Color.parseColor(mGayColor));
-        }
-        //显示不正常
-        else if (height > 139 ) {
-            mPromptImg.setImageResource(R.mipmap.height);
-            mPromptTv.setText("偏高");
-            mPromptTv.setTextColor(Color.parseColor(redColor));
-            //体温
+        }else {
             if (tem>37.5){
                 mTemPromptImg.setImageResource(R.mipmap.height);
                 mTemPromptTv.setText("偏高");
@@ -336,45 +402,7 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
                 mTemPromptTv.setTextColor(Color.parseColor(mGayColor));
             }
         }
-        else if (height > 90 ) {
-            mPromptImg.setImageResource(R.mipmap.low);
-            mPromptTv.setText("偏低");
-            mPromptTv.setTextColor(Color.parseColor(redColor));
-            //体温
-            if (tem>37.5){
-                mTemPromptImg.setImageResource(R.mipmap.height);
-                mTemPromptTv.setText("偏高");
-                mTemPromptTv.setTextColor(Color.parseColor(redColor));
-            }else if (tem<36){
-                mTemPromptImg.setImageResource(R.mipmap.height);
-                mTemPromptTv.setText("偏低");
-                mTemPromptTv.setTextColor(Color.parseColor(redColor));
-            }else {
-                mTemPromptImg.setImageResource(R.mipmap.normal);
-                mTemPromptTv.setText("正常");
-                mTemPromptTv.setTextColor(Color.parseColor(mGayColor));
-            }
-        }
-        else {
-            mPromptImg.setImageResource(R.mipmap.normal);
-            mPromptTv.setText("正常");
-            mPromptTv.setTextColor(Color.parseColor(mGayColor));
 
-            //体温
-            if (tem>37.5){
-                mTemPromptImg.setImageResource(R.mipmap.height);
-                mTemPromptTv.setText("偏高");
-                mTemPromptTv.setTextColor(Color.parseColor(redColor));
-            }else if (tem<36){
-                mTemPromptImg.setImageResource(R.mipmap.height);
-                mTemPromptTv.setText("偏低");
-                mTemPromptTv.setTextColor(Color.parseColor(redColor));
-            }else {
-                mTemPromptImg.setImageResource(R.mipmap.normal);
-                mTemPromptTv.setText("正常");
-                mTemPromptTv.setTextColor(Color.parseColor(mGayColor));
-            }
-        }
 
         mHeightBloodTv.setText(height + "");
         mLowBloodTv.setText(low + "");

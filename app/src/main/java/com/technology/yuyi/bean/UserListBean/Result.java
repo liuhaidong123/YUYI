@@ -27,6 +27,16 @@ public class Result {
 
     private int age;
 
+    private Integer gender;
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
     public void setCreateTimeString(String createTimeString){
         this.createTimeString = createTimeString;
     }

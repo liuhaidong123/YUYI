@@ -30,6 +30,7 @@ import java.util.List;
 
 public class AllHospitalDepartmentActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView mBack;
+    private TextView mHospital_name;
     //左边listview
     private LeftListViewAdapter mLeftAdapter;
     private ListView mLeftListView;
@@ -95,6 +96,8 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
         mRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
         mRefresh.setRefreshing(true);
 
+        mHospital_name= (TextView) findViewById(R.id.hospital_name);
+        mHospital_name.setText(getIntent().getStringExtra("hospital_name"));
         mBack = (ImageView) findViewById(R.id.depart_back);
         mBack.setOnClickListener(this);
         //左边listview

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
@@ -94,7 +96,12 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
 
         }
     };
-
+    //确定弹框
+    private AlertDialog.Builder mSureBuilder;
+    private AlertDialog mSureAlertDialog;
+    private View mSureAlertView;
+    private TextView mPrompt;//去完善
+    private TextView mPrompt_Cancel;//取消
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +148,18 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
 
         mEditHeight = (EditText) findViewById(R.id.edit_height_blood);
         mEditLow = (EditText) findViewById(R.id.edit_low_blood);
+
+        //信息不完整弹框
+        mSureBuilder = new AlertDialog.Builder(this);
+        mSureAlertDialog = mSureBuilder.create();
+        mSureAlertDialog.setCanceledOnTouchOutside(false);
+        mSureAlertView = LayoutInflater.from(this).inflate(R.layout.alert_sure, null);
+        mSureAlertDialog.setView(mSureAlertView);
+        //去完善、取消
+        mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
+        mPrompt.setOnClickListener(this);
+        mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
+        mPrompt_Cancel.setOnClickListener(this);
     }
 
     @Override
@@ -151,9 +170,21 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
         } else if (id == mSure_btn.getId()) {//确定提交
             submitBloodData();
         } else if (id == mAdd_rl.getId()) {//添加
-            Intent intent = new Intent(this, AddFamilyUserActivity.class);
-            intent.putExtra("type", "0");
-            startActivity(intent);
+            if (mList.size()!=0){
+                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("")|mList.get(0).getGender()==null) {
+                    mSureAlertDialog.show();
+                }else {
+                    Intent intent = new Intent(this, AddFamilyUserActivity.class);
+                    intent.putExtra("type", "0");
+                    startActivity(intent);
+                }
+            }
+
+        }else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(HandInputBloodActivity.this,UserEditorActivity.class));
+            mSureAlertDialog.dismiss();
+        } else if (id == mPrompt_Cancel.getId()) {
+            mSureAlertDialog.dismiss();
         }
     }
 

@@ -109,7 +109,7 @@
                 android:id="@+id/normal_btn_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/normal" />
+                />
 
             <TextView
                 android:id="@+id/normal_tv"
@@ -208,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="@string/str_usernomal"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="9sp" />
         </LinearLayout>
@@ -225,7 +225,7 @@
                 android:id="@+id/tem_num_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="38°C"
+                android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="18sp" />
 
