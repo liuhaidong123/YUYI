@@ -1,19 +1,19 @@
 [
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_an_voice_receive.xml",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_an_voice_receive.xml"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_white_bg_shape.xml",
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_white_bg_shape.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_voip_mute_selector.xml",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/src/main/res/drawable/rc_voip_mute_selector.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_an_voice_receive.xml",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_an_voice_receive.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_btn_public_service_enter_selector.xml",
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_btn_public_service_enter_selector.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_voip_mute_selector.xml",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/src/main/res/drawable/rc_voip_mute_selector.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_ic_no_selector.xml",
@@ -36,12 +36,12 @@
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_notification_connecting_animated.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_corner_voice_style.xml",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_corner_voice_style.xml"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_send_toggle_selector.xml",
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_send_toggle_selector.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_corner_voice_style.xml",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_corner_voice_style.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/debug/drawable/rc_bg_mentionlist_item.xml",

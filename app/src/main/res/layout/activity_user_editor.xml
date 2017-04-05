@@ -179,6 +179,18 @@
             android:text="@string/str_user_edi"
             android:textColor="@color/color_normal"
             android:textSize="17sp"/>
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/family_add"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginEnd="20dp"-->
+            <!--android:text="@string/add_person"-->
+            <!--android:textColor="@color/color_username"-->
+            <!--android:textSize="17sp" />-->
         <TextView
             android:id="@+id/user_editor_textV_submit"
             android:onClick="Submit"
@@ -187,18 +199,17 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:background="@drawable/user_editor_submit"
             android:text="@string/str_save"
-            android:textColor="@color/color_white"
-            android:textSize="12sp" />
+            android:textColor="@color/color_username"
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <RelativeLayout

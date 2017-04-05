@@ -82,7 +82,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 try{
                     UserMessage userMessage= gson.gson.fromJson(resStr,UserMessage.class);
                     UserMessage.ResultBean bean=userMessage.getResult();
-                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
+                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
                             .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
                     if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
                         mNikName.setText(bean.getTrueName()+"");
@@ -219,7 +219,10 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //用户信息编辑
         if (id == mUserEditor.getId()) {
             if (user.isLogin(getActivity())) {
-                startActivity(new Intent(this.getContext(), UserEditorActivity.class));
+                Intent intent=new Intent();
+                intent.putExtra("type","0");
+                intent.setClass(getActivity(),UserEditorActivity.class);
+                startActivity(intent);
             } else {
                 startActivity(new Intent(this.getContext(), My_userLogin_Activity.class));
             }

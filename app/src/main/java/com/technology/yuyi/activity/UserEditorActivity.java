@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private EditText mNikName;
     private EditText mAdEdit;
     private EditText mAddressEdit;
-
+    private String type;
     private RelativeLayout select_head;
     private TextView usereditor_textv_cancle,usereditor_textv_picture,usereditor_textv_camera;
     private PopupWindow pop;
@@ -87,6 +88,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private String bit64;
     private String resStr;
 
+    private Boolean isBitChange=false;
     private File outputImage;
     private Uri imageUri;
 
@@ -106,7 +108,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                             bean_My_UserMsg.ResultBean bean=usMsg.getResult();
                             mNikName.setText(bean.getUserName());
                             user_editor_userName.setText(bean.getTrueName());
-                            Picasso.with(UserEditorActivity.this).load(Ip.imagePth+bean.getAvatar()).error(R.mipmap.logo).into(new Target() {
+                            Picasso.with(UserEditorActivity.this).load(Ip.imagePth+bean.getAvatar()).error(R.mipmap.usererr).into(new Target() {
                                 @Override
                                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                                     bit64=BitmapTobase64.bitmapToBase64(bitmap);
@@ -168,6 +170,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_editor);
         initView();
+        type=getIntent().getStringExtra("type");
         getUserData();//获取用户个人信息
     }
 
@@ -248,7 +251,13 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             setAlertWidth();
                 break;
             case R.id.editor_back://返回
-                finish();
+                if ("0".equals(type)){
+                    finish();
+                }
+                else if ("1".equals(type)){
+                    startActivity(new Intent(UserEditorActivity.this,MainActivity.class));
+                    finish();
+                }
                 break;
             case R.id.select_head://上传头像
                 showWindowUploading();//
@@ -478,6 +487,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         //将output_image.jpg对象解析成Bitmap对象，然后设置到ImageView中显示出来
                         Bitmap bitmap = BitmapFactory.decodeFile(outputImage.getAbsolutePath());
                         if (bitmap!=null){
+                            isBitChange=true;
                             bit=bitmap;
                             bit64=BitmapTobase64.bitmapToBase64(bit);
                             usereditor_image_userphoto.setImageBitmap(bit);
@@ -528,11 +538,23 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
 //        private TextView user_editor_sex;
         Map<String,String>mp=new HashMap<>();
         mp.put("token",user.token);
-        mp.put("avatar",bit64);
+        if (isBitChange){
+            Log.e("000000000000","000000000000");
+            mp.put("avatar",bit64);
+        }
+        else {
+            mp.put("avatar","");
+            Log.e("1111991000000011","1111111111111");
+        }
 //        mp.put("userName",mNikName.getText().toString());//昵称
         mp.put("userName","");
         mp.put("trueName",user_editor_userName.getText().toString());//真实姓名
-        mp.put("age",mAgeEdit.getText().toString());//年龄
+        String ag=mAgeEdit.getText().toString();
+        if (Integer.parseInt(ag)<1|Integer.parseInt(ag)>150){
+            Toast.makeText(UserEditorActivity.this,"您填写的年龄不正确",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mp.put("age",ag);//年龄
         mp.put("gender",""+SE);//性别
         Log.i("---性别--","--------"+SE);
         mp.put("idCard",mAdEdit.getText().toString());//身份证号
@@ -591,5 +613,24 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                 outputImage.delete();
             }
         }
+    }
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK )
+        {
+            if ("0".equals(type)){
+                finish();
+            }
+            else if ("1".equals(type)){
+                startActivity(new Intent(UserEditorActivity.this,MainActivity.class));
+                finish();
+            }
+
+
+        }
+        return false;
     }
 }

@@ -135,8 +135,8 @@
 
                         <TextView
                             android:id="@+id/my_userlogin_getSMScode"
-                            android:layout_width="60dp"
-                            android:layout_height="25dp"
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
                             android:layout_alignParentBottom="true"
                             android:layout_toLeftOf="@+id/my_userlogin_SMStimer"
                             android:background="@drawable/my_userlogin_smscode"

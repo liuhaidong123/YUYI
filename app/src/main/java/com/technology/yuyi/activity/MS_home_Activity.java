@@ -6,10 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -19,8 +23,10 @@ import com.technology.yuyi.adapter.MS_allkinds_ExAdapter;
 import com.technology.yuyi.adapter.MS_home_DailyGridViewAdapter;
 import com.technology.yuyi.adapter.MS_home_ExAdapter;
 import com.technology.yuyi.adapter.MS_home_GridViewAdapter;
+import com.technology.yuyi.bean.AdBean.Result;
 import com.technology.yuyi.bean.bean_MS_allkinds;
 import com.technology.yuyi.bean.bean_MS_home;
+import com.technology.yuyi.bean.bean_MyDrugState;
 import com.technology.yuyi.lzh_utils.Intent_Code;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.MyExpanListview;
@@ -30,6 +36,7 @@ import com.technology.yuyi.lzh_utils.conn;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
+import com.technology.yuyi.lzh_utils.user;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,8 +57,11 @@ public class MS_home_Activity extends AppCompatActivity {
     private MyExpanListview ms_home_exlistview;
     private List<Map<String,String>>listCat;//大类的集合
     private String resultStr;
-
+    private RelativeLayout ms_home_ms_state;//wode yaopin zhuangtai
     private List<Map<String,Object>>listInfo;//存放expanlistview数据源
+
+    private TextView ms_home_myDrugState_title,ms_home_myDrugState_nowState,ms_home_myDrugState_time;//我的药品状态标题,当前状态，创建时间
+    private bean_MyDrugState MyDrugState;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -150,6 +160,46 @@ public class MS_home_Activity extends AppCompatActivity {
                     }
 
                     break;
+
+
+                case 2://我的药品状态返回
+                    try{
+                        bean_MyDrugState drugState=gson.gson.fromJson(resultStr,bean_MyDrugState.class);
+                        if ("0".equals(drugState.getCode())){
+                            bean_MyDrugState.ResultBean drugBean=drugState.getResult();
+                            if (drugBean!=null){
+                                ms_home_ms_state.setVisibility(View.VISIBLE);
+                                if (!"".equals(drugBean.getTitle())&&!TextUtils.isEmpty(drugBean.getTitle())){
+                                    ms_home_myDrugState_title.setText(drugBean.getTitle());
+                                }
+                                else {
+                                    ms_home_myDrugState_title.setText("我的药品状态");
+                                }
+                                ms_home_myDrugState_time.setText(drugBean.getCreateTimeString());
+                                List<bean_MyDrugState.ResultBean.BoilMedicineListBean>li =drugBean.getBoilMedicineList();
+                                if (li!=null&&li.size()>0){
+                                    ms_home_myDrugState_nowState.setText("当前状态："+li.get(li.size()-1).getStateText());
+                                    MyDrugState=drugState;
+                                }
+                                else {
+                                    ms_home_ms_state.setClickable(false);
+                                }
+
+
+                            }
+                            else {
+                                ms_home_ms_state.setVisibility(View.GONE);
+                            }
+                        }
+                        else {
+                            ms_home_ms_state.setVisibility(View.GONE);
+                        }
+                    }
+                    catch (Exception e){
+                        toast.toast_gsonFaild(MS_home_Activity.this);
+                        ms_home_ms_state.setVisibility(View.GONE);
+                    }
+                    break;
             }
         }
     };
@@ -158,6 +208,7 @@ public class MS_home_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ms_home);
         initView();
+        getMyDrugState();//获取我的药品状态
     }
 
 
@@ -166,7 +217,11 @@ public class MS_home_Activity extends AppCompatActivity {
     private void initView() {
         ms_home_gridview= (MyGridView) findViewById(R.id.ms_home_gridview);
         ms_home_exlistview= (MyExpanListview) findViewById(R.id.ms_home_exlistview);
-
+        ms_home_ms_state= (RelativeLayout) findViewById(R.id.ms_home_ms_state);
+        ms_home_ms_state.setVisibility(View.GONE);
+        ms_home_myDrugState_title= (TextView) findViewById(R.id.ms_home_myDrugState_title);
+        ms_home_myDrugState_nowState= (TextView) findViewById(R.id.ms_home_myDrugState_nowState);
+        ms_home_myDrugState_time= (TextView) findViewById(R.id.ms_home_myDrugState_time);
     }
 
     //    view的点击事件
@@ -177,7 +232,12 @@ public class MS_home_Activity extends AppCompatActivity {
                     finish();
                     break;
                 case R.id.ms_home_ms_state://煎药状态
-                        startActivity(new Intent(MS_home_Activity.this,MS_drugState.class));
+                    if (MyDrugState!=null){
+                        Intent intent=new Intent();
+                        intent.setClass(MS_home_Activity.this,MS_drugState.class);
+                        intent.putExtra("drug",MyDrugState);
+                        startActivity(intent);
+                    }
                     break;
             }
         }
@@ -231,6 +291,24 @@ public class MS_home_Activity extends AppCompatActivity {
         inten.setClass(MS_home_Activity.this,SearchActivity.class);
         inten.putExtra("type","drug");
         startActivity(inten);
+    }
+    //获取我的药品状态
+    public void getMyDrugState() {
+        Map<String,String>mp=new HashMap<>();
+        mp.put("token", user.token);
+        okhttp.getCall(Ip.url+Ip.interface_MyDrugState,mp,okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                    resultStr=response.body().string();
+                    Log.i("获取药品状态---",resultStr);
+                    handler.sendEmptyMessage(2);
+            }
+        });
     }
 }
 

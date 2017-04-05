@@ -1,9 +1,11 @@
 package com.technology.yuyi.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.FamilyManageListViewAdapter;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.UserInfo;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
@@ -104,12 +107,38 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
+
         //添加
         if (id == mAddFamily.getId()) {
-            Intent intent = new Intent(this, AddFamilyUserActivity.class);
-            intent.putExtra("title", "添加家庭用户");
-            startActivity(intent);
-            //返回
+            if (list!=null&&list.size()>0){
+                if (UserInfo.isUserInfoCompletion(list.get(0).getTrueName(),list.get(0).getAge()+"",list.get(0).getGender()+"")){
+                    Intent intent = new Intent(this, AddFamilyUserActivity.class);
+                    intent.putExtra("title", "添加家庭用户");
+                    startActivity(intent);
+                    //返回
+                }
+                else {
+                    AlertDialog dialog=new AlertDialog.Builder(FamilyManageActivity.this).setTitle("无法添加")
+                            .setMessage("您的个人信息不完整，需要您填写完整的信息后才能添加家庭用户").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent=new Intent();
+                                    intent.putExtra("type","0");
+                                    intent.setClass(FamilyManageActivity.this,UserEditorActivity.class);
+                                    startActivity(intent);
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }
+            }
+
+          else {
+                Toast.makeText(FamilyManageActivity.this,"获取用户信息失败，无法添加",Toast.LENGTH_SHORT).show();
+            }
         } else if (id == mBack.getId()) {
             finish();
         }

@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_edit_text_background_selector.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_edit_text_background_selector.xml"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_btn_input.xml",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_btn_input.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_edit_text_background_selector.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_edit_text_background_selector.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_emoji_grid_item_selector.xml",
@@ -52,20 +52,20 @@
         "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_voice_input_selector.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_ic_location.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_ic_location.xml"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_cs_corner_single_check_style.xml",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_cs_corner_single_check_style.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_cs_list_divider_style.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_cs_list_divider_style.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_ic_location.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_ic_location.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_white_bg_shape.xml",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_white_bg_shape.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_cs_list_divider_style.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_cs_list_divider_style.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/debug/drawable/rc_cs_evaluate_selector.xml",

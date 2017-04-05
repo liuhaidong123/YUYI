@@ -91,7 +91,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     private TextView title;
 
     private Bitmap bit;
-
+    private Bitmap btn;
     private String cooki;
     private Headers header;
     private EditText edit_relation,edit_age,edit_name,edit_telnum;
@@ -108,6 +108,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     TextView addfamily_pop_submit;
     private String resStr;
 
+    private Boolean isBitChange=false;
     private int first=0;
     //--------------------------------
     private bean_ListFamilyUser.ResultBean userInfo;
@@ -309,7 +310,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                 add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
             }
             else {
-                Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+                Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth+userInfo.getAvatar())).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
                         .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
@@ -430,8 +431,12 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         mp.put("token", user.userPsd);
         mp.put("nickName",relation);//家庭关系
         mp.put("trueName",name);
+        if (Integer.parseInt(age)<1|Integer.parseInt(age)>150){
+            Toast.makeText(AddFamilyUserActivity.this,"您填写的年龄不正确",Toast.LENGTH_SHORT).show();
+            return;
+        }
         mp.put("age",age);
-        mp.put("avatar",bit64);
+
         mp.put("gender",gender);
         Log.e("bit64----map---",bit64.toString());
         telnum=edit_telnum.getText().toString();
@@ -456,6 +461,15 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         String url;
         if ("1".equals(type)){//修改信息的时候多一个id字段
             mp.put("id",userInfo.getId()+"");
+            if (isBitChange){
+                mp.put("avatar",bit64);
+            }
+            else {
+                mp.put("avatar","");
+            }
+        }
+        else {
+            mp.put("avatar",bit64);
         }
         okhttp.getCallCookie(Ip.url+ Ip.interface_addFamilyUser,mp,cooki).enqueue(new Callback() {
             @Override
@@ -701,6 +715,8 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                         //将output_image.jpg对象解析成Bitmap对象，然后设置到ImageView中显示出来
                         Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                         if (bitmap!=null){
+                            isBitChange=true;
+                            btn=bitmap;
                             bit=bitmap;
                             bit64=BitmapTobase64.bitmapToBase64(bit);
                             add_head_tv.setImageBitmap(bit);

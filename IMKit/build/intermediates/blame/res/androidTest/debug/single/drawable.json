@@ -12,16 +12,16 @@
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_bg_menu.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_cs_group_dialog_cancel_selector.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_cs_group_dialog_cancel_selector.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_white_bg_shape.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_white_bg_shape.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_item_list_selector.xml",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_item_list_selector.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_white_bg_shape.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_white_bg_shape.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_cs_group_dialog_cancel_selector.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable/rc_cs_group_dialog_cancel_selector.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable/rc_btn_public_service_enter_selector.xml",

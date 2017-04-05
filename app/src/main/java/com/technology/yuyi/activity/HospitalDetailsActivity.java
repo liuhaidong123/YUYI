@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -166,33 +167,33 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             setAlertWidth(0.7f, mAlertDialog);
         } else if (id == mSpeechBtn.getId()) {//语音咨询
             mAlertDialog.dismiss();
-            if (DocId!=null&&!"".equals(DocId)){
+            if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             }
             else {
-                Toast.makeText(HospitalDetailsActivity.this,"无法获取医生信息，启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
                 getDocId();
             }
 
         } else if (id == mVideoBtn.getId()) {//视频咨询
             mAlertDialog.dismiss();
-            if (DocId!=null&&!"".equals(DocId)){
+            if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
 
             }
             else {
-                Toast.makeText(HospitalDetailsActivity.this,"无法获取医生信息，启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
                 getDocId();
             }
 
         } else if (id == mCharBtn.getId()) {//文字资讯
                 mAlertDialog.dismiss();
-            if (DocId!=null&&!"".equals(DocId)){
+            if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
                 RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"咨询");
 
             }
             else {
-                Toast.makeText(HospitalDetailsActivity.this,"无法获取医生信息，启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
                 getDocId();
             }
         } else if (id == mBack.getId()) {//返回
