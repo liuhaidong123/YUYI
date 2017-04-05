@@ -58,7 +58,7 @@ public class FamilyManageListViewAdapter extends BaseAdapter {
             convertView.setTag(hodler);
         }
             hodler= (ViewHodler) convertView.getTag();
-        Picasso.with(mContext).load(Uri.parse(Ip.imagePth+list.get(position).getAvatar())).error(R.mipmap.error_small).memoryPolicy(MemoryPolicy.NO_CACHE)
+        Picasso.with(mContext).load(Uri.parse(Ip.imagePth+list.get(position).getAvatar())).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
                 .networkPolicy(NetworkPolicy.NO_CACHE).into(hodler.img_head);
         hodler.name.setText(list.get(position).getTrueName());
         return convertView;

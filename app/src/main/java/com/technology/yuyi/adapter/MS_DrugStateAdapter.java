@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.bean.bean_MyDrugState;
 
 import java.util.List;
 import java.util.Map;
@@ -19,8 +20,8 @@ import java.util.Map;
 
 public class MS_DrugStateAdapter extends BaseAdapter{
     private Context context;
-    private List<Map<String,String>> list;
-    public  MS_DrugStateAdapter(Context context,List<Map<String,String>> list){
+    private List<bean_MyDrugState.ResultBean.BoilMedicineListBean>list;
+    public  MS_DrugStateAdapter(Context context,List<bean_MyDrugState.ResultBean.BoilMedicineListBean>list){
         this.context=context;
         this.list=list;
     }
@@ -49,16 +50,16 @@ public class MS_DrugStateAdapter extends BaseAdapter{
         TextView ms_drugstte_listv_item_TextMsg= (TextView) view.findViewById(R.id.ms_drugstte_listv_item_TextMsg);
         TextView ms_drugstte_listv_item_Texttime= (TextView) view.findViewById(R.id.ms_drugstte_listv_item_Texttime);
 
-        String check=list.get(position).get("isCheck");
-        ms_drugstte_listv_item_TextMsg.setText(list.get(position).get("state"));
-        ms_drugstte_listv_item_Texttime.setText(list.get(position).get("time"));
-        if ("0".equals(check)){
+        ms_drugstte_listv_item_TextMsg.setText(list.get(position).getStateText());
+        ms_drugstte_listv_item_Texttime.setText(list.get(position).getCreateTimeString());
+        if (position!=list.size()-1){
             ms_drugstte_listv_item_Image.setImageResource(R.mipmap.unnow);
         }
-        else if ("1".equals(check)){
+        else {
             ms_drugstte_listv_item_Image.setImageResource(R.mipmap.now);
-
         }
+
+
         if (position==list.size()-1){
             ms_drugstte_listv_item_text.setVisibility(View.GONE);
         }

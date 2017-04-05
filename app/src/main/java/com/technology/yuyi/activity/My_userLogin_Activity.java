@@ -22,6 +22,7 @@ import com.technology.yuyi.bean.ValidateCodeRoot;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.JPshAliasAndTags;
 import com.technology.yuyi.lzh_utils.MyDialog;
+import com.technology.yuyi.lzh_utils.UserInfo;
 import com.technology.yuyi.lzh_utils.user;
 
 import java.util.HashMap;
@@ -106,7 +107,6 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         //激光注册标签
                         JPshAliasAndTags.setAlias(My_userLogin_Activity.this,userName);
 
-
                         Toast.makeText(My_userLogin_Activity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                         SharedPreferences pre = getSharedPreferences("USER", MODE_APPEND);
                         SharedPreferences.Editor edi = pre.edit();
@@ -117,9 +117,28 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         user.token=root.getResult();
                         Log.e("token：",root.getResult());
                         edi.commit();
-                        //d点击登录注释
+
                         Intent intent = new Intent();
-                        intent.setClass(My_userLogin_Activity.this, MainActivity.class);
+                        intent.putExtra("type","1");
+                        LoginSuccess.PersonalBean personalBean=root.getPersonal();
+                        if (personalBean!=null){
+                            try{
+                                if (UserInfo.isUserInfoCompletion(personalBean.getTrueName(),personalBean.getAge()+"",personalBean.getGender()+"")){
+                                    intent.setClass(My_userLogin_Activity.this, MainActivity.class);
+                                }
+                                else {
+                                    intent.setClass(My_userLogin_Activity.this, UserEditorActivity.class);
+                                }
+                            }
+                            catch (Exception e){
+                                intent.setClass(My_userLogin_Activity.this, UserEditorActivity.class);
+                            }
+
+                        }
+                        else {
+                            //d点击登录注释
+                            intent.setClass(My_userLogin_Activity.this, UserEditorActivity.class);
+                        }
                         startActivity(intent);
                         finish();
 

@@ -8,6 +8,9 @@ public interface Ip {
    public final static String url_F="http://192.168.1.55:8080/yuyi/";
    public final static String url="http://192.168.1.55:8080/yuyi/";
 
+   //获取我的药品状态接口http://192.168.1.55:8080/yuyi/prescription/findList.do?token=DAF338120FEDDDC8310B881B459353C0
+   public final static String interface_MyDrugState="prescription/findList.do?";
+
    //获取最新10消息http://192.168.1.55:8080/yuyi/message/findList.do?
    public final static String interface_getPushMsg="message/findList.do?";
    //获取聊天医生id的请求http://192.168.1.35:8080/yuyi/physician/doctory.do

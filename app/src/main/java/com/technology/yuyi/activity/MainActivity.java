@@ -87,12 +87,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         beanRongToken tok= gson.gson.fromJson(resStr,beanRongToken.class);
                         if ("1".equals(tok.getCode())){
                             user.RongToken=tok.getToken();
-                            Log.i("容云token----",user.RongToken+"--id--"+tok.getId());
-                            RongUser us=new RongUser("张三","http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg",tok.getId()+"");
-                            RongUser us2=new RongUser("李四","http://www.zhiyinlady.com/d/file/20170322/2e3da7aed9d6744388f5497651def758.jpg","166");
-                            Log.i("rongImage",Ip.imagePth+tok.getAvatar());
-                            RongUserList.addUser(us2);
-                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse("http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg")));
+//                            Log.i("容云token----",user.RongToken+"--id--"+tok.getId());
+//                            RongUser us=new RongUser("张三","http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg",tok.getId()+"");
+//                            RongUser us2=new RongUser("李四","http://www.zhiyinlady.com/d/file/20170322/2e3da7aed9d6744388f5497651def758.jpg","166");
+//                            Log.i("rongImage",Ip.imagePth+tok.getAvatar());
+                            RongUser us=new RongUser(tok.getTrueName()+"",Ip.url+tok.getAvatar(),tok.getId()+"");
+                            RongUserList.addUser(us);
+//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse("http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg")));
                             initRongCon();
                         }
                         else if ("0".equals(tok.getCode())){
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
-//        RongIM.setUserInfoProvider(this,true);
+        RongIM.setUserInfoProvider(this,true);
         getRongUserInfo();//向服务器请求融云token
         if (JPshAliasAndTags.isJPSHSucc(MainActivity.this)==false){
             JPshAliasAndTags.setAlias(MainActivity.this,user.userName);
