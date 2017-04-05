@@ -174,7 +174,6 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
                 getDocId();
             }
-
         } else if (id == mVideoBtn.getId()) {//视频咨询
             mAlertDialog.dismiss();
             if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
