@@ -14,6 +14,8 @@ import com.technology.yuyi.lzh_utils.user;
 
 import org.json.JSONObject;
 
+import io.rong.imkit.RongIM;
+
 public class SetActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mBack;
@@ -57,6 +59,7 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
                         break;
 
                     case R.id.tv_exit://退出
+                        RongIM.getInstance().logout();
                         user.clearLogin(this);
                         MyApp.removeActivity();
                         Intent intent=new Intent(SetActivity.this,My_userLogin_Activity.class);

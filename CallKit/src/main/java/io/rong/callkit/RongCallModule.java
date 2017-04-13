@@ -21,11 +21,9 @@ import io.rong.imlib.model.Conversation;
  */
 public class RongCallModule implements IExternalModule {
     private final static String TAG = "RongCallModule";
-
     private RongCallSession mCallSession;
-    private boolean mViewLoaded;
+    private final boolean mViewLoaded=true;
     private Context mContext;
-
     public RongCallModule() {
         RLog.i(TAG, "Constructor");
     }
@@ -75,7 +73,6 @@ public class RongCallModule implements IExternalModule {
      */
     @Override
     public void onViewCreated() {
-        mViewLoaded = true;
         if (mCallSession != null) {
             startVoIPActivity(mContext, mCallSession, false);
         }

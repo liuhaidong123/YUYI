@@ -106,7 +106,6 @@ public class My_userLogin_Activity extends AppCompatActivity {
                     if (root.getCode() != "" && root.getCode().equals("0")) {
                         //激光注册标签
                         JPshAliasAndTags.setAlias(My_userLogin_Activity.this,userName);
-
                         Toast.makeText(My_userLogin_Activity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                         SharedPreferences pre = getSharedPreferences("USER", MODE_APPEND);
                         SharedPreferences.Editor edi = pre.edit();

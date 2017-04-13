@@ -12,10 +12,10 @@ import android.text.TextUtils;
 public class user {
     public static String userName;
     public static String userPsd;
-    public static String RongToken="pYXW0VkX1wkT1F+nXKjS9ouZqhNeP62jUkZowKgPQxvQPCl3PhXaCyPbUOebIV6L3+usYxTImf3bddFByJixoA==";//155
+    public static String RongToken="";//155
     public static String token;//用户的token；
     public static String RonguserId;//155
-    public static String targetId="166";//
+    public static String targetId="";//
     public static double Latitude;//纬度
     public static double Longitude;//经度
     public static int CallType=0;//融云音视频的type:0文字，1音频，2视频
@@ -24,7 +24,6 @@ public class user {
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);
         String username=preferences.getString("username","0");
         String userPs=preferences.getString("userpsd","0");
-        String rongToken=preferences.getString("RongToken","0");
         if (!"0".equals(username)&&!"0".equals(userPs)&&!"".equals(username)&&!""
                 .equals(userPs)&&!TextUtils.isEmpty(username)&&!TextUtils.isEmpty(userPs)){
             userName=username;//存储到类中
@@ -41,6 +40,9 @@ public class user {
         editor.remove("username");
         editor.remove("userpsd");
         editor.commit();
+        targetId="";
+        RonguserId="";
+        RongToken="";
         userPsd="";
         userName="";
         token="";
