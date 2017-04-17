@@ -393,7 +393,7 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
                 mTemPromptTv.setText("偏高");
                 mTemPromptTv.setTextColor(Color.parseColor(redColor));
             }else if (tem<36){
-                mTemPromptImg.setImageResource(R.mipmap.height);
+                mTemPromptImg.setImageResource(R.mipmap.low);
                 mTemPromptTv.setText("偏低");
                 mTemPromptTv.setTextColor(Color.parseColor(redColor));
             }else {

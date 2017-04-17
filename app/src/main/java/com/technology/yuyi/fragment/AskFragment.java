@@ -63,7 +63,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
                     mList.addAll(list);
                     mAdapter.setmList(mList);
                     mAdapter.notifyDataSetChanged();
-                    ToastUtils.myToast(getContext(), "刷新完成");
+                    //ToastUtils.myToast(getContext(), "刷新完成");
                     mRefreshLaout.setRefreshing(false);
                     mProgress.setVisibility(View.INVISIBLE);
                     if (list.size()==10){
@@ -133,7 +133,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Intent intent = new Intent(this.getContext(), HospitalDetailsActivity.class);
+            Intent intent = new Intent(this.getActivity(), HospitalDetailsActivity.class);
             intent.putExtra("id", mList.get(position).getId());
             startActivity(intent);
 

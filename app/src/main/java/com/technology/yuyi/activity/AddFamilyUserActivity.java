@@ -149,17 +149,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                             }
                            else if ("1".equals(type)){
                                 Toast.makeText(AddFamilyUserActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
-//                                byte[] bytes = Base64.decode(bit64, Base64.DEFAULT);
-//                                add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-
-//                                mp.put("token", user.userPsd);
-//                                mp.put("nickName",relation);//家庭关系
-//                                mp.put("trueName",name);
-//                                mp.put("age",age);
-//                                mp.put("avatar",bit64);
-//                                mp.put("gender",gender);
-//                                Log.e("bit64----map---",bit64.toString());
-//                                telnum=edit_telnum.getText().toString();
                                 userInfo.setAge(Integer.parseInt(age));
                                 userInfo.setNickName(relation);
                                 userInfo.setBit64(bit64);

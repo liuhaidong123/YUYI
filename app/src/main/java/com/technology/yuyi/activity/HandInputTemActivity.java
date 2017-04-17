@@ -75,7 +75,7 @@ public class HandInputTemActivity extends AppCompatActivity implements View.OnCl
                 mRefresh.setRefreshing(false);
             } else if (msg.what == 226) {//获取数据失败
                 mRefresh.setRefreshing(false);
-                ToastUtils.myToast(HandInputTemActivity.this, "获取用户数据失败");
+                //ToastUtils.myToast(HandInputTemActivity.this, "获取用户数据失败");
             } else if (msg.what == 36) {//提交数据接口
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SubmitTemBean.Root) {

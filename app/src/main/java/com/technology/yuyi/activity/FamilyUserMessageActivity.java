@@ -1,20 +1,17 @@
 package com.technology.yuyi.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -30,7 +27,6 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.bean_DeleteFamilyUser;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
-import com.technology.yuyi.lzh_utils.BitmapTobase64;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -104,10 +100,6 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
 
         initView();
         if (userInfo != null) {
-//            private RoundImageView user_img_head;//头像
-//            private TextView user_name_tv;//名称（与关系）;
-//            private TextView user_name_age;//年龄
-//            private TextView user_telnum;//电话
             Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE).into(user_img_head);
             user_name_tv.setText(userInfo.getTrueName() + "（" + userInfo.getNickName() + "）");

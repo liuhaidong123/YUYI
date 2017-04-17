@@ -47,6 +47,7 @@ import com.technology.yuyi.activity.InformationDetailsActivity;
 import com.technology.yuyi.activity.MS_allkinds_activity;
 import com.technology.yuyi.activity.MS_drugInfo_activity;
 import com.technology.yuyi.activity.MS_home_Activity;
+import com.technology.yuyi.activity.My_message_Activity;
 import com.technology.yuyi.activity.SearchActivity;
 import com.technology.yuyi.activity.SelectDoctorActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
@@ -87,7 +88,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private RelativeLayout mEdit_rl;//搜索
     private TextView mLocate_tv;
     private RelativeLayout mScrollRelative;
-
+    private ImageView mMessage_img;
     private SwipeRefreshLayout mSwipeRefresh;
 
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
@@ -201,8 +202,14 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     setADCircleImg();
                 }
             } else if (msg.what == 219) {
-                ToastUtils.myToast(getContext(), "广告数据错误");
+                ToastUtils.myToast(getActivity(), "广告数据错误");
             } else if (msg.what == 38) {//首页用户列表及默认数据
+                tvlist.clear();
+                heightBloodData.clear();
+                lowBloodData.clear();
+                XdateNum.clear();
+                temData.clear();
+                XTemdateNum.clear();
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageUserDataBean.Root) ;
                 com.technology.yuyi.bean.FirstPageUserDataBean.Root root = (com.technology.yuyi.bean.FirstPageUserDataBean.Root) o;
@@ -218,7 +225,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 232) {
                 mSwipeRefresh.setRefreshing(false);
-                ToastUtils.myToast(getContext(), "获用户列表失败");
+               // ToastUtils.myToast(getContext(), "获用户列表失败");
             } else if (msg.what == 39) {//点击首页用户头像
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageClickUserBean.Root) {
@@ -337,7 +344,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 }
             } else if (msg.what == 233) {
                 MyDialog.stopDia();
-                ToastUtils.myToast(getContext(), "获取失败");
+                //ToastUtils.myToast(getContext(), "获取失败");
             } else if (msg.what == 234) {
                 MyDialog.stopDia();
             }
@@ -404,6 +411,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
         mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
         mHttptools.getAdData(mHttpHandler);//广告接口
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mHttptools.getFirstPageUserDataData(mHttpHandler, user.token);//首页用户数据u
     }
 
@@ -413,6 +425,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * @param view
      */
     public void initView(View view) {
+        //消息图片
+        mMessage_img= (ImageView) view.findViewById(R.id.message_img);
+        mMessage_img.setOnClickListener(this);
         //首页下拉刷新
         mSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swiperefesh);
         mSwipeRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
@@ -635,6 +650,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
+        }else if(id==mMessage_img.getId()){//跳转到消息
+            startActivity(new Intent(getContext(),My_message_Activity.class));
         }
     }
 
@@ -656,11 +673,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent == mGridview) {//跳转到药品详情页
-            Intent intent = new Intent(getContext(), MS_drugInfo_activity.class);
+            Intent intent = new Intent(getActivity(), MS_drugInfo_activity.class);
             intent.putExtra("id", mGridList.get(position).getId());
             startActivity(intent);
         } else if (parent == mFirstPageListView) {//跳转到资讯详情页
-            Intent intent = new Intent(getContext(), InformationDetailsActivity.class);
+            Intent intent = new Intent(getActivity(), InformationDetailsActivity.class);
             intent.putExtra("id", mInforList.get(position).getId());
             intent.putExtra("type", "information");
             startActivity(intent);
@@ -728,13 +745,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 //点击了允许
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    Toast.makeText(this.getContext(), "允许定位", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(this.getContext(), "允许定位", Toast.LENGTH_SHORT).show();
                     gaoDeMap();
                     //点击了拒绝
                 } else {
                     // Permission Denied
                     mLocate_tv.setText("未定位");
-                    Toast.makeText(this.getContext(), "无法获取定位权限", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(this.getContext(), "无法获取定位权限", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -860,7 +877,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MyDialog.showDialog(getContext());
+                    MyDialog.showDialog(getActivity());
                     mHttptools.getClickUserDataData(mHttpHandler, user.token, mUserData.get(k).getId());
                     //点击头像时，文字变换颜色
                     for (int i = 0; i < tvlist.size(); i++) {
@@ -899,7 +916,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                         mSureAlertDialog.show();
 
                     } else {
-                        Intent intent = new Intent(getContext(), AddFamilyUserActivity.class);
+                        Intent intent = new Intent(getActivity(), AddFamilyUserActivity.class);
                         intent.putExtra("type", "0");
                         startActivity(intent);
                     }

@@ -71,7 +71,7 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
                 mRefresh.setRefreshing(false);
             } else if (msg.what == 226) {//获取数据失败
                 mRefresh.setRefreshing(false);
-                ToastUtils.myToast(CurrentTemActivity.this, "获取用户数据失败");
+               // ToastUtils.myToast(CurrentTemActivity.this, "获取用户数据失败");
             }
             else if (msg.what == 36) {//提交数据接口
                 Object o = msg.obj;
@@ -134,7 +134,6 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
         //获取用户列表
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
-       // mHttptools.getUserLIst(mHandler, mMap);
         //添加按钮
         mAdd_rl = (RelativeLayout) findViewById(R.id.add_user_rl);
         mAdd_rl.setOnClickListener(this);
@@ -217,7 +216,6 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
      */
     public void submitTemData() {
         if (!getTemData().equals("")) {//体温不为""；
-            //if (checkTem()) {//体温在正常范围之内35~42之间
                 if (isSelect) {//选中了某一个用户
                     mSubmitMap.put("token", user.token);
                     mSubmitMap.put("humeuserId", mList.get(mPosintion).getId() + "");
@@ -227,9 +225,7 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
                 } else {
                     Toast.makeText(this, "请选择用户", Toast.LENGTH_SHORT).show();
                 }
-//            } else {
-//                Toast.makeText(this, "请输入正确的体温", Toast.LENGTH_SHORT).show();
-//            }
+
         } else {
             Toast.makeText(this, "体温错误", Toast.LENGTH_SHORT).show();
         }

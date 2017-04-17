@@ -59,7 +59,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
                         mLisView.setAdapter(mAdapter);
                     }
                     else {
-                        Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (Exception e){
@@ -92,8 +92,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     public void initView() {
         //用户管理listview
         mLisView = (ListView) findViewById(R.id.family_listview);
-//        mAdapter = new FamilyManageListViewAdapter(this);
-//        mLisView.setAdapter(mAdapter);
         mLisView.setOnItemClickListener(this);
         //添加用户
         mAddFamily = (TextView) findViewById(R.id.family_add);
@@ -165,7 +163,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
     public void getUserList() {
         Map<String,String>mp=new HashMap<>();
-//        mp.put("token", user.userPsd);
         mp.put("token",user.userPsd);
         okhttp.getCall(Ip.url+Ip.interfce_ListFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
             @Override
