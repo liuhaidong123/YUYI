@@ -16,12 +16,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_corner_style.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable/rc_btn_send.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_btn_send.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable/rc_sel_picsel_toolbar_send.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_sel_picsel_toolbar_send.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable/rc_btn_send.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable/rc_btn_send.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/drawable/rc_voip_mute_selector.xml",
