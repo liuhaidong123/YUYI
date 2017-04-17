@@ -156,8 +156,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-//        mHttptools = HttpTools.getHttpToolsInstance();
-//        mHttptools.getUserMessage(handler, user.userPsd);
         Map<String,String> mp=new HashMap<>();
         mp.put("token", user.token);
         okhttp.getCall(Ip.url+Ip.interface_UserMsg,mp,okhttp.OK_GET).enqueue(new Callback() {
@@ -224,31 +222,31 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 intent.setClass(getActivity(),UserEditorActivity.class);
                 startActivity(intent);
             } else {
-                startActivity(new Intent(this.getContext(), My_userLogin_Activity.class));
+                startActivity(new Intent(this.getActivity(), My_userLogin_Activity.class));
             }
             //电子病历
         } else if (id == mElectronicMess.getId()) {
-            Intent intent=new Intent(this.getContext(), ElectronicMessActivity.class);
+            Intent intent=new Intent(this.getActivity(), ElectronicMessActivity.class);
             intent.putExtra("type","0");
             startActivity(intent);
             //设置
         } else if (id == mSetBtn.getId()) {
-            startActivity(new Intent(this.getContext(), SetActivity.class));
+            startActivity(new Intent(this.getActivity(), SetActivity.class));
             //设备管理
         } else if (id == mEquipment.getId()) {
-            startActivity(new Intent(this.getContext(), EquipmentManageActivity.class));
+            startActivity(new Intent(this.getActivity(), EquipmentManageActivity.class));
             //家庭用户管理
         } else if (id == mFamily.getId()) {
-            startActivity(new Intent(this.getContext(), FamilyManageActivity.class));
+            startActivity(new Intent(this.getActivity(), FamilyManageActivity.class));
             //订单详情
         } else if (id == mOrder.getId()) {
-            startActivity(new Intent(this.getContext(), MyOrderActivity.class));
+            startActivity(new Intent(this.getActivity(), MyOrderActivity.class));
         } else if (id == R.id.thing_rl) {
-            startActivity(new Intent(this.getContext(), My_shoppingCart_Activity.class));
+            startActivity(new Intent(this.getActivity(), My_shoppingCart_Activity.class));
         } else if (id == R.id.address_rl) {//收货地址
-            startActivity(new Intent(this.getContext(), My_address_Activity.class));
+            startActivity(new Intent(this.getActivity(), My_address_Activity.class));
         } else if (id == R.id.my_message) {//消息
-            startActivity(new Intent(this.getContext(), My_message_Activity.class));
+            startActivity(new Intent(this.getActivity(), My_message_Activity.class));
         }
     }
 }

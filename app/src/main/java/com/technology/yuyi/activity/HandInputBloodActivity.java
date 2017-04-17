@@ -73,7 +73,7 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
                 mRefresh.setRefreshing(false);
             } else if (msg.what == 226) {//获取数据失败
                 mRefresh.setRefreshing(false);
-                ToastUtils.myToast(HandInputBloodActivity.this, "获取用户数据失败");
+                //ToastUtils.myToast(HandInputBloodActivity.this, "获取用户数据失败");
             } else if (msg.what == 37) {//提交血压数据
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SubmitTemBean.Root) {
@@ -113,7 +113,6 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
         //请求用户列表
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
-        // mHttptools.getUserLIst(mHandler, mMap);
         //选择用户
         mListView = (ListView) findViewById(R.id.hand_listview_id);
         mAdapter = new HandInputBloodListViewAdapter(this, mList);

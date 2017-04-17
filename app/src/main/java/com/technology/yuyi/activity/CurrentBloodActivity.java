@@ -115,7 +115,6 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         //请求用户列表
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
-        // mHttptools.getUserLIst(mHandler, mMap);
         //用户列表
         mListView = (ListView) findViewById(R.id.userdata_listview_id);
         mAdapter = new CurrentBloodAdapter(this, mList);
@@ -223,7 +222,6 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
     public void submitBloodData() {
         if (!getHeightBlood().equals("")) {//高压
             if (!getLowBlood().equals("")) {//低压
-                //  if (checkHeightBlood()) {//判断输入的数据是否在规定范围内
                 if (isSelect) {//选中用户
                     mSubmitMap.put("token", user.token);
                     mSubmitMap.put("humeuserId", mList.get(mPosintion).getId() + "");
@@ -235,9 +233,6 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
                     ToastUtils.myToast(CurrentBloodActivity.this, "请选择用户");
                 }
 
-//                } else {
-//                    Toast.makeText(this, "请输入正确的血压数据", Toast.LENGTH_SHORT).show();
-//                }
             } else {
                 ToastUtils.myToast(CurrentBloodActivity.this, "低压数据错误");
             }

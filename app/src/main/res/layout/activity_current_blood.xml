@@ -210,7 +210,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_below="@id/curr_line7"
-                    android:background="@color/color_white">
+                    android:background="@color/color_white"
+                    android:visibility="gone">
 
 
                     <ImageView

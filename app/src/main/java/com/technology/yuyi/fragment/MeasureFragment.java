@@ -46,12 +46,11 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
     private Button mAutoBtn;
     private Button mHandBtn;
     private Button mCancelBtn;
-    private RelativeLayout mAddRelative;
     private int mPosition;
 
     private List<MyEntity> list=new ArrayList<>();
     public MeasureFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -85,9 +84,6 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
         mHandBtn.setOnClickListener(this);
         mCancelBtn = (Button) mAlertView.findViewById(R.id.btn_cancel);
         mCancelBtn.setOnClickListener(this);
-//        //添加设备
-//        mAddRelative= (RelativeLayout) view.findViewById(R.id.add_relative);
-//        mAddRelative.setOnClickListener(this);
     }
 
     @Override
@@ -102,26 +98,24 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
         if (id == mAutoBtn.getId()) {
             mAlertDialog.dismiss();
             if (mPosition == 0) {//自动输入体温
-                startActivity(new Intent(this.getContext(), CurrentTemActivity.class));
+                startActivity(new Intent(this.getActivity(), CurrentTemActivity.class));
             } else if (mPosition == 1) {//自动输入血压
-                startActivity(new Intent(this.getContext(), CurrentBloodActivity.class));
+                startActivity(new Intent(this.getActivity(), CurrentBloodActivity.class));
             }
 
         } else if (id == mHandBtn.getId()) {
             mAlertDialog.dismiss();
 
             if (mPosition == 0) {//手动输入体温
-                startActivity(new Intent(this.getContext(), HandInputTemActivity.class));
+                startActivity(new Intent(this.getActivity(), HandInputTemActivity.class));
             } else if (mPosition == 1) {//手动输入血压
-                startActivity(new Intent(this.getContext(), HandInputBloodActivity.class));
+                startActivity(new Intent(this.getActivity(), HandInputBloodActivity.class));
             }
 
         } else if (id == mCancelBtn.getId()) {
             mAlertDialog.dismiss();
         }
-        //else if (id == mAddRelative.getId()) {//添加设备
-//           startActivity(new Intent(this.getContext(),AddEquipmentActivity.class));
-//        }
+
     }
 
 }

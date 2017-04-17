@@ -77,7 +77,7 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                Log.e("onFailure请求失败6条数据：", strMsg);
+                Log.e("onFailure请求失败6条数据：", strMsg.toString());
                 handler.sendEmptyMessage(201);
             }
         });

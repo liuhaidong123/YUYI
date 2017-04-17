@@ -38,7 +38,9 @@
         android:layout_marginTop="10dp"
         android:background="@color/color_scroll_bg"
         android:divider="@null"
-        android:dividerHeight="10dp">
+        android:dividerHeight="10dp"
+        android:scrollbars="none"
+        >
 
     </ListView>
 

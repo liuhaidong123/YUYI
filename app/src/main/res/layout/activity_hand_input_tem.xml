@@ -71,11 +71,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/curr_line2"
             android:layout_marginStart="15dp"
-            android:paddingTop="6dp"
             android:background="@null"
+            android:hint="请输入..."
             android:inputType="number|numberDecimal"
             android:maxLength="4"
-            android:hint="请输入..."
+            android:paddingTop="6dp"
             android:textColor="@color/color_ad"
             android:textSize="13sp" />
     </RelativeLayout>
@@ -86,8 +86,7 @@
         android:layout_height="30dp"
         android:layout_below="@id/rl_blood_g"
         android:layout_marginStart="25dp"
-        android:gravity="center_vertical"
-         />
+        android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/tv_data"
@@ -135,10 +134,11 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/tem_refresh"
-        android:layout_above="@id/rl_sure"
-        android:layout_below="@id/curr_line5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_sure"
+        android:layout_below="@id/curr_line5">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -152,9 +152,9 @@
                     android:id="@+id/hand_tem_listview_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:dividerHeight="1dp"
-                    android:divider="@color/color_cancel"
                     android:background="@color/color_white"
+                    android:divider="@color/color_cancel"
+                    android:dividerHeight="1dp"
                     android:scrollbars="none">
 
                 </com.technology.yuyi.myview.InformationListView>
@@ -171,7 +171,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_below="@id/curr_line7"
-                    android:background="@color/color_white">
+                    android:background="@color/color_white"
+                    android:visibility="gone">
 
 
                     <ImageView
