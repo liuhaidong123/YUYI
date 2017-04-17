@@ -84,6 +84,13 @@ public interface Ip {
    public final static String interface_MS_largeDrugs="drugs/getcid1.do?";
 
 
+   //关于宇医http://192.168.1.55:8080/yuyi/aboutUs/get.do
+   public final static String interface_My_Settings_AboutOur="aboutUs/get.do";
+
+   //联系我们http://192.168.1.55:8080/yuyi/contactUs/getph.do
+   public final static String interface_My_Settings_ContactOur="contactUs/getph.do";
+
+
 
    //查询药品详细信息的url与接口
 //   http://192.168.1.43:8080/yuyi/drugs/getid.do?id=3

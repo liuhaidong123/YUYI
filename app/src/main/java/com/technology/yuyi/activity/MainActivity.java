@@ -50,7 +50,7 @@ import io.rong.imlib.model.UserInfo;
 
 import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,RongIM.UserInfoProvider{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private LinearLayout mFirstPage_ll;
     private LinearLayout mMeasure_ll;
     private LinearLayout mAsk_ll;
@@ -87,20 +87,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         beanRongToken tok= gson.gson.fromJson(resStr,beanRongToken.class);
                         if ("1".equals(tok.getCode())){
                             user.RongToken=tok.getToken();
-//                            Log.i("容云token----",user.RongToken+"--id--"+tok.getId());
-//                            RongUser us=new RongUser("张三","http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg",tok.getId()+"");
-//                            RongUser us2=new RongUser("李四","http://www.zhiyinlady.com/d/file/20170322/2e3da7aed9d6744388f5497651def758.jpg","166");
-//                            Log.i("rongImage",Ip.imagePth+tok.getAvatar());
-                            RongUser us=new RongUser(tok.getTrueName()+"",Ip.url+tok.getAvatar(),tok.getId()+"");
-                            RongUserList.addUser(us);
-//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse("http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg")));
+                            Log.i("Rong--",tok.getId()+"--"+tok.getTrueName());
+                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse(Ip.imagePth+tok.getAvatar())));
                             initRongCon();
                         }
                         else if ("0".equals(tok.getCode())){
-                            Log.e("融云获取token错误--1---","---后台无法返回token----");
+                            Log.e("融云获取token错误--1--main-","---后台无法返回token----");
                         }
                         else {
-                            Log.e("融云获取token错误--2-","---后台无法返回token----");
+                            Log.e("融云获取token错误--2-main-","---后台无法返回token----");
                         }
                     }
                     catch (Exception e){
@@ -116,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         showFirstPageFragment();
-        RongIM.setUserInfoProvider(this,true);
+//        RongIM.setUserInfoProvider(this,true);
         getRongUserInfo();//向服务器请求融云token
         if (JPshAliasAndTags.isJPSHSucc(MainActivity.this)==false){
             JPshAliasAndTags.setAlias(MainActivity.this,user.userName);
@@ -406,8 +401,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onSuccess(String userid) {
                     user.RonguserId=userid;
-                    Log.i("融云返回的id---",userid+"--HospitalDetailsActivity---");
-//                    RongIM.getInstance().setCurrentUserInfo(new UserInfo(userid,"张三",Uri.parse("http://pic35.nipic.com/20131112/2531170_204256005000_2.jpg")));
+                    Log.i("融云返回的id--main-",userid+"----");
                 }
                 /**
                  * 连接融云失败
@@ -423,22 +417,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
-    @Override
-    public UserInfo getUserInfo(String s) {
-        for (int i=0;i< RongUserList.list.size();i++){
-            if (s.equals(RongUserList.list.get(i).getId())){
-                RongUser us=RongUserList.list.get(i);
-                return new UserInfo(us.getId(),us.getName(),Uri.parse(us.getUrl()));
-            }
-        }
-        return null;
-    }
-
-
     //获取融云tokenhttp://localhost:8080/yuyi/personal/post.do?personalid=18881882888
     public void getRongUserInfo() {
-        String name=user.userName;
         if (user.userName!=null&&!"0".equals(user.userName)&&!"".equals(user.userName)){
                 Map<String,String> mp=new HashMap<>();
                 mp.put("personalid",user.userName);
@@ -451,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onResponse(Response response) throws IOException {
                         resStr=response.body().string();
-                        Log.i("--获取融云token请求--"+user.userName,resStr);
+                        Log.i("-融云token请求-Main-"+user.userName,resStr);
                         handler.sendEmptyMessage(1);
                 }
             });

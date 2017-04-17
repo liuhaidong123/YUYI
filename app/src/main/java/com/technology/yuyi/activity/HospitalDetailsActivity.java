@@ -34,6 +34,7 @@ import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.bean_DocId;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.RongConnect;
 import com.technology.yuyi.lzh_utils.RongUSerProvider;
 import com.technology.yuyi.lzh_utils.RongUri;
 import com.technology.yuyi.lzh_utils.RongUser;
@@ -172,7 +173,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             }
             else {
                 Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
-                getDocId();
+                getRongInfo();
             }
         } else if (id == mVideoBtn.getId()) {//视频咨询
             mAlertDialog.dismiss();
@@ -182,18 +183,17 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             }
             else {
                 Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
-                getDocId();
+                getRongInfo() ;
             }
 
         } else if (id == mCharBtn.getId()) {//文字资讯
                 mAlertDialog.dismiss();
             if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
                 RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"咨询");
-
             }
             else {
                 Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
-                getDocId();
+                getRongInfo();
             }
         } else if (id == mBack.getId()) {//返回
             finish();
@@ -227,5 +227,14 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                         handler.sendEmptyMessage(1);
             }
         });
+    }
+
+    public void getRongInfo() {
+       if ("".equals(DocId)|DocId==null){
+           getDocId();
+       }
+        if (user.RonguserId==null|"".equals(user.RonguserId)){
+           RongConnect.getRongToken(this);
+       }
     }
 }

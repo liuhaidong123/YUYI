@@ -59,6 +59,7 @@
             android:layout_alignParentBottom="true"
             android:text="@string/my_settings_aboutOurs_versionCode"
             android:textSize="12sp"
+            android:id="@+id/my_settings_aboutOurs_versionCode"
             android:layout_marginBottom="25dp"
             android:textColor="#aaaaaa"/>
 

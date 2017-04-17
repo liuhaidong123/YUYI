@@ -21,11 +21,9 @@ import io.rong.imlib.model.Conversation;
  */
 public class RongCallModule implements IExternalModule {
     private final static String TAG = "RongCallModule";
-
     private RongCallSession mCallSession;
     private final boolean mViewLoaded=true;
     private Context mContext;
-
     public RongCallModule() {
         RLog.i(TAG, "Constructor");
     }

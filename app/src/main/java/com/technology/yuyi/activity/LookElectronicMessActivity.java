@@ -155,10 +155,7 @@ private ImageView mBack;
             if (id!=-1){
                 getFamilyData(id+"");
             }
-
         }
-
-
     }
 
     private void initView() {
