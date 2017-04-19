@@ -2,13 +2,13 @@ package com.technology.yuyi.activity;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,14 +24,14 @@ import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.beanRongToken;
 import com.technology.yuyi.fragment.AskFragment;
+import com.technology.yuyi.fragment.ErrorFragment;
 import com.technology.yuyi.fragment.FirstPageFragment;
 import com.technology.yuyi.fragment.MeasureFragment;
 import com.technology.yuyi.fragment.MyFragment;
+import com.technology.yuyi.lhd.utils.BroadCastYUYI;
+import com.technology.yuyi.lhd.utils.SharedPreferencesUtils;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.JPshAliasAndTags;
-import com.technology.yuyi.lzh_utils.RongUSerProvider;
-import com.technology.yuyi.lzh_utils.RongUser;
-import com.technology.yuyi.lzh_utils.RongUserList;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
@@ -39,9 +39,7 @@ import com.technology.yuyi.lzh_utils.user;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
@@ -50,7 +48,10 @@ import io.rong.imlib.model.UserInfo;
 
 import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private RelativeLayout mtitle_rl;
+    private TextView mtitle_tv;
+
     private LinearLayout mFirstPage_ll;
     private LinearLayout mMeasure_ll;
     private LinearLayout mAsk_ll;
@@ -69,63 +70,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String measureTag = "measureFragment";
     public final String askTag = "askFragment";
     public final String myTag = "myFragment";
-
+    public final String errorTag = "errorFragment";
+    private BroadCastYUYI mBroadCast;
+    public static SharedPreferencesUtils sharedPreferencesUtils;
     public final String pressColor = "#25f368";
     public final String noPressColor = "#666666";
     private long time = 0;
     private String resStr;
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     toast.toast_faild(MainActivity.this);
                     break;
                 case 1:
-                    try{
-                        beanRongToken tok= gson.gson.fromJson(resStr,beanRongToken.class);
-                        if ("1".equals(tok.getCode())){
-                            user.RongToken=tok.getToken();
-                            Log.i("Rong--",tok.getId()+"--"+tok.getTrueName());
-                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse(Ip.imagePth+tok.getAvatar())));
+                    try {
+                        beanRongToken tok = gson.gson.fromJson(resStr, beanRongToken.class);
+                        if ("1".equals(tok.getCode())) {
+                            user.RongToken = tok.getToken();
+                            Log.i("Rong--", tok.getId() + "--" + tok.getTrueName());
+                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId() + "", tok.getTrueName() + "", Uri.parse(Ip.imagePth + tok.getAvatar())));
                             initRongCon();
+                        } else if ("0".equals(tok.getCode())) {
+                            Log.e("融云获取token错误--1--main-", "---后台无法返回token----");
+                        } else {
+                            Log.e("融云获取token错误--2-main-", "---后台无法返回token----");
                         }
-                        else if ("0".equals(tok.getCode())){
-                            Log.e("融云获取token错误--1--main-","---后台无法返回token----");
-                        }
-                        else {
-                            Log.e("融云获取token错误--2-main-","---后台无法返回token----");
-                        }
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         toast.toast_gsonFaild(MainActivity.this);
                     }
                     break;
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mBroadCast = BroadCastYUYI.getBroadcastinstance(this);
+        sharedPreferencesUtils = SharedPreferencesUtils.getSharedPreferencesUtils(this);
         initView();
         showFirstPageFragment();
-//        RongIM.setUserInfoProvider(this,true);
         getRongUserInfo();//向服务器请求融云token
-        if (JPshAliasAndTags.isJPSHSucc(MainActivity.this)==false){
-            JPshAliasAndTags.setAlias(MainActivity.this,user.userName);
-            Log.e("激光推送在MainActivity注册----","Login激光推送注册失败，重新注册");
-        }
-        else {
-            Log.e("激光推送在LoginActiity注册----","Login激光推送注册成功");
+        if (JPshAliasAndTags.isJPSHSucc(MainActivity.this) == false) {
+            JPshAliasAndTags.setAlias(MainActivity.this, user.userName);
+            Log.e("激光推送在MainActivity注册----", "Login激光推送注册失败，重新注册");
+        } else {
+            Log.e("激光推送在LoginActiity注册----", "Login激光推送注册成功");
         }
     }
 
 
-
     //初始化数据
     public void initView() {
+        //没有网络时显示每个fragment的标头
+        mtitle_rl = (RelativeLayout) findViewById(R.id.equip_title);
+        mtitle_tv = (TextView) findViewById(R.id.title_all);
+
         mFragment_rl = (RelativeLayout) findViewById(R.id.fragment_relative);
         mFragmentManager = getSupportFragmentManager();
         //底部按钮
@@ -172,22 +176,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment measureFragment = mFragmentManager.findFragmentByTag(measureTag);
         Fragment askFragment = mFragmentManager.findFragmentByTag(askTag);
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
-
-        if (firstPageFragment != null) {//显示首页
-            fragmentTransaction.show(firstPageFragment);
+        Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
+        if (sharedPreferencesUtils.getIsnewwork("network")) {
+            mtitle_rl.setVisibility(View.GONE);
+            if (firstPageFragment != null) {//显示首页
+                fragmentTransaction.show(firstPageFragment);
+            } else {
+                FirstPageFragment firstPageF = new FirstPageFragment();
+                fragmentTransaction.add(mFragment_rl.getId(), firstPageF, firstPageTag);
+            }
+            if (measureFragment != null) {//隐藏测量
+                fragmentTransaction.hide(measureFragment);
+            }
+            if (askFragment != null) {//隐藏咨询
+                fragmentTransaction.hide(askFragment);
+            }
+            if (myFragment != null) {//隐藏我的
+                fragmentTransaction.hide(myFragment);
+            }
+            if (errorFragment != null) {//隐藏错误
+                fragmentTransaction.hide(errorFragment);
+            }
         } else {
-            FirstPageFragment firstPageF = new FirstPageFragment();
-            fragmentTransaction.add(mFragment_rl.getId(), firstPageF, firstPageTag);
+            if (firstPageFragment != null) {//隐藏首页
+                fragmentTransaction.hide(firstPageFragment);
+            }
+            if (measureFragment != null) {//隐藏测量
+                fragmentTransaction.hide(measureFragment);
+            }
+            if (askFragment != null) {//隐藏咨询
+                fragmentTransaction.hide(askFragment);
+            }
+            if (myFragment != null) {//隐藏我的
+                fragmentTransaction.hide(myFragment);
+            }
+
+            if (errorFragment != null) {//显示错误
+                fragmentTransaction.show(errorFragment);
+                mtitle_rl.setVisibility(View.VISIBLE);
+                mtitle_tv.setText("首页");
+            } else {
+                ErrorFragment errorFragment1 = new ErrorFragment();
+                fragmentTransaction.add(mFragment_rl.getId(), errorFragment1, errorTag);
+                mtitle_rl.setVisibility(View.VISIBLE);
+                mtitle_tv.setText("首页");
+            }
         }
-        if (measureFragment != null) {//隐藏测量
-            fragmentTransaction.hide(measureFragment);
-        }
-        if (askFragment != null) {//隐藏咨询
-            fragmentTransaction.hide(askFragment);
-        }
-        if (myFragment != null) {//隐藏我的
-            fragmentTransaction.hide(myFragment);
-        }
+
         fragmentTransaction.commit();
     }
 
@@ -199,22 +234,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment measureFragment = mFragmentManager.findFragmentByTag(measureTag);
         Fragment askFragment = mFragmentManager.findFragmentByTag(askTag);
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
+        Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
 
-        if (measureFragment != null) {//显示测量
-            fragmentTransaction.show(measureFragment);
+        if (sharedPreferencesUtils.getIsnewwork("network")) {
+            mtitle_rl.setVisibility(View.GONE);
+            if (measureFragment != null) {//显示测量
+                fragmentTransaction.show(measureFragment);
+            } else {
+                MeasureFragment measureF = new MeasureFragment();
+                fragmentTransaction.add(mFragment_rl.getId(), measureF, measureTag);
+            }
+            if (firstPageFragment != null) {//隐藏首页
+                fragmentTransaction.hide(firstPageFragment);
+            }
+            if (askFragment != null) {//隐藏咨询
+                fragmentTransaction.hide(askFragment);
+            }
+            if (myFragment != null) {//隐藏我的
+                fragmentTransaction.hide(myFragment);
+            }
+            if (errorFragment != null) {//隐藏错误
+                fragmentTransaction.hide(errorFragment);
+            }
+
         } else {
-            MeasureFragment measureF = new MeasureFragment();
-            fragmentTransaction.add(mFragment_rl.getId(), measureF, measureTag);
+            if (firstPageFragment != null) {//隐藏首页
+                fragmentTransaction.hide(firstPageFragment);
+            }
+            if (measureFragment != null) {//隐藏测量
+                fragmentTransaction.hide(measureFragment);
+            }
+            if (askFragment != null) {//隐藏咨询
+                fragmentTransaction.hide(askFragment);
+            }
+            if (myFragment != null) {//隐藏我的
+                fragmentTransaction.hide(myFragment);
+            }
+
+            if (errorFragment != null) {//显示错误
+                fragmentTransaction.show(errorFragment);
+                mtitle_rl.setVisibility(View.VISIBLE);
+                mtitle_tv.setText("测量");
+            } else {
+                ErrorFragment errorFragment1 = new ErrorFragment();
+                fragmentTransaction.add(mFragment_rl.getId(), errorFragment1, errorTag);
+                mtitle_rl.setVisibility(View.VISIBLE);
+                mtitle_tv.setText("测量");
+            }
         }
-        if (firstPageFragment != null) {//隐藏首页
-            fragmentTransaction.hide(firstPageFragment);
-        }
-        if (askFragment != null) {//隐藏咨询
-            fragmentTransaction.hide(askFragment);
-        }
-        if (myFragment != null) {//隐藏我的
-            fragmentTransaction.hide(myFragment);
-        }
+
+
         fragmentTransaction.commit();
 
     }
@@ -227,22 +296,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment measureFragment = mFragmentManager.findFragmentByTag(measureTag);
         Fragment askFragment = mFragmentManager.findFragmentByTag(askTag);
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
-
-        if (askFragment != null) {//显示咨询
-            fragmentTransaction.show(askFragment);
+        Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
+        if (sharedPreferencesUtils.getIsnewwork("network")) {
+            mtitle_rl.setVisibility(View.GONE);
+            if (askFragment != null) {//显示咨询
+                fragmentTransaction.show(askFragment);
+            } else {
+                AskFragment askF = new AskFragment();
+                fragmentTransaction.add(mFragment_rl.getId(), askF, askTag);
+            }
+            if (firstPageFragment != null) {//隐藏首页
+                fragmentTransaction.hide(firstPageFragment);
+            }
+            if (measureFragment != null) {//隐藏测量
+                fragmentTransaction.hide(measureFragment);
+            }
+            if (myFragment != null) {//隐藏我的
+                fragmentTransaction.hide(myFragment);
+            }
+            if (errorFragment != null) {//隐藏错误
+                fragmentTransaction.hide(errorFragment);
+            }
         } else {
-            AskFragment askF = new AskFragment();
-            fragmentTransaction.add(mFragment_rl.getId(), askF, askTag);
+            if (firstPageFragment != null) {//隐藏首页
+                fragmentTransaction.hide(firstPageFragment);
+            }
+            if (measureFragment != null) {//隐藏测量
+                fragmentTransaction.hide(measureFragment);
+            }
+            if (askFragment != null) {//隐藏咨询
+                fragmentTransaction.hide(askFragment);
+            }
+            if (myFragment != null) {//隐藏我的
+                fragmentTransaction.hide(myFragment);
+            }
+
+            if (errorFragment != null) {//显示错误
+                fragmentTransaction.show(errorFragment);
+                mtitle_rl.setVisibility(View.VISIBLE);
+                mtitle_tv.setText("咨询");
+            } else {
+                ErrorFragment errorFragment1 = new ErrorFragment();
+                fragmentTransaction.add(mFragment_rl.getId(), errorFragment1, errorTag);
+                mtitle_rl.setVisibility(View.VISIBLE);
+                mtitle_tv.setText("咨询");
+            }
         }
-        if (firstPageFragment != null) {//隐藏首页
-            fragmentTransaction.hide(firstPageFragment);
-        }
-        if (measureFragment != null) {//隐藏测量
-            fragmentTransaction.hide(measureFragment);
-        }
-        if (myFragment != null) {//隐藏我的
-            fragmentTransaction.hide(myFragment);
-        }
+
         fragmentTransaction.commit();
 
     }
@@ -255,7 +355,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment measureFragment = mFragmentManager.findFragmentByTag(measureTag);
         Fragment askFragment = mFragmentManager.findFragmentByTag(askTag);
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
-
+        Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
+        mtitle_rl.setVisibility(View.GONE);
         if (myFragment != null) {//显示我的
             fragmentTransaction.show(myFragment);
         } else {
@@ -270,6 +371,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (askFragment != null) {//隐藏咨询
             fragmentTransaction.hide(askFragment);
+        }
+        if (errorFragment != null) {//隐藏错误
+            fragmentTransaction.hide(errorFragment);
         }
         fragmentTransaction.commit();
     }
@@ -352,6 +456,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -367,11 +472,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        String usname=getIntent().getStringExtra("username");
-        String userpsd=getIntent().getStringExtra("userpsd");
-        if (!"".equals(userpsd)&&!TextUtils.isEmpty(userpsd)&&!"".equals(usname)&&!TextUtils.isEmpty(usname)){
-            user.userName=usname;
-            user.userPsd=userpsd;
+        String usname = getIntent().getStringExtra("username");
+        String userpsd = getIntent().getStringExtra("userpsd");
+        if (!"".equals(userpsd) && !TextUtils.isEmpty(userpsd) && !"".equals(usname) && !TextUtils.isEmpty(usname)) {
+            user.userName = usname;
+            user.userPsd = userpsd;
         }
     }
 
@@ -382,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void initRongCon() {
-        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))){
+        if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
 
                 /**
@@ -400,16 +505,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  */
                 @Override
                 public void onSuccess(String userid) {
-                    user.RonguserId=userid;
-                    Log.i("融云返回的id--main-",userid+"----");
+                    user.RonguserId = userid;
+                    Log.i("融云返回的id--main-", userid + "----");
                 }
+
                 /**
                  * 连接融云失败
                  * @param errorCode 错误码，可到官网 查看错误码对应的注释
                  */
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
-                    Toast.makeText(MainActivity.this,"信息注册失败，无法启动咨询程序",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "信息注册失败，无法启动咨询程序", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -419,10 +525,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //获取融云tokenhttp://localhost:8080/yuyi/personal/post.do?personalid=18881882888
     public void getRongUserInfo() {
-        if (user.userName!=null&&!"0".equals(user.userName)&&!"".equals(user.userName)){
-                Map<String,String> mp=new HashMap<>();
-                mp.put("personalid",user.userName);
-            okhttp.getCall(Ip.url_F+Ip.interface_RongToken,mp,okhttp.OK_POST).enqueue(new Callback() {
+        if (user.userName != null && !"0".equals(user.userName) && !"".equals(user.userName)) {
+            Map<String, String> mp = new HashMap<>();
+            mp.put("personalid", user.userName);
+            okhttp.getCall(Ip.url_F + Ip.interface_RongToken, mp, okhttp.OK_POST).enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     handler.sendEmptyMessage(0);
@@ -430,13 +536,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onResponse(Response response) throws IOException {
-                        resStr=response.body().string();
-                        Log.i("-融云token请求-Main-"+user.userName,resStr);
-                        handler.sendEmptyMessage(1);
+                    resStr = response.body().string();
+                    Log.i("-融云token请求-Main-" + user.userName, resStr);
+                    handler.sendEmptyMessage(1);
                 }
             });
         }
     }
+
     @Override
     protected void onStop() {
         super.onStop();

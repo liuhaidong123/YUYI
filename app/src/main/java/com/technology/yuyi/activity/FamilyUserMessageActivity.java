@@ -37,6 +37,7 @@ import com.technology.yuyi.myview.RoundImageView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 //if (position==0){
 //        intent.putExtra("type","0");
 //        }
@@ -92,7 +93,7 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_user_message);
-        type=getIntent().getStringExtra("type");//本人0，家人1
+        type = getIntent().getStringExtra("type");//本人0，家人1
         Bundle b = getIntent().getBundleExtra("family");
         if (b != null) {
             userInfo = (bean_ListFamilyUser.ResultBean) b.getSerializable("family");
@@ -100,7 +101,7 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
 
         initView();
         if (userInfo != null) {
-            Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
+            Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
                     .networkPolicy(NetworkPolicy.NO_CACHE).into(user_img_head);
             user_name_tv.setText(userInfo.getTrueName() + "（" + userInfo.getNickName() + "）");
             user_name_age.setText(userInfo.getAge() + "岁");
@@ -162,19 +163,18 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
             Bundle b = new Bundle();
             b.putSerializable("family", userInfo);
             intent.putExtra("family", b);
-            startActivityForResult(intent,100);
+            startActivityForResult(intent, 100);
         } else if (id == mMyFiles_rl.getId()) {//病历档案(将用户信息传过去)
-            if ("0".equals(type)){//用户的电子病历
-                Intent intent=new Intent();
-                intent.putExtra("type","0");
-                intent.setClass(this,ElectronicMessActivity.class);
+            if ("0".equals(type)) {//用户的电子病历
+                Intent intent = new Intent();
+                intent.putExtra("type", "0");
+                intent.setClass(this, ElectronicMessActivity.class);
                 startActivity(intent);
-            }
-            else if ("1".equals(type)){//用户家人的电子病历
-                Intent intent=new Intent();
-                intent.putExtra("type","1");
-                intent.putExtra("id",""+userInfo.getId());
-                intent.setClass(this,ElectronicMessActivity.class);
+            } else if ("1".equals(type)) {//用户家人的电子病历
+                Intent intent = new Intent();
+                intent.putExtra("type", "1");
+                intent.putExtra("id", "" + userInfo.getId());
+                intent.setClass(this, ElectronicMessActivity.class);
                 startActivity(intent);
             }
 
@@ -207,32 +207,31 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
             }
         });
     }
-//处里修改信息后的显示问题
+
+    //处里修改信息后的显示问题
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==200){
-            if (requestCode==100){
-                if (data!=null){
-                   Bundle bundle=data.getBundleExtra("user");
-                    if (bundle!=null){
-                        userInfo= (bean_ListFamilyUser.ResultBean)bundle.getSerializable("user");
-                        if (userInfo!=null){
-                            try{
+        if (resultCode == 200) {
+            if (requestCode == 100) {
+                if (data != null) {
+                    Bundle bundle = data.getBundleExtra("user");
+                    if (bundle != null) {
+                        userInfo = (bean_ListFamilyUser.ResultBean) bundle.getSerializable("user");
+                        if (userInfo != null) {
+                            try {
                                 byte[] bytes = Base64.decode(userInfo.getBit64(), Base64.DEFAULT);
                                 user_img_head.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-                            }
-                            catch (Exception e){
+                            } catch (Exception e) {
                                 Picasso.with(FamilyUserMessageActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.logo).memoryPolicy(MemoryPolicy.NO_CACHE)
                                         .networkPolicy(NetworkPolicy.NO_CACHE).into(user_img_head);
                             }
 
                             user_name_tv.setText(userInfo.getTrueName() + "（" + userInfo.getNickName() + "）");
                             user_name_age.setText(userInfo.getAge() + "岁");
-                            if (userInfo.getTelephone()==0){
+                            if (userInfo.getTelephone() == 0) {
                                 user_telnum.setText("");
-                            }
-                            else {
+                            } else {
                                 user_telnum.setText(userInfo.getTelephone() + "");
                             }
                         }

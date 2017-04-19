@@ -119,31 +119,31 @@
         <activity
             android:name=".activity.InformationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activity.AppointmentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden|stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.AllHospitalDepartmentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.SelectDoctorActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.CurrentTemActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.AddEquipmentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.CurrentBloodActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activity.HandInputTemActivity"
             android:screenOrientation="portrait"
@@ -155,50 +155,50 @@
         <activity
             android:name=".activity.HospitalDetailsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activity.UserEditorActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.ElectronicMessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.LookElectronicMessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.SetActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.InformationDetailsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.EquipmentManageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- create by liuzonghao -->
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MS_home_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MS_allkinds_sort_activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MS_drugInfo_activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- 微信支付 -->
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MS_drugBuy_activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
@@ -211,86 +211,86 @@
         </receiver>
         <!-- 微信支付 -->
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MS_allkinds_activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_settings_feedbackIdea_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_settings_aboutOurs_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_settings_contactOur_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_shoppingCart_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_userLogin_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_address_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.My_message_Activity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- create by liuzonghao -->
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.FamilyManageActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.AddFamilyUserActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.FamilyUserMessageActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.ConnectWifiActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MyDataAnalyseActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.OrderMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.MyOrderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
 
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.VideoActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.VoiceActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:windowSoftInputMode="stateAlwaysHidden"
             android:name=".activity.VoiceSuccessActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- <activity -->
         <!-- android:name=".activity.WordActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
@@ -475,9 +475,17 @@
             </intent-filter>
         </activity>
         <!-- 融云 -->
-        <activity android:name=".activity.MS_drugState"
-         android:windowSoftInputMode="stateAlwaysHidden"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.MS_drugState"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <!--判断网络的广播-->
+        <receiver android:name=".lhd.utils.BroadCastYUYI">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,12 +1,12 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -102,6 +102,7 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
     private View mSureAlertView;
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,18 +170,18 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
         } else if (id == mSure_btn.getId()) {//确定提交
             submitBloodData();
         } else if (id == mAdd_rl.getId()) {//添加
-            if (mList.size()!=0){
-                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("")|mList.get(0).getGender()==null) {
+            if (mList.size() != 0) {
+                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("") | mList.get(0).getGender() == null) {
                     mSureAlertDialog.show();
-                }else {
+                } else {
                     Intent intent = new Intent(this, AddFamilyUserActivity.class);
                     intent.putExtra("type", "0");
                     startActivity(intent);
                 }
             }
 
-        }else if (id == mPrompt.getId()) {//去完善
-            startActivity(new Intent(HandInputBloodActivity.this,UserEditorActivity.class));
+        } else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(HandInputBloodActivity.this, UserEditorActivity.class));
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();

@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,7 +24,6 @@ import com.squareup.okhttp.Response;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.ElectronicMessActivity;
@@ -35,12 +33,10 @@ import com.technology.yuyi.activity.MyOrderActivity;
 import com.technology.yuyi.activity.My_address_Activity;
 import com.technology.yuyi.activity.My_message_Activity;
 import com.technology.yuyi.activity.My_shoppingCart_Activity;
-import com.technology.yuyi.activity.OrderMessageActivity;
 import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.bean.UserMessage;
-import com.technology.yuyi.bean.bean_My_UserMsg;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.checkNotificationAllowed;
 import com.technology.yuyi.lzh_utils.gson;
@@ -75,35 +71,34 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what==0){
+            if (msg.what == 0) {
                 toast.toast_faild(getActivity());
-            }
-            else if (msg.what==1){
-                try{
-                    UserMessage userMessage= gson.gson.fromJson(resStr,UserMessage.class);
-                    UserMessage.ResultBean bean=userMessage.getResult();
-                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
+            } else if (msg.what == 1) {
+                try {
+                    UserMessage userMessage = gson.gson.fromJson(resStr, UserMessage.class);
+                    UserMessage.ResultBean bean = userMessage.getResult();
+                    Picasso.with(getContext()).load(UrlTools.BASE + bean.getAvatar()).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
                             .networkPolicy(NetworkPolicy.NO_CACHE).into(mHead_img);
-                    if (!"".equals(bean.getTrueName())&&!TextUtils.isEmpty(bean.getTrueName())){
-                        mNikName.setText(bean.getTrueName()+"");
+//                    Picasso.with(getContext()).load(UrlTools.BASE+bean.getAvatar()).error(R.mipmap.usererr).into(mHead_img);
+                    if (!"".equals(bean.getTrueName()) && !TextUtils.isEmpty(bean.getTrueName())) {
+                        mNikName.setText(bean.getTrueName() + "");
                         mNikName.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         mNikName.setVisibility(View.GONE);
                     }
-                    mUsername.setText(bean.getId()+"");
-                }
-                catch (Exception e){
+                    mUsername.setText(bean.getId() + "");
+                } catch (Exception e) {
                     toast.toast_gsonFaild(getActivity());
                 }
             }
         }
     };
-    private HttpTools mHttptools;
+
 
     public MyFragment() {
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,9 +112,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     public void initView(View view) {
 
         //用户信息
-        mHead_img= (RoundImageView) view.findViewById(R.id.my_head_img);
-        mNikName= (TextView) view.findViewById(R.id.my_name);
-        mUsername=(TextView) view.findViewById(R.id.my_name2);
+        mHead_img = (RoundImageView) view.findViewById(R.id.my_head_img);
+        mNikName = (TextView) view.findViewById(R.id.my_name);
+        mUsername = (TextView) view.findViewById(R.id.my_name2);
         //用户编辑
         mUserEditor = (RelativeLayout) view.findViewById(R.id.rl_title);
         mUserEditor.setOnClickListener(this);
@@ -156,20 +151,20 @@ public class MyFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        Map<String,String> mp=new HashMap<>();
+        Map<String, String> mp = new HashMap<>();
         mp.put("token", user.token);
-        okhttp.getCall(Ip.url+Ip.interface_UserMsg,mp,okhttp.OK_GET).enqueue(new Callback() {
+        okhttp.getCall(Ip.url + Ip.interface_UserMsg, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                    handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(0);
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
-                    resStr=response.body().string();
-                Log.i("获取用户信息返回---",resStr);
+                resStr = response.body().string();
+                Log.i("获取用户信息返回---", resStr);
 
-                    handler.sendEmptyMessage(1);
+                handler.sendEmptyMessage(1);
             }
         });
         if (user.isLogin(getActivity())) {
@@ -217,17 +212,17 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         //用户信息编辑
         if (id == mUserEditor.getId()) {
             if (user.isLogin(getActivity())) {
-                Intent intent=new Intent();
-                intent.putExtra("type","0");
-                intent.setClass(getActivity(),UserEditorActivity.class);
+                Intent intent = new Intent();
+                intent.putExtra("type", "0");
+                intent.setClass(getActivity(), UserEditorActivity.class);
                 startActivity(intent);
             } else {
                 startActivity(new Intent(this.getActivity(), My_userLogin_Activity.class));
             }
             //电子病历
         } else if (id == mElectronicMess.getId()) {
-            Intent intent=new Intent(this.getActivity(), ElectronicMessActivity.class);
-            intent.putExtra("type","0");
+            Intent intent = new Intent(this.getActivity(), ElectronicMessActivity.class);
+            intent.putExtra("type", "0");
             startActivity(intent);
             //设置
         } else if (id == mSetBtn.getId()) {

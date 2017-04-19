@@ -1,26 +1,22 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.AppointmentListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
-import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.myview.InformationListView;
 
 import java.util.ArrayList;
@@ -63,10 +59,11 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
             } else if (msg.what == 213) {
+                mBar.setVisibility(View.INVISIBLE);
                 mRefresh.setRefreshing(false);
-            }else if (msg.what == 214) {
+            } else if (msg.what == 214) {
+                mBar.setVisibility(View.INVISIBLE);
                 mRefresh.setRefreshing(false);
-                ToastUtils.myToast(AppointmentActivity.this, "更新失败");
             }
 
         }
@@ -86,8 +83,10 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mStart=0;
+                mStart = 0;
                 mList.clear();
+                mMany_more.setVisibility(View.GONE);
+                mAdapter.notifyDataSetChanged();
                 mHttptools.getAppintmentData(mHandler, 0, 10);
             }
         });
@@ -101,8 +100,8 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 mBar.setVisibility(View.VISIBLE);
-                mStart+=10;
-                mHttptools.getAppintmentData(mHandler,mStart,mAddNum);
+                mStart += 10;
+                mHttptools.getAppintmentData(mHandler, mStart, mAddNum);
             }
         });
 

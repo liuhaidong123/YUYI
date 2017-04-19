@@ -117,8 +117,8 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
 
                                 @Override
                                 public void onBitmapFailed(Drawable drawable) {
-                                    bit64=BitmapTobase64.bitmapToBase64(BitmapFactory.decodeResource(getResources(),R.mipmap.logo));
-                                    usereditor_image_userphoto.setImageResource(R.mipmap.logo);
+                                    bit64=BitmapTobase64.bitmapToBase64(BitmapFactory.decodeResource(getResources(),R.mipmap.usererr));
+                                    usereditor_image_userphoto.setImageResource(R.mipmap.usererr);
                                 }
 
                                 @Override

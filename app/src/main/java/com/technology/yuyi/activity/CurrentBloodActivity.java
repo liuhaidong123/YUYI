@@ -1,22 +1,20 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
@@ -81,8 +79,7 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
             } else if (msg.what == 226) {//获取数据失败
                 mRefresh.setRefreshing(false);
                 ToastUtils.myToast(CurrentBloodActivity.this, "获取用户数据失败");
-            }
-            else if (msg.what == 37) {//提交血压数据
+            } else if (msg.what == 37) {//提交血压数据
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SubmitTemBean.Root) {
                     com.technology.yuyi.bean.SubmitTemBean.Root root = (com.technology.yuyi.bean.SubmitTemBean.Root) o;
@@ -171,10 +168,10 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         } else if (id == mSure_btn.getId()) {//确定提交
             submitBloodData();
         } else if (id == mAdd_rl.getId()) {//添加
-            if (mList.size()!=0){
-                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("")|mList.get(0).getGender()==null) {
+            if (mList.size() != 0) {
+                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("") | mList.get(0).getGender() == null) {
                     mSureAlertDialog.show();
-                }  else {
+                } else {
                     Intent intent = new Intent(this, AddFamilyUserActivity.class);
                     intent.putExtra("type", "0");
                     startActivity(intent);
@@ -182,7 +179,7 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
             }
 
         } else if (id == mPrompt.getId()) {//去完善
-            startActivity(new Intent(CurrentBloodActivity.this,UserEditorActivity.class));
+            startActivity(new Intent(CurrentBloodActivity.this, UserEditorActivity.class));
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();

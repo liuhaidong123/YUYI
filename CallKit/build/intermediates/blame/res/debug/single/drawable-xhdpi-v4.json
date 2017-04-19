@@ -1072,12 +1072,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ic_def_coversation_portrait.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_voip_camera.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/drawable-xhdpi/rc_voip_camera.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_phone_normal.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ic_phone_normal.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_voip_camera.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/drawable-xhdpi/rc_voip_camera.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_grid_camera.png",

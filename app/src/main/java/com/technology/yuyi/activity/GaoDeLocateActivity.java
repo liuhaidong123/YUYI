@@ -352,10 +352,10 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
             String cityName = intent.getStringExtra("isNull");
             if (cityName.equals("未定位")) {
                 intent.putExtra("cityResult", tv_city.getText());
-            }else {
-                if (cityName.equals(tv_city.getText())){
+            } else {
+                if (cityName.equals(tv_city.getText())) {
                     intent.putExtra("cityResult", tv_city.getText());
-                }else {
+                } else {
                     intent.putExtra("cityResult", cityName);
                 }
             }
@@ -515,8 +515,8 @@ public class GaoDeLocateActivity extends AppCompatActivity implements TextWatche
             if (aMapLocation.getErrorCode() == 0) {
                 //可在其中解析aMapLocation获取相应内容。
                 aMapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                user.Latitude=aMapLocation.getLatitude();//获取纬度
-                user.Longitude=aMapLocation.getLongitude();//获取经度
+                user.Latitude = aMapLocation.getLatitude();//获取纬度
+                user.Longitude = aMapLocation.getLongitude();//获取经度
                 aMapLocation.getAccuracy();//获取精度信息
                 aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
                 aMapLocation.getCountry();//国家信息

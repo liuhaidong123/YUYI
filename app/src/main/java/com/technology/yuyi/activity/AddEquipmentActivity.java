@@ -9,9 +9,10 @@ import android.widget.ImageView;
 
 import com.technology.yuyi.R;
 
-public class AddEquipmentActivity extends AppCompatActivity implements View.OnClickListener{
-      private ImageView mBack;//返回
+public class AddEquipmentActivity extends AppCompatActivity implements View.OnClickListener {
+    private ImageView mBack;//返回
     private Button mScanningZXBtn;//扫描二维码（没有做扫描二维码呢，先跳到连接WiFi页面）
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,23 +21,23 @@ public class AddEquipmentActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-    public void initView(){
+    public void initView() {
         //返回
-        mBack= (ImageView) findViewById(R.id.equip_back);
+        mBack = (ImageView) findViewById(R.id.equip_back);
         mBack.setOnClickListener(this);
         //扫描二维码
-        mScanningZXBtn= (Button) findViewById(R.id.btn_zx);
+        mScanningZXBtn = (Button) findViewById(R.id.btn_zx);
         mScanningZXBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        int id=v.getId();
-        if (id==mBack.getId()){//返回
+        int id = v.getId();
+        if (id == mBack.getId()) {//返回
             finish();
-        }else if (id==mScanningZXBtn.getId()){
+        } else if (id == mScanningZXBtn.getId()) {
             //扫描二维码（没有做扫描二维码呢，先跳到连接WiFi页面）
-            startActivity(new Intent(this,ConnectWifiActivity.class));
+            startActivity(new Intent(this, ConnectWifiActivity.class));
         }
     }
 }

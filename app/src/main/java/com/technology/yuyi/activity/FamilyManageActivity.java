@@ -3,11 +3,10 @@ package com.technology.yuyi.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +32,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 //家庭用户列表
 public class FamilyManageActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListView mLisView;
@@ -41,35 +41,33 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     private ImageView mBack;
     private String resStr;
     private List<bean_ListFamilyUser.ResultBean> list;
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     toast.toast_faild(FamilyManageActivity.this);
                     break;
                 case 1:
-                try
-                {
-                    bean_ListFamilyUser user= gson.gson.fromJson(resStr,bean_ListFamilyUser.class);
-                    if ("0".equals(user.getCode())){
-                        list=user.getResult();
-                        mAdapter=new FamilyManageListViewAdapter(FamilyManageActivity.this,list);
-                        mLisView.setAdapter(mAdapter);
+                    try {
+                        bean_ListFamilyUser user = gson.gson.fromJson(resStr, bean_ListFamilyUser.class);
+                        if ("0".equals(user.getCode())) {
+                            list = user.getResult();
+                            mAdapter = new FamilyManageListViewAdapter(FamilyManageActivity.this, list);
+                            mLisView.setAdapter(mAdapter);
+                        } else {
+                            //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        toast.toast_gsonFaild(FamilyManageActivity.this);
+                        Log.e("json--", e.toString());
                     }
-                    else {
-                        //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch (Exception e){
-                    toast.toast_gsonFaild(FamilyManageActivity.this);
-                    Log.e("json--",e.toString());
-                }
                     break;
             }
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +78,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e("onStart","");
+        Log.e("onStart", "");
     }
 
     @Override
@@ -108,21 +106,20 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
 
         //添加
         if (id == mAddFamily.getId()) {
-            if (list!=null&&list.size()>0){
-                if (UserInfo.isUserInfoCompletion(list.get(0).getTrueName(),list.get(0).getAge()+"",list.get(0).getGender()+"")){
+            if (list != null && list.size() > 0) {
+                if (UserInfo.isUserInfoCompletion(list.get(0).getTrueName(), list.get(0).getAge() + "", list.get(0).getGender() + "")) {
                     Intent intent = new Intent(this, AddFamilyUserActivity.class);
                     intent.putExtra("title", "添加家庭用户");
                     startActivity(intent);
                     //返回
-                }
-                else {
-                    AlertDialog dialog=new AlertDialog.Builder(FamilyManageActivity.this).setTitle("无法添加")
+                } else {
+                    AlertDialog dialog = new AlertDialog.Builder(FamilyManageActivity.this).setTitle("无法添加")
                             .setMessage("您的个人信息不完整，需要您填写完整的信息后才能添加家庭用户").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent=new Intent();
-                                    intent.putExtra("type","0");
-                                    intent.setClass(FamilyManageActivity.this,UserEditorActivity.class);
+                                    Intent intent = new Intent();
+                                    intent.putExtra("type", "0");
+                                    intent.setClass(FamilyManageActivity.this, UserEditorActivity.class);
                                     startActivity(intent);
                                 }
                             }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -132,10 +129,8 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
                                 }
                             }).show();
                 }
-            }
-
-          else {
-                Toast.makeText(FamilyManageActivity.this,"获取用户信息失败，无法添加",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(FamilyManageActivity.this, "获取用户信息失败，无法添加", Toast.LENGTH_SHORT).show();
             }
         } else if (id == mBack.getId()) {
             finish();
@@ -145,35 +140,35 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        oken=6DD620E22A92AB0AED590DB66F84D064&id=123
-        Intent intent=new Intent();
-        if (position==0){
-            intent.putExtra("type","0");
+        Intent intent = new Intent();
+        if (position == 0) {
+            intent.putExtra("type", "0");
+        } else {
+            intent.putExtra("type", "1");
         }
-     else {
-            intent.putExtra("type","1");
-        }
-        intent.setClass(this,FamilyUserMessageActivity.class);
-        Bundle b=new Bundle();
-        b.putSerializable("family",list.get(position));
-        intent.putExtra("family",b);
+        intent.setClass(this, FamilyUserMessageActivity.class);
+        Bundle b = new Bundle();
+        b.putSerializable("family", list.get(position));
+        intent.putExtra("family", b);
         startActivity(intent);
     }
 
 
     //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
     public void getUserList() {
-        Map<String,String>mp=new HashMap<>();
-        mp.put("token",user.userPsd);
-        okhttp.getCall(Ip.url+Ip.interfce_ListFamilyUser,mp,okhttp.OK_GET).enqueue(new Callback() {
+        Map<String, String> mp = new HashMap<>();
+        mp.put("token", user.userPsd);
+        okhttp.getCall(Ip.url + Ip.interfce_ListFamilyUser, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
+
             @Override
             public void onResponse(Response response) throws IOException {
-                resStr=response.body().string();
+                resStr = response.body().string();
                 handler.sendEmptyMessage(1);
-                Log.i("获取家庭用户列表--",resStr);
+                Log.i("获取家庭用户列表--", resStr);
             }
         });
     }

@@ -49,7 +49,6 @@ import com.technology.yuyi.activity.MS_drugInfo_activity;
 import com.technology.yuyi.activity.MS_home_Activity;
 import com.technology.yuyi.activity.My_message_Activity;
 import com.technology.yuyi.activity.SearchActivity;
-import com.technology.yuyi.activity.SelectDoctorActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.adapter.FirstPageListViewAdapter;
 import com.technology.yuyi.adapter.UseDrugGridViewAdapter;
@@ -59,8 +58,6 @@ import com.technology.yuyi.bean.AdBean.Root;
 import com.technology.yuyi.bean.AdBean.Rows;
 import com.technology.yuyi.bean.FirstPageDrugSixData;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
-import com.technology.yuyi.bean.FirstPageInformationTwoData;
-import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.FirstPageUserDataBean.BloodpressureList;
 import com.technology.yuyi.bean.FirstPageUserDataBean.Result;
 import com.technology.yuyi.bean.FirstPageUserDataBean.TemperatureList;
@@ -214,15 +211,17 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageUserDataBean.Root) ;
                 com.technology.yuyi.bean.FirstPageUserDataBean.Root root = (com.technology.yuyi.bean.FirstPageUserDataBean.Root) o;
                 mUserData.clear();
-                mUserData = root.getResult();
                 mAllUser_ll.removeAllViews();
-                initUserMessage();//初始化用户的头像和昵称，绘制折线图
+                if (root != null && root.getResult() != null) {
+                    mUserData = root.getResult();
+                    initUserMessage();//初始化用户的头像和昵称，绘制折线图
+                }
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 231) {
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 232) {
                 mSwipeRefresh.setRefreshing(false);
-               // ToastUtils.myToast(getContext(), "获用户列表失败");
+                // ToastUtils.myToast(getContext(), "获用户列表失败");
             } else if (msg.what == 39) {//点击首页用户头像
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageClickUserBean.Root) {
@@ -383,6 +382,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private View mSureAlertView;
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
+
     public FirstPageFragment() {
         // Required empty public constructor
     }
@@ -423,7 +423,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      */
     public void initView(View view) {
         //消息图片
-        mMessage_img= (ImageView) view.findViewById(R.id.message_img);
+        mMessage_img = (ImageView) view.findViewById(R.id.message_img);
         mMessage_img.setOnClickListener(this);
         //首页下拉刷新
         mSwipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.first_page_swiperefesh);
@@ -642,13 +642,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             Intent intent = new Intent(this.getActivity(), GaoDeLocateActivity.class);
             intent.putExtra("isNull", mLocate_tv.getText());
             startActivityForResult(intent, 66);
-        }else if (id == mPrompt.getId()) {//去完善
-            startActivity(new Intent(getContext(),UserEditorActivity.class));
+        } else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(getContext(), UserEditorActivity.class));
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
-        }else if(id==mMessage_img.getId()){//跳转到消息
-            startActivity(new Intent(getContext(),My_message_Activity.class));
+        } else if (id == mMessage_img.getId()) {//跳转到消息
+            startActivity(new Intent(getContext(), My_message_Activity.class));
         }
     }
 
@@ -702,7 +702,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
         mLocationOption.setHttpTimeOut(20000);
         //只定位一次,如果设置只定位一次的话， mLocationOption.setInterval（）这个方法就不会执行了，也就是即使隔6秒也不会重新定位
-        mLocationOption.setOnceLocation(true);
+        mLocationOption.setOnceLocation(false);
         //给定位客户端对象设置定位参数
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
@@ -726,7 +726,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 //如果已经授权，执行业务逻辑
             } else {
                 gaoDeMap();
-                Toast.makeText(this.getContext(), "定位授权成功", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this.getContext(), "定位授权成功", Toast.LENGTH_SHORT).show();
             }
             //版本小于23时，执行业务逻辑
         } else {
@@ -741,14 +741,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             case LOCATE_CODE:
                 //点击了允许
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission Granted
-                   // Toast.makeText(this.getContext(), "允许定位", Toast.LENGTH_SHORT).show();
                     gaoDeMap();
                     //点击了拒绝
                 } else {
-                    // Permission Denied
                     mLocate_tv.setText("未定位");
-                  //  Toast.makeText(this.getContext(), "无法获取定位权限", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -779,10 +775,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 aMapLocation.getBuildingId();//获取当前室内定位的建筑物Id
                 aMapLocation.getFloor();//获取当前室内定位的楼层
                 aMapLocation.getGpsAccuracyStatus();//获取GPS的当前状态
-                //获取定位时间
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(aMapLocation.getTime());
-                df.format(date);
                 Log.e("街道信息当前线程id=", Thread.currentThread().getId() + "");
                 Log.e("当前城市信息：", aMapLocation.getCity());
                 Log.e("当前城区信息：", aMapLocation.getDistrict());
@@ -833,7 +825,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * 初始化用户数据
      */
     public void initUserMessage() {
-
         for (int i = 0; i < mUserData.size(); i++) {
             final int k = i;
             //用户布局
@@ -909,7 +900,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             addlinear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                            //判断主用户信息是否完善
+                    //判断主用户信息是否完善
                     if (mUserData.get(0).getAge() == 0 || mUserData.get(0).getTrueName().equals("")) {
                         mSureAlertDialog.show();
 

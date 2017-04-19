@@ -5,9 +5,10 @@ package com.technology.yuyi.lzh_utils;
  */
 
 public interface Ip {
-   public final static String url_F="http://192.168.1.55:8080/yuyi/";
-   public final static String url="http://192.168.1.55:8080/yuyi/";
-
+//   public final static String url_F="http://192.168.1.55:8080/yuyi/";
+//   public final static String url="http://192.168.1.55:8080/yuyi/";
+   public final static String url_F="http://59.110.169.148:8080/";
+   public final static String url="http://59.110.169.148:8080/";
    //获取我的药品状态接口http://192.168.1.55:8080/yuyi/prescription/findList.do?token=DAF338120FEDDDC8310B881B459353C0
    public final static String interface_MyDrugState="prescription/findList.do?";
 
@@ -99,8 +100,9 @@ public interface Ip {
    //获取验证码的接口
    public final static String interface_SmsCode="/personal/vcode.do?";
 
-   //图片url
-   public final static String imagePth_F="http://192.168.1.55:8080/yuyi";
-   public final static String imagePth="http://192.168.1.55:8080/yuyi";
-
+   //图片urlhttp://59.110.169.148:8080
+//   public final static String imagePth_F="http://192.168.1.55:8080/yuyi";
+//   public final static String imagePth="http://192.168.1.55:8080/yuyi";
+   public final static String imagePth_F="http://59.110.169.148:8080/";
+   public final static String imagePth="http://59.110.169.148:8080/";
 }

@@ -55,12 +55,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                         MyDialog.stopDia();
                         mSearchDrugList = root.getResult();
                         if (mSearchDrugList.size() == 0) {
-                           // Toast.makeText(SearchActivity.this, "没有查询到该药品", Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(SearchActivity.this, "没有查询到该药品", Toast.LENGTH_SHORT).show();
                             mPrompt_Tv.setVisibility(View.VISIBLE);
                             mDrugScrollView.setVisibility(View.GONE);
                             mHospitalScrollView.setVisibility(View.GONE);
                             mListView.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             mPrompt_Tv.setVisibility(View.GONE);
                             mAdapter = new SearchHistoryListViewAdapter(SearchActivity.this, mSearchDrugList);
                             mListView.setAdapter(mAdapter);
@@ -73,13 +73,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     }
                 }
-            } else if (msg.what==220){//json解析错误
+            } else if (msg.what == 220) {//json解析错误
                 MyDialog.stopDia();
-            }else if (msg.what==221){//请求数据错误
+            } else if (msg.what == 221) {//请求数据错误
                 MyDialog.stopDia();
-                ToastUtils.myToast(SearchActivity.this,"请求数据失败");
-            }
-            else if (msg.what == 33) {//医院
+                ToastUtils.myToast(SearchActivity.this, "请求数据失败");
+            } else if (msg.what == 33) {//医院
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SearchHospital.Root) {
                     com.technology.yuyi.bean.SearchHospital.Root root = (com.technology.yuyi.bean.SearchHospital.Root) o;
@@ -92,7 +91,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                             mHospitalScrollView.setVisibility(View.GONE);
                             mListView.setVisibility(View.GONE);
                             //Toast.makeText(SearchActivity.this, "没有查询该医院", Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
                             mPrompt_Tv.setVisibility(View.GONE);
                             mAdapter = new SearchHistoryListViewAdapter(SearchActivity.this, mSearchHospitalList);
                             mListView.setAdapter(mAdapter);
@@ -105,11 +104,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                     }
                 }
-            }else if (msg.what==222){//json解析错误
+            } else if (msg.what == 222) {//json解析错误
                 MyDialog.stopDia();
-            }else if (msg.what==223){//请求数据错误
+            } else if (msg.what == 223) {//请求数据错误
                 MyDialog.stopDia();
-                ToastUtils.myToast(SearchActivity.this,"请求数据失败");
+                ToastUtils.myToast(SearchActivity.this, "请求数据失败");
             }
         }
     };
@@ -133,6 +132,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private DrugHospitalResult mAdapterDrugHospitalResult;
 
     private TextView mPrompt_Tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,7 +159,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mClearHospitalResult.setOnClickListener(this);
 
         //搜索结果提示
-        mPrompt_Tv= (TextView) findViewById(R.id.prompt_result);
+        mPrompt_Tv = (TextView) findViewById(R.id.prompt_result);
 
         mHttptools = HttpTools.getHttpToolsInstance();
 
@@ -183,7 +183,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 resultDrugList.add(drugname);
             }
             cursor.close();
-            mAdapterDrugHospitalResult=new DrugHospitalResult(SearchActivity.this,resultDrugList);
+            mAdapterDrugHospitalResult = new DrugHospitalResult(SearchActivity.this, resultDrugList);
             mDrugListView.setAdapter(mAdapterDrugHospitalResult);
             mDrugListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -199,9 +199,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             mListView.setVisibility(View.GONE);
             mPrompt_Tv.setVisibility(View.GONE);
             //清除历史按钮
-            if (resultDrugList.size()>0){
+            if (resultDrugList.size() > 0) {
                 mClearDrugResult.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mClearDrugResult.setVisibility(View.GONE);
             }
         }
@@ -219,7 +219,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             }
             cursor.close();
             //显示曾经搜索过的医院
-            mAdapterDrugHospitalResult=new DrugHospitalResult(SearchActivity.this,resultHospitalList);
+            mAdapterDrugHospitalResult = new DrugHospitalResult(SearchActivity.this, resultHospitalList);
             mHospitalListView.setAdapter(mAdapterDrugHospitalResult);
 
             mHospitalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -235,29 +235,29 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             mHospitalScrollView.setVisibility(View.VISIBLE);
             mListView.setVisibility(View.GONE);
             //清除历史按钮
-            if (resultHospitalList.size()>0){
+            if (resultHospitalList.size() > 0) {
                 mClearHospitalResult.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mClearHospitalResult.setVisibility(View.GONE);
             }
         }
 
         //点击搜索按钮，回调这个方法(注意：如果不处理的话，此方法会被调用2次，搜索按下和松开都会被调用)
         mEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-           // || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+            // || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
 
                     //搜索药品接口
                     if (getIntent().getStringExtra("type").equals("drug")) {
                         if (!getEditTxt().equals("")) {
-                            if (event.getAction()==KeyEvent.ACTION_UP){
+                            if (event.getAction() == KeyEvent.ACTION_UP) {
                                 MyDialog.showDialog(SearchActivity.this);
                                 mHttptools.getSearchDrugData(mHandler, getEditTxt());
                                 //将搜索过得数据插入表中
-                                ContentValues valuesDrug=new ContentValues();
-                                valuesDrug.put("drugname",getEditTxt());
-                                mSqliteDrugDB.insert("drug",null,valuesDrug);
+                                ContentValues valuesDrug = new ContentValues();
+                                valuesDrug.put("drugname", getEditTxt());
+                                mSqliteDrugDB.insert("drug", null, valuesDrug);
                                 ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             }
                         } else {
@@ -267,12 +267,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     //搜索医院接口
                     if (getIntent().getStringExtra("type").equals("hospital")) {
                         if (!getEditTxt().equals("")) {
-                            if (event.getAction()==KeyEvent.ACTION_UP){
+                            if (event.getAction() == KeyEvent.ACTION_UP) {
                                 MyDialog.showDialog(SearchActivity.this);
                                 mHttptools.getSearchHospitalData(mHandler, getEditTxt());
-                                ContentValues valuesHospital=new ContentValues();
-                                valuesHospital.put("hospitalname",getEditTxt());
-                                mSqliteHospitalDB.insert("hospital",null,valuesHospital);
+                                ContentValues valuesHospital = new ContentValues();
+                                valuesHospital.put("hospitalname", getEditTxt());
+                                mSqliteHospitalDB.insert("hospital", null, valuesHospital);
                                 ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             }
                         } else {
@@ -295,13 +295,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             //隐藏软键盘
             ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             finish();
-        }else if (id==mClearDrugResult.getId()){//清空曾经搜索过药品的表
+        } else if (id == mClearDrugResult.getId()) {//清空曾经搜索过药品的表
             mSqliteDrugDB.execSQL("delete from drug");
             resultDrugList.clear();
             mAdapterDrugHospitalResult.notifyDataSetChanged();
             mClearDrugResult.setVisibility(View.GONE);
 
-        }else if (id==mClearHospitalResult.getId()){//清空曾经搜索过医院的表
+        } else if (id == mClearHospitalResult.getId()) {//清空曾经搜索过医院的表
             mSqliteHospitalDB.execSQL("delete from hospital");
             resultHospitalList.clear();
             mAdapterDrugHospitalResult.notifyDataSetChanged();

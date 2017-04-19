@@ -1,9 +1,8 @@
 package com.technology.yuyi.activity;
 
-import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,8 +21,9 @@ public class EquipmentManageActivity extends AppCompatActivity implements View.O
     private AlertDialog.Builder mBuilder;//删除设备的弹框
     private AlertDialog mAlertDialog;
     private View mAlertView;
-    private  TextView mSure_btn;
-    private  TextView mCancel_btn;
+    private TextView mSure_btn;
+    private TextView mCancel_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +35,10 @@ public class EquipmentManageActivity extends AppCompatActivity implements View.O
 
         mAlertView = LayoutInflater.from(this).inflate(R.layout.alert_delete_equitment_box, null);
         //确定按钮
-        mSure_btn= (TextView) mAlertView.findViewById(R.id.alert_sure);
+        mSure_btn = (TextView) mAlertView.findViewById(R.id.alert_sure);
         mSure_btn.setOnClickListener(this);
         //取消按钮
-        mCancel_btn= (TextView) mAlertView.findViewById(R.id.alert_cancel);
+        mCancel_btn = (TextView) mAlertView.findViewById(R.id.alert_cancel);
         mCancel_btn.setOnClickListener(this);
         //长安设备的弹框
         mBuilder = new AlertDialog.Builder(this);
@@ -69,9 +69,9 @@ public class EquipmentManageActivity extends AppCompatActivity implements View.O
         int id = v.getId();
         if (id == mBack.getId()) {//返回
             finish();
-        }else if (id==mSure_btn.getId()){//确定按钮
+        } else if (id == mSure_btn.getId()) {//确定按钮
             mAlertDialog.dismiss();
-        }else if (id==mCancel_btn.getId()){//取消按钮
+        } else if (id == mCancel_btn.getId()) {//取消按钮
             mAlertDialog.dismiss();
         }
     }

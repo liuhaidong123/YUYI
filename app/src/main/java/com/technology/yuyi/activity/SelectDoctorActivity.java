@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,7 +24,6 @@ import com.technology.yuyi.bean.SelectDoctor.DatenumberList;
 import com.technology.yuyi.bean.SelectDoctor.Result;
 import com.technology.yuyi.bean.SelectDoctor.Root;
 import com.technology.yuyi.lhd.utils.ToastUtils;
-import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
 
 import java.text.ParseException;

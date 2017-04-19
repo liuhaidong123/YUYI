@@ -2,27 +2,19 @@ package com.technology.yuyi.fragment;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.technology.yuyi.R;
-import com.technology.yuyi.activity.AddEquipmentActivity;
 import com.technology.yuyi.activity.CurrentBloodActivity;
 import com.technology.yuyi.activity.CurrentTemActivity;
 import com.technology.yuyi.activity.HandInputBloodActivity;
@@ -48,7 +40,8 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
     private Button mCancelBtn;
     private int mPosition;
 
-    private List<MyEntity> list=new ArrayList<>();
+    private List<MyEntity> list = new ArrayList<>();
+
     public MeasureFragment() {
 
     }
@@ -63,12 +56,12 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     public void initView(View view) {
-        list.add(new MyEntity("体温计","测量记录",R.mipmap.mea_bpg_icon_norm_1));
-        list.add(new MyEntity("血压计","血压测量记录",R.mipmap.mea_therm_icon_norm_2));
+        list.add(new MyEntity("体温计", "测量记录", R.mipmap.mea_bpg_icon_norm_1));
+        list.add(new MyEntity("血压计", "血压测量记录", R.mipmap.mea_therm_icon_norm_2));
         //设备
         mMeasureListView = (ListView) view.findViewById(R.id.measure_listview_id);
         mMeasureListView.setOnItemClickListener(this);
-        mAdapter = new MeasureListViewAdapter(this.getContext(),list);
+        mAdapter = new MeasureListViewAdapter(this.getContext(), list);
         mMeasureListView.setAdapter(mAdapter);
         //点击设备弹框
         mBuilder = new AlertDialog.Builder(this.getContext());

@@ -1,10 +1,7 @@
 package com.technology.yuyi.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,10 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
@@ -26,8 +21,6 @@ import com.technology.yuyi.activity.HospitalDetailsActivity;
 import com.technology.yuyi.adapter.AskListViewAdapter;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
 import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
-import com.technology.yuyi.lhd.utils.KmUtils;
-import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.InformationListView;
 
@@ -48,8 +41,8 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
     private ProgressBar mProgress;
     private HttpTools mHttptools;
 
-    private int mStart=0;
-    private int mAddNum=10;
+    private int mStart = 0;
+    private int mAddNum = 10;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -58,30 +51,31 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
                 Object o = msg.obj;
                 if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
                     FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
-                    List<FirstPageInformationTwoData> list=new ArrayList<>();
+                    List<FirstPageInformationTwoData> list = new ArrayList<>();
                     list = root.getRows();
                     mList.addAll(list);
                     mAdapter.setmList(mList);
                     mAdapter.notifyDataSetChanged();
-                    //ToastUtils.myToast(getContext(), "刷新完成");
                     mRefreshLaout.setRefreshing(false);
                     mProgress.setVisibility(View.INVISIBLE);
-                    if (list.size()==10){
+                    if (list.size() == 10) {
                         mMany_more.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         mMany_more.setVisibility(View.GONE);
                     }
                 }
             } else if (msg.what == 205) {
+                mProgress.setVisibility(View.INVISIBLE);
                 mRefreshLaout.setRefreshing(false);
             } else if (msg.what == 206) {
+                mProgress.setVisibility(View.INVISIBLE);
                 mRefreshLaout.setRefreshing(false);
             }
         }
     };
 
     public AskFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -95,21 +89,21 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
     public void initView(View view) {
 
 
-        Log.e("纬度",user.Latitude+"");
-        Log.e("经度",user.Longitude+"");
+        Log.e("纬度", user.Latitude + "");
+        Log.e("经度", user.Longitude + "");
 
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getAskData(handler,0,10);
+        mHttptools.getAskData(handler, 0, 10);
 
-        mMany_more= (RelativeLayout) view.findViewById(R.id.many_relative);
-        mProgress= (ProgressBar) view.findViewById(R.id.pbLocate);
+        mMany_more = (RelativeLayout) view.findViewById(R.id.many_relative);
+        mProgress = (ProgressBar) view.findViewById(R.id.pbLocate);
         //点击加载更多显示数据
         mMany_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mProgress.setVisibility(View.VISIBLE);
-                mStart+=10;
-                mHttptools.getAskData(handler,mStart,mAddNum);
+                mStart += 10;
+                mHttptools.getAskData(handler, mStart, mAddNum);
             }
         });
         mListview = (InformationListView) view.findViewById(R.id.hospital_listview);
@@ -123,9 +117,11 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
         mRefreshLaout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mStart=0;
+                mStart = 0;
+                mMany_more.setVisibility(View.GONE);
                 mList.clear();
-                mHttptools.getAskData(handler,0,10);
+                mAdapter.notifyDataSetChanged();
+                mHttptools.getAskData(handler, 0, 10);
             }
         });
     }
@@ -133,17 +129,12 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Intent intent = new Intent(this.getActivity(), HospitalDetailsActivity.class);
-            intent.putExtra("id", mList.get(position).getId());
-            startActivity(intent);
+        Intent intent = new Intent(this.getActivity(), HospitalDetailsActivity.class);
+        intent.putExtra("id", mList.get(position).getId());
+        startActivity(intent);
 
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
 
 }

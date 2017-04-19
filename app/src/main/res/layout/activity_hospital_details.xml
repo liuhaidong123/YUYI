@@ -92,7 +92,7 @@
                 android:layout_below="@id/rl_head"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
-                android:text="@string/str_hospiytal_j"
+                android:text=""
                 android:textColor="@color/color_normal"
                 android:textSize="14sp" />
 

@@ -1,19 +1,13 @@
 package com.technology.yuyi.activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,13 +26,8 @@ import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.bean_DocId;
-import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.RongConnect;
-import com.technology.yuyi.lzh_utils.RongUSerProvider;
-import com.technology.yuyi.lzh_utils.RongUri;
-import com.technology.yuyi.lzh_utils.RongUser;
-import com.technology.yuyi.lzh_utils.RongUserList;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
@@ -50,11 +39,8 @@ import java.util.Map;
 
 import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.UserInfo;
 
-public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RelativeLayout mBgRelative;
     private ImageView mBack;
@@ -80,44 +66,43 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 Object o = msg.obj;
                 if (o != null && o instanceof Information) {
                     Information information = (Information) o;
+                    mTv_hospital.setText("医院介绍");
                     mHospital_name.setText(information.getHospitalName());
                     mGrade_tv.setText(information.getGradeName());
                     mHospital_message.setText(information.getIntroduction());
                     Picasso.with(HospitalDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).error(R.mipmap.error_big).into(mImg);
                 }
-            }else if (msg.what==207){
-                ToastUtils.myToast(HospitalDetailsActivity.this,"获取数据失败");
+            } else if (msg.what == 207) {
             }
         }
     };
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     toast.toast_faild(HospitalDetailsActivity.this);
                     break;
                 case 1:
-                    try{
-                        bean_DocId docId= gson.gson.fromJson(resStr,bean_DocId.class);
-                        if (docId!=null){
-                            DocId=docId.getId()+"";
-                            user.targetId=DocId;
-//                            RongUserList.addUser(new RongUser(DocId,docId.getTrueName(),Ip.imagePth_F+docId.getAvatar()));
+                    try {
+                        bean_DocId docId = gson.gson.fromJson(resStr, bean_DocId.class);
+                        if (docId != null) {
+                            DocId = docId.getId() + "";
+                            user.targetId = DocId;
+                        } else {
+                            Toast.makeText(HospitalDetailsActivity.this, "请求医生信息错误，无法启动聊天程序,请稍后重试", Toast.LENGTH_SHORT).show();
                         }
-
-                        else {
-                            Toast.makeText(HospitalDetailsActivity.this,"请求医生信息错误，无法启动聊天程序,请稍后重试",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         toast.toast_gsonFaild(HospitalDetailsActivity.this);
                     }
                     break;
             }
         }
     };
+
+    private TextView mTv_hospital;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,6 +124,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         mBack = (ImageView) findViewById(R.id.detail_back);
         mBack.setOnClickListener(this);
         //设置透明度
+        mTv_hospital = (TextView) findViewById(R.id.tv_hospital_mess);//详情
         mBgRelative = (RelativeLayout) findViewById(R.id.bg_relative);
         mBgRelative.getBackground().setAlpha(125);
         //医患咨询
@@ -157,7 +143,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         mSpeechBtn.setOnClickListener(this);
         mVideoBtn.setOnClickListener(this);
         mCharBtn.setOnClickListener(this);
-}
+    }
 
     @Override
     public void onClick(View v) {
@@ -168,31 +154,28 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             setAlertWidth(0.7f, mAlertDialog);
         } else if (id == mSpeechBtn.getId()) {//语音咨询
             mAlertDialog.dismiss();
-            if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
-                RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
-            }
-            else {
-                Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+            if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
+                RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
+            } else {
+                Toast.makeText(HospitalDetailsActivity.this, "启动咨询程序失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == mVideoBtn.getId()) {//视频咨询
             mAlertDialog.dismiss();
-            if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
-                RongCallKit.startSingleCall(HospitalDetailsActivity.this,user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
+            if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
+                RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
 
-            }
-            else {
-                Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
-                getRongInfo() ;
+            } else {
+                Toast.makeText(HospitalDetailsActivity.this, "启动咨询程序失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                getRongInfo();
             }
 
         } else if (id == mCharBtn.getId()) {//文字资讯
-                mAlertDialog.dismiss();
-            if (DocId!=null&&!"".equals(DocId)&&!"".equals(user.RonguserId)&&!TextUtils.isEmpty(user.RonguserId)){
-                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this,user.targetId,"咨询");
-            }
-            else {
-                Toast.makeText(HospitalDetailsActivity.this,"启动咨询程序失败，请稍后重试",Toast.LENGTH_SHORT).show();
+            mAlertDialog.dismiss();
+            if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
+                RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this, user.targetId, "咨询");
+            } else {
+                Toast.makeText(HospitalDetailsActivity.this, "启动咨询程序失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == mBack.getId()) {//返回
@@ -213,28 +196,28 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
     //获取医生id
     public void getDocId() {
-        Map<String,String> m=new HashMap<>();
-        okhttp.getCall(Ip.url_F+Ip.interface_getDocID,m,okhttp.OK_GET).enqueue(new Callback() {
+        Map<String, String> m = new HashMap<>();
+        okhttp.getCall(Ip.url_F + Ip.interface_getDocID, m, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                    handler.sendEmptyMessage(0);
+                handler.sendEmptyMessage(0);
             }
 
             @Override
             public void onResponse(Response response) throws IOException {
-                        resStr=response.body().string();
-                        Log.i("请求医生融云信息---",resStr);
-                        handler.sendEmptyMessage(1);
+                resStr = response.body().string();
+                Log.i("请求医生融云信息---", resStr);
+                handler.sendEmptyMessage(1);
             }
         });
     }
 
     public void getRongInfo() {
-       if ("".equals(DocId)|DocId==null){
-           getDocId();
-       }
-        if (user.RonguserId==null|"".equals(user.RonguserId)){
-           RongConnect.getRongToken(this);
-       }
+        if ("".equals(DocId) | DocId == null) {
+            getDocId();
+        }
+        if (user.RonguserId == null | "".equals(user.RonguserId)) {
+            RongConnect.getRongToken(this);
+        }
     }
 }

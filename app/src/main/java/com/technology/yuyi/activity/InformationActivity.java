@@ -1,25 +1,21 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.InformationListViewAdapter;
-import com.technology.yuyi.bean.FirstPageInformationTwoData;
-import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root;
 import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Rows;
 import com.technology.yuyi.lhd.utils.ToastUtils;
@@ -36,7 +32,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     private RelativeLayout mMany_more;
     private ProgressBar mBar;
     private int mStart = 0;
-    private int mAddNum = 5;
+    private int mAddNum = 10;
     private SwipeRefreshLayout mSwipeLayout;//刷新
     private HttpTools mHttptools;
     private Handler handler = new Handler() {
@@ -55,7 +51,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
                     mSwipeLayout.setRefreshing(false);
                     ToastUtils.myToast(InformationActivity.this, "刷新成功");
                     mBar.setVisibility(View.INVISIBLE);
-                    if (list.size() == 5) {
+                    if (list.size() == 10) {
                         mMany_more.setVisibility(View.VISIBLE);
                     } else {
                         mMany_more.setVisibility(View.GONE);
@@ -64,10 +60,11 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
 
                 }
             } else if (msg.what == 202) {//json错误
+                mBar.setVisibility(View.INVISIBLE);
                 mSwipeLayout.setRefreshing(false);
-            }else if (msg.what == 203) {//无法获取网络数据
+            } else if (msg.what == 203) {//无法获取网络数据
+                mBar.setVisibility(View.INVISIBLE);
                 mSwipeLayout.setRefreshing(false);
-                ToastUtils.myToast(InformationActivity.this, "获取数据失败");
             }
 
         }
@@ -86,7 +83,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
     public void initView() {
         //获取资讯页面数据
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getFirstPageInformationTwoData(handler, 0, 5);
+        mHttptools.getFirstPageInformationTwoData(handler, 0, 10);
 
         mMany_more = (RelativeLayout) findViewById(R.id.in_many_relative);
         mBar = (ProgressBar) findViewById(R.id.in_pbLocate);
@@ -95,7 +92,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v) {
                 mBar.setVisibility(View.VISIBLE);
-                mStart+=5;
+                mStart += 10;
                 mHttptools.getFirstPageInformationTwoData(handler, mStart, mAddNum);
 
             }
@@ -108,8 +105,10 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onRefresh() {
                 mList.clear();
-                mStart=0;
-                mHttptools.getFirstPageInformationTwoData(handler, 0, 5);
+                mStart = 0;
+                mInformationAdapter.notifyDataSetChanged();
+                mMany_more.setVisibility(View.GONE);
+                mHttptools.getFirstPageInformationTwoData(handler, 0, 10);
 
 
             }

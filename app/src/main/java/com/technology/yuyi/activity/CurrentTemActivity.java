@@ -1,18 +1,17 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,9 +70,8 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
                 mRefresh.setRefreshing(false);
             } else if (msg.what == 226) {//获取数据失败
                 mRefresh.setRefreshing(false);
-               // ToastUtils.myToast(CurrentTemActivity.this, "获取用户数据失败");
-            }
-            else if (msg.what == 36) {//提交数据接口
+                // ToastUtils.myToast(CurrentTemActivity.this, "获取用户数据失败");
+            } else if (msg.what == 36) {//提交数据接口
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.SubmitTemBean.Root) {
                     com.technology.yuyi.bean.SubmitTemBean.Root root = (com.technology.yuyi.bean.SubmitTemBean.Root) o;
@@ -101,6 +99,7 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
     private View mSureAlertView;
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,18 +168,18 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
         } else if (id == mSure_btn.getId()) {//确定提交
             submitTemData();
         } else if (id == mAdd_rl.getId()) {//添加
-            if (mList.size()!=0){
-                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("")|mList.get(0).getGender()==null) {
+            if (mList.size() != 0) {
+                if (mList.get(0).getAge() == 0 | mList.get(0).getTrueName().equals("") | mList.get(0).getGender() == null) {
                     mSureAlertDialog.show();
-                }else {
+                } else {
                     Intent intent = new Intent(this, AddFamilyUserActivity.class);
                     intent.putExtra("type", "0");
                     startActivity(intent);
                 }
             }
 
-        }else if (id == mPrompt.getId()) {//去完善
-            startActivity(new Intent(CurrentTemActivity.this,UserEditorActivity.class));
+        } else if (id == mPrompt.getId()) {//去完善
+            startActivity(new Intent(CurrentTemActivity.this, UserEditorActivity.class));
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
@@ -216,15 +215,15 @@ public class CurrentTemActivity extends AppCompatActivity implements View.OnClic
      */
     public void submitTemData() {
         if (!getTemData().equals("")) {//体温不为""；
-                if (isSelect) {//选中了某一个用户
-                    mSubmitMap.put("token", user.token);
-                    mSubmitMap.put("humeuserId", mList.get(mPosintion).getId() + "");
-                    mSubmitMap.put("temperaturet", getTemData());
-                    mHttptools.submitTemData(mHandler, mSubmitMap);
-                    MyDialog.showDialog(this);
-                } else {
-                    Toast.makeText(this, "请选择用户", Toast.LENGTH_SHORT).show();
-                }
+            if (isSelect) {//选中了某一个用户
+                mSubmitMap.put("token", user.token);
+                mSubmitMap.put("humeuserId", mList.get(mPosintion).getId() + "");
+                mSubmitMap.put("temperaturet", getTemData());
+                mHttptools.submitTemData(mHandler, mSubmitMap);
+                MyDialog.showDialog(this);
+            } else {
+                Toast.makeText(this, "请选择用户", Toast.LENGTH_SHORT).show();
+            }
 
         } else {
             Toast.makeText(this, "体温错误", Toast.LENGTH_SHORT).show();

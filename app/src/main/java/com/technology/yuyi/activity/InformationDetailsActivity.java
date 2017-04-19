@@ -1,10 +1,9 @@
 package com.technology.yuyi.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,8 +13,6 @@ import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.ADmessageBean.Root;
-import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
-import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.UpdatedInformation;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 

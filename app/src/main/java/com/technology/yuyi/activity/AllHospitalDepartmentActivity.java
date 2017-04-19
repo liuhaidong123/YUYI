@@ -1,6 +1,5 @@
 package com.technology.yuyi.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,11 +20,9 @@ import com.technology.yuyi.adapter.RightListViewAdapter;
 import com.technology.yuyi.bean.HospitalDepartmentMessage;
 import com.technology.yuyi.bean.HospitalDepartmentRoot;
 import com.technology.yuyi.bean.HospitalOutPatient;
-import com.technology.yuyi.bean.MyEntity;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AllHospitalDepartmentActivity extends AppCompatActivity implements View.OnClickListener {
@@ -61,7 +58,7 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                         }
 
                         //刚进页面，将第一个科室的第一个数据显示
-                        if (mRightData.size()!=0){
+                        if (mRightData.size() != 0) {
                             mRightAdapter.setmList((List<HospitalOutPatient>) mRightData.get(0));
                             mRightAdapter.notifyDataSetChanged();
 
@@ -70,13 +67,13 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                         mRefresh.setEnabled(false);
                     }
                 }
-            }else if (msg.what==215){
+            } else if (msg.what == 215) {
                 mRefresh.setRefreshing(false);
                 mRefresh.setEnabled(false);
-            }else if (msg.what==216){
+            } else if (msg.what == 216) {
                 mRefresh.setRefreshing(false);
                 mRefresh.setEnabled(false);
-                ToastUtils.myToast(AllHospitalDepartmentActivity.this,"请求失败");
+                ToastUtils.myToast(AllHospitalDepartmentActivity.this, "请求失败");
             }
         }
     };
@@ -92,11 +89,11 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getHospitalDepartmentData(mHandler, getIntent().getIntExtra("hid", -1));
         //刷新
-        mRefresh= (SwipeRefreshLayout) findViewById(R.id.left_right_refresh);
+        mRefresh = (SwipeRefreshLayout) findViewById(R.id.left_right_refresh);
         mRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
         mRefresh.setRefreshing(true);
 
-        mHospital_name= (TextView) findViewById(R.id.hospital_name);
+        mHospital_name = (TextView) findViewById(R.id.hospital_name);
         mHospital_name.setText(getIntent().getStringExtra("hospital_name"));
         mBack = (ImageView) findViewById(R.id.depart_back);
         mBack.setOnClickListener(this);
