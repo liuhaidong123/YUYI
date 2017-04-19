@@ -214,12 +214,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageUserDataBean.Root) ;
                 com.technology.yuyi.bean.FirstPageUserDataBean.Root root = (com.technology.yuyi.bean.FirstPageUserDataBean.Root) o;
                 mUserData.clear();
-
+                mAllUser_ll.removeAllViews();
                 if (root!=null&&root.getResult()!=null){
                     mUserData = root.getResult();
                     initUserMessage();//初始化用户的头像和昵称，绘制折线图
                 }
-                mAllUser_ll.removeAllViews();
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 231) {
                 mSwipeRefresh.setRefreshing(false);

@@ -46,7 +46,7 @@
                 android:id="@+id/ms_drugstate_my_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我的药品状态"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="13sp" />
 
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="2017-3-24"
+                android:text=""
                 android:textColor="#333333"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -67,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:text="当前状态：煎药中"
+            android:text=""
             android:textColor="#333333"
             android:textSize="13sp" />
     </RelativeLayout>

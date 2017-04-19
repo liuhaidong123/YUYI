@@ -50,7 +50,7 @@
         android:background="@color/color_cancel" />
 
 
-    <ListView
+    <com.technology.yuyi.lzh_utils.MyEmptyListView
         android:id="@+id/family_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,5 +60,5 @@
         android:dividerHeight="10dp">
 
 
-    </ListView>
+    </com.technology.yuyi.lzh_utils.MyEmptyListView>
 </RelativeLayout>

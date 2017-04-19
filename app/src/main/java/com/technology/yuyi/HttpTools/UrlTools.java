@@ -6,7 +6,7 @@ package com.technology.yuyi.HttpTools;
 
 public class UrlTools {
 
-    public static final String BASE="http://192.168.1.55:8080/yuyi";
+    public static final String BASE="http://59.110.169.148:8080";
     public static final String URL_FIRST_PAGE_SIX_DATA="/drugs/findList.do?start=0&limit=6&cid=11";//首页常用药品6条数据
     public static final String URL_UPDATEA_FIRST="/article/findList.do?";//首页俩条数据，以及资讯全部数据（需传start=0&limit=2）
     public static final String URL_UPDATEA_FIRST_MESSAGE="/article/getid.do?";////首页俩条数据，以及资讯全部数据的详情（传id=）

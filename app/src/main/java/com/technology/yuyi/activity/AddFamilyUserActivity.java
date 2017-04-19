@@ -158,7 +158,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                                 }
                                 else {
                                     userInfo.setTelephone(0);
-                                }
+                                    }
                                 userInfo.setGender(Integer.parseInt(gender));
                                 Intent intent=new Intent();
                                 Bundle bundle=new Bundle();
@@ -167,7 +167,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                                 setResult(200,intent);
                                 finish();
                             }
-
                         }
                         else {
                             if ("0".equals(type)){

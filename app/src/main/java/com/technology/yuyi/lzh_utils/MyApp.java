@@ -92,10 +92,10 @@ public class MyApp extends Application{
         RongIM.getInstance().init(this);
         RongIM.getInstance().setMessageAttachedUserInfo(true);
 
-//        RongIM.getInstance().setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
-//            @Override
-//            public boolean onReceived(Message message, int i) {
-//                UserInfo info=null;
+        RongIM.getInstance().setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+            @Override
+            public boolean onReceived(Message message, int i) {
+                UserInfo info=null;
 //                if (message!=null){
 //                    Log.e("-MessageListener-",message.getExtra()+"---");
 //                    Log.e("-MessageListener-",message.getObjectName()+"--");
@@ -108,37 +108,38 @@ public class MyApp extends Application{
 //                        info=content.getUserInfo();
 //                    }
 //                }
-//                if (message!=null){
-//                    if (info!=null){
-//
-//                    }
-//                    NotificationManager manager= (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-//                    NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext());
-//                    builder.setContentTitle("收到一条新的消息").
-//                            setContentText("来自："+info.getName()).
-//                            setTicker(message.getTargetId()).setWhen(System.currentTimeMillis())
-//                            .setPriority(100).
-//                            setAutoCancel(true).
-//                            setDefaults(Notification.DEFAULT_ALL)
-//                            .setSmallIcon(R.mipmap.logo);
-//
-//                    Notification notification = builder.build();
-//                    notification.defaults=Notification.DEFAULT_ALL;
-//                    notification.flags = Notification.FLAG_AUTO_CANCEL;
-//                    Uri uri = Uri.parse("rong://" + getApplicationContext().getApplicationInfo().packageName).
-//                            buildUpon().appendPath("conversation").appendPath(Conversation.ConversationType.PRIVATE.getName().
-//                            toLowerCase()).appendQueryParameter("targetId", message.getTargetId()).appendQueryParameter("title",
-//                            "与"+info.getName()+"聊天").build();
-//                    Intent intent=new Intent();
-//                    intent.setAction("android.intent.action.VIEW");
-//                    intent.setData(uri);
-//                    PendingIntent pendingIntent= PendingIntent.getActivity(getApplicationContext(), 1, intent,PendingIntent.FLAG_CANCEL_CURRENT);
-//                    notification.contentIntent=pendingIntent;
-//                    manager.notify(message.getMessageId(),notification);
-//                }
-//                return false;
-//            }
-//        });
+                if (message!=null){
+                    info = message.getContent().getUserInfo();
+                    if (info == null) {
+                        info = new UserInfo(message.getTargetId(), "宇医", Uri.parse("http://k1.jsqq.net/uploads/allimg/1612/140F5A32-6.jpg"));
+                    }
+                    NotificationManager manager= (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder builder=new NotificationCompat.Builder(getApplicationContext());
+                    builder.setContentTitle("收到一条新的消息").
+                            setContentText("来自："+info.getName()).
+                            setTicker(info.getName()).setWhen(System.currentTimeMillis())
+                            .setPriority(100).
+                            setAutoCancel(true).
+                            setDefaults(Notification.DEFAULT_ALL)
+                            .setSmallIcon(R.mipmap.logo);
+
+                    Notification notification = builder.build();
+                    notification.defaults=Notification.DEFAULT_ALL;
+                    notification.flags = Notification.FLAG_AUTO_CANCEL;
+                    Uri uri = Uri.parse("rong://" + getApplicationContext().getApplicationInfo().packageName).
+                            buildUpon().appendPath("conversation").appendPath(Conversation.ConversationType.PRIVATE.getName().
+                            toLowerCase()).appendQueryParameter("targetId", message.getTargetId()).appendQueryParameter("title",
+                            "与"+info.getName()+"聊天").build();
+                    Intent intent=new Intent();
+                    intent.setAction("android.intent.action.VIEW");
+                    intent.setData(uri);
+                    PendingIntent pendingIntent= PendingIntent.getActivity(getApplicationContext(), 1, intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                    notification.contentIntent=pendingIntent;
+                    manager.notify(message.getMessageId(),notification);
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -152,6 +153,5 @@ public class MyApp extends Application{
             }
             list.clear();
         }
-
     }
 }

@@ -10,7 +10,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:gravity="center_vertical"
-        android:text="@string/str_tv_name"
+        android:text=""
         android:textColor="@color/color_normal"
         android:textSize="15sp" />
 

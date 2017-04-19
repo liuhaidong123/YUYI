@@ -109,7 +109,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         initView(view);
-
         return view;
     }
 

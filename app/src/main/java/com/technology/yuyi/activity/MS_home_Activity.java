@@ -1,6 +1,5 @@
 package com.technology.yuyi.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -13,18 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import com.technology.yuyi.R;
-import com.technology.yuyi.adapter.MS_allkinds_ExAdapter;
-import com.technology.yuyi.adapter.MS_home_DailyGridViewAdapter;
 import com.technology.yuyi.adapter.MS_home_ExAdapter;
 import com.technology.yuyi.adapter.MS_home_GridViewAdapter;
-import com.technology.yuyi.bean.AdBean.Result;
-import com.technology.yuyi.bean.bean_MS_allkinds;
 import com.technology.yuyi.bean.bean_MS_home;
 import com.technology.yuyi.bean.bean_MyDrugState;
 import com.technology.yuyi.lzh_utils.Intent_Code;
@@ -32,7 +26,6 @@ import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.MyExpanListview;
 import com.technology.yuyi.lzh_utils.MyGridView;
 import com.technology.yuyi.lzh_utils.MyIntent;
-import com.technology.yuyi.lzh_utils.conn;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
@@ -43,15 +36,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class MS_home_Activity extends AppCompatActivity {
     private final String TAG=getClass().getSimpleName();
     private MyGridView ms_home_gridview;//药品种类展示的view
     private MS_home_GridViewAdapter adapter;
 
-//    adapter=new MS_home_GridViewAdapter(liKinds,MS_home_Activity.this);
-//    ms_home_gridview.setAdapter(adapter);
     private List<bean_MS_home.CategoryBean>listCategory;//分类（大类）
     private List<bean_MS_home.DrugsBean>listDrugs;//获取到的所有药品
     private MyExpanListview ms_home_exlistview;
@@ -77,7 +67,6 @@ public class MS_home_Activity extends AppCompatActivity {
                         listDrugs=homeSource.getDrugs();
                         final List<Integer>listId=new ArrayList<>();//存放所有大类的id
                         if (listCategory!=null&&listCategory.size()>0&&listDrugs!=null&&listDrugs.size()>0){
-
                             listCat=new ArrayList<>();
                             for (int i=0;i<listCategory.size();i++){
                                 Map<String,String>mp=new HashMap<>();
@@ -160,8 +149,6 @@ public class MS_home_Activity extends AppCompatActivity {
                     }
 
                     break;
-
-
                 case 2://我的药品状态返回
                     try{
                         bean_MyDrugState drugState=gson.gson.fromJson(resultStr,bean_MyDrugState.class);
@@ -184,7 +171,6 @@ public class MS_home_Activity extends AppCompatActivity {
                                 else {
                                     ms_home_ms_state.setClickable(false);
                                 }
-
 
                             }
                             else {
@@ -211,8 +197,6 @@ public class MS_home_Activity extends AppCompatActivity {
         getMyDrugState();//获取我的药品状态
     }
 
-
-
     //初始化view
     private void initView() {
         ms_home_gridview= (MyGridView) findViewById(R.id.ms_home_gridview);
@@ -224,7 +208,7 @@ public class MS_home_Activity extends AppCompatActivity {
         ms_home_myDrugState_time= (TextView) findViewById(R.id.ms_home_myDrugState_time);
     }
 
-    //    view的点击事件
+    //view的点击事件
     public void ms_homeClick(View v){
         if (v!=null){
             switch (v.getId()){
@@ -244,7 +228,6 @@ public class MS_home_Activity extends AppCompatActivity {
 
     }
 
-
     //药品详情页面
     public void getDrugInfo(){
         Intent intent=new Intent();
@@ -252,9 +235,7 @@ public class MS_home_Activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-    //---------------请求数据--------------------------------
+    //---------------请求数据---------------
     @Override
     protected void onStart() {
         super.onStart();
@@ -284,7 +265,6 @@ public class MS_home_Activity extends AppCompatActivity {
        });
     }
 
-
     //搜索按钮
     public void SearchDrugs(View view) {
         Intent inten=new Intent();
@@ -292,6 +272,7 @@ public class MS_home_Activity extends AppCompatActivity {
         inten.putExtra("type","drug");
         startActivity(inten);
     }
+
     //获取我的药品状态
     public void getMyDrugState() {
         Map<String,String>mp=new HashMap<>();

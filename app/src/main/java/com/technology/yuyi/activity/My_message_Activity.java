@@ -15,6 +15,7 @@ import com.technology.yuyi.adapter.My_messageListView_Adapter;
 import com.technology.yuyi.bean.bean_MyMessage;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.MyActivity;
+import com.technology.yuyi.lzh_utils.MyEmptyListView;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
@@ -31,7 +32,7 @@ import java.util.Map;
  */
 //通知信息列表
 public class My_message_Activity extends MyActivity{
-    private ListView my_message_listview;
+    private MyEmptyListView my_message_listview;
     private My_messageListView_Adapter adapter;
     private List<bean_MyMessage.ResultBean>listBean;
     private String resStr;
@@ -42,16 +43,16 @@ public class My_message_Activity extends MyActivity{
             switch (msg.what){
                 case 0:
                     toast.toast_faild(My_message_Activity.this);
+                    my_message_listview.setError();
                     break;
                 case 1:
                     try{
                         bean_MyMessage myMessage= gson.gson.fromJson(resStr,bean_MyMessage.class);
                         if (myMessage!=null){
                             if ("0".equals(myMessage.getCode())){
-                                listBean=myMessage.getResult();
-                                if (listBean!=null&&listBean.size()>0){
-                                    adapter=new My_messageListView_Adapter(My_message_Activity.this,listBean);
-                                    my_message_listview.setAdapter(adapter);
+                                if (myMessage.getResult()!=null&&myMessage.getResult().size()>0){
+                                    listBean.addAll(myMessage.getResult());
+                                    adapter.notifyDataSetChanged();
                                 }
                                 else {
                                     toast.toast_gsonEmpty(My_message_Activity.this);
@@ -68,6 +69,7 @@ public class My_message_Activity extends MyActivity{
                     catch (Exception e){
                         toast.toast_gsonFaild(My_message_Activity.this);
                     }
+                        my_message_listview.setEmpty();
                     break;
             }
         }
@@ -85,9 +87,10 @@ public class My_message_Activity extends MyActivity{
     private void initVIew() {
         titleTextView= (TextView) findViewById(R.id.activity_include_title);
         titleTextView.setText("消息");
-        my_message_listview= (ListView) findViewById(R.id.my_message_listview);
-
-
+        my_message_listview= (MyEmptyListView) findViewById(R.id.my_message_listview);
+        listBean=new ArrayList<>();
+        adapter=new My_messageListView_Adapter(this,listBean);
+        my_message_listview.setAdapter(adapter);
     }
 
 
