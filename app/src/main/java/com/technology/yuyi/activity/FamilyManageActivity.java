@@ -22,6 +22,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.FamilyManageListViewAdapter;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyEmptyListView;
 import com.technology.yuyi.lzh_utils.UserInfo;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -29,13 +30,14 @@ import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 //家庭用户列表
 public class FamilyManageActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private ListView mLisView;
+    private MyEmptyListView mLisView;
     private FamilyManageListViewAdapter mAdapter;
     private TextView mAddFamily;
     private ImageView mBack;
@@ -48,21 +50,27 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
             switch (msg.what) {
                 case 0:
                     toast.toast_faild(FamilyManageActivity.this);
+                    mLisView.setError();
                     break;
                 case 1:
-                    try {
-                        bean_ListFamilyUser user = gson.gson.fromJson(resStr, bean_ListFamilyUser.class);
-                        if ("0".equals(user.getCode())) {
-                            list = user.getResult();
-                            mAdapter = new FamilyManageListViewAdapter(FamilyManageActivity.this, list);
-                            mLisView.setAdapter(mAdapter);
-                        } else {
-                            //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
+                try
+                    {
+                    bean_ListFamilyUser user= gson.gson.fromJson(resStr,bean_ListFamilyUser.class);
+                    if ("0".equals(user.getCode())){
+                        if (user.getResult()!=null&&user.getResult().size()>0){
+                            list.addAll(user.getResult());
+                            mAdapter.notifyDataSetChanged();
+                            }
                         }
-                    } catch (Exception e) {
-                        toast.toast_gsonFaild(FamilyManageActivity.this);
-                        Log.e("json--", e.toString());
-                    }
+                    else {
+                        //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
+                        }
+                }
+                catch (Exception e){
+                    toast.toast_gsonFaild(FamilyManageActivity.this);
+                    Log.e("json--",e.toString());
+                }
+                    mLisView.setEmpty();
                     break;
             }
         }
@@ -89,7 +97,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
 
     public void initView() {
         //用户管理listview
-        mLisView = (ListView) findViewById(R.id.family_listview);
+        mLisView = (MyEmptyListView) findViewById(R.id.family_listview);
         mLisView.setOnItemClickListener(this);
         //添加用户
         mAddFamily = (TextView) findViewById(R.id.family_add);
@@ -98,6 +106,11 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         //返回
         mBack = (ImageView) findViewById(R.id.family_back);
         mBack.setOnClickListener(this);
+
+
+        list=new ArrayList<>();
+        mAdapter=new FamilyManageListViewAdapter(FamilyManageActivity.this,list);
+        mLisView.setAdapter(mAdapter);
     }
 
     @Override
@@ -136,7 +149,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
             finish();
         }
     }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        oken=6DD620E22A92AB0AED590DB66F84D064&id=123
@@ -152,8 +164,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         intent.putExtra("family", b);
         startActivity(intent);
     }
-
-
     //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
     public void getUserList() {
         Map<String, String> mp = new HashMap<>();
@@ -172,6 +182,4 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
             }
         });
     }
-
-
 }

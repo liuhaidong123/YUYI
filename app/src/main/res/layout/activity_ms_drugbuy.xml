@@ -108,7 +108,7 @@
                     android:textSize="13sp"
                     android:layout_marginTop="10dp"
                     android:textColor="#333333"
-                    android:text="收货人：刘文"
+                    android:text=""
                     android:layout_below="@+id/ms_drugbuy_addressmsg"/>
 
                 <TextView
@@ -121,7 +121,7 @@
                     android:layout_toLeftOf="@+id/ms_drugbuy_addressEdit"
                     android:layout_marginRight="10dp"
                     android:textColor="#333333"
-                    android:text="联系电话：17743516301"
+                    android:text=""
                     android:layout_below="@+id/ms_drugbuy_address"/>
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:textSize="13sp"
                     android:layout_marginRight="10dp"
                     android:textColor="#333333"
-                    android:text="详细地址：北京市大兴区清远里枣园小区1号楼"
+                    android:text=""
                     android:layout_below="@+id/ms_drugbuy_addressName"
                     android:layout_alignParentStart="true" />
             </RelativeLayout>
@@ -156,7 +156,6 @@
                     android:background="@drawable/ms_drugbuy_lin">
                     <ImageView
                         android:layout_centerInParent="true"
-                        android:src="@mipmap/logo"
                         android:scaleType="centerCrop"
                         android:id="@+id/ms_drugbuy_image"
                         android:layout_width="74dp"
@@ -166,7 +165,7 @@
                     android:id="@+id/ms_drugbuy_price"
                     android:layout_width="wrap_content"
                     android:textColor="#e00610"
-                    android:text="￥45"
+                    android:text=""
                     android:layout_toRightOf="@+id/ms_drugbuy_rela"
                     android:layout_alignBottom="@+id/ms_drugbuy_rela"
                     android:layout_marginLeft="10dp"
@@ -176,7 +175,7 @@
                     android:id="@+id/ms_drugbuy_name"
                     android:layout_width="wrap_content"
                     android:textColor="#6a6a6a"
-                    android:text="氨基酸口服液"
+                    android:text=""
                     android:layout_marginBottom="10dp"
                     android:layout_toRightOf="@+id/ms_drugbuy_rela"
                     android:layout_above="@+id/ms_drugbuy_price"
@@ -185,7 +184,7 @@
                     android:textSize="14sp"/>
                 <TextView
                     android:id="@+id/ms_drugbuy_numX"
-                    android:text="X 1"
+                    android:text=""
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:textSize="14sp"
@@ -210,25 +209,29 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:textSize="15sp"
-                    android:textColor="#6a6a6a"/>
+                    android:textColor="#6a6a6a"
+                    android:id="@+id/textView6" />
                 <TextView
                     android:id="@+id/ms_drugbuy_num"
-                    android:text="共 1 件"
+                    android:text=""
                     android:textSize="12sp"
                     android:textColor="#6a6a6a"
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥45"
+                    android:text=""
                     android:id="@+id/ms_drugbuy_totalPrice"
                     android:textSize="15sp"
                     android:layout_marginRight="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="#E00610"/>
+                    android:textColor="#E00610"
+                    android:layout_alignBaseline="@+id/textView6"
+                    android:layout_alignBottom="@+id/textView6"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp" />
             </RelativeLayout>
             <TextView
                 android:layout_marginLeft="10dp"

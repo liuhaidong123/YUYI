@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="*本单已免运费"
+            android:text=""
             android:layout_marginTop="30dp"
             android:textSize="9sp"
             android:textColor="#999999"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="￥55"
+            android:text=""
             android:textColor="#666666"
             android:textSize="13sp"/>
 
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
-                android:text="110"
+                android:text=""
                 android:id="@+id/my_shoppingcart_listitem_totalPrice"
                 android:textColor="#fb0202"
                 android:layout_alignParentBottom="true"
@@ -96,7 +96,7 @@
                 android:id="@+id/my_shoppingcart_listitem_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="氨基酸口服液fff"
+                android:text=""
                 android:gravity="left"
                 android:textSize="13sp"
                 android:textColor="#666666"/>
@@ -106,7 +106,7 @@
                 android:textColor="#999999"
                 android:textSize="11sp"
                 android:layout_marginTop="10dp"
-                android:text="非处方药"/>
+                android:text=""/>
             <RelativeLayout
                 android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
                     android:id="@+id/my_shoppingcart_listitem_num"
                     android:layout_width="40dp"
                     android:layout_height="25dp"
-                    android:text="2"
+                    android:text="1"
                     android:gravity="center"
                     android:textColor="#333333"
                     android:textSize="11sp"/>

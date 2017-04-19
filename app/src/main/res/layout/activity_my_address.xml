@@ -200,7 +200,7 @@
                 android:textColor="#b4b4b4"
                 android:paddingLeft="13dp"
                 android:lineSpacingExtra="5dp"
-                android:hint="填写您的详细街道／小区／门牌号河北省保定市涿州市开发区"
+                android:hint="填写您的详细街道／小区／门牌号"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -229,7 +229,7 @@
                 android:maxLines="1"
                 android:textSize="14sp"
                 android:textColor="#333333"
-                android:text="@string/my_address_postcode"
+                android:text=""
                 android:paddingLeft="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

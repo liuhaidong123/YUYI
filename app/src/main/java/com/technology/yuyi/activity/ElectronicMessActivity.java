@@ -22,12 +22,14 @@ import com.technology.yuyi.adapter.FamilyUserEleListAdapter;
 import com.technology.yuyi.bean.bean_FamilyUserEle;
 import com.technology.yuyi.bean.bean_MedicalRecordList;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyEmptyListView;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +37,9 @@ import java.util.Map;
 
 //intent.putExtra("type","1");
 //        intent.putExtra("id",""+userInfo.getId());
-public class ElectronicMessActivity extends AppCompatActivity implements View.OnClickListener {
-    private ImageView mBack;
-    private ListView mLisview;
+public class ElectronicMessActivity extends AppCompatActivity implements View.OnClickListener{
+private ImageView mBack;
+    private MyEmptyListView mLisview;
     private String type;//0用户的电子病历，1家人的电子病历
     private String Fid;//家人用户的id
     private ElectronicMessListViewAdapter mAdapter;
@@ -53,16 +55,19 @@ public class ElectronicMessActivity extends AppCompatActivity implements View.On
             switch (msg.what) {
                 case 0:
                     toast.toast_faild(ElectronicMessActivity.this);
+                    mLisview.setError();
                     break;
                 case 1:
-                    try {
-                        bean_MedicalRecordList recordList = gson.gson.fromJson(resStr, bean_MedicalRecordList.class);
-                        if (recordList != null) {
-                            if ("0".equals(recordList.getCode())) {
-                                list = recordList.getResult();
-                                if (list != null && list.size() > 0) {
-                                    mAdapter = new ElectronicMessListViewAdapter(ElectronicMessActivity.this, list);
-                                    mLisview.setAdapter(mAdapter);
+                    try{
+                        list=new ArrayList<>();
+                        mAdapter=new ElectronicMessListViewAdapter(ElectronicMessActivity.this,list);
+                        mLisview.setAdapter(mAdapter);
+                        bean_MedicalRecordList recordList= gson.gson.fromJson(resStr,bean_MedicalRecordList.class);
+                        if (recordList!=null){
+                            if ("0".equals(recordList.getCode())){
+                                if (recordList.getResult()!=null&&recordList.getResult().size()>0){
+                                    list.addAll(recordList.getResult());
+                                    adapter.notifyDataSetChanged();
                                     mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,15 +93,18 @@ public class ElectronicMessActivity extends AppCompatActivity implements View.On
                         toast.toast_gsonFaild(ElectronicMessActivity.this);
                         e.printStackTrace();
                     }
+                    mLisview.setEmpty();
                     break;
                 case 2://获取家庭用户的所有病历
-                    try {
-                        bean_FamilyUserEle us = gson.gson.fromJson(resStr, bean_FamilyUserEle.class);
-                        if ("0".equals(us.getCode())) {
-                            listFamilyUser = us.getResult();
-                            if (listFamilyUser != null && listFamilyUser.size() > 0) {
-                                adapter = new FamilyUserEleListAdapter(ElectronicMessActivity.this, listFamilyUser);
-                                mLisview.setAdapter(adapter);
+                    try{
+                        listFamilyUser=new ArrayList<>();
+                        adapter=new FamilyUserEleListAdapter(ElectronicMessActivity.this,listFamilyUser);
+                        mLisview.setAdapter(adapter);
+                        bean_FamilyUserEle us=gson.gson.fromJson(resStr,bean_FamilyUserEle.class);
+                        if ("0".equals(us.getCode())){
+                            if (us.getResult()!=null&&us.getResult().size()>0){
+                                listFamilyUser.addAll(us.getResult());
+                                adapter.notifyDataSetChanged();
                                 mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -118,6 +126,7 @@ public class ElectronicMessActivity extends AppCompatActivity implements View.On
                     } catch (Exception e) {
                         toast.toast_faild(ElectronicMessActivity.this);
                     }
+                    mLisview.setEmpty();
                     break;
             }
         }
@@ -143,12 +152,13 @@ public class ElectronicMessActivity extends AppCompatActivity implements View.On
         //返回
         mBack = (ImageView) findViewById(R.id.elec_back);
         mBack.setOnClickListener(this);
-
         //电子病历数据
-        mLisview = (ListView) findViewById(R.id.elec_listview);
-        mHeaderView = LayoutInflater.from(this).inflate(R.layout.elec_header, null);
-        mLisview.addHeaderView(mHeaderView);
-
+        mLisview= (MyEmptyListView) findViewById(R.id.elec_listview);
+//        mHeaderView= LayoutInflater.from(this).inflate(R.layout.elec_header,null);
+//        mLisview.addHeaderView(mHeaderView);
+        list=new ArrayList<>();
+        mAdapter=new ElectronicMessListViewAdapter(ElectronicMessActivity.this,list);
+        mLisview.setAdapter(mAdapter);
     }
 
     @Override
@@ -158,7 +168,6 @@ public class ElectronicMessActivity extends AppCompatActivity implements View.On
             finish();
         }
     }
-
     //获取所有电子病历
     public void getMsg() {
         Map<String, String> mp = new HashMap<>();
@@ -178,8 +187,6 @@ public class ElectronicMessActivity extends AppCompatActivity implements View.On
         });
 
     }
-
-
     //获取家人电子病历http://localhost:8080/yuyi/medical/homeuserMedicalTime.do?id=1
     public void getFamilyUserMsg(String ids) {
         Map<String, String> mp = new HashMap<>();

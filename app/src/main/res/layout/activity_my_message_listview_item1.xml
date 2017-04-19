@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
-        android:text="更新通知：你已经很久没看我了，最近我有很多好玩的新功能哦，快来更新吧～"
+        android:text=""
         android:textColor="#333333"
         android:textSize="12sp" />
 

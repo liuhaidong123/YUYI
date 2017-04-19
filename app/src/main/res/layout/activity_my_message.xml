@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 
-    <ListView
+    <com.technology.yuyi.lzh_utils.MyEmptyListView
         android:id="@+id/my_message_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#f2f2f2"
         android:dividerHeight="10dp"
         android:padding="10dp"
-        android:scrollbars="none"></ListView>
+        android:scrollbars="none">
+    </com.technology.yuyi.lzh_utils.MyEmptyListView>
 </LinearLayout>
