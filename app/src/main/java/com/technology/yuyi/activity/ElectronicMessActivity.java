@@ -22,6 +22,7 @@ import com.technology.yuyi.adapter.FamilyUserEleListAdapter;
 import com.technology.yuyi.bean.bean_FamilyUserEle;
 import com.technology.yuyi.bean.bean_MedicalRecordList;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.MyEmptyListView;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -54,11 +55,16 @@ private ImageView mBack;
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    toast.toast_faild(ElectronicMessActivity.this);
+                    list=new ArrayList<>();
+                    mAdapter=new ElectronicMessListViewAdapter(ElectronicMessActivity.this,list);
+                    mLisview.setAdapter(mAdapter);
+                    MyDialog.stopDia();
+//                    toast.toast_faild(ElectronicMessActivity.this);
                     mLisview.setError();
                     break;
                 case 1:
                     try{
+                        MyDialog.stopDia();
                         list=new ArrayList<>();
                         mAdapter=new ElectronicMessListViewAdapter(ElectronicMessActivity.this,list);
                         mLisview.setAdapter(mAdapter);
@@ -67,36 +73,36 @@ private ImageView mBack;
                             if ("0".equals(recordList.getCode())){
                                 if (recordList.getResult()!=null&&recordList.getResult().size()>0){
                                     list.addAll(recordList.getResult());
-                                    adapter.notifyDataSetChanged();
+                                    mAdapter.notifyDataSetChanged();
                                     mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            if (position != 0) {
                                                 Intent intent = new Intent();
                                                 intent.setClass(ElectronicMessActivity.this, LookElectronicMessActivity.class);
-                                                intent.putExtra("id", list.get(position - 1).getId());
+                                                intent.putExtra("id", list.get(position ).getId());
                                                 intent.putExtra("type", "0");
                                                 startActivity(intent);
-                                            }
+
                                         }
                                     });
                                 } else {
-                                    toast.toast_gsonEmpty(ElectronicMessActivity.this);
+//                                    toast.toast_gsonEmpty(ElectronicMessActivity.this);
                                 }
                             } else {
-                                Toast.makeText(ElectronicMessActivity.this, "加载失败：", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(ElectronicMessActivity.this, "加载失败：", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            toast.toast_gsonEmpty(ElectronicMessActivity.this);
+//                            toast.toast_gsonEmpty(ElectronicMessActivity.this);
                         }
                     } catch (Exception e) {
-                        toast.toast_gsonFaild(ElectronicMessActivity.this);
+//                        toast.toast_gsonFaild(ElectronicMessActivity.this);
                         e.printStackTrace();
                     }
                     mLisview.setEmpty();
                     break;
                 case 2://获取家庭用户的所有病历
                     try{
+                        MyDialog.stopDia();
                         listFamilyUser=new ArrayList<>();
                         adapter=new FamilyUserEleListAdapter(ElectronicMessActivity.this,listFamilyUser);
                         mLisview.setAdapter(adapter);
@@ -108,23 +114,21 @@ private ImageView mBack;
                                 mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        if (position != 0) {
                                             Intent intent = new Intent();
                                             intent.setClass(ElectronicMessActivity.this, LookElectronicMessActivity.class);
-                                            intent.putExtra("id", listFamilyUser.get(position - 1).getId());
+                                            intent.putExtra("id", listFamilyUser.get(position).getId());
                                             intent.putExtra("type", "1");
                                             startActivity(intent);
-                                        }
                                     }
                                 });
                             } else {
-                                toast.toast_gsonEmpty(ElectronicMessActivity.this);
+//                                toast.toast_gsonEmpty(ElectronicMessActivity.this);
                             }
                         } else {
-                            Toast.makeText(ElectronicMessActivity.this, "电子病历获取失败", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ElectronicMessActivity.this, "电子病历获取失败", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
-                        toast.toast_faild(ElectronicMessActivity.this);
+//                        toast.toast_faild(ElectronicMessActivity.this);
                     }
                     mLisview.setEmpty();
                     break;
@@ -156,9 +160,6 @@ private ImageView mBack;
         mLisview= (MyEmptyListView) findViewById(R.id.elec_listview);
 //        mHeaderView= LayoutInflater.from(this).inflate(R.layout.elec_header,null);
 //        mLisview.addHeaderView(mHeaderView);
-        list=new ArrayList<>();
-        mAdapter=new ElectronicMessListViewAdapter(ElectronicMessActivity.this,list);
-        mLisview.setAdapter(mAdapter);
     }
 
     @Override
@@ -170,8 +171,9 @@ private ImageView mBack;
     }
     //获取所有电子病历
     public void getMsg() {
+        MyDialog.showDialog(ElectronicMessActivity.this);
         Map<String, String> mp = new HashMap<>();
-        mp.put("token", user.token);
+        mp.put("token",user.token);
         okhttp.getCall(Ip.url + Ip.interface_medicalRecordList, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -189,6 +191,7 @@ private ImageView mBack;
     }
     //获取家人电子病历http://localhost:8080/yuyi/medical/homeuserMedicalTime.do?id=1
     public void getFamilyUserMsg(String ids) {
+        MyDialog.showDialog(ElectronicMessActivity.this);
         Map<String, String> mp = new HashMap<>();
         mp.put("id", ids);
         okhttp.getCall(Ip.url_F + Ip.interface_famiUserEleList, mp, okhttp.OK_GET).enqueue(new Callback() {

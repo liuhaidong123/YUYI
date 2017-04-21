@@ -53,23 +53,26 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
                     mLisView.setError();
                     break;
                 case 1:
-                    try {
-                        list = new ArrayList<>();
-                        mAdapter = new FamilyManageListViewAdapter(FamilyManageActivity.this, list);
+                try
+                    {
+                        list=new ArrayList<>();
+                        mAdapter=new FamilyManageListViewAdapter(FamilyManageActivity.this,list);
                         mLisView.setAdapter(mAdapter);
-                        bean_ListFamilyUser user = gson.gson.fromJson(resStr, bean_ListFamilyUser.class);
-                        if ("0".equals(user.getCode())) {
-                            if (user.getResult() != null && user.getResult().size() > 0) {
-                                list.addAll(user.getResult());
-                                mAdapter.notifyDataSetChanged();
+                    bean_ListFamilyUser user= gson.gson.fromJson(resStr,bean_ListFamilyUser.class);
+                    if ("0".equals(user.getCode())){
+                        if (user.getResult()!=null&&user.getResult().size()>0){
+                            list.addAll(user.getResult());
+                            mAdapter.notifyDataSetChanged();
                             }
-                        } else {
-                            //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
                         }
-                    } catch (Exception e) {
-                        toast.toast_gsonFaild(FamilyManageActivity.this);
-                        Log.e("json--", e.toString());
-                    }
+                    else {
+                        //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
+                        }
+                }
+                catch (Exception e){
+                    toast.toast_gsonFaild(FamilyManageActivity.this);
+                    Log.e("json--",e.toString());
+                }
                     mLisView.setEmpty();
                     break;
             }

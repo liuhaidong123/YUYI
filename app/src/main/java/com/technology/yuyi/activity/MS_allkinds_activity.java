@@ -143,7 +143,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent();
                                     intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
                                     intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
@@ -174,7 +174,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent();
                                     intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
                                     intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
@@ -206,7 +206,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent();
                                     intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
                                     intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
