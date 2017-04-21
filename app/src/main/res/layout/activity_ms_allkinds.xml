@@ -54,7 +54,7 @@
                     android:id="@+id/textViewf1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#cccccc"/>
+                    android:background="#f2f2f2"/>
                 <RelativeLayout
                     android:id="@+id/ms_allkinds_rela"
                     android:layout_below="@+id/textViewf1"

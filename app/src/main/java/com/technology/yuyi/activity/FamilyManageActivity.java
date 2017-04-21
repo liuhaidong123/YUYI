@@ -55,6 +55,9 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
                 case 1:
                 try
                     {
+                        list=new ArrayList<>();
+                        mAdapter=new FamilyManageListViewAdapter(FamilyManageActivity.this,list);
+                        mLisView.setAdapter(mAdapter);
                     bean_ListFamilyUser user= gson.gson.fromJson(resStr,bean_ListFamilyUser.class);
                     if ("0".equals(user.getCode())){
                         if (user.getResult()!=null&&user.getResult().size()>0){
@@ -81,6 +84,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_manage);
         initView();
+
     }
 
     @Override
@@ -106,11 +110,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         //返回
         mBack = (ImageView) findViewById(R.id.family_back);
         mBack.setOnClickListener(this);
-
-
-        list=new ArrayList<>();
-        mAdapter=new FamilyManageListViewAdapter(FamilyManageActivity.this,list);
-        mLisView.setAdapter(mAdapter);
     }
 
     @Override

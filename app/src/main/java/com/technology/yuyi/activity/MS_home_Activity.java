@@ -23,6 +23,7 @@ import com.technology.yuyi.bean.bean_MS_home;
 import com.technology.yuyi.bean.bean_MyDrugState;
 import com.technology.yuyi.lzh_utils.Intent_Code;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.MyExpanListview;
 import com.technology.yuyi.lzh_utils.MyGridView;
 import com.technology.yuyi.lzh_utils.MyIntent;
@@ -58,9 +59,11 @@ public class MS_home_Activity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0://请求失败：网络异常，服务器异常
+                    MyDialog.stopDia();
                     toast.toast_faild(MS_home_Activity.this);
                     break;
                 case 1://查询首页信息返回的数据
+                    MyDialog.stopDia();
                     try{
                         bean_MS_home homeSource=gson.gson.fromJson(resultStr,bean_MS_home.class);
                         listCategory=homeSource.getCategory();
@@ -249,13 +252,13 @@ public class MS_home_Activity extends AppCompatActivity {
 
     //获取首页信息数据
     public void getHomeSource() {
+        MyDialog.showDialog(MS_home_Activity.this);
         Map<String,String>mp=new HashMap<>();
        okhttp.getCall(Ip.url+Ip.inteface_MS_home_date,mp,okhttp.OK_GET).enqueue(new Callback() {
            @Override
            public void onFailure(Request request, IOException e) {
                handler.sendEmptyMessage(0);
            }
-
            @Override
            public void onResponse(Response response) throws IOException {
                     resultStr=response.body().string();

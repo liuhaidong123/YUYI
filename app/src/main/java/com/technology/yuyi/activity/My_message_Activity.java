@@ -42,7 +42,7 @@ public class My_message_Activity extends MyActivity{
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-                    toast.toast_faild(My_message_Activity.this);
+//                    toast.toast_faild(My_message_Activity.this);
                     my_message_listview.setError();
                     break;
                 case 1:
@@ -55,19 +55,20 @@ public class My_message_Activity extends MyActivity{
                                     adapter.notifyDataSetChanged();
                                 }
                                 else {
-                                    toast.toast_gsonEmpty(My_message_Activity.this);
+//                                    toast.toast_gsonEmpty(My_message_Activity.this);
                                 }
                             }
                             else {
-                                toast.toast_gsonEmpty(My_message_Activity.this);
+//                                toast.toast_gsonEmpty(My_message_Activity.this);
                             }
                         }
                         else {
-                            toast.toast_gsonEmpty(My_message_Activity.this);
+//                            toast.toast_gsonEmpty(My_message_Activity.this);
                         }
                     }
                     catch (Exception e){
-                        toast.toast_gsonFaild(My_message_Activity.this);
+                        e.printStackTrace();
+//                        toast.toast_gsonFaild(My_message_Activity.this);
                     }
                         my_message_listview.setEmpty();
                     break;

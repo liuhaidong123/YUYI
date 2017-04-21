@@ -277,8 +277,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                 byte[] bytes = Base64.decode(userInfo.getBit64(), Base64.DEFAULT);
                 add_head_tv.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
             } else {
-                Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.usererr).memoryPolicy(MemoryPolicy.NO_CACHE)
-                        .networkPolicy(NetworkPolicy.NO_CACHE).into(new Target() {
+                Picasso.with(AddFamilyUserActivity.this).load(Uri.parse(Ip.imagePth + userInfo.getAvatar())).error(R.mipmap.usererr).into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                         bit = bitmap;

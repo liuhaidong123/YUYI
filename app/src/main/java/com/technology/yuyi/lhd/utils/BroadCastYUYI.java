@@ -31,10 +31,10 @@ public  class BroadCastYUYI extends BroadcastReceiver {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isAvailable()) {
             sharedPreferencesUtils.setIsnetwork("network",true);
-            ToastUtils.myToast(context, "宇医有网了456");
+            ToastUtils.myToast(context, "宇医有网了");
         } else {
             sharedPreferencesUtils.setIsnetwork("network",false);
-            ToastUtils.myToast(context, "宇医没网了456");
+            ToastUtils.myToast(context, "宇医没网了");
         }
     }
 }
