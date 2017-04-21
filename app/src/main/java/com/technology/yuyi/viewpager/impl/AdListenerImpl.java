@@ -1,11 +1,16 @@
 package com.technology.yuyi.viewpager.impl;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.technology.yuyi.R;
+import com.technology.yuyi.activity.InformationDetailsActivity;
 import com.technology.yuyi.bean.AdBean.Rows;
 
 import java.util.ArrayList;
@@ -24,15 +29,16 @@ public class AdListenerImpl implements ViewPager.OnPageChangeListener {
     private Handler mHandler;
     private SwipeRefreshLayout mResfresh;
 
-    public AdListenerImpl(ImageView[] mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Rows> mImgList, SwipeRefreshLayout swipeRefreshLayout
+
+    public AdListenerImpl(ImageView[]mImgCircleArr, Handler mHandler, ViewPager mAdViewpager, List<Rows> mImgList, SwipeRefreshLayout swipeRefreshLayout
     ) {
         this.mImgCircleArr = mImgCircleArr;
         this.mHandler = mHandler;
         this.mAdViewpager = mAdViewpager;
         this.mImgList = mImgList;
-        this.mResfresh=swipeRefreshLayout;
-    }
+        this.mResfresh = swipeRefreshLayout;
 
+    }
 
 
     @Override
@@ -41,8 +47,9 @@ public class AdListenerImpl implements ViewPager.OnPageChangeListener {
     }
 
     @Override
-    public void onPageSelected(int position) {
-        setImageBackground(position % mImgList.size());
+    public void onPageSelected(final int position) {
+       // setImageBackground(position % mImgList.size());
+        setImageBackground(position);
     }
 
     @Override
@@ -54,10 +61,10 @@ public class AdListenerImpl implements ViewPager.OnPageChangeListener {
             //手指松开后自动滑动
         } else if (state == mAdViewpager.SCROLL_STATE_SETTLING) {
             mHandler.removeMessages(1);
-           mResfresh.setEnabled(true);
+            mResfresh.setEnabled(true);
             //停在某一页
         } else {
-            mHandler.sendEmptyMessageDelayed(1, 3000);
+           // mHandler.sendEmptyMessageDelayed(1, 3000);
             mResfresh.setEnabled(true);
         }
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.InformationDetailsActivity;
 import com.technology.yuyi.bean.AdBean.Rows;
+import com.technology.yuyi.fragment.FirstPageFragment;
 
 
 import java.util.ArrayList;
@@ -27,7 +29,6 @@ public class ViewPagerAdAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<Rows> mListImgAd = new ArrayList<>();//广告图片集合
-    private int mPotision;
 
     public ViewPagerAdAdapter(Context mContext, List<Rows> list) {
         this.mContext = mContext;
@@ -54,15 +55,15 @@ public class ViewPagerAdAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         View view = mInflater.inflate(R.layout.viewpager_item, null);
         ImageView img = ((ImageView) view.findViewById(R.id.imageView1));
-        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(position % mListImgAd.size()).getPicture()).error(R.mipmap.error_big).into(img);
-        mPotision = position % mListImgAd.size();
+        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(FirstPageFragment.mSelectPosition).getPicture()).error(R.mipmap.error_big).into(img);
         //点击轮播图片跳转
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, InformationDetailsActivity.class);
                 intent.putExtra("type", "ad");
-                intent.putExtra("id", mListImgAd.get(mPotision).getId());
+                Log.e("mSelectPosition",FirstPageFragment.mSelectPosition+"");
+                intent.putExtra("id", mListImgAd.get(FirstPageFragment.mSelectPosition).getId());
                 mContext.startActivity(intent);
             }
         });

@@ -53,23 +53,23 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
                     mLisView.setError();
                     break;
                 case 1:
-                try
-                    {
-                    bean_ListFamilyUser user= gson.gson.fromJson(resStr,bean_ListFamilyUser.class);
-                    if ("0".equals(user.getCode())){
-                        if (user.getResult()!=null&&user.getResult().size()>0){
-                            list.addAll(user.getResult());
-                            mAdapter.notifyDataSetChanged();
+                    try {
+                        list = new ArrayList<>();
+                        mAdapter = new FamilyManageListViewAdapter(FamilyManageActivity.this, list);
+                        mLisView.setAdapter(mAdapter);
+                        bean_ListFamilyUser user = gson.gson.fromJson(resStr, bean_ListFamilyUser.class);
+                        if ("0".equals(user.getCode())) {
+                            if (user.getResult() != null && user.getResult().size() > 0) {
+                                list.addAll(user.getResult());
+                                mAdapter.notifyDataSetChanged();
                             }
+                        } else {
+                            //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
                         }
-                    else {
-                        //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
-                        }
-                }
-                catch (Exception e){
-                    toast.toast_gsonFaild(FamilyManageActivity.this);
-                    Log.e("json--",e.toString());
-                }
+                    } catch (Exception e) {
+                        toast.toast_gsonFaild(FamilyManageActivity.this);
+                        Log.e("json--", e.toString());
+                    }
                     mLisView.setEmpty();
                     break;
             }
@@ -108,9 +108,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         mBack.setOnClickListener(this);
 
 
-        list=new ArrayList<>();
-        mAdapter=new FamilyManageListViewAdapter(FamilyManageActivity.this,list);
-        mLisView.setAdapter(mAdapter);
     }
 
     @Override
@@ -149,6 +146,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
             finish();
         }
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        oken=6DD620E22A92AB0AED590DB66F84D064&id=123
@@ -164,6 +162,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         intent.putExtra("family", b);
         startActivity(intent);
     }
+
     //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
     public void getUserList() {
         Map<String, String> mp = new HashMap<>();

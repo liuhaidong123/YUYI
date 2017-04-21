@@ -1,6 +1,9 @@
 package com.technology.yuyi.activity;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,8 +74,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String askTag = "askFragment";
     public final String myTag = "myFragment";
     public final String errorTag = "errorFragment";
-    private BroadCastYUYI mBroadCast;
-    public static SharedPreferencesUtils sharedPreferencesUtils;
     public final String pressColor = "#25f368";
     public final String noPressColor = "#666666";
     private long time = 0;
@@ -110,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mBroadCast = BroadCastYUYI.getBroadcastinstance(this);
-        sharedPreferencesUtils = SharedPreferencesUtils.getSharedPreferencesUtils(this);
         initView();
         showFirstPageFragment();
         getRongUserInfo();//向服务器请求融云token
@@ -177,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment askFragment = mFragmentManager.findFragmentByTag(askTag);
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
         Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
-        if (sharedPreferencesUtils.getIsnewwork("network")) {
+        if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (firstPageFragment != null) {//显示首页
                 fragmentTransaction.show(firstPageFragment);
@@ -236,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
         Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
 
-        if (sharedPreferencesUtils.getIsnewwork("network")) {
+        if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (measureFragment != null) {//显示测量
                 fragmentTransaction.show(measureFragment);
@@ -297,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fragment askFragment = mFragmentManager.findFragmentByTag(askTag);
         Fragment myFragment = mFragmentManager.findFragmentByTag(myTag);
         Fragment errorFragment = mFragmentManager.findFragmentByTag(errorTag);
-        if (sharedPreferencesUtils.getIsnewwork("network")) {
+        if (isNetworkConnected(this)) {
             mtitle_rl.setVisibility(View.GONE);
             if (askFragment != null) {//显示咨询
                 fragmentTransaction.show(askFragment);
@@ -544,9 +543,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
+    /**
+     * 判断有没有网
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
     }
 }

@@ -58,6 +58,8 @@ import com.technology.yuyi.bean.AdBean.Root;
 import com.technology.yuyi.bean.AdBean.Rows;
 import com.technology.yuyi.bean.FirstPageDrugSixData;
 import com.technology.yuyi.bean.FirstPageDrugSixDataRoot;
+import com.technology.yuyi.bean.FirstPageInformationTwoData;
+import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.FirstPageUserDataBean.BloodpressureList;
 import com.technology.yuyi.bean.FirstPageUserDataBean.Result;
 import com.technology.yuyi.bean.FirstPageUserDataBean.TemperatureList;
@@ -81,7 +83,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstPageFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AMapLocationListener {
+public class FirstPageFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener, AMapLocationListener, ViewPager.OnPageChangeListener {
     private RelativeLayout mEdit_rl;//搜索
     private TextView mLocate_tv;
     private RelativeLayout mScrollRelative;
@@ -140,12 +142,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //检查消息队列并移除未发送的消息，这主要是避免在复杂环境下消息出现重复等问题。
+            //解决手动与自动滑动冲突
             if (handler.hasMessages(1)) {
                 handler.removeMessages(1);
             }
             if (msg.what == 1) {
                 mViewPagerAD.setCurrentItem(mViewPagerAD.getCurrentItem() + 1);
-                handler.sendEmptyMessageDelayed(1, 3000);
+                if (isLoop) {
+                    handler.sendEmptyMessageDelayed(1, 3000);
+                }
+
             }
 
         }
@@ -383,6 +389,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
 
+    public boolean isLoop = true;
+    public static int  mSelectPosition ;
+
     public FirstPageFragment() {
         // Required empty public constructor
     }
@@ -434,6 +443,15 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             public void onRefresh() {
                 mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
                 mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
+
+                mHttptools.getAdData(mHttpHandler);//广告
+                mListAd.clear();
+                handler.removeMessages(1);
+                AdAdapter.notifyDataSetChanged();
+                mGroup.removeAllViews();
+                mSelectPosition=0;
+                mViewPagerAD.clearOnPageChangeListeners();
+
                 tvlist.clear();
                 heightBloodData.clear();
                 lowBloodData.clear();
@@ -542,7 +560,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 if (mListAd.size() == 1) {
                     break;
                 }
-                //默认第一页为白色的小圆圈(前提必须是轮播的图片大于1张)
+                //默认第一页为绿色的小圆圈(前提必须是轮播的图片大于1张)
                 if (i == 0) {
                     mCircleImg.setBackgroundResource(R.mipmap.select_ad);
                 } else {
@@ -553,10 +571,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             }
             //当数据大于1条时，才可以滑动监听，才可以延迟发送消息进行轮播
             if (mListAd.size() > 1) {
-                mViewPagerAD.addOnPageChangeListener(new AdListenerImpl(mArrImageView, handler, mViewPagerAD, mListAd, mSwipeRefresh));
+                mViewPagerAD.addOnPageChangeListener(this);
                 //开始轮播效果
-                handler.sendEmptyMessageDelayed(1, 3000);
+               handler.sendEmptyMessageDelayed(1, 3000);
             }
+
         }
     }
 
@@ -828,20 +847,20 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         for (int i = 0; i < mUserData.size(); i++) {
             final int k = i;
             //用户布局
-            linearLayout = new LinearLayout(this.getContext());
+            linearLayout = new LinearLayout(this.getActivity());
             linearLayout.setId(View.generateViewId());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setGravity(Gravity.CENTER);
             linearLayout.setLayoutParams(params);
 
             //用户头像
-            roundImageView = new RoundImageView(this.getContext());
+            roundImageView = new RoundImageView(this.getActivity());
             Picasso.with(getContext()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
             roundImageView.setLayoutParams(paramsImg);
             Picasso.with(getContext()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
 
             //用户真实姓名
-            textView = new TextView(this.getContext());
+            textView = new TextView(this.getActivity());
             textView.setId(View.generateViewId());
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             if (i == 0) {
@@ -883,14 +902,14 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         //首页添加用户按钮
         if (mUserData.size() < 6) {
             //添加布局
-            addlinear = new LinearLayout(this.getContext());
+            addlinear = new LinearLayout(this.getActivity());
             addlinear.setId(View.generateViewId());
             addlinear.setOrientation(LinearLayout.VERTICAL);
             addlinear.setLayoutParams(addparams);
             addlinear.setGravity(Gravity.CENTER);
 
             //添加图片
-            imageView = new ImageView(this.getContext());
+            imageView = new ImageView(this.getActivity());
             imageView.setImageResource(R.mipmap.add_icon1);
             imageView.setLayoutParams(paramsImg);
 
@@ -1055,5 +1074,57 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mHeightBloodTv.setText(height + "");
         mLowBloodTv.setText(low + "");
         mTem.setText(tem + "°C");
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setImageBackground(position % mListAd.size());
+        mSelectPosition = position % mListAd.size();
+        Log.e("当前广告下标---",position % mListAd.size()+"");
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        //手指开始滑动
+        if (state == mViewPagerAD.SCROLL_STATE_DRAGGING) {
+            handler.removeMessages(1);
+            mSwipeRefresh.setEnabled(false);
+            //手指松开后自动滑动
+        } else if (state == mViewPagerAD.SCROLL_STATE_SETTLING) {
+            handler.removeMessages(1);
+            mSwipeRefresh.setEnabled(true);
+            //停在某一页
+        } else {
+             handler.sendEmptyMessageDelayed(1, 3000);
+            mSwipeRefresh.setEnabled(true);
+        }
+    }
+
+    /**
+     * 停在某一页时，变换小圆点
+     *
+     * @param selectItems
+     */
+    private void setImageBackground(int selectItems) {
+        for (int i = 0; i < mArrImageView.length; i++) {
+            if (i == selectItems) {
+                mArrImageView[i].setBackgroundResource(R.mipmap.select_ad);
+            } else {
+                mArrImageView[i].setBackgroundResource(R.mipmap.no_select_ad);
+            }
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        isLoop=false;
+        super.onDestroy();
     }
 }
