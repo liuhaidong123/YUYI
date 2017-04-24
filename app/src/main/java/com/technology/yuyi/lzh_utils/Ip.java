@@ -57,7 +57,7 @@ public interface Ip {
    public final static String interface_User_editAddress="address/save.do?";
 
    //药品商城全部药品接口（只用于查询全部药品）
-//   192.168.1.43:8080/yuyi/drugs/findall.do?start=0&limit=10
+   //  192.168.1.43:8080/yuyi/drugs/findall.do?start=0&limit=10
    public final static String interface_MS_home_allDrugs="drugs/findall.do?";
 
    //药品商城首页数据

@@ -107,7 +107,6 @@ public class MyEmptyListView extends ListView{
         listView.setLayoutParams(params);
     }
 
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
