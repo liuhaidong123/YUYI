@@ -60,11 +60,13 @@ public class ViewPagerAdAdapter extends PagerAdapter {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, InformationDetailsActivity.class);
-                intent.putExtra("type", "ad");
-                Log.e("mSelectPosition",FirstPageFragment.mSelectPosition+"");
-                intent.putExtra("id", mListImgAd.get(FirstPageFragment.mSelectPosition).getId());
-                mContext.startActivity(intent);
+                if (mListImgAd != null && mListImgAd.size() > 0) {
+                    Intent intent = new Intent(mContext, InformationDetailsActivity.class);
+                    intent.putExtra("type", "ad");
+                    Log.e("mSelectPosition", FirstPageFragment.mSelectPosition + "");
+                    intent.putExtra("id", mListImgAd.get(FirstPageFragment.mSelectPosition).getId());
+                    mContext.startActivity(intent);
+                }
             }
         });
         ((ViewPager) container).addView(view);

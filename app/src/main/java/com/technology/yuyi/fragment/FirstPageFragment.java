@@ -147,13 +147,14 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 handler.removeMessages(1);
             }
             if (msg.what == 1) {
-                mViewPagerAD.setCurrentItem(mViewPagerAD.getCurrentItem() + 1);
-                if (isLoop) {
-                    handler.sendEmptyMessageDelayed(1, 3000);
+                if (mListAd.size()>1){
+                    mViewPagerAD.setCurrentItem(mViewPagerAD.getCurrentItem() + 1);
+                    if (isLoop) {
+                        handler.sendEmptyMessageDelayed(1, 3000);
+                    }
+
                 }
-
             }
-
         }
     };
     //网络请求
@@ -198,6 +199,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
+                    mGroup.removeAllViews();
+                    mListAd.clear();
                     mListAd = root.getResult().getRows();
                     AdAdapter.setmListImgAd(mListAd);
                     mViewPagerAD.setAdapter(AdAdapter);
@@ -205,7 +208,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                     setADCircleImg();
                 }
             } else if (msg.what == 219) {
-                ToastUtils.myToast(getActivity(), "广告数据错误");
+
             } else if (msg.what == 38) {//首页用户列表及默认数据
                 tvlist.clear();
                 heightBloodData.clear();
@@ -227,7 +230,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 232) {
                 mSwipeRefresh.setRefreshing(false);
-                // ToastUtils.myToast(getContext(), "获用户列表失败");
             } else if (msg.what == 39) {//点击首页用户头像
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageClickUserBean.Root) {
@@ -346,7 +348,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 }
             } else if (msg.what == 233) {
                 MyDialog.stopDia();
-                //ToastUtils.myToast(getContext(), "获取失败");
             } else if (msg.what == 234) {
                 MyDialog.stopDia();
             }
@@ -444,13 +445,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
                 mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
 
-                mHttptools.getAdData(mHttpHandler);//广告
-                mListAd.clear();
                 handler.removeMessages(1);
-                AdAdapter.notifyDataSetChanged();
-                mGroup.removeAllViews();
                 mSelectPosition=0;
                 mViewPagerAD.clearOnPageChangeListeners();
+                mHttptools.getAdData(mHttpHandler);//广告
 
                 tvlist.clear();
                 heightBloodData.clear();
@@ -479,18 +477,18 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         drugmall_ll.setOnClickListener(this);
         //常用药品设置adapter
         mGridview = (GridView) view.findViewById(R.id.firstpage_gridview_id);
-        mUseDrugAdapter = new UseDrugGridViewAdapter(this.getContext(), mGridList);
+        mUseDrugAdapter = new UseDrugGridViewAdapter(this.getActivity(), mGridList);
         mGridview.setAdapter(mUseDrugAdapter);
         mGridview.setOnItemClickListener(this);
         //给资讯设置adapter
         mFirstPageListView = (InformationListView) view.findViewById(R.id.listview_firstpage);
-        mListViewAdapter = new FirstPageListViewAdapter(this.getContext(), mInforList);
+        mListViewAdapter = new FirstPageListViewAdapter(this.getActivity(), mInforList);
         mFirstPageListView.setAdapter(mListViewAdapter);
         mFirstPageListView.setOnItemClickListener(this);
 
         //广告viewpager
         mViewPagerAD = (ViewPager) view.findViewById(R.id.viewpager_title);
-        AdAdapter = new ViewPagerAdAdapter(getContext(), mListAd);
+        AdAdapter = new ViewPagerAdAdapter(getActivity(), mListAd);
         //初始化存放小圆点的容器(广告)
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
 
@@ -498,11 +496,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         initBloodData();//初始化血压数据
         initTemData();//初始化体温
         mViewPagerBlood = (ViewPager) view.findViewById(R.id.viewpager_blood_tem);
-        mBloodView = new BloodView(this.getContext());
-        mTemView = new TemView(this.getContext());
+        mBloodView = new BloodView(this.getActivity());
+        mTemView = new TemView(this.getActivity());
         mViewList.add(mBloodView);
         mViewList.add(mTemView);
-        mBloodTemAdapter = new ViewPagerBloodTemAdapter(this.getContext(), mViewList);
+        mBloodTemAdapter = new ViewPagerBloodTemAdapter(this.getActivity(), mViewList);
         //初始化存放小圆点的容器(血压体温)
         mBloodGroup = (ViewGroup) view.findViewById(R.id.blood_viewGroup);
         setBloodTemImg();//血压和体温底部小图标初始化
@@ -527,10 +525,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mStaple_drug_rl.setOnClickListener(this);
 
         //信息不完整弹框
-        mSureBuilder = new AlertDialog.Builder(getContext());
+        mSureBuilder = new AlertDialog.Builder(getActivity());
         mSureAlertDialog = mSureBuilder.create();
         mSureAlertDialog.setCanceledOnTouchOutside(false);
-        mSureAlertView = LayoutInflater.from(getContext()).inflate(R.layout.alert_sure, null);
+        mSureAlertView = LayoutInflater.from(getActivity()).inflate(R.layout.alert_sure, null);
         mSureAlertDialog.setView(mSureAlertView);
         //去完善、取消
         mPrompt = (TextView) mSureAlertView.findViewById(R.id.alert_sure_prompt);
@@ -548,7 +546,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             //将小圆点根据条件添加到容器中
             mArrImageView = new ImageView[mListAd.size()];
             for (int i = 0; i < mListAd.size(); i++) {
-                mCircleImg = new ImageView(this.getContext());
+                mCircleImg = new ImageView(this.getActivity());
                 //小圆点的布局
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMarginStart(14);
@@ -588,7 +586,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             //将小圆点根据条件添加到容器中
             mBloodImageViewArr = new ImageView[mViewList.size()];
             for (int i = 0; i < mViewList.size(); i++) {
-                mCircleImg = new ImageView(this.getContext());
+                mCircleImg = new ImageView(this.getActivity());
                 //小圆点的布局
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMarginStart(14);
@@ -639,20 +637,20 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void onClick(View v) {
         int id = v.getId();
         if (id == mInformation_rl.getId()) {//资讯跳转
-            startActivity(new Intent(this.getContext(), InformationActivity.class));
+            startActivity(new Intent(this.getActivity(), InformationActivity.class));
         } else if (id == mRegister_ll.getId()) {//预约挂号
-            startActivity(new Intent(this.getContext(), AppointmentActivity.class));
+            startActivity(new Intent(this.getActivity(), AppointmentActivity.class));
         } else if (id == R.id.drugmall_ll) {//医药商城
             Intent intent = new Intent();
             intent.setClass(getActivity(), MS_home_Activity.class);
             startActivity(intent);
         } else if (id == mEdit_rl.getId()) {//跳转到搜索页
-            Intent intent = new Intent(this.getContext(), SearchActivity.class);
+            Intent intent = new Intent(this.getActivity(), SearchActivity.class);
             intent.putExtra("type", "drug");
             startActivity(intent);
 
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
-            Intent intent = new Intent(this.getContext(), MS_allkinds_activity.class);
+            Intent intent = new Intent(this.getActivity(), MS_allkinds_activity.class);
             intent.putExtra("type", 2);
             intent.putExtra("name", "常用药品");
             intent.putExtra("Cid", 1);
@@ -662,12 +660,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             intent.putExtra("isNull", mLocate_tv.getText());
             startActivityForResult(intent, 66);
         } else if (id == mPrompt.getId()) {//去完善
-            startActivity(new Intent(getContext(), UserEditorActivity.class));
+            startActivity(new Intent(getActivity(), UserEditorActivity.class));
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
         } else if (id == mMessage_img.getId()) {//跳转到消息
-            startActivity(new Intent(getContext(), My_message_Activity.class));
+            startActivity(new Intent(getActivity(), My_message_Activity.class));
         }
     }
 
@@ -703,7 +701,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     //初始化高德定位数据
     public void gaoDeMap() {
         //初始化定位
-        mLocationClient = new AMapLocationClient(this.getContext());
+        mLocationClient = new AMapLocationClient(this.getActivity());
         //设置定位回调监听
         mLocationClient.setLocationListener(this);
         //初始化AMapLocationClientOption对象
@@ -736,7 +734,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void checkPermission() {
         //sdk版本>=23时，
         if (Build.VERSION.SDK_INT >= 23) {
-            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION);
+            int checkCallPhonePermission = ContextCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION);
             //如果没有授权定位权限
             if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
                 //请求授权，点击允许或者拒绝时会回调onRequestPermissionsResult（），
@@ -745,11 +743,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 //如果已经授权，执行业务逻辑
             } else {
                 gaoDeMap();
-                // Toast.makeText(this.getContext(), "定位授权成功", Toast.LENGTH_SHORT).show();
             }
             //版本小于23时，执行业务逻辑
         } else {
-            Toast.makeText(this.getContext(), "版本小于23", Toast.LENGTH_SHORT).show();
             gaoDeMap();
         }
     }
@@ -855,9 +851,9 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
             //用户头像
             roundImageView = new RoundImageView(this.getActivity());
-            Picasso.with(getContext()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
+            Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
             roundImageView.setLayoutParams(paramsImg);
-            Picasso.with(getContext()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
+            Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
 
             //用户真实姓名
             textView = new TextView(this.getActivity());
@@ -1060,10 +1056,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             mPromptTv.setTextColor(Color.parseColor(grayColor));
         }
         //显示不正常
-        else if (height > 139 || height < 90 || low > 89 || low < 60 || tem < 36 || tem > 37) {
+        else if (height > 139 || height < 90 || low > 89 || low < 60 || tem < 36 || tem > 37.5) {
 
             mPromptImg.setImageResource(R.mipmap.normal_error);
-            mPromptTv.setText("不正常");
+            mPromptTv.setText("异常");
             mPromptTv.setTextColor(Color.parseColor(redColor));
 
         } else {

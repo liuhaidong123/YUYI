@@ -53,6 +53,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_start);
         mBtn= (Button) findViewById(R.id.intent_id_btnt);
         mBtn.setOnClickListener(this);
+        mBtn.getBackground().setAlpha(55);
         handler.sendEmptyMessageDelayed(1,200);
     }
 

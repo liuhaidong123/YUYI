@@ -61,12 +61,12 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
         //设备
         mMeasureListView = (ListView) view.findViewById(R.id.measure_listview_id);
         mMeasureListView.setOnItemClickListener(this);
-        mAdapter = new MeasureListViewAdapter(this.getContext(), list);
+        mAdapter = new MeasureListViewAdapter(this.getActivity(), list);
         mMeasureListView.setAdapter(mAdapter);
         //点击设备弹框
-        mBuilder = new AlertDialog.Builder(this.getContext());
+        mBuilder = new AlertDialog.Builder(this.getActivity());
         mAlertDialog = mBuilder.create();
-        mAlertView = LayoutInflater.from(this.getContext()).inflate(R.layout.measure_alert_box, null);
+        mAlertView = LayoutInflater.from(this.getActivity()).inflate(R.layout.measure_alert_box, null);
         mAlertDialog.setView(mAlertView);
         mWindow = mAlertDialog.getWindow();
 

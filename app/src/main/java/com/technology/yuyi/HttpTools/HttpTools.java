@@ -77,6 +77,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败6条数据：", strMsg.toString());
                 handler.sendEmptyMessage(201);
             }
@@ -115,6 +118,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败资讯2条数据：", strMsg);
                 handler.sendEmptyMessage(203);
             }
@@ -153,6 +159,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败资讯2条数据详情：", strMsg);
             }
         });
@@ -190,6 +199,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败资讯2条数据：", strMsg);
                 handler.sendEmptyMessage(203);
             }
@@ -230,6 +242,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败咨询页面数据：", strMsg);
                 handler.sendEmptyMessage(206);
             }
@@ -268,6 +283,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败咨询据详情：", strMsg);
                 handler.sendEmptyMessage(207);
             }
@@ -309,6 +327,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure：", "获取验证码失败" + strMsg);
                 handler.sendEmptyMessage(209);
             }
@@ -348,6 +369,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 handler.sendEmptyMessage(211);
                 Log.e("onFailure：", "登录失败" + strMsg);
             }
@@ -388,6 +412,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure：", "获取用户信息失败" + strMsg);
                 handler.sendEmptyMessage(212);
             }
@@ -429,6 +456,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败预约挂号数据：", strMsg);
                 handler.sendEmptyMessage(214);
             }
@@ -470,6 +500,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 handler.sendEmptyMessage(216);
                 Log.e("onFailure请求失败医院科室数据：", strMsg);
             }
@@ -507,7 +540,10 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                Log.e("onFailure请求失败医院科室数据：", strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
+                Log.e("onFailure请求失败医院科室数据：", strMsg+"");
                 handler.sendEmptyMessage(218);
             }
         });
@@ -543,6 +579,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败轮播广告接口数据：", strMsg);
                 handler.sendEmptyMessage(219);
             }
@@ -582,6 +621,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败查找药品数据：", strMsg);
                 handler.sendEmptyMessage(221);
             }
@@ -620,6 +662,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败查找医院数据：", strMsg);
                 handler.sendEmptyMessage(223);
             }
@@ -658,6 +703,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败轮播广告详情数据：", strMsg);
                 handler.sendEmptyMessage(224);
             }
@@ -697,6 +745,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure：", "获取用户列表失败" + strMsg);
                 handler.sendEmptyMessage(226);
             }
@@ -737,6 +788,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure：", "提交体温失败" + strMsg);
                 handler.sendEmptyMessage(228);
             }
@@ -778,6 +832,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure：", "提交血压失败" + strMsg);
                 handler.sendEmptyMessage(230);
             }
@@ -818,6 +875,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求失败首页用户列表数据：", strMsg);
                 handler.sendEmptyMessage(232);
             }
@@ -855,6 +915,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure请求点击失败：", strMsg);
                 handler.sendEmptyMessage(233);
             }
@@ -894,6 +957,9 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="--null";
+                }
                 Log.e("onFailure：", "提交挂号失败" + strMsg);
                 handler.sendEmptyMessage(236);
             }
