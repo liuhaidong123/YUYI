@@ -84,7 +84,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family_manage);
         initView();
-
     }
 
     @Override
@@ -110,6 +109,8 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         //返回
         mBack = (ImageView) findViewById(R.id.family_back);
         mBack.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -148,6 +149,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
             finish();
         }
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        oken=6DD620E22A92AB0AED590DB66F84D064&id=123
@@ -163,6 +165,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         intent.putExtra("family", b);
         startActivity(intent);
     }
+
     //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
     public void getUserList() {
         Map<String, String> mp = new HashMap<>();

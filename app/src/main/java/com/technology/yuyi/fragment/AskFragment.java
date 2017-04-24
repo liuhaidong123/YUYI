@@ -107,7 +107,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
             }
         });
         mListview = (InformationListView) view.findViewById(R.id.hospital_listview);
-        mAdapter = new AskListViewAdapter(this.getContext(), mList);
+        mAdapter = new AskListViewAdapter(this.getActivity(), mList);
         mListview.setAdapter(mAdapter);
         mListview.setOnItemClickListener(this);
         //刷新
