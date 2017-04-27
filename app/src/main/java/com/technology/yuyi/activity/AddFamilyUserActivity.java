@@ -154,10 +154,10 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
 
                         } else {
                             if ("0".equals(type)) {
-                                Toast.makeText(AddFamilyUserActivity.this, "添加失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddFamilyUserActivity.this, "添加失败："+fami.getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else if ("1".equals(type)) {
-                                Toast.makeText(AddFamilyUserActivity.this, "修改失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddFamilyUserActivity.this, "修改失败："+fami.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (Exception e) {

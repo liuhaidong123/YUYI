@@ -31,7 +31,6 @@ public interface Ip {
    //   电子病历信息://localhost:8080/yuyi/medical/token.do?token=1EE359830D68AF676396B06029CCFA61
    public final static String interface_medicalRecordMsg="medical/get.do?";
 
-
    //获取个人信息接口http://localhost:8080/yuyi/personal/get.do?token=C0700876FB2F9BEC156AC039F894E92B
    public final static String interface_UserMsg="personal/get.do?";
 
@@ -80,7 +79,7 @@ public interface Ip {
    public final static String interface_My_Settings_ContactOur="contactUs/getph.do";
 
    //查询药品详细信息的url与接口
-//   http://192.168.1.43:8080/yuyi/drugs/getid.do?id=3
+   //http://192.168.1.43:8080/yuyi/drugs/getid.do?id=3
    public final static String interface_DrugInfo="drugs/getid.do?";
 
    //获取验证码的接口
