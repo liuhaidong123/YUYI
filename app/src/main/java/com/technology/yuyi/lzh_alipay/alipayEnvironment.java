@@ -7,7 +7,7 @@ package com.technology.yuyi.lzh_alipay;
  */
 
 public class alipayEnvironment {
-//    public static void setEnvironment(){
+    public static void setEnvironment(){
 //        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);//切换沙箱与真是环境
-//    }
+    }
 }

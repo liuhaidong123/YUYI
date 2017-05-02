@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if ("1".equals(tok.getCode())) {
                             user.RongToken = tok.getToken();
                             Log.i("Rong--", tok.getId() + "--" + tok.getTrueName());
+                            Log.e("融云用户头像---",Ip.imagePth + tok.getAvatar());
                             RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId() + "", tok.getTrueName() + "", Uri.parse(Ip.imagePth + tok.getAvatar())));
                             initRongCon();
                         } else if ("0".equals(tok.getCode())) {
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     } catch (Exception e) {
                         toast.toast_gsonFaild(MainActivity.this);
-                    }
+                                            }
                     break;
             }
         }
@@ -281,10 +282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mtitle_tv.setText("测量");
             }
         }
-
-
         fragmentTransaction.commit();
-
     }
 
     //显示咨询页面
@@ -488,7 +486,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initRongCon() {
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
-
                 /**
                  * Token 错误。可以从下面两点检查 1.  Token 是否过期，如果过期您需要向 App Server 重新请求一个新的 Token
                  *                  2.  token 对应的 appKey 和工程里设置的 appKey 是否一致
@@ -518,7 +515,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
-
     }
 
 

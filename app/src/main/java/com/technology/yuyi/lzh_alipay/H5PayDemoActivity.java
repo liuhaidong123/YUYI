@@ -103,11 +103,11 @@ public class H5PayDemoActivity extends Activity {
 
 	private class MyWebViewClient extends WebViewClient {
 
-		@Override
-		public boolean shouldOverrideUrlLoading(final WebView view, String url) {
-			if (!(url.startsWith("http") || url.startsWith("https"))) {
-				return true;
-			}
+//		@Override
+//		public boolean shouldOverrideUrlLoading(final WebView view, String url) {
+//			if (!(url.startsWith("http") || url.startsWith("https"))) {
+//				return true;
+//			}
 
 //			final PayTask task = new PayTask(H5PayDemoActivity.this);
 //			final String ex = task.fetchOrderInfoFromH5PayUrl(url);
@@ -131,8 +131,8 @@ public class H5PayDemoActivity extends Activity {
 //			} else {
 //				view.loadUrl(url);
 //			}
-			return true;
-		}
+//			return true;
+//		}
 	}
 
 	@Override

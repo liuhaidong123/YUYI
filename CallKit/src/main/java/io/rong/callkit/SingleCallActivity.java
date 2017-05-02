@@ -1,6 +1,7 @@
 package io.rong.callkit;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import io.rong.common.RLog;
 import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.utilities.PermissionCheckUtil;
+import io.rong.imkit.utils.NotificationUtil;
 import io.rong.imkit.widget.AsyncImageView;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
@@ -664,6 +666,6 @@ public class SingleCallActivity extends BaseCallActivity implements Handler.Call
 //        intent.putExtra("floatbox", bundle);
 //        intent.putExtra("callAction", RongCallAction.ACTION_RESUME_CALL.getName());
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 1000, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
+
 //    }
 }

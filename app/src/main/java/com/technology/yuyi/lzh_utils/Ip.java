@@ -85,6 +85,9 @@ public interface Ip {
    //获取验证码的接口
    public final static String interface_SmsCode="/personal/vcode.do?";
 
+   //获取融云医生的信息接口（聊天对象的信息）http://192.168.1.37:8080/yuyi/physician/doctory.do?
+   public final static String interface_DocInfo="physician/doctory.do?";
+
    //图片url
    public final static String imagePth_F="http://59.110.169.148:8080";
    public final static String imagePth="http://59.110.169.148:8080";

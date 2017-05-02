@@ -153,6 +153,9 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         bean_ChangeUserMsg changeUserMsg=gson.gson.fromJson(resStr,bean_ChangeUserMsg.class);
                         if ("0".equals(changeUserMsg.getCode())){
                             Toast.makeText(UserEditorActivity.this,"修改成功",Toast.LENGTH_SHORT).show();
+                            if ("1".equals(type)){
+                                startActivity(new Intent(UserEditorActivity.this,MainActivity.class));
+                            }
                             finish();
                         }
                         else {

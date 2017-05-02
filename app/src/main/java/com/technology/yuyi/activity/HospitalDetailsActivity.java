@@ -58,6 +58,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     private ImageView mImg;
     private HttpTools mHttptools;
     private String resStr;
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -88,8 +89,13 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                     try {
                         bean_DocId docId = gson.gson.fromJson(resStr, bean_DocId.class);
                         if (docId != null) {
-                            DocId = docId.getId() + "";
-                            user.targetId = DocId;
+                            if (docId.getCode()==0){
+                                DocId = docId.getId() + "";
+                                user.targetId = DocId;
+                            }
+                            else if (docId.getCode()==-1){
+                               DocId="-1";//医院没有设置咨询功能
+                                    }
                         } else {
                             Toast.makeText(HospitalDetailsActivity.this, "请求医生信息错误，无法启动聊天程序,请稍后重试", Toast.LENGTH_SHORT).show();
                         }
@@ -148,34 +154,45 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         int id = v.getId();
-
         if (id == mBtn.getId()) {
             mAlertDialog.show();
             setAlertWidth(0.7f, mAlertDialog);
         } else if (id == mSpeechBtn.getId()) {//语音咨询
             mAlertDialog.dismiss();
+            if ("-1".equals(DocId)){
+                Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             } else {
-                Toast.makeText(HospitalDetailsActivity.this, "启动咨询程序失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == mVideoBtn.getId()) {//视频咨询
             mAlertDialog.dismiss();
+            if ("-1".equals(DocId)){
+                Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
 
             } else {
-                Toast.makeText(HospitalDetailsActivity.this, "启动咨询程序失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
 
         } else if (id == mCharBtn.getId()) {//文字资讯
             mAlertDialog.dismiss();
+            if ("-1".equals(DocId)){
+                Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this, user.targetId, "咨询");
             } else {
-                Toast.makeText(HospitalDetailsActivity.this, "启动咨询程序失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == mBack.getId()) {//返回
@@ -193,16 +210,21 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         alertDialog.getWindow().setAttributes(p);//设置生效
     }
 
-
     //获取医生id
     public void getDocId() {
+        //http://192.168.1.37:8080/yuyi/physician/doctory.do?cid=1
+        int ids=getIntent().getIntExtra("id", -1);
+        if (ids==-1){
+            Log.e("hospitlDetailsActivity","error：无法获取到医院的id--没有办发发起请求聊天的医生id");
+            return;
+        }
         Map<String, String> m = new HashMap<>();
-        okhttp.getCall(Ip.url_F + Ip.interface_getDocID, m, okhttp.OK_GET).enqueue(new Callback() {
+        m.put("cid",ids+"");
+        okhttp.getCall(Ip.url+Ip.interface_DocInfo, m, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 resStr = response.body().string();
