@@ -24,7 +24,7 @@ public class JPshAliasAndTags {
                 SharedPreferences preferences=con.getSharedPreferences("JPSH",Context.MODE_APPEND);
                 SharedPreferences.Editor editor=preferences.edit();
                     if (i==0){
-                       Log.i("JPsh注册别名成功-alias-"+s,"--------------");
+                        Log.i("JPsh注册别名成功-alias-"+s,"--------------");
                         editor.putBoolean("Succ",true);
                         editor.commit();
                     }

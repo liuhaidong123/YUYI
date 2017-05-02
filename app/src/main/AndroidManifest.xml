@@ -203,10 +203,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleTop" />
+        <!--<activity-->
+            <!--android:name=".wxapi.WXPayEntryActivity"-->
+            <!--android:exported="true"-->
+            <!--android:launchMode="singleTop" />-->
 
         <receiver android:name=".lzh_WXutils.AppRegister">
             <intent-filter>
@@ -319,18 +319,18 @@
 
         <!-- alipay sdk begin -->
 
-        <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name="com.alipay.sdk.app.H5AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--<activity-->
+            <!--android:name="com.alipay.sdk.app.H5PayActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
+            <!--android:exported="false"-->
+            <!--android:screenOrientation="behind"-->
+            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
+        <!--<activity-->
+            <!--android:name="com.alipay.sdk.app.H5AuthActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden|navigation"-->
+            <!--android:exported="false"-->
+            <!--android:screenOrientation="behind"-->
+            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
         <!-- 支付宝相关 -->
 
 
