@@ -22,8 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alipay.sdk.app.EnvUtils;
-import com.alipay.sdk.app.PayTask;
+//import com.alipay.sdk.app.EnvUtils;
+//import com.alipay.sdk.app.PayTask;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -41,9 +41,9 @@ import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+//import com.tencent.mm.opensdk.modelpay.PayReq;
+//import com.tencent.mm.opensdk.openapi.IWXAPI;
+//import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class MS_drugBuy_activity extends Activity{
     private static final int SDK_AUTH_FLAG = 2;
     //以上支付宝
     //微信
-    private IWXAPI api;
+//    private IWXAPI api;
     //微信
     private PopupWindow popupW;//显示支付方式的window
     private TextView ms_drugbuy_price;//单价
@@ -191,8 +191,8 @@ public class MS_drugBuy_activity extends Activity{
         num=Integer.parseInt(getIntent().getStringExtra("num"));
         price=Float.parseFloat(getIntent().getStringExtra("price"));
         initView();
-        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
-        api.registerApp(Constants.APP_ID);
+//        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+//        api.registerApp(Constants.APP_ID);
 
         getUserAddress();//获取默认收货地址
 
@@ -432,7 +432,7 @@ public class MS_drugBuy_activity extends Activity{
          * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
          * orderInfo的获取必须来自服务端；
          */
-        alipayEnvironment.setEnvironment();
+//        alipayEnvironment.setEnvironment();
         boolean rsa2 = (RSA2_PRIVATE.length() > 0);
         Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(APPID, rsa2);
         String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
@@ -445,13 +445,13 @@ public class MS_drugBuy_activity extends Activity{
 
             @Override
             public void run() {
-                PayTask alipay = new PayTask(MS_drugBuy_activity.this);
-                Map<String, String> result = alipay.payV2(orderInfo, true);
-                Log.i("msp", result.toString());
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
+//                PayTask alipay = new PayTask(MS_drugBuy_activity.this);
+//                Map<String, String> result = alipay.payV2(orderInfo, true);
+//                Log.i("msp", result.toString());
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
             }
         };
 
@@ -463,15 +463,15 @@ public class MS_drugBuy_activity extends Activity{
 
     //吊起微信支付（假订单）
     public void pay(View view) {
-        PayReq request = new PayReq();
-        request.appId = "wxd930ea5d5a258f4f";
-        request.partnerId = "1900000109";
-        request.prepayId= "1101000000140415649af9fc314aa427";
-        request.packageValue = "Sign=WXPay";
-        request.nonceStr= "1101000000140429eb40476f8896f4c9";
-        request.timeStamp= "1398746574";
-        request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
-        api.sendReq(request);
+//        PayReq request = new PayReq();
+//        request.appId = "wxd930ea5d5a258f4f";
+//        request.partnerId = "1900000109";
+//        request.prepayId= "1101000000140415649af9fc314aa427";
+//        request.packageValue = "Sign=WXPay";
+//        request.nonceStr= "1101000000140429eb40476f8896f4c9";
+//        request.timeStamp= "1398746574";
+//        request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+//        api.sendReq(request);
     }
 
     public void SubmitOrder(View view) {

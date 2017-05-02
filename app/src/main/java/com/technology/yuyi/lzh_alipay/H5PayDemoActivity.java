@@ -1,7 +1,7 @@
 package com.technology.yuyi.lzh_alipay;
 
-import com.alipay.sdk.app.PayTask;
-import com.alipay.sdk.util.H5PayResultModel;
+//import com.alipay.sdk.app.PayTask;
+//import com.alipay.sdk.util.H5PayResultModel;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -109,28 +109,28 @@ public class H5PayDemoActivity extends Activity {
 				return true;
 			}
 
-			final PayTask task = new PayTask(H5PayDemoActivity.this);
-			final String ex = task.fetchOrderInfoFromH5PayUrl(url);
-			if (!TextUtils.isEmpty(ex)) {
-				System.out.println("paytask:::::" + url);
-				new Thread(new Runnable() {
-					public void run() {
-						System.out.println("payTask:::" + ex);
-						final H5PayResultModel result = task.h5Pay(ex, true);
-						if (!TextUtils.isEmpty(result.getReturnUrl())) {
-							H5PayDemoActivity.this.runOnUiThread(new Runnable() {
-								
-								@Override
-								public void run() {
-									view.loadUrl(result.getReturnUrl());
-								}
-							});
-						}
-					}
-				}).start();
-			} else {
-				view.loadUrl(url);
-			}
+//			final PayTask task = new PayTask(H5PayDemoActivity.this);
+//			final String ex = task.fetchOrderInfoFromH5PayUrl(url);
+//			if (!TextUtils.isEmpty(ex)) {
+//				System.out.println("paytask:::::" + url);
+//				new Thread(new Runnable() {
+//					public void run() {
+//						System.out.println("payTask:::" + ex);
+//						final H5PayResultModel result = task.h5Pay(ex, true);
+//						if (!TextUtils.isEmpty(result.getReturnUrl())) {
+//							H5PayDemoActivity.this.runOnUiThread(new Runnable() {
+//
+//								@Override
+//								public void run() {
+//									view.loadUrl(result.getReturnUrl());
+//								}
+//							});
+//						}
+//					}
+//				}).start();
+//			} else {
+//				view.loadUrl(url);
+//			}
 			return true;
 		}
 	}

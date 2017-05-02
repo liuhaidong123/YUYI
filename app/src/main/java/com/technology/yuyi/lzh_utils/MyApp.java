@@ -83,7 +83,7 @@ public class MyApp extends Application{
 //        catchHandler.init(getApplicationContext());
 
 
-        JPushInterface.setDebugMode(true);//发不时设为false
+        JPushInterface.setDebugMode(false);//发不时设为false
         JPushInterface.init(getApplicationContext());
 
 
