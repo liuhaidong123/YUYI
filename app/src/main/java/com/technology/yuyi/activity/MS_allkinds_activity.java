@@ -171,16 +171,19 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                     try{
                         bean_MS_allkinds_alldrugs allDrug=gson.gson.fromJson(resultStr,bean_MS_allkinds_alldrugs.class);
                         listAlldrgus.addAll(allDrug.getRows());
+
+                        if (allDrug.getRows()!=null&&allDrug.getRows().size()>0){
+                            if (allDrug.getRows().size()==10){
+                                ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                ms_allkinds_bottom_loading.setVisibility(View.GONE);
+                            }
+                        }
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
                             startIndex=listAlldrgus.size()+startIndex-1;
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
-                            if (listAlldrgus.size()==10){
-                                ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
-                            }
-                          else {
-                                ms_allkinds_bottom_loading.setVisibility(View.GONE);
-                            }
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -259,7 +262,6 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                             startIndex=startIndex+drugsMore.getRows().size();
                             listAlldrgus.addAll(drugsMore.getRows());
                             adapter.notifyDataSetChanged();
-
                         }
                         else {
                             ms_allkinds_bottom_loading.setVisibility(View.GONE);
