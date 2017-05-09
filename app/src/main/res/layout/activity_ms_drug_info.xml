@@ -4,6 +4,7 @@
     android:id="@+id/activity_ms_drug_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_white"
     tools:context="com.technology.yuyi.activity.MS_drugInfo_activity">
 
     <LinearLayout
