@@ -36,10 +36,11 @@ public class InformationDetailsActivity extends AppCompatActivity implements Vie
                 if (o != null && o instanceof UpdatedInformation) {
                     UpdatedInformation information = (UpdatedInformation) o;
                     Picasso.with(InformationDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).into(mHospital_img);
-
+                    tv_jj.setText(information.getType());
                     mHospital_name.setText(information.getTitle());
                     mHospital_grade.setText(information.getSmalltitle());
                     mHospital_message.setText(information.getArticleText());
+
                 }
             } else if (msg.what == 204) {//医院详情失败
                 ToastUtils.myToast(InformationDetailsActivity.this, "请求失败");

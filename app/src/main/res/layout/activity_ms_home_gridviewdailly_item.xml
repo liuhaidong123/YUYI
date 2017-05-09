@@ -25,6 +25,8 @@
             android:id="@+id/ms_home_gridview_dailyMitem_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_below="@+id/ms_home_gridview_dailyMitem_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"

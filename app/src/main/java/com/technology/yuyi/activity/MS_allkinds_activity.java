@@ -169,12 +169,21 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
                             startIndex=listAlldrgus.size()+startIndex-1;
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
+                            if (allDrug!=null&&allDrug.getRows()!=null){
+                                if (allDrug.getRows().size()==10){
+                                    ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    ms_allkinds_bottom_loading.setVisibility(View.GONE);
+                                }
+                            }
+                            else {
+                                ms_allkinds_bottom_loading.setVisibility(View.GONE);
+                            }
                             ms_allkinds_myGridview.setAdapter(adapter);
-                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                    Toast.makeText(MS_allkinds_activity.this,""+position,Toast.LENGTH_SHORT).show();
                                     Intent intent=new Intent();
                                     intent.setClass(MS_allkinds_activity.this,MS_drugInfo_activity.class);
                                     intent.putExtra(MyIntent.intent_MS_drugInfo,listAlldrgus.get(position).getId());
@@ -200,9 +209,15 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                         listAlldrgus=allDrug.getRows();
                         if (listAlldrgus!=null&&listAlldrgus.size()>0){
                             startIndex=listAlldrgus.size()+startIndex-1;
+                            if (listAlldrgus.size()==10){
+                                ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                ms_allkinds_bottom_loading.setVisibility(View.GONE);
+                            }
                             adapter=new MS_allkinds_MyGridViewAdapter(MS_allkinds_activity.this,listAlldrgus);
                             ms_allkinds_myGridview.setAdapter(adapter);
-                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+
                             ms_allkinds_myGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -238,7 +253,12 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                             startIndex=startIndex+drugsMore.getRows().size();
                             listAlldrgus.addAll(drugsMore.getRows());
                             adapter.notifyDataSetChanged();
-                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+                            if (drugsMore.getRows().size()==10){
+                                ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+                            }
+                           else {
+                                ms_allkinds_bottom_loading.setVisibility(View.GONE);
+                            }
                         }
                         else {
                             ms_allkinds_bottom_loading.setVisibility(View.GONE);

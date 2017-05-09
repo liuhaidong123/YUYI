@@ -42,7 +42,7 @@ public class ViewPagerAdAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mListImgAd.size() == 1 ? 1 : Integer.MAX_VALUE;
+        return mListImgAd.size() == 1 ? 1 : mListImgAd.size();
     }
 
     @Override
@@ -52,10 +52,10 @@ public class ViewPagerAdAdapter extends PagerAdapter {
 
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.viewpager_item, null);
         ImageView img = ((ImageView) view.findViewById(R.id.imageView1));
-        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(FirstPageFragment.mSelectPosition).getPicture()).error(R.mipmap.error_big).into(img);
+        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(position).getPicture()).error(R.mipmap.error_big).into(img);
         //点击轮播图片跳转
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +63,7 @@ public class ViewPagerAdAdapter extends PagerAdapter {
                 if (mListImgAd != null && mListImgAd.size() > 0) {
                     Intent intent = new Intent(mContext, InformationDetailsActivity.class);
                     intent.putExtra("type", "ad");
-                    Log.e("mSelectPosition", FirstPageFragment.mSelectPosition + "");
-                    intent.putExtra("id", mListImgAd.get(FirstPageFragment.mSelectPosition).getId());
+                    intent.putExtra("id", mListImgAd.get(position).getId());
                     mContext.startActivity(intent);
                 }
             }

@@ -4,9 +4,12 @@
     android:id="@+id/activity_my_user_login_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
+    android:background="#ffffff"
     tools:context="com.technology.yuyi.activity.My_userLogin_Activity">
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
     <com.technology.yuyi.lzh_utils.XCRoundRectImageView
         android:id="@+id/my_userlogin_imageview"
         android:layout_width="125dp"
@@ -176,4 +179,6 @@
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </RelativeLayout>
+</RelativeLayout>
+
 </RelativeLayout>

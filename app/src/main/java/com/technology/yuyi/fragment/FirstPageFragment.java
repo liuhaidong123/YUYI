@@ -136,27 +136,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private List<Result> mUserData = new ArrayList();
 
     private HttpTools mHttptools;
-    //广告
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            //检查消息队列并移除未发送的消息，这主要是避免在复杂环境下消息出现重复等问题。
-            //解决手动与自动滑动冲突
-            if (handler.hasMessages(1)) {
-                handler.removeMessages(1);
-            }
-            if (msg.what == 1) {
-                if (mListAd.size()>1){
-                    mViewPagerAD.setCurrentItem(mViewPagerAD.getCurrentItem() + 1);
-                    if (isLoop) {
-                        handler.sendEmptyMessageDelayed(1, 3000);
-                    }
 
-                }
-            }
-        }
-    };
     //网络请求
     private Handler mHttpHandler = new Handler() {
         @Override
@@ -199,13 +179,16 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
-                    mGroup.removeAllViews();
-                    mListAd.clear();
-                    mListAd = root.getResult().getRows();
-                    AdAdapter.setmListImgAd(mListAd);
-                    mViewPagerAD.setAdapter(AdAdapter);
-                    AdAdapter.notifyDataSetChanged();
-                    setADCircleImg();
+                    if (root.getResult().getRows().size()!=0){
+                        mGroup.removeAllViews();
+                        mListAd.clear();
+                        mListAd = root.getResult().getRows();
+                        AdAdapter.setmListImgAd(mListAd);
+                        mViewPagerAD.setAdapter(AdAdapter);
+                        AdAdapter.notifyDataSetChanged();
+                        setADCircleImg();
+                    }
+
                 }
             } else if (msg.what == 219) {
 
@@ -391,7 +374,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private TextView mPrompt_Cancel;//取消
 
     public boolean isLoop = true;
-    public static int  mSelectPosition ;
 
     public FirstPageFragment() {
         // Required empty public constructor
@@ -445,8 +427,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
                 mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
 
-                handler.removeMessages(1);
-                mSelectPosition=0;
                 mViewPagerAD.clearOnPageChangeListeners();
                 mHttptools.getAdData(mHttpHandler);//广告
 
@@ -570,8 +550,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             //当数据大于1条时，才可以滑动监听，才可以延迟发送消息进行轮播
             if (mListAd.size() > 1) {
                 mViewPagerAD.addOnPageChangeListener(this);
-                //开始轮播效果
-               handler.sendEmptyMessageDelayed(1, 3000);
             }
 
         }
@@ -1079,9 +1057,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onPageSelected(int position) {
-        setImageBackground(position % mListAd.size());
-        mSelectPosition = position % mListAd.size();
-        Log.e("当前广告下标---",position % mListAd.size()+"");
+        setImageBackground(position);
 
     }
 
@@ -1089,15 +1065,12 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void onPageScrollStateChanged(int state) {
         //手指开始滑动
         if (state == mViewPagerAD.SCROLL_STATE_DRAGGING) {
-            handler.removeMessages(1);
             mSwipeRefresh.setEnabled(false);
             //手指松开后自动滑动
         } else if (state == mViewPagerAD.SCROLL_STATE_SETTLING) {
-            handler.removeMessages(1);
             mSwipeRefresh.setEnabled(true);
             //停在某一页
         } else {
-             handler.sendEmptyMessageDelayed(1, 3000);
             mSwipeRefresh.setEnabled(true);
         }
     }
