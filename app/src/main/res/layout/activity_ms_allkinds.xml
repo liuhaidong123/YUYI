@@ -163,19 +163,18 @@
                         android:layout_height="match_parent"
                         >
                     </com.technology.yuyi.lzh_utils.MyGridView>
+                    <TextView
+                        android:id="@+id/fg"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="#f3f3f3"/>
                     <RelativeLayout
                         android:background="@color/color_white"
                         android:layout_alignParentBottom="true"
                         android:id="@+id/ms_allkinds_bottom_loading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/fg"
-                            android:layout_width="match_parent"
-                            android:layout_height="10dp"
-                            android:background="#f3f3f3"/>
                         <RelativeLayout
-                            android:layout_below="@+id/fg"
                             android:paddingTop="12dp"
                             android:paddingBottom="12dp"
                             android:layout_centerHorizontal="true"

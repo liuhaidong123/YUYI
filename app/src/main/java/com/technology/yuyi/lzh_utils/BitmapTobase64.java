@@ -15,7 +15,6 @@ import java.io.OutputStream;
 
 public class BitmapTobase64 {
     public static String bitmapToBase64(Bitmap bitmap) {
-
         String result = null;
         ByteArrayOutputStream baos = null;
         try {
@@ -45,7 +44,4 @@ public class BitmapTobase64 {
         }
         return result;
     }
-
-
-
 }

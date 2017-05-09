@@ -397,8 +397,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             if (pop!=null){
                 pop.dismiss();
             }
-
-
             outputImage = new File(getExternalFilesDir("DCIM").getAbsolutePath(),"user"+".jpg");
             try {
                 if (outputImage.exists()) {
@@ -418,10 +416,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             }
 
         }
-
-
-
-
     }
 
     @Override
