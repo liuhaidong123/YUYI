@@ -194,7 +194,7 @@ public class MS_allkinds_activity extends Activity implements MS_allkinds_ExAdap
                                     startActivity(intent);
                                 }
                             });
-                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
+//                            ms_allkinds_bottom_loading.setVisibility(View.VISIBLE);
                         }
                         else {
                             toast.toast_gsonEmpty(MS_allkinds_activity.this);
