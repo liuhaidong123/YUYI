@@ -8,11 +8,19 @@ import java.util.List;
 //获取最新10条消息
 public class bean_MyMessage {
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     /**
      * result : [{"createTimeString":"2017-03-29 11:25:30","msgType":0,"updateTimeString":"","content":"","referId":0,"id":28,"operation":0,"persinalId":0},{"createTimeString":"2017-03-24 11:14:57","msgType":2,"updateTimeString":"","content":"操作类型--暂时未定义","referId":0,"id":4,"operation":0,"persinalId":0},{"createTimeString":"2017-03-22 11:14:33","msgType":1,"updateTimeString":"","content":"引用编号---根据消息类型引用不同的表的编号","referId":0,"id":3,"operation":0,"persinalId":0},{"createTimeString":"2017-03-23 11:12:40","msgType":1,"updateTimeString":"","content":"消息类型--1=宇医公告，2=挂号通知","referId":0,"id":1,"operation":0,"persinalId":0}]
      * code : 0
      */
-
+    String message;
     private String code;
     private List<ResultBean> result;
 

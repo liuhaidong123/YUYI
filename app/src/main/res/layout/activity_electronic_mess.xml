@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white"
+    android:background="#f2f2f2"
     tools:context="com.technology.yuyi.activity.ElectronicMessActivity">
 
     <RelativeLayout
@@ -35,14 +35,19 @@
     <View
         android:id="@+id/elec_line"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="1dp"
         android:background="@color/color_cancel" />
-
-    <com.technology.yuyi.lzh_utils.MyEmptyListView
-        android:id="@+id/elec_listview"
-        android:divider="@null"
+    <com.technology.yuyi.myview.MyFrameLyout
+        android:id="@+id/mFrag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    </com.technology.yuyi.lzh_utils.MyEmptyListView>
+        android:layout_height="match_parent">
+        <com.technology.yuyi.lzh_utils.MyEmptyListView
+            android:id="@+id/elec_listview"
+            android:divider="@null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </com.technology.yuyi.lzh_utils.MyEmptyListView>
+    </com.technology.yuyi.myview.MyFrameLyout>
+
 </LinearLayout>

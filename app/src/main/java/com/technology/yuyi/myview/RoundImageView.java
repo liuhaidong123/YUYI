@@ -15,11 +15,14 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.technology.yuyi.R;
+
 /**
  * Created by liuhaidong on 2017/2/7.
  */
 
 public class RoundImageView extends ImageView {
+    float padding=0f;
     private Paint mPaintBitmap = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Bitmap mRawBitmap;
     private BitmapShader mShader;
@@ -40,10 +43,11 @@ public class RoundImageView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         Bitmap rawBitmap = getBitmap(getDrawable());
+        padding=getPaddingTop();
         if (rawBitmap != null) {
-            int viewWidth = getWidth();//图片宽度
-            int viewHeight = getHeight();//图片高度
-            int viewMinSize = Math.min(viewWidth, viewHeight);//哪个小选哪个作为缩放比例
+            float viewWidth =getWidth();//图片宽度
+            float viewHeight=getHeight();//图片高度
+            float viewMinSize = Math.min(viewWidth, viewHeight);//哪个小选哪个作为缩放比例
             float dstWidth = viewMinSize;
             float dstHeight = viewMinSize;
             if (mShader == null || !rawBitmap.equals(mRawBitmap)) {
@@ -60,6 +64,14 @@ public class RoundImageView extends ImageView {
             canvas.drawCircle(radius, radius, radius, mPaintBitmap);
         } else {
             super.onDraw(canvas);
+        }
+        if (padding!=0f){
+            Paint p=new Paint();
+            p.setColor(getResources().getColor(R.color.color_white));
+            p.setAntiAlias(true);
+            p.setStyle(Paint.Style.STROKE);
+            p.setStrokeWidth(padding);
+            canvas.drawCircle(getWidth()/2,getHeight()/2,getWidth()/2-padding/2,p);
         }
     }
 
@@ -79,4 +91,5 @@ public class RoundImageView extends ImageView {
             return null;
         }
     }
+
 }

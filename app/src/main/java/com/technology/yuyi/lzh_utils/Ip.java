@@ -3,13 +3,17 @@ package com.technology.yuyi.lzh_utils;
 /**
  * Created by wanyu on 2017/3/14.
  */
-
 public interface Ip {
-   public final static String url_F="http://59.110.169.148:8080/";
-   public final static String url="http://59.110.169.148:8080/";
+//   http://59.110.169.148:8080/
+//   http://59.110.169.148:8080/
+   public final static String url_F="http://192.168.1.168:8082/yuyi/";
+   public final static String url="http://192.168.1.168:8082/yuyi/";
 
-   //获取我的药品状态接口http://192.168.1.55:8080/yuyi/prescription/findList.do?token=DAF338120FEDDDC8310B881B459353C0
+   //获取我的药品状态接口（只获取一个）http://192.168.1.55:8080/yuyi/prescription/findList.do?token=DAF338120FEDDDC8310B881B459353C0
    public final static String interface_MyDrugState="prescription/findList.do?";
+
+   //获取我的药品状态接口（所有的药品状态）
+   public final static String interface_MyDrugStateList="prescription/findList2.do?";
 
    //获取最新10消息http://192.168.1.55:8080/yuyi/message/findList.do?
    public final static String interface_getPushMsg="message/findList.do?";
@@ -88,8 +92,13 @@ public interface Ip {
    //获取融云医生的信息接口（聊天对象的信息）http://192.168.1.37:8080/yuyi/physician/doctory.do?
    public final static String interface_DocInfo="physician/doctory.do?";
 
-   //图片url
-   public final static String imagePth_F="http://59.110.169.148:8080";
-   public final static String imagePth="http://59.110.169.148:8080";
+   //更改绑定手机号修改绑定的手机号 http://192.168.1.168:8082/yuyi/personal/modifymobile.do?token=1213&newMobile=13717883009&vcode=123456
+   public final static String interface_ChangePhone="personal/modifymobile.do?";
+   //获取验证码http://192.168.1.168:8082/yuyi/personal/vcode.do?id=13717883005
+   public final static String interface_GetSMSCode="personal/vcode.do?";
+
+   //图片url   http://59.110.169.148:8080
+   public final static String imagePth_F="http://192.168.1.168:8082/yuyi";
+   public final static String imagePth="http://192.168.1.168:8082/yuyi";
 
 }

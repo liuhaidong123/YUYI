@@ -170,7 +170,7 @@ public class MS_home_Activity extends AppCompatActivity {
                                 if (li!=null&&li.size()>0){
                                     ms_home_myDrugState_nowState.setText("当前状态："+li.get(li.size()-1).getStateText());
                                     MyDrugState=drugState;
-                                }
+                                    }
                                 else {
                                     ms_home_ms_state.setClickable(false);
                                 }

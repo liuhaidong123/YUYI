@@ -45,7 +45,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:textColor="@drawable/my_settings_idea_textclick"
+                android:textColor="@drawable/topbtn"
                 android:textSize="17sp"
                 android:layout_alignParentRight="true"
                 />

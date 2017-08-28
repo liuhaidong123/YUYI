@@ -27,4 +27,7 @@
     <dimen name="wheelViewHeight">50dp</dimen>
     <dimen name="wheelNotselect">15sp</dimen>
     <dimen name="wheelselect">16sp</dimen>
+    <dimen name="maxWidth">1440dp</dimen>
+    <dimen name="textSize13">13sp</dimen>
+    <dimen name="drugPadding">40dp</dimen>
 </resources>

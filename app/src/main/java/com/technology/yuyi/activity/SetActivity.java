@@ -28,7 +28,6 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
         //返回
         mBack = (ImageView) findViewById(R.id.set_mess_back);
         mBack.setOnClickListener(this);
-
     }
 
     @Override
@@ -45,7 +44,6 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
                 case R.id.tv_contact://联系我们
                     startActivity(new Intent(SetActivity.this, My_settings_contactOur_Activity.class));
                     break;
-
                 case R.id.tv_suggestion://意见反馈
                     startActivity(new Intent(SetActivity.this, My_settings_feedbackIdea_Activity.class));
                     break;
@@ -53,7 +51,9 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
                 case R.id.tv_about_ours://关于我们
                     startActivity(new Intent(SetActivity.this, My_settings_aboutOurs_Activity.class));
                     break;
-
+                case R.id.tv_changePhone://更改绑定手机号
+                    startActivity(new Intent(this,My_Settings_ChangePhoneActivity.class));
+                    break;
                 case R.id.tv_exit://退出
                     RongIM.getInstance().logout();
                     user.clearLogin(this);

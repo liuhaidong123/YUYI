@@ -46,6 +46,7 @@ import com.technology.yuyi.activity.InformationActivity;
 import com.technology.yuyi.activity.InformationDetailsActivity;
 import com.technology.yuyi.activity.MS_allkinds_activity;
 import com.technology.yuyi.activity.MS_drugInfo_activity;
+import com.technology.yuyi.activity.MS_drugState;
 import com.technology.yuyi.activity.MS_home_Activity;
 import com.technology.yuyi.activity.My_message_Activity;
 import com.technology.yuyi.activity.SearchActivity;
@@ -620,7 +621,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             startActivity(new Intent(this.getActivity(), AppointmentActivity.class));
         } else if (id == R.id.drugmall_ll) {//医药商城
             Intent intent = new Intent();
-            intent.setClass(getActivity(), MS_home_Activity.class);
+            intent.setClass(getActivity(),MS_drugState.class);
+//            intent.setClass(getActivity(), MS_home_Activity.class);
             startActivity(intent);
         } else if (id == mEdit_rl.getId()) {//跳转到搜索页
             Intent intent = new Intent(this.getActivity(), SearchActivity.class);

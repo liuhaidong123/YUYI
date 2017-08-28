@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,17 +55,17 @@ import java.util.Map;
  */
 public class MyFragment extends Fragment implements View.OnClickListener {
     private RoundImageView mHead_img;
-    private TextView mNikName;
-    private TextView mUsername;
+    private TextView mNikName;//姓名
+    private TextView mUserAge;//年龄
+    ImageView myfrag_imageSex;//性别的iamge
     private RelativeLayout mUserEditor;//用户信息编辑
     private RelativeLayout mElectronicMess;//电子病历
     private RelativeLayout mSetBtn;//设置
     private RelativeLayout mEquipment;//设备管理
     private RelativeLayout mFamily;//家庭用户管理
-    private RelativeLayout mOrder;//订单详情
-    private RelativeLayout my_rela_userLogin, my_rela_userNotLogin;
-    private RelativeLayout thing_rl;//gouwuche
-    private RelativeLayout address_rl;//收货地址
+//    private RelativeLayout mOrder;//订单详情
+//    private RelativeLayout thing_rl;//gouwuche
+//    private RelativeLayout address_rl;//收货地址
     private RelativeLayout my_message;//消息
     private String resStr;
     private Handler handler = new Handler() {
@@ -84,7 +85,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                     } else {
                         mNikName.setVisibility(View.GONE);
                     }
-                    mUsername.setText(bean.getId() + "");
+                        mUserAge.setText(bean.getAge()+"");
+                    int gender=bean.getGender();
+                    switch (gender){
+                        case 0://女
+                            myfrag_imageSex.setSelected(false);
+                            break;
+                        case 1://男
+                            myfrag_imageSex.setSelected(true);
+                            break;
+                    }
                 } catch (Exception e) {
                     toast.toast_gsonFaild(getActivity());
                 }
@@ -107,11 +117,11 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     //初始化数据
     public void initView(View view) {
-
+        myfrag_imageSex= (ImageView) view.findViewById(R.id.myfrag_imageSex);//xingbie
         //用户信息
         mHead_img = (RoundImageView) view.findViewById(R.id.my_head_img);
         mNikName = (TextView) view.findViewById(R.id.my_name);
-        mUsername = (TextView) view.findViewById(R.id.my_name2);
+        mUserAge = (TextView) view.findViewById(R.id.my_name2);
         //用户编辑
         mUserEditor = (RelativeLayout) view.findViewById(R.id.rl_title);
         mUserEditor.setOnClickListener(this);
@@ -128,21 +138,9 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         mFamily = (RelativeLayout) view.findViewById(R.id.home_rl);
         mFamily.setOnClickListener(this);
 
-        //订单详情
-        mOrder = (RelativeLayout) view.findViewById(R.id.order_rl);
-        mOrder.setOnClickListener(this);
-
-        thing_rl = (RelativeLayout) view.findViewById(R.id.thing_rl);
-        thing_rl.setOnClickListener(this);
-
-        address_rl = (RelativeLayout) view.findViewById(R.id.address_rl);
-        address_rl.setOnClickListener(this);
 
         my_message = (RelativeLayout) view.findViewById(R.id.my_message);
         my_message.setOnClickListener(this);
-
-        my_rela_userLogin = (RelativeLayout) view.findViewById(R.id.my_rela_userLogin);
-        my_rela_userNotLogin = (RelativeLayout) view.findViewById(R.id.my_rela_userNotLogin);
     }
 
     @Override
@@ -164,14 +162,6 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 handler.sendEmptyMessage(1);
             }
         });
-        if (user.isLogin(getActivity())) {
-            my_rela_userLogin.setVisibility(View.VISIBLE);
-            my_rela_userNotLogin.setVisibility(View.GONE);
-        } else {
-            my_rela_userLogin.setVisibility(View.GONE);
-            my_rela_userNotLogin.setVisibility(View.VISIBLE);
-        }
-
         if (checkNotificationAllowed.isNOtificationOpen(getActivity()) == false) {//当用户没有通知栏权限时
             SharedPreferences preferences = getActivity().getSharedPreferences("NOTIFICATION", Context.MODE_APPEND);
             if (preferences.contains("notifi") == false) {//用户第一次点击修改权限弹窗时写入，用于判断是否显示跳转到权限修改到界面（true：用户之前已经进入过修改权限到页面，但不给予通知但权限，false：用户没有进入过）
@@ -230,14 +220,16 @@ public class MyFragment extends Fragment implements View.OnClickListener {
             //家庭用户管理
         } else if (id == mFamily.getId()) {
             startActivity(new Intent(this.getActivity(), FamilyManageActivity.class));
-            //订单详情
-        } else if (id == mOrder.getId()) {
-            startActivity(new Intent(this.getActivity(), MyOrderActivity.class));
-        } else if (id == R.id.thing_rl) {
-            startActivity(new Intent(this.getActivity(), My_shoppingCart_Activity.class));
-        } else if (id == R.id.address_rl) {//收货地址
-            startActivity(new Intent(this.getActivity(), My_address_Activity.class));
-        } else if (id == R.id.my_message) {//消息
+        }
+//        else if (id == mOrder.getId()) {
+//            startActivity(new Intent(this.getActivity(), MyOrderActivity.class));
+//        }
+//        else if (id == R.id.thing_rl) {
+//            startActivity(new Intent(this.getActivity(), My_shoppingCart_Activity.class));
+//        } else if (id == R.id.address_rl) {//收货地址
+//            startActivity(new Intent(this.getActivity(), My_address_Activity.class));
+//        }
+        else if (id == R.id.my_message) {//消息
             startActivity(new Intent(this.getActivity(), My_message_Activity.class));
         }
     }

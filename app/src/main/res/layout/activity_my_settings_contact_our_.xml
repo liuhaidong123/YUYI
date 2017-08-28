@@ -51,7 +51,7 @@
             android:text="拨打"
             android:textSize="18sp"
             android:layout_marginTop="60dp"
-            android:background="@drawable/my_settings_contactour_btnclick"
+            android:background="@drawable/textrightbtn"
             android:gravity="center"
             android:textColor="#ffffff"
             android:layout_centerHorizontal="true"

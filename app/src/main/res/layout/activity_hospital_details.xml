@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     tools:context="com.technology.yuyi.activity.HospitalDetailsActivity">
 
     <RelativeLayout
@@ -34,7 +36,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/rl_sure"
+        android:layout_above="@+id/bottomBtn"
         android:layout_below="@+id/detail_title">
 
         <RelativeLayout
@@ -72,6 +74,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:scaleX="1.1"
                         android:id="@+id/grade_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -81,7 +84,6 @@
                         android:text=""
                         android:textColor="@color/color_d" />
                 </RelativeLayout>
-
             </RelativeLayout>
 
 
@@ -101,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_hospital_mess"
-                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="34dp"
                 android:layout_marginStart="10dp"
                 android:text=""
                 android:textColor="@color/color_press"
@@ -110,29 +112,14 @@
         </RelativeLayout>
 
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@id/rl_sure"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
+    <TextView
+        android:background="@drawable/askbtn"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_white">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/color_e" />
-
-        <Button
-            android:id="@+id/ask_btn_sure"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="190dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/click_change_bgcolor"
-            android:text="@string/str_consult"
-            android:textColor="@drawable/click_change_tvcolor"
-            android:textSize="16sp" />
-    </RelativeLayout>
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:text="咨询"
+        android:gravity="center"
+        android:id="@+id/bottomBtn"
+        android:layout_width="match_parent"
+        android:layout_height="44dp" />
 </RelativeLayout>

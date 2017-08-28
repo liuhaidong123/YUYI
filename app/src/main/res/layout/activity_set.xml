@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/color_white">
-
         <ImageView
             android:id="@+id/set_mess_back"
             android:layout_width="wrap_content"
@@ -31,70 +30,168 @@
             android:textSize="17sp" />
     </RelativeLayout>
 
-    <View
-        android:id="@+id/set_mess_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/set_mess_title"
-        android:background="@color/color_cancel" />
-
-    <TextView
-        android:clickable="true"
-        android:onClick="settingUp"
-        android:id="@+id/tv_contact"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/set_mess_line"
+    <!--<View-->
+        <!--android:id="@+id/set_mess_line"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@id/set_mess_title"-->
+        <!--android:background="@color/fgColor" />-->
+    <RelativeLayout
         android:layout_marginTop="10dp"
+        android:id="@+id/la"
         android:background="@color/color_white"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:text="@string/contact_ours"
-        android:textColor="@color/color_press"
-        android:textSize="12sp" />
-
-    <TextView
-        android:clickable="true"
-        android:onClick="settingUp"
-        android:id="@+id/tv_suggestion"
+        android:layout_below="@id/set_mess_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/tv_contact"
-        android:layout_marginTop="1dp"
-        android:background="@color/color_white"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:text="@string/suggestion"
-        android:textColor="@color/color_press"
-        android:textSize="12sp" />
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp">
+        <RelativeLayout
+            android:id="@+id/toplayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/fgColor">
+            <RelativeLayout
+                android:id="@+id/tv_contact"
+                android:clickable="true"
+                android:onClick="settingUp"
+                android:background="@color/color_white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:text="@string/contact_ours"
+                    android:textColor="@color/color_normal"
+                    android:textSize="13sp" />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/rightarrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:clickable="true"
+                android:onClick="settingUp"
+                android:id="@+id/tv_suggestion"
+                android:layout_marginTop="1dp"
+                android:background="@color/color_white"
+                android:layout_below="@id/tv_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:text="@string/suggestion"
+                    android:textColor="@color/color_normal"
+                    android:textSize="13sp" />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/re3"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/rightarrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                </RelativeLayout>
 
-    <TextView
-        android:clickable="true"
-        android:onClick="settingUp"
-        android:id="@+id/tv_about_ours"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/tv_suggestion"
-        android:layout_marginTop="1dp"
-        android:background="@color/color_white"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:text="@string/about_ours"
-        android:textColor="@color/color_press"
-        android:textSize="12sp" />
-
-    <TextView
+            <RelativeLayout
+                android:clickable="true"
+                android:onClick="settingUp"
+                android:id="@+id/tv_about_ours"
+                android:layout_marginTop="1dp"
+                android:background="@color/color_white"
+                android:layout_below="@id/tv_suggestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_ours"
+                    android:textColor="@color/color_normal"
+                    android:layout_toLeftOf="@+id/re4"
+                    android:textSize="13sp" />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/re4"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/rightarrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:clickable="true"
+                android:onClick="settingUp"
+                android:id="@+id/tv_changePhone"
+                android:layout_marginTop="1dp"
+                android:background="@color/color_white"
+                android:layout_below="@id/tv_about_ours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@color/color_white"
+                    android:gravity="center_vertical"
+                    android:text="绑定手机号"
+                    android:textColor="@color/color_normal"
+                    android:textSize="13sp" />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/rightarrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    <!--//退出-->
+    <RelativeLayout
         android:clickable="true"
         android:onClick="settingUp"
         android:id="@+id/tv_exit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/tv_about_ours"
-        android:layout_marginTop="10dp"
         android:background="@color/color_white"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:text="@string/exit"
-        android:textColor="@color/color_press"
-        android:textSize="12sp" />
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/la"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/color_white"
+            android:gravity="center_vertical"
+            android:text="@string/exit"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/re5"
+            android:textColor="@color/color_normal"
+            android:textSize="13sp" />
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/re5"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/rightarrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
 </RelativeLayout>

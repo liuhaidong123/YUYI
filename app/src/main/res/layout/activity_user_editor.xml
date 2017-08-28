@@ -4,157 +4,8 @@
     android:id="@+id/activity_user_editor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_scroll_bg"
+    android:background="@color/color_white"
     tools:context="com.technology.yuyi.activity.UserEditorActivity">
-
-    <View
-        android:id="@+id/curr_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/user_title"
-        android:background="@color/color_cancel" />
-
-    <RelativeLayout
-        android:clickable="true"
-        android:id="@+id/select_head"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@id/curr_line"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_white">
-
-
-        <com.technology.yuyi.myview.RoundImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/usereditor_image_userphoto"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="25dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:text="@string/str_head"
-            android:textColor="@color/color_normal"
-            android:textSize="14sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/user_name_rl"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/user_nikname_rl"
-        android:layout_marginTop="1dp"
-        android:background="@color/color_white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:text="@string/str_user_name"
-            android:textColor="@color/color_normal"
-            android:textSize="14sp"
-            android:id="@+id/textView5" />
-
-        <EditText
-            android:hint="用户名"
-            android:background="@null"
-            android:id="@+id/user_editor_userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="20dp"
-            android:gravity="right|center_vertical"
-            android:text=""
-            android:textColor="@color/color_press"
-            android:textSize="13sp"
-            android:layout_alignBaseline="@+id/textView5"
-            android:layout_alignBottom="@+id/textView5"
-            android:layout_alignParentEnd="true"
-             />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/user_age_rl"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/user_sex_rl"
-        android:layout_marginTop="1dp"
-        android:background="@color/color_white">
-
-        <TextView
-            android:id="@+id/age_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/str_user_age"
-            android:textColor="@color/color_normal"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/age_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:maxLength="3"
-            android:gravity="right|center_vertical"
-            android:layout_toEndOf="@id/age_tv"
-            android:inputType="number"
-            android:paddingEnd="20dp"
-            android:hint="输入年龄"
-            android:text=""
-            android:textColor="@color/color_press"
-            android:textSize="13sp" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/user_place_rl"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/color_white"
-        android:layout_below="@+id/user_id_rl"
-        android:layout_alignParentEnd="true">
-
-        <TextView
-            android:id="@+id/gj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/str_user_place"
-            android:textColor="@color/color_normal"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/jg_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/gj"
-            android:background="@null"
-            android:inputType="text"
-            android:gravity="end"
-            android:maxLines="1"
-            android:paddingEnd="20dp"
-            android:text="山西大同"
-            android:hint="输入籍贯"
-            android:textColor="@color/color_press"
-            android:textSize="13sp" />
-    </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/user_title"
         android:layout_width="match_parent"
@@ -171,52 +22,99 @@
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
             android:src="@mipmap/back" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:gravity="center"
             android:text="@string/str_user_edi"
-            android:textColor="@color/color_normal"
-            android:textSize="17sp"/>
-
-
-        <!--<TextView-->
-            <!--android:id="@+id/family_add"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginEnd="20dp"-->
-            <!--android:text="@string/add_person"-->
-            <!--android:textColor="@color/color_username"-->
-            <!--android:textSize="17sp" />-->
-        <TextView
-            android:id="@+id/user_editor_textV_submit"
-            android:onClick="Submit"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView3" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/curr_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/user_title"
+        android:background="@color/fgColor" />
+        <!--/／修改头像-->
+        <LinearLayout
             android:clickable="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/select_head"
+            android:orientation="vertical"
+            android:layout_below="@+id/user_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.technology.yuyi.myview.RoundImageView
+                android:id="@+id/usereditor_image_userphoto"
+                android:layout_width="74dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/usererr"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/curr_line"
+                android:layout_height="74dp" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                android:text="修改头像"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    <!--用户名-->
+    <RelativeLayout
+        android:layout_below="@+id/select_head"
+        android:id="@+id/user_name_rl"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="43dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/color_white">
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="@string/str_save"
-            android:textColor="@color/color_username"
-            android:textSize="17sp" />
-    </RelativeLayout>
+            android:text="@string/str_user_name"
+            android:textColor="@color/color_normal"
+            android:textSize="14sp"
+            android:id="@+id/textView5" />
 
+        <EditText
+
+            android:layout_toRightOf="@+id/textView5"
+            android:hint="用户名"
+            android:background="@null"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/user_editor_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:text=""
+            android:textColor="#666666"
+            android:maxLines="1"
+            android:maxLength="11"
+            android:textSize="14sp"
+            android:layout_alignBaseline="@+id/textView5"
+            android:layout_alignBottom="@+id/textView5"
+             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/fgColor"/>
+    </RelativeLayout>
+    <!--性别-->
     <RelativeLayout
-        android:layout_marginTop="1dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:id="@+id/user_sex_rl"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="@color/color_white"
         android:layout_below="@+id/user_name_rl"
         android:layout_alignParentStart="true">
@@ -225,99 +123,123 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
             android:text="@string/str_user_sex"
+            android:id="@+id/tt"
             android:textColor="@color/color_normal"
             android:textSize="14sp" />
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tt"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/sex_select"
+                    android:id="@+id/userInfo_sex_Women"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    android:text="女"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/userInfo_sex_Women"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/sex_select"
+                    android:id="@+id/userInfo_sex_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="#666666"
+                    android:textSize="14sp"
+                    android:text="男"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/userInfo_sex_man"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/fgColor"
+            android:layout_alignParentBottom="true"></View>
+    
+    </RelativeLayout>
+    <!--//年龄-->
+    <RelativeLayout
+        android:id="@+id/user_age_rl"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/user_sex_rl"
+        android:layout_marginTop="1dp"
+        android:background="@color/color_white">
 
         <TextView
+            android:id="@+id/age_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
+            android:text="@string/str_user_age"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/age_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/age_tv"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:maxLength="3"
+            android:layout_marginLeft="15dp"
+            android:gravity="left|center_vertical"
+            android:inputType="number"
+            android:hint="输入年龄"
             android:text=""
-            android:id="@+id/user_editor_sex"
             android:textColor="@color/color_press"
             android:textSize="13sp" />
+        <View
+            android:layout_alignParentBottom="true"
+            android:background="@color/fgColor"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
     </RelativeLayout>
-
-    <RelativeLayout
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:id="@+id/user_nikname_rl"
+    <TextView
+        android:id="@+id/user_editor_textV_submit"
+        android:onClick="Submit"
+        android:clickable="true"
+        android:background="@drawable/usermsg_btn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/color_white"
-        android:layout_below="@+id/select_head"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:id="@+id/nikname_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:text="昵称"
-            android:textColor="@color/color_normal"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/nikname_edit"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="right|center_vertical"
-            android:inputType="text"
-            android:hint="输入昵称"
-            android:maxLength="15"
-            android:paddingRight="20dp"
-            android:text="@string/str_li"
-            android:textColor="@color/color_press"
-            android:textSize="13sp"
-            android:layout_alignBaseline="@+id/nikname_tv"
-            android:layout_alignBottom="@+id/nikname_tv"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/user_id_rl"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/color_white"
-        android:layout_below="@+id/user_age_rl"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:id="@+id/tv_id_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/str_user_id"
-            android:textColor="@color/color_normal"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/ad_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:inputType="text"
-            android:gravity="right|center_vertical"
-            android:maxLength="18"
-            android:maxLines="1"
-            android:paddingEnd="20dp"
-            android:text=""
-            android:hint="身份证号"
-            android:textColor="@color/color_press"
-            android:textSize="13sp"
-            android:layout_alignBaseline="@+id/tv_id_name"
-            android:layout_alignBottom="@+id/tv_id_name"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-
+        android:layout_height="44dp"
+        android:textSize="15sp"
+        android:textColor="@color/color_white"
+        android:text="保存"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/user_age_rl"/>
 </RelativeLayout>

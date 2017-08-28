@@ -3,6 +3,7 @@ package com.technology.yuyi.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
+import com.technology.yuyi.myview.MyFrameLyout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import java.util.Map;
  */
 //通知信息列表
 public class My_message_Activity extends MyActivity{
+    MyFrameLyout myMessageFrag;
     private MyEmptyListView my_message_listview;
     private My_messageListView_Adapter adapter;
     private List<bean_MyMessage.ResultBean>listBean;
@@ -42,10 +45,10 @@ public class My_message_Activity extends MyActivity{
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
-//                    toast.toast_faild(My_message_Activity.this);
-                    my_message_listview.setError();
+                    myMessageFrag.setNoNetWorkView();
                     break;
                 case 1:
+                    myMessageFrag.setNormal();
                     try{
                         bean_MyMessage myMessage= gson.gson.fromJson(resStr,bean_MyMessage.class);
                         if (myMessage!=null){
@@ -55,22 +58,22 @@ public class My_message_Activity extends MyActivity{
                                     adapter.notifyDataSetChanged();
                                 }
                                 else {
-//                                    toast.toast_gsonEmpty(My_message_Activity.this);
+                                    myMessageFrag.setEmptyView("这里什么都没有");
                                 }
                             }
                             else {
-//                                toast.toast_gsonEmpty(My_message_Activity.this);
+                                myMessageFrag.setEmptyView(!"".equals(myMessage.getMessage())&&!TextUtils.isEmpty(myMessage.getMessage())?"失败："+myMessage.getMessage():"获取失败：未知原因");
                             }
                         }
                         else {
-//                            toast.toast_gsonEmpty(My_message_Activity.this);
+                            myMessageFrag.setEmptyView("这里什么都没有");
                         }
                     }
                     catch (Exception e){
+                        myMessageFrag.setEmptyView("数据异常");
                         e.printStackTrace();
-//                        toast.toast_gsonFaild(My_message_Activity.this);
+
                     }
-                        my_message_listview.setEmpty();
                     break;
             }
         }
@@ -80,12 +83,12 @@ public class My_message_Activity extends MyActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_message);
         initVIew();
-//        initData();//测试用
         getMessage();
     }
 
 
     private void initVIew() {
+        myMessageFrag= (MyFrameLyout) findViewById(R.id.myMessageFrag);
         titleTextView= (TextView) findViewById(R.id.activity_include_title);
         titleTextView.setText("消息");
         my_message_listview= (MyEmptyListView) findViewById(R.id.my_message_listview);

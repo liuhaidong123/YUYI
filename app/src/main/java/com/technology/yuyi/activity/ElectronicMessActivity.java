@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
+import com.technology.yuyi.myview.MyFrameLyout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ import java.util.Map;
 //intent.putExtra("type","1");
 //        intent.putExtra("id",""+userInfo.getId());
 public class ElectronicMessActivity extends AppCompatActivity implements View.OnClickListener{
+    MyFrameLyout mFrag;
 private ImageView mBack;
     private MyEmptyListView mLisview;
     private String type;//0用户的电子病历，1家人的电子病历
@@ -46,23 +49,23 @@ private ImageView mBack;
     private ElectronicMessListViewAdapter mAdapter;
     private View mHeaderView;
     private String resStr;
-    private List<bean_FamilyUserEle.ResultBean> listFamilyUser;
+    private List<bean_FamilyUserEle.ResultBean> listFamilyUser;//家人的电子病例
     private FamilyUserEleListAdapter adapter;
-    private List<bean_MedicalRecordList.ResultBean> list;
+    private List<bean_MedicalRecordList.ResultBean> list;//用户自己的电子病例
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+                    mFrag.setNoNetWorkView();
                     list=new ArrayList<>();
                     mAdapter=new ElectronicMessListViewAdapter(ElectronicMessActivity.this,list);
                     mLisview.setAdapter(mAdapter);
                     MyDialog.stopDia();
-//                    toast.toast_faild(ElectronicMessActivity.this);
-                    mLisview.setError();
                     break;
                 case 1:
+                    mFrag.setNormal();
                     try{
                         MyDialog.stopDia();
                         list=new ArrayList<>();
@@ -79,28 +82,28 @@ private ImageView mBack;
                                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 Intent intent = new Intent();
                                                 intent.setClass(ElectronicMessActivity.this, LookElectronicMessActivity.class);
-                                                intent.putExtra("id", list.get(position ).getId());
+                                                intent.putExtra("id",list.get(position));
                                                 intent.putExtra("type", "0");
                                                 startActivity(intent);
 
                                         }
                                     });
                                 } else {
-//                                    toast.toast_gsonEmpty(ElectronicMessActivity.this);
+                                    mFrag.setEmptyView("这里什么都没有");
                                 }
                             } else {
-//                                Toast.makeText(ElectronicMessActivity.this, "加载失败：", Toast.LENGTH_SHORT).show();
+                                mFrag.setEmptyView(!"".equals(recordList.getMessage())&&!TextUtils.isEmpty(recordList.getMessage())?"失败："+recordList.getMessage():"获取电子病例失败：未知原因");
                             }
                         } else {
-//                            toast.toast_gsonEmpty(ElectronicMessActivity.this);
+                            mFrag.setEmptyView("这里什么都没有");
                         }
                     } catch (Exception e) {
-//                        toast.toast_gsonFaild(ElectronicMessActivity.this);
+                        mFrag.setEmptyView("数据异常");
                         e.printStackTrace();
                     }
-                    mLisview.setEmpty();
                     break;
                 case 2://获取家庭用户的所有病历
+                    mFrag.setNormal();
                     try{
                         MyDialog.stopDia();
                         listFamilyUser=new ArrayList<>();
@@ -116,21 +119,21 @@ private ImageView mBack;
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                             Intent intent = new Intent();
                                             intent.setClass(ElectronicMessActivity.this, LookElectronicMessActivity.class);
-                                            intent.putExtra("id", listFamilyUser.get(position).getId());
+                                            intent.putExtra("id", listFamilyUser.get(position));
                                             intent.putExtra("type", "1");
                                             startActivity(intent);
                                     }
                                 });
                             } else {
-//                                toast.toast_gsonEmpty(ElectronicMessActivity.this);
+                                mFrag.setEmptyView("这里设么都没有");
                             }
                         } else {
-//                            Toast.makeText(ElectronicMessActivity.this, "电子病历获取失败", Toast.LENGTH_SHORT).show();
+                            mFrag.setEmptyView(!"".equals(us.getMessage())&&!TextUtils.isEmpty(us.getMessage())?"失败："+us.getMessage():"获取电子病例失败：未知原因");
                         }
                     } catch (Exception e) {
-//                        toast.toast_faild(ElectronicMessActivity.this);
+                        e.printStackTrace();
+                        mFrag.setEmptyView("数据异常");
                     }
-                    mLisview.setEmpty();
                     break;
             }
         }
@@ -153,6 +156,7 @@ private ImageView mBack;
     }
 
     public void initView() {
+        mFrag= (MyFrameLyout) findViewById(R.id.mFrag);
         //返回
         mBack = (ImageView) findViewById(R.id.elec_back);
         mBack.setOnClickListener(this);
@@ -199,7 +203,6 @@ private ImageView mBack;
             public void onFailure(Request request, IOException e) {
                 handler.sendEmptyMessage(0);
             }
-
             @Override
             public void onResponse(Response response) throws IOException {
                 resStr = response.body().string();

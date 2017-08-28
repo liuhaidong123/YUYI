@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:background="#00000000"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <!--<ImageView-->
+            <!--android:id="@+id/ask_close"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:src="@mipmap/closes"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:padding="11dp"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp" />-->
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <!--视频咨询-->
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/ask_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/videod"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+                <TextView
+                    android:text="视频"
+                    android:layout_marginTop="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_white"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <!--语音咨询-->
+            <LinearLayout
+                android:layout_below="@+id/ask_video"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/ask_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@mipmap/voiced"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+                <TextView
+                    android:text="语音"
+                    android:layout_marginTop="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_white"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--文字咨询-->
+            <LinearLayout
+                android:layout_below="@+id/ask_voice"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/ask_word"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@mipmap/writingd"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+                <TextView
+                    android:text="语音"
+                    android:layout_marginTop="10dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/color_white"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

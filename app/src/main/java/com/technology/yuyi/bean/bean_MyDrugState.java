@@ -156,7 +156,6 @@ public class bean_MyDrugState implements Serializable{
              * stateText : 开具药方
              * id : 1
              */
-
             private String createTimeString;
             private int prescriptionId;
             private String updateTimeString;

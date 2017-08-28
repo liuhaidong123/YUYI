@@ -91,7 +91,7 @@
     <string name="str_mess">消息</string>
     <string name="str_th">购物车</string>
     <string name="str_order">订单详情</string>
-    <string name="str_home">家庭用户管理</string>
+    <string name="str_home">家庭成员管理</string>
     <string name="str_userdetial">用户设备管理</string>
     <string name="str_user_address">收货地址</string>
     <string name="str_set">设置</string>

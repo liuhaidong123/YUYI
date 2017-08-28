@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/color_scroll_bg"
     tools:context="com.technology.yuyi.activity.FamilyUserMessageActivity">
-
+    <!--//标题-->
     <RelativeLayout
         android:id="@+id/equip_title"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/color_white">
-
         <ImageView
             android:id="@+id/family_user_back"
             android:layout_width="wrap_content"
@@ -21,7 +20,6 @@
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
             android:src="@mipmap/back" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="44dp"
@@ -29,155 +27,301 @@
             android:text="@string/myself_mess"
             android:textColor="@color/color_normal"
             android:textSize="17sp" />
-
     </RelativeLayout>
-
     <View
         android:id="@+id/equip_line"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_below="@id/equip_title"
         android:background="@color/color_cancel" />
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_below="@+id/user_rl"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8.5dp"
-        android:background="@drawable/family_listview_bg">
-
-        <RelativeLayout
-            android:id="@+id/my_data_rl"
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:text="@string/my_data"
-                android:textColor="@color/color_normal"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:src="@mipmap/many" />
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/line_z"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/my_data_rl"
-            android:background="@color/color_scroll_bg" />
-
-        <RelativeLayout
-            android:id="@+id/my_files_rl"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@id/line_z">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:text="@string/my_files"
-                android:textColor="@color/color_normal"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:src="@mipmap/many" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/delete_user"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/delete_btn_bg"
-        android:text="@string/btn_delete"
-        android:textColor="@color/color_delete"
-
-        />
-
-    <RelativeLayout
-        android:id="@+id/user_rl"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignStart="@+id/relativeLayout"
+    <ScrollView
         android:layout_below="@+id/equip_line"
-        android:background="@drawable/family_listview_bg">
-
-        <com.technology.yuyi.myview.RoundImageView
-            android:id="@+id/user_img_head"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-             />
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@id/user_img_head">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--//用户信息显示view-->
+            <RelativeLayout
+                android:id="@+id/user_rl"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/family_listview_bg">
+                <com.technology.yuyi.myview.RoundImageView
+                    android:id="@+id/user_img_head"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    />
 
-            <TextView
-                android:id="@+id/user_name_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
+                <RelativeLayout
+                    android:id="@+id/rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_toEndOf="@id/user_img_head">
 
-            <TextView
-                android:id="@+id/user_name_age"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@id/user_name_tv"
-                android:text=""
-                android:textColor="@color/color_normal"
-                android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/user_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:maxLines="1"
+                        android:maxLength="5"
+                        android:ellipsize="middle"
+                        android:textColor="@color/color_normal"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_toRightOf="@+id/user_name_tv"
+                        android:id="@+id/user_name_nickName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:maxLength="6"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/color_normal"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/user_name_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_toEndOf="@id/user_name_nickName"
+                        android:text=""
+                        android:textColor="@color/color_normal"
+                        android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/user_telnum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/user_name_tv"
-                android:layout_marginTop="15dp"
-                android:text="" />
+                    <TextView
+                        android:id="@+id/user_telnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/user_name_tv"
+                        android:layout_marginTop="15dp"
+                        android:text="333" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/edit_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="15dp"
+                    android:padding="3dp"
+                    android:src="@mipmap/edit" />
+            </RelativeLayout>
+            <View
+                android:id="@+id/equip_line2"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@id/user_rl"
+                android:background="@color/color_cancel" />
+            <!--//测量的view-->
+            <RelativeLayout
+                android:id="@+id/layout2"
+                android:layout_below="@+id/equip_line2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--//我的数据分析-->
+                <RelativeLayout
+                    android:background="@color/color_white"
+                    android:id="@+id/userMessage_rela_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:text="我的数据分析"
+                            android:textSize="15sp"
+                            android:textColor="#333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:id="@+id/userMessage_rela_data_image"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/c"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/mLayout"
+                    android:layout_below="@+id/userMessage_rela_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/mViewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </android.support.v4.view.ViewPager>
+                    <RelativeLayout
+                        android:background="@color/color_white"
+                        android:layout_below="@+id/mViewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp">
+                        <ImageView
+                            android:layout_marginLeft="15dp"
+                            android:id="@+id/msgImageView"
+                            android:src="@mipmap/normalf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"/>
+                        <LinearLayout
+                            android:layout_marginLeft="15dp"
+                            android:layout_toRightOf="@+id/msgImageView"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true">
+                            <!--//血压1-->
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true">
+                                    <TextView
+                                        android:layout_gravity="center_horizontal"
+                                        android:textSize="15sp"
+                                        android:textColor="#333333"
+                                        android:id="@+id/pressHigh"
+                                        android:text="无数据"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+                                    <TextView
+                                        android:layout_marginTop="10dp"
+                                        android:text="收缩压(高压)"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:textSize="13sp"
+                                        android:textColor="#6a6a6a"/>
+                                </LinearLayout>
+
+                            </RelativeLayout>
+                            <!--//血压2-->
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true">
+                                    <TextView
+                                        android:layout_gravity="center_horizontal"
+                                        android:textSize="15sp"
+                                        android:textColor="#333333"
+                                        android:id="@+id/pressLow"
+                                        android:text="无数据"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+                                    <TextView
+                                        android:layout_marginTop="10dp"
+                                        android:text="舒张压(低压)"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:textSize="13sp"
+                                        android:textColor="#6a6a6a"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+                            <!--提问-->
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true">
+                                    <TextView
+                                        android:layout_gravity="center_horizontal"
+                                        android:textSize="15sp"
+                                        android:textColor="#333333"
+                                        android:id="@+id/temp"
+                                        android:text="无数据"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+                                    <TextView
+                                        android:layout_marginTop="10dp"
+                                        android:text="体温"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:textSize="13sp"
+                                        android:textColor="#6a6a6a"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+            <!--我的电子病例-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/userMessage_rela_ele"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/color_white">
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:text="我的电子病例"
+                            android:textSize="15sp"
+                            android:textColor="#333333"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <ImageView
+                            android:id="@+id/userMessage_rela_ele_image"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/c"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+                <com.technology.yuyi.myview.MyFrameLyout
+                    android:visibility="gone"
+                    android:id="@+id/framLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <com.technology.yuyi.lzh_utils.MyEmptyListView
+                        android:id="@+id/userMessage_rela_ele_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.technology.yuyi.lzh_utils.MyEmptyListView>
+                </com.technology.yuyi.myview.MyFrameLyout>
+            </LinearLayout>
         </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/edit_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="15dp"
-            android:padding="3dp"
-            android:src="@mipmap/edit" />
-
-    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

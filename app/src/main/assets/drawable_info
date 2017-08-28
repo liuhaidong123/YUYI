@@ -1,0 +1,9 @@
+R.drawable.topbtn:定义可点击的textview，点击后改变字体颜色，点击前颜色：themeColor，点击后themeColorDink，没有背景色
+
+R.drawable.textrightbtn 定义可点击的textview，点击前背景色themeColor，点击后背景色themeColorDink
+
+R.drawable.editbackground:定义输入框的样式，底色无，边框线的颜色为#cccccc,边框线度宽度为1dp,圆角度书为4dp
+
+R.drawable.editleft:定义输入狂度样式，底色无，边框线颜色#cccccc,边框款度1dp,原角度左上4dp，左下4dp，右上0，右下0
+
+R.drawable.textviewback:定义view的背景样式，底色为白色，圆角度为4dp

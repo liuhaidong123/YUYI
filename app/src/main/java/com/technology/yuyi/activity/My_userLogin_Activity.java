@@ -2,6 +2,7 @@ package com.technology.yuyi.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,13 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
+import com.technology.yuyi.PhoneCheck.CheckPhone;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.ValidateCodeRoot;
@@ -85,8 +88,9 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 Object o = msg.obj;
                 if (o != null && o instanceof ValidateCodeRoot) {
                     ValidateCodeRoot root = (ValidateCodeRoot) o;
-                    if (root.getCode() != "" && root.getCode().equals("0")&&root.getResult().equals("Success")) {
+                    if (root.getCode() != "" && "0".equals(root.getCode())) {
                         ToastUtils.myToast(My_userLogin_Activity.this, "获取验证码成功");
+                        Log.i("--获取验证ma-",root.getResult());
                     }else {
                         MyDialog.stopDia();
                         ToastUtils.myToast(My_userLogin_Activity.this, "获取验证码失败");
@@ -97,7 +101,6 @@ public class My_userLogin_Activity extends AppCompatActivity {
             } else if (msg.what==209){
                 MyDialog.stopDia();
             }
-
             else if (msg.what == 27) {//登录
                 MyDialog.stopDia();
                 Object o = msg.obj;
@@ -113,7 +116,9 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         edi.putString("userpsd", root.getResult());
                         userPsd=root.getResult();
                         userPsd=userName;
+                        user.userPsd=root.getResult();
                         user.token=root.getResult();
+                        user.userName=userName;
                         Log.e("token：",root.getResult());
                         edi.commit();
 
@@ -158,6 +163,9 @@ public class My_userLogin_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         setContentView(R.layout.activity_my_user_login_);
         initView();
     }
@@ -179,7 +187,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 userName = my_userlogin_edit_name.getText().toString();
                 if (!"".equals(userName) && !TextUtils.isEmpty(userName)) {
-                    if (isPhoneNum(userName)) {
+                    if (CheckPhone.isPhoneNumber(userName)) {
                         mMap.put("id", userName);//验证码需要的map集合
                         getSMScode();
 
@@ -220,13 +228,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
         }).start();
     }
 
-    //判断是否输入的为手机号
-    public boolean isPhoneNum(String str) {
-        String regExp = "^((13[0-9])|(15[^4])|(18[0-9])|(17[0-9])|(147))\\d{8}$";
-        Pattern p = Pattern.compile(regExp);
-        Matcher m = p.matcher(str);
-        return m.matches();
-    }
+
 
     //登陆按钮
     public void Login(View view) {
@@ -234,7 +236,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
             if (view.getId() == R.id.my_userlogin_logninButton) {
                 userName = my_userlogin_edit_name.getText().toString();
                 userPsd = my_userlogin_edit_smdCode.getText().toString();
-                if (isPhoneNum(userName) && !"".equals(userPsd) && !TextUtils.isEmpty(userPsd)) {
+                if (CheckPhone.isPhoneNumber(userName) && !"".equals(userPsd) && !TextUtils.isEmpty(userPsd)) {
                     //登录
                     MyDialog.showDialog(My_userLogin_Activity.this);
                     mLoginMap.put("id", userName);
