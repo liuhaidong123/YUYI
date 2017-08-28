@@ -501,7 +501,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.My_Settings_ChangePhoneActivity"></activity>
+        <activity android:name=".activity.My_Settings_ChangePhoneActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
