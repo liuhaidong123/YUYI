@@ -10,11 +10,19 @@ import java.util.List;
 public class bean_ListFamilyUser {
 
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     /**
      * result : [{"createTimeString":"","role":2,"updateTimeString":"","gender":0,"nickName":"","groupId":2,"telephone":17743516301,"avatar":"/static/image/avatar.jpeg","oid":0,"trueName":"我自己","id":94,"age":0}]
      * code : 0
      */
-
+    String message;
     private String code;
     private List<ResultBean> result;
 

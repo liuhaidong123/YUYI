@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/color_white">
-
         <ImageView
             android:id="@+id/family_back"
             android:layout_width="wrap_content"
@@ -38,7 +37,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:text="@string/add_person"
-            android:textColor="@color/color_username"
+            android:textColor="@color/themeColor"
             android:textSize="17sp" />
     </RelativeLayout>
 
@@ -48,17 +47,19 @@
         android:layout_height="1dp"
         android:layout_below="@id/equip_title"
         android:background="@color/color_cancel" />
-
-
-    <com.technology.yuyi.lzh_utils.MyEmptyListView
-        android:id="@+id/family_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <com.technology.yuyi.myview.MyFrameLyout
         android:layout_below="@id/equip_line"
-        android:layout_margin="10dp"
-        android:divider="@color/color_scroll_bg"
-        android:dividerHeight="10dp">
+        android:id="@+id/bodylayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.technology.yuyi.lzh_utils.MyEmptyListView
+            android:id="@+id/family_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:divider="@color/color_scroll_bg"
+            android:dividerHeight="10dp">
+        </com.technology.yuyi.lzh_utils.MyEmptyListView>
+    </com.technology.yuyi.myview.MyFrameLyout>
 
-
-    </com.technology.yuyi.lzh_utils.MyEmptyListView>
 </RelativeLayout>

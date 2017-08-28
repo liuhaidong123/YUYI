@@ -271,7 +271,6 @@ public class MyDataAnalyseActivity extends AppCompatActivity implements ViewPage
      */
 
     public void initTemData() {
-
         for (int i = 35; i < 43; i++) {
             YTemData.add(i);
         }

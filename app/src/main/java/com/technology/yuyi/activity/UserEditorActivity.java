@@ -64,34 +64,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserEditorActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private RelativeLayout mSex;
-    private AlertDialog.Builder mBuilder;
-    private AlertDialog mAlertDialog;
-    private View mSexAlertView;
-    private RadioGroup user_editor_sex_radioGroup;
-    private RadioButton boyBtn,grilBtn;
-    private ImageView mBack;
-    private EditText mAgeEdit;
-    private EditText mNikName;
-    private EditText mAdEdit;
-    private EditText mAddressEdit;
+    ImageView userInfo_sex_Women,userInfo_sex_man;//男，女的图标
+    private ImageView mBack;//返回
+    private EditText mAgeEdit;//年龄
     private String type;
-    private RelativeLayout select_head;
-    private TextView usereditor_textv_cancle,usereditor_textv_picture,usereditor_textv_camera;
+    private LinearLayout select_head;//更换头像的view
+    private TextView usereditor_textv_cancle,usereditor_textv_picture,usereditor_textv_camera;//弹窗中选择的照片选取方式
     private PopupWindow pop;
     private RoundImageView usereditor_image_userphoto;
-    private EditText user_editor_userName;
-    private TextView user_editor_sex;
-    private File fileaa;
+    private EditText user_editor_userName;//姓名
     private Bitmap bit;
     private String bit64;
     private String resStr;
-
     private Boolean isBitChange=false;
     private File outputImage;
-    private Uri imageUri;
-
     private int SE;//性别标示0女，1男
     private Handler handler=new Handler(){
         @Override
@@ -106,7 +92,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         bean_My_UserMsg usMsg= gson.gson.fromJson(resStr,bean_My_UserMsg.class);
                         if ("0".equals(usMsg.getCode())){
                             bean_My_UserMsg.ResultBean bean=usMsg.getResult();
-                            mNikName.setText(bean.getUserName());
                             user_editor_userName.setText(bean.getTrueName());
                             Picasso.with(UserEditorActivity.this).load(Ip.imagePth+bean.getAvatar()).error(R.mipmap.usererr).into(new Target() {
                                 @Override
@@ -129,13 +114,14 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                             int sx=bean.getGender();
                             SE=bean.getGender();
                             if (sx==0){//nv
-                                user_editor_sex.setText("女");
+                                userInfo_sex_Women.setSelected(true);
+                                userInfo_sex_man.setSelected(false);
                             }
                             else if (sx==1){//nan
-                                user_editor_sex.setText("男");
+                                userInfo_sex_Women.setSelected(false);
+                                userInfo_sex_man.setSelected(true);
                             }
                             mAgeEdit.setText(bean.getAge()+"");
-                            mAdEdit.setText(bean.getIdCard());
                         }
 
                         else {
@@ -178,36 +164,19 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
-        //性别
-        user_editor_sex= (TextView) findViewById(R.id.user_editor_sex);
         //用户名
         user_editor_userName= (EditText) findViewById(R.id.user_editor_userName);
         user_editor_userName.setSelection(user_editor_userName.getText().length());
-        //选择性别
-        mSex = (RelativeLayout) findViewById(R.id.user_sex_rl);
-        mSex.setOnClickListener(this);
-        mBuilder = new AlertDialog.Builder(this);
-        mAlertDialog = mBuilder.create();
-        mSexAlertView = LayoutInflater.from(this).inflate(R.layout.sex_alert_box, null);
-        boyBtn= (RadioButton) mSexAlertView.findViewById(R.id.boy_btn);
-        grilBtn= (RadioButton) mSexAlertView.findViewById(R.id.girl_btn);
-        user_editor_sex_radioGroup= (RadioGroup) mSexAlertView.findViewById(R.id.user_editor_sex_radioGroup);
-                user_editor_sex_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        switch (checkedId){
-                            case R.id.boy_btn://男
-                                SE=1;
-                                user_editor_sex.setText("男");
-                                break;
-                            case R.id.girl_btn://女
-                                SE=0;
-                                user_editor_sex.setText("女");
-                                break;
-                        }
-                    }
-                });
-        mAlertDialog.setView(mSexAlertView);
+        user_editor_userName.setOnClickListener(this);
+
+        //性别选择
+        userInfo_sex_man= (ImageView) findViewById(R.id.userInfo_sex_man);
+        userInfo_sex_man.setOnClickListener(this);
+        userInfo_sex_Women= (ImageView) findViewById(R.id.userInfo_sex_Women);
+        userInfo_sex_Women.setOnClickListener(this);
+        SE=0;//默认选择女
+        userInfo_sex_Women.setSelected(true);
+
         //返回
         mBack = (ImageView) findViewById(R.id.editor_back);
         mBack.setOnClickListener(this);
@@ -215,21 +184,10 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         mAgeEdit = (EditText) findViewById(R.id.age_edit);
         mAgeEdit.setSelection(mAgeEdit.getText().length());
 
-        select_head= (RelativeLayout) findViewById(R.id.select_head);
-        select_head.setOnClickListener(this);
-
         usereditor_image_userphoto= (RoundImageView) findViewById(R.id.usereditor_image_userphoto);
-        //昵称
-        mNikName=(EditText) findViewById(R.id.nikname_edit);
-        mNikName.setSelection(mNikName.getText().length());
-        //省份证号
-        mAdEdit=(EditText) findViewById(R.id.ad_edit);
-        mAdEdit.setSelection(mAdEdit.getText().length());
-        //籍贯
-        mAddressEdit=(EditText) findViewById(R.id.jg_edit);
-        mAddressEdit.setSelection(mAddressEdit.getText().length());
 
-        select_head= (RelativeLayout) findViewById(R.id.select_head);
+        //头像更换
+        select_head= (LinearLayout) findViewById(R.id.select_head);
         select_head.setOnClickListener(this);
 
         usereditor_image_userphoto= (RoundImageView) findViewById(R.id.usereditor_image_userphoto);
@@ -239,19 +197,16 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         int id = v.getId();
         switch (id){
-            case R.id.user_sex_rl://点击个人信息编辑
-                mAlertDialog.show();
-                switch (SE){
-                    case 0:
-                        boyBtn.setChecked(false);
-                        grilBtn.setChecked(true);
-                        break;
-                    case 1://男
-                        boyBtn.setChecked(true);
-                        grilBtn.setChecked(false);
-                        break;
-                }
-            setAlertWidth();
+//            0女1男
+            case R.id.userInfo_sex_man://选择男
+                SE=1;
+                userInfo_sex_man.setSelected(true);
+                userInfo_sex_Women.setSelected(false);
+                break;
+            case R.id.userInfo_sex_Women://选择女
+                SE=0;
+                userInfo_sex_man.setSelected(false);
+                userInfo_sex_Women.setSelected(true);
                 break;
             case R.id.editor_back://返回
                 if ("0".equals(type)){
@@ -277,16 +232,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-
-    //设置alert宽度
-    public void setAlertWidth() {
-        DisplayMetrics dm = new DisplayMetrics();
-        WindowManager m = getWindowManager();
-        m.getDefaultDisplay().getMetrics(dm);
-        android.view.WindowManager.LayoutParams p = mAlertDialog.getWindow().getAttributes();  //获取对话框当前的参数值
-        p.width = (int) (dm.widthPixels * (0.7));
-        mAlertDialog.getWindow().setAttributes(p);//设置生效
-    }
     //上传头像
     private void showWindowUploading() {
         View vi=LayoutInflater.from(UserEditorActivity.this).inflate(R.layout.usereditor_pop_uploading,null);
@@ -543,8 +488,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
             mp.put("avatar","");
             Log.e("1111991000000011","1111111111111");
         }
-//        mp.put("userName",mNikName.getText().toString());//昵称
-        mp.put("userName","");
         mp.put("trueName",user_editor_userName.getText().toString());//真实姓名
         String ag=mAgeEdit.getText().toString();
         if (Integer.parseInt(ag)<1|Integer.parseInt(ag)>150){
@@ -554,7 +497,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         mp.put("age",ag);//年龄
         mp.put("gender",""+SE);//性别
         Log.i("---性别--","--------"+SE);
-        mp.put("idCard",mAdEdit.getText().toString());//身份证号
+//        mp.put("idCard",mAdEdit.getText().toString());//身份证号
         okhttp.getCall(Ip.url_F+Ip.interface_UserMsgRevise,mp,okhttp.OK_POST).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -586,11 +529,9 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private int checkInput() {
         if (!"".equals(bit64)&&!TextUtils.isEmpty(bit64)){
             if (!"".equals(user_editor_userName.getText().toString())&&!TextUtils.isEmpty(user_editor_userName.getText().toString())
-                    &&!"".equals(user_editor_sex.getText().toString())&&!TextUtils.isEmpty(user_editor_sex.getText().toString())
                     &&!"".equals(mAgeEdit.getText().toString())&&!TextUtils.isEmpty(mAgeEdit.getText().toString()
-            )&&!"".equals(mAdEdit.getText().toString())&&!TextUtils.isEmpty(mAdEdit.getText().toString())){
+            )){
                 return 0;
-
             }
             else {
                 return 2;//其他信息不完整

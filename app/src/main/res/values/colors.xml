@@ -21,6 +21,9 @@
     <color name="color_bg">#cccccc</color>
     <color name="color_white">#ffffff</color>
     <color name="color_username">#25f368</color>
+    <color name="themeColor">#1ebeec</color>
+    <color name="themeColorDink">#ca1ebeec</color>
+    <color name="themeColor_2">#5ee708</color>
     <color name="color_normal">#333333</color>
     <color name="color_press">#666666</color>
     <color name="color_mess">#888888</color>
@@ -60,7 +63,6 @@
 
 
 
-
     <!--          lzh           -->
     <color name="color_ms_home_titleclolr">#333333</color>
     <color name="color_ms_home_disc">#25f368</color>
@@ -79,6 +81,17 @@
     <color name="dialog">#00ffffff</color>
     <color name="navpage">#FFE1E8EB</color>
     <color name="unselect">#e0e0e0</color>
+    <color name="formviewback">#434040</color>
+
+    <color name="colorX">#22f3f6</color>
+    <color name="colo">#22f3f6</color>
+    <color name="colorSource">#1dbeec</color>
+    <color name="colorOtherSource">#7ed66b</color>
+    <color name="colorBackground">#30323a</color>
+    <color name="firstTextColor">#c61dbeec</color>
+    <color name="otherTextColor">#c87ed66b</color>
+    <color name="backgroundColor">#f2f2f2</color>
+    <color name="fgColor">#e5e5e5</color>
 </resources>
 
 

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ms_home_return"/>
+            android:src="@mipmap/back"/>
         <TextView
             android:id="@+id/activity_include_title"
             android:layout_width="wrap_content"

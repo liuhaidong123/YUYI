@@ -45,8 +45,8 @@ public class FamilyUserEleListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView=mInflater.inflate(R.layout.elec_listview_item,null);
-        TextView tv_date= (TextView) convertView.findViewById(R.id.tv_date);
-        tv_date.setText(list.get(position).getCreateTimeString());
+//        TextView tv_date= (TextView) convertView.findViewById(R.id.tv_date);
+//        tv_date.setText(list.get(position).getCreateTimeString());
         return convertView;
     }
 }

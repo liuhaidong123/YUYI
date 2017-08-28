@@ -84,7 +84,7 @@
                         android:onClick="goBack"
                         android:paddingEnd="15dp"
                         android:paddingStart="15dp"
-                        android:src="@mipmap/ms_home_return" />
+                        android:src="@mipmap/back" />
 
                     <ImageView
                         android:visibility="gone"

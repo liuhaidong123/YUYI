@@ -59,7 +59,7 @@ public class MyEmptyListView extends ListView{
             TextView textView= (TextView) vi.findViewById(R.id.empty_text);
             ImageView imageView= (ImageView) vi.findViewById(R.id.empty_image);
             imageView.setPadding(0,width/2,0,0);
-            textView.setText(emptyText);
+            textView.setVisibility(GONE);
             imageView.setImageResource(ResId);
             addHeaderView(vi);
             vi.setOnClickListener(null);

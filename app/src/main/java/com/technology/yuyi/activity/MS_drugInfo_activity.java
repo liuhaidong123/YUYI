@@ -83,8 +83,8 @@ public class MS_drugInfo_activity extends Activity {
 //                                "number": 20,
 //                                "price": 20,
 //                                "drugsType": "颗粒",
-//                                "drugsDosage": "用法用量",
-//                                "specificationsdList": [
+//                               "drugsDosage": "用法用量",
+//                                 "specificationsdList": [
 //                        {
 //                            "createTimeString": "",
 //                                "updateTimeString": "",

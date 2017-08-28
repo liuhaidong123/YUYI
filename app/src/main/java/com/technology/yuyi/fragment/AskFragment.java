@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ *zixun
  */
 public class AskFragment extends Fragment implements AdapterView.OnItemClickListener {
 

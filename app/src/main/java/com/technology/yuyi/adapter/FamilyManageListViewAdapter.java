@@ -55,16 +55,26 @@ public class FamilyManageListViewAdapter extends BaseAdapter {
             hodler=new ViewHodler();
             hodler.img_head= (RoundImageView) convertView.findViewById(R.id.family_head);
             hodler.name= (TextView) convertView.findViewById(R.id.family_name);
+            hodler.family_nikcName= (TextView) convertView.findViewById(R.id.family_nikcName);
+            hodler.family_age= (TextView) convertView.findViewById(R.id.family_age);
+            hodler.family_phoneNum= (TextView) convertView.findViewById(R.id.family_phoneNum);
             convertView.setTag(hodler);
         }
             hodler= (ViewHodler) convertView.getTag();
         Picasso.with(mContext).load(Uri.parse(Ip.imagePth+list.get(position).getAvatar())).error(R.mipmap.usererr).into(hodler.img_head);
         hodler.name.setText(list.get(position).getTrueName());
+        hodler.family_nikcName.setText("（"+list.get(position).getNickName()+"）");
+        hodler.family_age.setText(list.get(position).getAge()==0?"0岁":list.get(position).getAge()+"岁");
+        hodler.family_phoneNum.setText(list.get(position).getTelephone()==0l?"用户未填写":list.get(position).getTelephone()+"");
         return convertView;
     }
 
     class ViewHodler{
         RoundImageView img_head;
         TextView name;
+        TextView family_nikcName;//称谓
+        TextView family_age;//nianling
+        TextView family_phoneNum;//电话
+
     }
 }

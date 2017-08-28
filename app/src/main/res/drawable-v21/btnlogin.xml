@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#dc87d7ef">
+    <item android:drawable="@drawable/my_userlogin_loginbutton"></item>
+</ripple>

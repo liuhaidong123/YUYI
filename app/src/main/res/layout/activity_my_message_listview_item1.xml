@@ -10,7 +10,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp">
-
         <com.technology.yuyi.myview.RoundImageView
             android:id="@+id/my_message_listview_item_iamgeview"
             android:layout_width="32dp"
@@ -18,7 +17,6 @@
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"
             android:src="@mipmap/logo" />
-
         <TextView
             android:id="@+id/my_message_listview_item_time"
             android:layout_width="wrap_content"
@@ -80,7 +78,7 @@
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:text="查看更多"
-            android:textColor="#25f368"
+            android:textColor="@color/themeColor"
             android:textSize="12sp" />
     </RelativeLayout>
 </LinearLayout>

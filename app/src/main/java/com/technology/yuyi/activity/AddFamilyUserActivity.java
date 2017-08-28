@@ -50,10 +50,12 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.bean_AddFamilyUser;
+import com.technology.yuyi.bean.bean_DeleteFamilyUser;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
 import com.technology.yuyi.bean.bean_SMScode;
 import com.technology.yuyi.lzh_utils.BitmapTobase64;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.ResCode;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -77,6 +79,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     private TextView usereditor_textv_cancle, usereditor_textv_picture, usereditor_textv_camera;
     private PopupWindow popupWindow;
     private TextView title;
+    TextView textvDelete;//删除按钮
 
     private Bitmap bit;
     private Bitmap btn;
@@ -108,6 +111,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0://连接失败
+                    MyDialog.stopDia();
                     toast.toast_faild(AddFamilyUserActivity.this);
                     break;
                 case 1://获取验证码
@@ -165,6 +169,21 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                         Log.e("---gson-2-", e.toString());
                     }
                     break;
+                case 3:
+                    MyDialog.stopDia();
+                    try {
+                        bean_DeleteFamilyUser del = gson.gson.fromJson(resStr, bean_DeleteFamilyUser.class);
+                        if ("0".equals(del.getCode())) {
+                            Toast.makeText(AddFamilyUserActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                            setResult(100,new Intent(AddFamilyUserActivity.this,FamilyUserMessageActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(AddFamilyUserActivity.this, "删除失败:"+del.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        toast.toast_gsonFaild(AddFamilyUserActivity.this);
+                    }
+                    break;
             }
         }
     };
@@ -177,6 +196,13 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
     }
 
     public void initView() {
+        textvDelete= (TextView) findViewById(R.id.textvDelete);
+        textvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteUser();//删除用户
+            }
+        });
         radioGroup = (RadioGroup) findViewById(R.id.add_family_group_sex);
         gender = "0";
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -316,7 +342,28 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         type = getIntent().getStringExtra("type");
         if (!"1".equals(type)) {// 0添加,1xiugai
             type = "0";
+            textvDelete.setVisibility(View.GONE);//添加时隐藏删除按钮
         }
+    }
+
+    //删除用户http://192.168.1.55:8080/yuyi/homeuser/delete.do?token=6DD620E22A92AB0AED590DB66F84D064&id=123
+    private void deleteUser() {
+        MyDialog.showDialog(this);
+        Map<String, String> mp = new HashMap<>();
+        mp.put("token", user.userPsd);
+        mp.put("id", userInfo.getId() + "");
+        okhttp.getCall(Ip.url + Ip.interfce_DeleteFamilyUser, mp, okhttp.OK_GET).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                handler.sendEmptyMessage(0);
+            }
+            @Override
+            public void onResponse(Response response) throws IOException {
+                resStr = response.body().string();
+                handler.sendEmptyMessage(3);
+                Log.i("删除家庭用户--", resStr);
+            }
+        });
     }
 
     //判断是否输入的为手机号
@@ -377,18 +424,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         }
         return false;
     }
-
-    //确定上传家庭用户信息
-
-    //token=6DD620E22A92AB0AED590DB66F84D064&nickName=aaab&trueName=bbba&age=12&vcode=212637&telephone=13712345678
-
-    //    http://192.168.1.55:8080/yuyi/homeuser/save.do?
-    // token=6DD620E22A92AB0AED590DB66F84D064
-    // &nickName=aaab
-    // &trueName=bbba
-    // &age=12
-    // &vcode=212637
-    // &telephone=13712345678
     private void sendMsg() {
         Map<String, String> mp = new HashMap<>();
         mp.put("token", user.userPsd);
@@ -495,11 +530,6 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
 
     //拍照
     private void TakePhoto() {
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        file=new File(getExternalFilesDir("DCIM").getAbsolutePath(),System.currentTimeMillis()+".jpg");
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-//        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-//        startActivityForResult(intent, ResCode.Request_takePhoto);
         if (Build.VERSION.SDK_INT >= 23) {
             int Permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
             if (Permission != PackageManager.PERMISSION_GRANTED) {

@@ -10,9 +10,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,10 +26,12 @@ import com.squareup.okhttp.Response;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.HttpTools.UrlTools;
+import com.technology.yuyi.PopupSettings.Pop;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.bean_DocId;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.RongConnect;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -44,21 +49,18 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
     private RelativeLayout mBgRelative;
     private ImageView mBack;
-    private Button mBtn;
-    private AlertDialog.Builder mBuilder;
-    private AlertDialog mAlertDialog;
-    private View mAlertView;
-    private Button mSpeechBtn;
-    private Button mVideoBtn;
-    private Button mCharBtn;
     private String DocId;//医生的userID
-    private TextView mHospital_name;
-    private TextView mGrade_tv;
-    private TextView mHospital_message;
-    private ImageView mImg;
+    private TextView mHospital_name;//医院名字
+    private TextView mGrade_tv;//医院信息
+    private TextView mHospital_message;//医院介绍
+    private ImageView mImg;//医院图片
     private HttpTools mHttptools;
     private String resStr;
 
+    LinearLayout ask_video,ask_voice,ask_word;//视频，语音，文字的三种咨询方式
+//    ImageView ask_close;//关闭咨询方式
+    PopupWindow pop;
+    TextView bottomBtn;//咨询按钮
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -83,9 +85,11 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+                    MyDialog.stopDia();
                     toast.toast_faild(HospitalDetailsActivity.this);
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     try {
                         bean_DocId docId = gson.gson.fromJson(resStr, bean_DocId.class);
                         if (docId != null) {
@@ -108,7 +112,6 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     };
 
     private TextView mTv_hospital;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,31 +137,17 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         mBgRelative = (RelativeLayout) findViewById(R.id.bg_relative);
         mBgRelative.getBackground().setAlpha(125);
         //医患咨询
-        mBtn = (Button) findViewById(R.id.ask_btn_sure);
-        mBtn.setOnClickListener(this);
-        //弹框
-        mBuilder = new AlertDialog.Builder(this);
-        mAlertDialog = mBuilder.create();
-        mAlertView = LayoutInflater.from(this).inflate(R.layout.ask_alert_box, null);
-        mAlertDialog.setView(mAlertView);
-
-        //语音,视频，文字
-        mSpeechBtn = (Button) mAlertView.findViewById(R.id.btn_speech);
-        mVideoBtn = (Button) mAlertView.findViewById(R.id.btn_video);
-        mCharBtn = (Button) mAlertView.findViewById(R.id.btn_char);
-        mSpeechBtn.setOnClickListener(this);
-        mVideoBtn.setOnClickListener(this);
-        mCharBtn.setOnClickListener(this);
+        bottomBtn = (TextView) findViewById(R.id.bottomBtn);
+        bottomBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == mBtn.getId()) {
-            mAlertDialog.show();
-            setAlertWidth(0.7f, mAlertDialog);
-        } else if (id == mSpeechBtn.getId()) {//语音咨询
-            mAlertDialog.dismiss();
+        if (id == bottomBtn.getId()) {
+            showWindowAsk();
+        } else if (id == ask_voice.getId()) {//语音咨询
+            pop.dismiss();
             if ("-1".equals(DocId)){
                 Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
                 return;
@@ -166,11 +155,11 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             } else {
-                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
-        } else if (id == mVideoBtn.getId()) {//视频咨询
-            mAlertDialog.dismiss();
+        } else if (id == ask_video.getId()) {//视频咨询
+            pop.dismiss();
             if ("-1".equals(DocId)){
                 Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
                 return;
@@ -179,12 +168,12 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
 
             } else {
-                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
 
-        } else if (id == mCharBtn.getId()) {//文字资讯
-            mAlertDialog.dismiss();
+        } else if (id == ask_word.getId()) {//文字资讯
+            pop.dismiss();
             if ("-1".equals(DocId)){
                 Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
                 return;
@@ -192,12 +181,15 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this, user.targetId, "咨询");
             } else {
-                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == mBack.getId()) {//返回
             finish();
         }
+//        else if (id==ask_close.getId()){//弹窗中的关闭咨询方式的按钮
+//            pop.dismiss();
+//        }
     }
 
     //设置alert宽度
@@ -212,6 +204,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
     //获取医生id
     public void getDocId() {
+        MyDialog.showDialog(HospitalDetailsActivity.this);
         //http://192.168.1.37:8080/yuyi/physician/doctory.do?cid=1
         int ids=getIntent().getIntExtra("id", -1);
         if (ids==-1){
@@ -236,10 +229,29 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
     public void getRongInfo() {
         if ("".equals(DocId) | DocId == null) {
+            Log.e("融云聊天启动--","DocId为空----");
             getDocId();
         }
         if (user.RonguserId == null | "".equals(user.RonguserId)) {
+            Log.e("融云聊天启动--","RonguserId为空----");
             RongConnect.getRongToken(this);
         }
+    }
+    //选择咨询方式
+    public void showWindowAsk(){
+        if (pop==null){
+            pop=new PopupWindow();
+        }
+        View vi=LayoutInflater.from(this).inflate(R.layout.pop_ask,null);
+        ask_video= (LinearLayout) vi.findViewById(R.id.ask_video);
+        ask_video.setOnClickListener(this);
+        ask_voice= (LinearLayout) vi.findViewById(R.id.ask_voice);
+        ask_voice.setOnClickListener(this);
+        ask_word= (LinearLayout) vi.findViewById(R.id.ask_word);
+        ask_word.setOnClickListener(this);
+//        ask_close= (ImageView) vi.findViewById(R.id.ask_close);
+//        ask_close.setOnClickListener(this);
+        View parent=findViewById(R.id.activity_hospital_details);
+        Pop.getInstance().getCenterSettings(this,pop,parent,vi,0.25f, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 }

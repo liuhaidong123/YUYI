@@ -18,7 +18,6 @@ public class user {
     public static String targetId="";//
     public static double Latitude;//纬度
     public static double Longitude;//经度
-    public static int CallType=0;//融云音视频的type:0文字，1音频，2视频
     //当前是否登陆过（未退出登陆）
     public static boolean isLogin(Context context){
         SharedPreferences preferences=context.getSharedPreferences("USER",Context.MODE_APPEND);

@@ -6,10 +6,18 @@ package com.technology.yuyi.bean;
 
 public class bean_DeleteFamilyUser {
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     /**
      * code : 0
      */
-
+    String message;
     private String code;
 
     public String getCode() {

@@ -37,8 +37,11 @@ public class RongConnect {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    MyDialog.stopDia();
+                    Toast.makeText(con,"连接聊天服务器失败",Toast.LENGTH_SHORT).show();
                     break;
                 case 1:
+                    MyDialog.stopDia();
                     try{
                         beanRongToken tok= gson.gson.fromJson(resStr,beanRongToken.class);
                         if ("1".equals(tok.getCode())){
@@ -64,6 +67,7 @@ public class RongConnect {
         }
     };
     public static void initRongCon(Context context) {
+        MyDialog.showDialog(context);
         con=context;
         if (context.getApplicationInfo().packageName.equals(getCurProcessName(context.getApplicationContext()))){
             RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
@@ -73,7 +77,7 @@ public class RongConnect {
                  */
                 @Override
                 public void onTokenIncorrect() {
-
+                    MyDialog.stopDia();
                 }
 
                 /**
@@ -82,6 +86,7 @@ public class RongConnect {
                  */
                 @Override
                 public void onSuccess(String userid) {
+                    MyDialog.stopDia();
                     user.RonguserId=userid;
                     Log.i("融云返回的id--hospital-",userid+"--hospital---");
                 }
@@ -91,6 +96,7 @@ public class RongConnect {
                  */
                 @Override
                 public void onError(RongIMClient.ErrorCode errorCode) {
+                    MyDialog.stopDia();
                     Toast.makeText(con,"信息注册失败，无法启动咨询程序",Toast.LENGTH_SHORT).show();
                 }
             });
@@ -98,11 +104,13 @@ public class RongConnect {
     }
 
     public static void getRongToken(Context context){
+        MyDialog.showDialog(context);
         con=context;
         if (user.userName!=null&&!"0".equals(user.userName)&&!"".equals(user.userName)){
             Map<String,String> mp=new HashMap<>();
             mp.put("personalid",user.userName);
-            okhttp.getCall(Ip.url_F+Ip.interface_RongToken,mp,okhttp.OK_POST).enqueue(new Callback() {
+            Log.i("请求融云token---",Ip.url_F+Ip.interface_RongToken+"personalid="+user.userName);
+            okhttp.getCall(Ip.url_F+Ip.interface_RongToken,mp,okhttp.OK_GET).enqueue(new Callback() {
                 @Override
                 public void onFailure(Request request, IOException e) {
                     handler.sendEmptyMessage(0);
@@ -115,5 +123,8 @@ public class RongConnect {
                 }
             });
         }
+        else {
+            Log.e("userName--null","--------");
+;        }
     }
 }

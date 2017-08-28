@@ -7,11 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +28,7 @@ import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
+import com.technology.yuyi.myview.MyFrameLyout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import java.util.Map;
 
 //家庭用户列表
 public class FamilyManageActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
+    MyFrameLyout bodylayout;
     private MyEmptyListView mLisView;
     private FamilyManageListViewAdapter mAdapter;
     private TextView mAddFamily;
@@ -49,10 +51,10 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    toast.toast_faild(FamilyManageActivity.this);
-                    mLisView.setError();
+                    bodylayout.setNoNetWorkView();
                     break;
                 case 1:
+                    bodylayout.setNormal();
                 try
                     {
                         list=new ArrayList<>();
@@ -61,19 +63,22 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
                     bean_ListFamilyUser user= gson.gson.fromJson(resStr,bean_ListFamilyUser.class);
                     if ("0".equals(user.getCode())){
                         if (user.getResult()!=null&&user.getResult().size()>0){
+                            bodylayout.setNormal();
                             list.addAll(user.getResult());
                             mAdapter.notifyDataSetChanged();
                             }
+                        else{
+                            bodylayout.setEmptyView("这里什么都没有");
+                        }
                         }
                     else {
-                        //Toast.makeText(FamilyManageActivity.this,"获取家庭用户成员失败",Toast.LENGTH_SHORT).show();
+                        bodylayout.setEmptyView("获取数据失败："+(!"".equals(user.getMessage())&&!TextUtils.isEmpty(user.getMessage())?user.getMessage():"未知原因"));
                         }
                 }
                 catch (Exception e){
-                    toast.toast_gsonFaild(FamilyManageActivity.this);
+                    bodylayout.setEmptyView("数据异常");
                     Log.e("json--",e.toString());
                 }
-                    mLisView.setEmpty();
                     break;
             }
         }
@@ -99,6 +104,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     }
 
     public void initView() {
+        bodylayout= (MyFrameLyout) findViewById(R.id.bodylayout);
         //用户管理listview
         mLisView = (MyEmptyListView) findViewById(R.id.family_listview);
         mLisView.setOnItemClickListener(this);
@@ -116,7 +122,6 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         int id = v.getId();
-
         //添加
         if (id == mAddFamily.getId()) {
             if (list != null && list.size() > 0) {
@@ -169,7 +174,7 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
     //获取家庭用户列表http://192.168.1.55:8080/yuyi/homeuser/findList.do?token=6DD620E22A92AB0AED590DB66F84D064
     public void getUserList() {
         Map<String, String> mp = new HashMap<>();
-        mp.put("token", user.userPsd);
+        mp.put("token", user.token);
         okhttp.getCall(Ip.url + Ip.interfce_ListFamilyUser, mp, okhttp.OK_GET).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
