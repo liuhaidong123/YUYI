@@ -40,14 +40,15 @@
 
 
     <ListView
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:id="@+id/equitment_listview_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/elec_line"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_scroll_bg"
-        android:divider="@color/color_cancel"
-        android:dividerHeight="1dp"
+        android:layout_marginTop="20dp"
+        android:divider="@color/color_scroll_bg"
+        android:dividerHeight="20dp"
 
         >
 

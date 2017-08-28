@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -58,7 +59,8 @@ public class AppointmentListViewAdapter extends BaseAdapter {
             viewHolder.img= (ImageView) convertView.findViewById(R.id.yu_img_mess);
             viewHolder.name_tv= (TextView) convertView.findViewById(R.id.yu_tv_title);
             viewHolder.grade_tv=(TextView) convertView.findViewById(R.id.grade_tv);
-            viewHolder.message_tv=(TextView) convertView.findViewById(R.id.yu_tv_mess);
+            //viewHolder.message_tv=(TextView) convertView.findViewById(R.id.yu_tv_mess);
+            viewHolder.bg= (RelativeLayout) convertView.findViewById(R.id.bg_alpha);
             convertView.setTag(viewHolder);
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
@@ -66,7 +68,8 @@ public class AppointmentListViewAdapter extends BaseAdapter {
         Picasso.with(mContent).load(UrlTools.BASE+list.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.img);
         viewHolder.name_tv.setText(list.get(position).getHospitalName());
         viewHolder.grade_tv.setText(list.get(position).getGradeName());
-        viewHolder.message_tv.setText(list.get(position).getIntroduction());
+       // viewHolder.message_tv.setText(list.get(position).getIntroduction());
+        viewHolder.bg.getBackground().setAlpha(125);
         return convertView;
     }
 
@@ -75,5 +78,6 @@ public class AppointmentListViewAdapter extends BaseAdapter {
         TextView name_tv;
         TextView grade_tv;
         TextView message_tv;
+        RelativeLayout bg;
     }
 }

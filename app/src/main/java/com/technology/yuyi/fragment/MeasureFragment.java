@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.CurrentBloodActivity;
 import com.technology.yuyi.activity.CurrentTemActivity;
+import com.technology.yuyi.activity.CurrentTemActivity2;
 import com.technology.yuyi.activity.HandInputBloodActivity;
 import com.technology.yuyi.activity.HandInputTemActivity;
 import com.technology.yuyi.adapter.MeasureListViewAdapter;
@@ -56,7 +57,7 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     public void initView(View view) {
-        list.add(new MyEntity("体温计", "测量记录", R.mipmap.mea_bpg_icon_norm_1));
+        list.add(new MyEntity("体温计", "体温测量记录", R.mipmap.mea_bpg_icon_norm_1));
         list.add(new MyEntity("血压计", "血压测量记录", R.mipmap.mea_therm_icon_norm_2));
         //设备
         mMeasureListView = (ListView) view.findViewById(R.id.measure_listview_id);
@@ -81,32 +82,38 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        mAlertDialog.show();
-        mPosition = position;
+       // mAlertDialog.show();
+        //mPosition = position;
+
+        if (position==0){//体温
+            startActivity(new Intent(this.getActivity(), CurrentTemActivity2.class));
+        }else {//血压
+            startActivity(new Intent(this.getActivity(), CurrentBloodActivity.class));
+        }
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == mAutoBtn.getId()) {
-            mAlertDialog.dismiss();
-            if (mPosition == 0) {//自动输入体温
-                startActivity(new Intent(this.getActivity(), CurrentTemActivity.class));
-            } else if (mPosition == 1) {//自动输入血压
-                startActivity(new Intent(this.getActivity(), CurrentBloodActivity.class));
-            }
+//            mAlertDialog.dismiss();
+//            if (mPosition == 0) {//自动输入体温
+//                startActivity(new Intent(this.getActivity(), CurrentTemActivity.class));
+//            } else if (mPosition == 1) {//自动输入血压
+//                startActivity(new Intent(this.getActivity(), CurrentBloodActivity.class));
+//            }
 
         } else if (id == mHandBtn.getId()) {
-            mAlertDialog.dismiss();
-
-            if (mPosition == 0) {//手动输入体温
-                startActivity(new Intent(this.getActivity(), HandInputTemActivity.class));
-            } else if (mPosition == 1) {//手动输入血压
-                startActivity(new Intent(this.getActivity(), HandInputBloodActivity.class));
-            }
+//            mAlertDialog.dismiss();
+//
+//            if (mPosition == 0) {//手动输入体温
+//                startActivity(new Intent(this.getActivity(), HandInputTemActivity.class));
+//            } else if (mPosition == 1) {//手动输入血压
+//                startActivity(new Intent(this.getActivity(), HandInputBloodActivity.class));
+//            }
 
         } else if (id == mCancelBtn.getId()) {
-            mAlertDialog.dismiss();
+            //mAlertDialog.dismiss();
         }
 
     }

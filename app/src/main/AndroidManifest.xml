@@ -88,7 +88,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="5cd69f10c22a8ae361b4e82052e6fdfd" /> <!-- 开发者申请的key -->
+            android:value="0cca598bf05186d92e266c5edc94e6c5" /> <!-- 开发者申请的key -->
         <service android:name="com.amap.api.location.APSService" />
 
         <activity
@@ -203,10 +203,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <!--<activity-->
-            <!--android:name=".wxapi.WXPayEntryActivity"-->
-            <!--android:exported="true"-->
-            <!--android:launchMode="singleTop" />-->
+        <!-- <activity -->
+        <!-- android:name=".wxapi.WXPayEntryActivity" -->
+        <!-- android:exported="true" -->
+        <!-- android:launchMode="singleTop" /> -->
 
         <receiver android:name=".lzh_WXutils.AppRegister">
             <intent-filter>
@@ -289,7 +289,7 @@
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateVisible|adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".activity.VideoActivity"
             android:screenOrientation="portrait"
@@ -319,18 +319,19 @@
 
         <!-- alipay sdk begin -->
 
-        <!--<activity-->
-            <!--android:name="com.alipay.sdk.app.H5PayActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|navigation|screenSize"-->
-            <!--android:exported="false"-->
-            <!--android:screenOrientation="behind"-->
-            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
-        <!--<activity-->
-            <!--android:name="com.alipay.sdk.app.H5AuthActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden|navigation"-->
-            <!--android:exported="false"-->
-            <!--android:screenOrientation="behind"-->
-            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
+
+        <!-- <activity -->
+        <!-- android:name="com.alipay.sdk.app.H5PayActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden|navigation|screenSize" -->
+        <!-- android:exported="false" -->
+        <!-- android:screenOrientation="behind" -->
+        <!-- android:windowSoftInputMode="adjustResize|stateHidden" /> -->
+        <!-- <activity -->
+        <!-- android:name="com.alipay.sdk.app.H5AuthActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden|navigation" -->
+        <!-- android:exported="false" -->
+        <!-- android:screenOrientation="behind" -->
+        <!-- android:windowSoftInputMode="adjustResize|stateHidden" /> -->
         <!-- 支付宝相关 -->
 
 
@@ -492,12 +493,22 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-        <!--判断网络的广播-->
+        <!-- 判断网络的广播 -->
         <receiver android:name=".lhd.utils.BroadCastYUYI">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activity.CurrentTemActivity2"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity.HandInputTemActivity2"
+            android:screenOrientation="portrait"
+            >
+
+
+        </activity>
     </application>
 
 </manifest>

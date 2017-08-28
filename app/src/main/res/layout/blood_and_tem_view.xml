@@ -7,7 +7,7 @@
         android:id="@+id/relative_blood_tem"
         android:layout_width="match_parent"
         android:layout_height="270dp"
-        android:background="@drawable/blood_tem_bg"
+        android:background="@color/bloodbg"
         >
 
     </RelativeLayout>

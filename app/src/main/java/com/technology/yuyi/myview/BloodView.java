@@ -21,12 +21,19 @@ public class BloodView extends View {
     private ArrayList<Integer> mHeightBloodData = new ArrayList<>();
     private ArrayList<Integer> mLowBloodData = new ArrayList<>();
 
-    private final String paintColor = "#74958a";
-    private final String lineColor = "#6a6a6a";
+    private final String paintColor = "#22f3f6";
+    private final String lineLowBloodColor = "#7ed66b";
+    private final String blackColor = "#474e5b";
     private Paint mPaintXY;
-    private Paint mPaintBloodLine;
+    private Paint mHeightPaintTV;
+    private Paint mLowPaintTV;
+    private Paint mPaintBloodHeightLine;
+    private Paint mPaintBloodLowLine;
     private Paint mPaintSloidCircle;
     private Paint mPaintStrokeCircle2;
+    private Paint mPaintSloidLowCircle;
+    private Paint mPaintStrokeLowCircle2;
+    private Paint mBlackPaint;
 
     private float YEndPoint;//y轴终点坐标
     private float XScale;//x轴刻度
@@ -88,31 +95,96 @@ public class BloodView extends View {
         mPaintXY.setTextSize(dip2px(10));
         mPaintXY.setStrokeWidth(dip2px(0.3f));
         mPaintXY.setTextAlign(Paint.Align.CENTER);
-        //折线
-        mPaintBloodLine = new Paint();
-        mPaintBloodLine.setColor(Color.parseColor(lineColor));
-        mPaintBloodLine.setAntiAlias(true);
-        mPaintBloodLine.setStyle(Paint.Style.STROKE);
 
-        //实心圆圈
+        //高压文字画笔
+        mHeightPaintTV = new Paint();
+        mHeightPaintTV.setColor(Color.parseColor(paintColor));
+        mHeightPaintTV.setAntiAlias(true);
+        mHeightPaintTV.setStyle(Paint.Style.FILL_AND_STROKE);
+        mHeightPaintTV.setTextSize(dip2px(12));
+        mHeightPaintTV.setStrokeWidth(dip2px(0.3f));
+        mHeightPaintTV.setTextAlign(Paint.Align.CENTER);
+
+        //低压文字画笔
+        mLowPaintTV = new Paint();
+        mLowPaintTV.setColor(Color.parseColor(lineLowBloodColor));
+        mLowPaintTV.setAntiAlias(true);
+        mLowPaintTV.setStyle(Paint.Style.FILL_AND_STROKE);
+        mLowPaintTV.setTextSize(dip2px(12));
+        mLowPaintTV.setStrokeWidth(dip2px(0.3f));
+        mLowPaintTV.setTextAlign(Paint.Align.CENTER);
+        //高压折线
+        mPaintBloodHeightLine = new Paint();
+        mPaintBloodHeightLine.setStrokeWidth(dip2px(2));
+        mPaintBloodHeightLine.setColor(Color.parseColor(paintColor));
+        mPaintBloodHeightLine.setAntiAlias(true);
+        mPaintBloodHeightLine.setStyle(Paint.Style.STROKE);
+        //低压折线
+        mPaintBloodLowLine = new Paint();
+        mPaintBloodLowLine.setStrokeWidth(dip2px(2));
+        mPaintBloodLowLine.setColor(Color.parseColor(lineLowBloodColor));
+        mPaintBloodLowLine.setAntiAlias(true);
+        mPaintBloodLowLine.setStyle(Paint.Style.STROKE);
+        //高压实心圆圈
         mPaintSloidCircle = new Paint();
         mPaintSloidCircle.setStyle(Paint.Style.FILL);
         mPaintSloidCircle.setStrokeWidth(dip2px(2));
-        mPaintSloidCircle.setColor(Color.parseColor(lineColor));
+        mPaintSloidCircle.setColor(Color.parseColor(paintColor));
         mPaintSloidCircle.setAntiAlias(true);
 
-        //实心圆圈外边的圆圈
+
+//        mBlackPaint= new Paint();
+//        mBlackPaint.setStyle(Paint.Style.FILL);
+//        mBlackPaint.setStrokeWidth(dip2px(2));
+//        mBlackPaint.setColor(Color.parseColor(blackColor));
+//        mBlackPaint.setAntiAlias(true);
+
+
+        //高压实心圆圈外边的圆圈
         mPaintStrokeCircle2 = new Paint();
         mPaintStrokeCircle2.setStyle(Paint.Style.STROKE);
         mPaintStrokeCircle2.setStrokeWidth(dip2px(1));
-        mPaintStrokeCircle2.setColor(Color.parseColor(lineColor));
+        mPaintStrokeCircle2.setColor(Color.parseColor(paintColor));
         mPaintStrokeCircle2.setAntiAlias(true);
+
+
+        //低压实心圆圈
+        mPaintSloidLowCircle = new Paint();
+        mPaintSloidLowCircle.setStyle(Paint.Style.FILL);
+        mPaintSloidLowCircle.setStrokeWidth(dip2px(2));
+        mPaintSloidLowCircle.setColor(Color.parseColor(lineLowBloodColor));
+        mPaintSloidLowCircle.setAntiAlias(true);
+
+        //低压实心圆圈外边的圆圈
+        mPaintStrokeLowCircle2 = new Paint();
+        mPaintStrokeLowCircle2.setStyle(Paint.Style.STROKE);
+        mPaintStrokeLowCircle2.setStrokeWidth(dip2px(1));
+        mPaintStrokeLowCircle2.setColor(Color.parseColor(lineLowBloodColor));
+        mPaintStrokeLowCircle2.setAntiAlias(true);
 
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //画折线
+
+
+        if (YBlood.size()!=0){
+            canvas.drawLine(XScale*6, YScale, XScale*7, YScale, mPaintBloodHeightLine);//高压说明线
+            canvas.drawLine(XScale*6, YScale*2, XScale*7, YScale*2, mPaintBloodLowLine);//低压说明线
+            canvas.drawCircle(XScale*7, YScale, mBigCircleRadius, mPaintStrokeCircle2);
+            canvas.drawCircle(XScale*7, YScale*2, mBigCircleRadius, mPaintStrokeLowCircle2);
+
+            canvas.drawCircle(XScale*7, YScale, mSmallCircleRadius, mPaintSloidCircle);
+            canvas.drawCircle(XScale*7, YScale*2, mSmallCircleRadius, mPaintSloidLowCircle);
+
+            canvas.drawText("高压",XScale*7.5f, YScale-(mPaintXY.ascent() + mPaintXY.descent() ) , mHeightPaintTV);
+            canvas.drawText("低压",XScale*7.5f, YScale*2-(mPaintXY.ascent() + mPaintXY.descent() ) , mLowPaintTV);
+
+
+        }
+
         //Y血量刻度
         for (int i = 0; i < YBlood.size(); i++) {
             try {
@@ -131,14 +203,15 @@ public class BloodView extends View {
         for (int i = 0; i < XDate.size(); i++) {
             canvas.drawText(XDate.get(i), XScale + XScale * i, YEndPoint - YScale, mPaintXY);
         }
+
         //折线走势
         for (int i = 0; i < mHeightBloodData.size(); i++) {
             //最后一个数据大圆套小圆
             if (i == mHeightBloodData.size() - 1) {
 
                 //低压
-                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
-                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mBigCircleRadius, mPaintStrokeLowCircle2);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidLowCircle);
                 //高压
                 canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mBigCircleRadius, mPaintStrokeCircle2);
                 canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
@@ -147,17 +220,21 @@ public class BloodView extends View {
             } else {
 
                 canvas.drawCircle(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
-                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidCircle);
+                canvas.drawCircle(XScale + XScale * i, Ycode(mLowBloodData.get(i)), mSmallCircleRadius, mPaintSloidLowCircle);
             }
             //画折线
             try {
-                canvas.drawLine(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i + 1)), mPaintBloodLine);
-                canvas.drawLine(XScale + XScale * i, Ycode(mLowBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i + 1)), mPaintBloodLine);
+                canvas.drawLine(XScale + XScale * i, Ycode(mHeightBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mHeightBloodData.get(i + 1)), mPaintBloodHeightLine);
+                canvas.drawLine(XScale + XScale * i, Ycode(mLowBloodData.get(i)), XScale + XScale * (i + 1), Ycode(mLowBloodData.get(i + 1)), mPaintBloodLowLine);
 
 
             } catch (Exception e) {
             }
+
+
         }
+
+
     }
 
     /**

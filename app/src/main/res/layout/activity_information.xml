@@ -4,7 +4,7 @@
     android:id="@+id/activity_information"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_scroll_bg"
+    android:background="@color/color_white"
     tools:context="com.technology.yuyi.activity.InformationActivity">
 
     <RelativeLayout
@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/information_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
@@ -27,6 +27,7 @@
             android:layout_height="44dp"
             android:gravity="center"
             android:text="@string/str_tv_infor"
+            android:textStyle="bold"
             android:textColor="@color/color_normal"
             android:textSize="17sp" />
     </RelativeLayout>
@@ -43,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/infor_line"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="15dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -57,8 +58,8 @@
                     android:id="@+id/information_listview_id"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:divider="@color/color_cancel"
-                    android:dividerHeight="1dp"
+                    android:divider="@color/color_white"
+                    android:dividerHeight="15dp"
                     android:scrollbars="none">
 
                 </com.technology.yuyi.myview.InformationListView>

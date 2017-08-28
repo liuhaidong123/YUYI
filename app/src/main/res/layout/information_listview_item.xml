@@ -1,47 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/color_white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/color_white">
 
     <RelativeLayout
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_margin="10dp">
+        android:layout_height="210dp">
 
         <ImageView
             android:id="@+id/infor_img_mess"
-            android:layout_width="130dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:scaleType="centerCrop"
-           />
-
-        <TextView
-            android:id="@+id/infor_tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/infor_img_mess"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@id/infor_img_mess"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text=""
-            android:textColor="@color/color_normal"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/infor_tv_mess"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/infor_tv_title"
-            android:layout_marginStart="15dp"
-            android:layout_toEndOf="@id/infor_img_mess"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:text=""
-            android:textColor="@color/color_mess"
-            android:textSize="13sp" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:id="@+id/bg_rl_information"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/navigate_bg"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/infor_tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/color_white"
+                android:textSize="15sp" />
+        </RelativeLayout>
     </RelativeLayout>
+
+    <!--<RelativeLayout-->
+
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="110dp"-->
+    <!--android:layout_margin="10dp">-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/infor_img_mess"-->
+    <!--android:layout_width="130dp"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/infor_tv_title"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignTop="@id/infor_img_mess"-->
+    <!--android:layout_marginStart="15dp"-->
+    <!--android:layout_toEndOf="@id/infor_img_mess"-->
+    <!--android:ellipsize="end"-->
+    <!--android:maxLines="2"-->
+    <!--android:text=""-->
+    <!--android:textColor="@color/color_normal"-->
+    <!--android:textSize="15sp" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/infor_tv_mess"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/infor_tv_title"-->
+    <!--android:layout_marginStart="15dp"-->
+    <!--android:layout_toEndOf="@id/infor_img_mess"-->
+    <!--android:ellipsize="end"-->
+    <!--android:maxLines="3"-->
+    <!--android:text=""-->
+    <!--android:textColor="@color/color_mess"-->
+    <!--android:textSize="13sp" />-->
+    <!--</RelativeLayout>-->
 </RelativeLayout>

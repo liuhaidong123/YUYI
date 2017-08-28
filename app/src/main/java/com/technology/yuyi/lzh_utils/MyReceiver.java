@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.technology.yuyi.activity.My_message_Activity;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -62,10 +64,10 @@ public class MyReceiver extends BroadcastReceiver{
         {
             Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
             //打开自定义的Activity
-//            Intent i = new Intent(context, TestActivity.class);
-//            i.putExtras(bundle);
-//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
-//            context.startActivity(i);
+            Intent i = new Intent(context, My_message_Activity.class);
+            i.putExtras(bundle);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
+            context.startActivity(i);
 //            Toast.makeText(context,"用户点开了通知",Toast.LENGTH_SHORT).show();
 
             //通知附加字段的json字符串（通过解析附加字段可以判断通知的类型（与后台约定）然后做相应处理）

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_hand_input_tem2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context="com.technology.yuyi.activity.HandInputTemActivity2">
+
+    <RelativeLayout
+        android:id="@+id/current_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/color_white">
+
+        <ImageView
+            android:id="@+id/current_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="手动输入"
+            android:textColor="@color/color_normal"
+            android:textSize="17sp"
+            />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/tem_data_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/recycle_id"
+        android:layout_below="@id/current_title"
+        android:background="@color/navigate_bg">
+
+        <TextView
+            android:id="@+id/btn_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@mipmap/tem_submit"
+            android:gravity="center"
+            android:text="@string/str_save"
+            android:textColor="@color/wheel_line"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/du_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/current_tem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/du"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°c"
+                android:textSize="40sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/du_ll"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="*滑动滑块记录体温"
+            android:textColor="@color/navigate_tv_select"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:id="@+id/my_tem_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tv_prompt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="37.5dp"
+            android:layout_marginTop="20dp">
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/color_white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/sanjiao" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/recycle_id"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
