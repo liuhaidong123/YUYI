@@ -1,7 +1,6 @@
 package com.technology.yuyi.activity;
 
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 //intent.putExtra("drug",MyDrugState);
 public class MS_drugState extends MyActivity implements MS_drugStatePresenter.IMS_drugStateView{
+    FrameLayout myfragment;
     MyFrameLyout myFrag;
     int[] res1=new int[]{R.mipmap.a1,R.mipmap.a2,R.mipmap.a3,R.mipmap.a4};
     int[]res2=new int[]{R.mipmap.picture1,R.mipmap.picture2,R.mipmap.picture3,R.mipmap.picture4};
@@ -63,6 +64,8 @@ public class MS_drugState extends MyActivity implements MS_drugStatePresenter.IM
         presenter.getMyDrugStates();//获取我的药品状态
     }
     private void initView() {
+        myfragment= (FrameLayout) findViewById(R.id.myfragment);
+        myfragment.setVisibility(View.GONE);
         myFrag= (MyFrameLyout) findViewById(R.id.myFrag);
 
         drug_state_ListView= (ListView) findViewById(R.id.drug_state_ListView);
@@ -108,6 +111,7 @@ public class MS_drugState extends MyActivity implements MS_drugStatePresenter.IM
             if ("0".equals(bean.getCode())){
                 lt=bean.getResult();
                 if (lt!=null&&lt.size()>0){
+                    myfragment.setVisibility(View.VISIBLE);
                     DrugListAdapter ada=new DrugListAdapter(this,lt);
                     drug_state_ListView.setAdapter(ada);
                     drug_state_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

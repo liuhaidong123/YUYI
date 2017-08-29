@@ -47,12 +47,14 @@
                 android:id="@+id/user_rl"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:layout_marginRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:background="@drawable/family_listview_bg">
                 <com.technology.yuyi.myview.RoundImageView
                     android:id="@+id/user_img_head"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:src="@mipmap/usererr"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
                     />
