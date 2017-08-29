@@ -49,7 +49,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
                     mInformationAdapter.setList(mList);
                     mInformationAdapter.notifyDataSetChanged();
                     mSwipeLayout.setRefreshing(false);
-                    ToastUtils.myToast(InformationActivity.this, "刷新成功");
+                  //  ToastUtils.myToast(InformationActivity.this, "刷新成功");
                     mBar.setVisibility(View.INVISIBLE);
                     if (list.size() == 10) {
                         mMany_more.setVisibility(View.VISIBLE);

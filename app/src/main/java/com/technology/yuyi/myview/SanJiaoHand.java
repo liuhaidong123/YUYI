@@ -56,7 +56,7 @@ public class SanJiaoHand extends View {
         paint.setAntiAlias(true);
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setStrokeWidth(dip2px(1));
-        double a = 250 - (mTemNum - 34) * 5 * 5;//计算每次体温下，三角形正对的刻度
+        double a = 235 - (mTemNum - 34) * 5 * 5;//计算每次体温下，三角形正对的刻度
         Path path = new Path();//画三角形
         path.moveTo(getWidth() / 2, dip2px(a));
         path.lineTo(getWidth() / 2 + dip2px(30), dip2px(a - 10));
@@ -124,8 +124,8 @@ public class SanJiaoHand extends View {
                 x = event.getX();
                 y = event.getY();
                 //在规定范围内移动三角形
-                if (y > dip2px(50) && y < dip2px(250) && x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
-                    mTemNum = (250 - px2dip(mContext, y)) / 25 + 34;
+                if (y > dip2px(35) && y < dip2px(235) && x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
+                    mTemNum = (235 - px2dip(mContext, y)) / 25 + 34;
                     invalidate();
                     //保留一位小数
                     String temNum = df.format(mTemNum);
@@ -137,8 +137,8 @@ public class SanJiaoHand extends View {
                 x = event.getX();
                 y = event.getY();
                 //点击三角形显示刻度
-                if (y > dip2px(50) && y < dip2px(250)&& x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
-                    mTemNum = (250 - px2dip(mContext, y)) / 25 + 34;
+                if (y > dip2px(35) && y < dip2px(235)&& x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
+                    mTemNum = (235 - px2dip(mContext, y)) / 25 + 34;
                     invalidate();
                     //保留一位小数
                     String temNum = df.format(mTemNum);

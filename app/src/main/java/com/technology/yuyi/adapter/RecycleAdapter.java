@@ -89,6 +89,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyRecycl
         } else {
             if (position == mList.size()) {
                 holder.circleImageView.setImageResource(R.mipmap.add_tem);
+                holder.name.setVisibility(View.GONE);
+                holder.snajiao.setVisibility(View.GONE);
+                holder.name.setText("");
             } else {
                 Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getAvatar()).error(R.mipmap.error_small).into(holder.circleImageView);
                 if (showNameList.get(position)){
@@ -98,7 +101,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyRecycl
                 }else {
                     holder.name.setVisibility(View.GONE);
                     holder.snajiao.setVisibility(View.GONE);
-                    holder.name.setText("未知");
+                    holder.name.setText("");
                 }
             }
         }

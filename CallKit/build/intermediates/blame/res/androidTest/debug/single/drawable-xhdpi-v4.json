@@ -1300,12 +1300,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f603.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_indicator_hover.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ext_indicator_hover.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_complete_hover.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_complete_hover.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_indicator_hover.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/rc_ext_indicator_hover.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f628.png",
@@ -1488,12 +1488,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/drawable-xhdpi-v4/u1f4a4.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voip_float_audio.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voip_float_audio.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voip_icon_input_video.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voip_icon_input_video.png"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voip_float_audio.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voip_float_audio.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_keyboard_hover.png",

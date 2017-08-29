@@ -46,7 +46,7 @@ public class My_settings_aboutOurs_Activity extends MyActivity {
                                 my_settings_aboutOurs_name.setText(about.getResult().getTitle());
                                 my_settings_aboutOurs_pro.setText(about.getResult().getContent());
                                 my_settings_aboutOurs_versionCode.setText(about.getResult().getVersion());
-                                Picasso.with(con).load(Ip.imagePth+about.getResult().getPicture()).error(R.mipmap.logo).into(my_settings_aboutOurs_imageview);
+//                                Picasso.with(con).load(Ip.imagePth+about.getResult().getPicture()).error(R.mipmap.logo).into(my_settings_aboutOurs_imageview);
                             }
 
                         }

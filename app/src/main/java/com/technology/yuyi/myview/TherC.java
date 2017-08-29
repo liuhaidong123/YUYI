@@ -48,6 +48,9 @@ public class TherC extends View {
         Paint paint = new Paint();
 
 
+
+
+
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
          /* 设置渐变色 这个正方形的颜色是改变的 */
@@ -80,7 +83,7 @@ public class TherC extends View {
         canvas.drawCircle(getWidth() / 2, getHeight() - dip2px(37.5f) - dip2px(24), dip2px(37.5f), paint);
         Log.e("控件宽", getWidth() + "");
         Log.e("控件高", getHeight() + "");
-        //画下边大弧度
+        //画下边白大弧度
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setShader(null);
         paint.setStyle(Paint.Style.STROKE);
@@ -97,7 +100,7 @@ public class TherC extends View {
         paint.setStrokeWidth(dip2px(1));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(dip2px(10));
-        int startY = 50;
+        int startY = 35;
         int text = 42;
         for (int i = 0; i <= 40; i++) {
             if (i % 5 == 0) {//刻度长线

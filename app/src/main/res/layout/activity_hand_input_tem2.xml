@@ -39,7 +39,7 @@
         android:id="@+id/tem_data_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/recycle_id"
+        android:layout_above="@+id/frame_id"
         android:layout_below="@id/current_title"
         android:background="@color/navigate_bg">
 
@@ -47,7 +47,7 @@
             android:id="@+id/btn_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@mipmap/tem_submit"
             android:gravity="center"
             android:text="@string/str_save"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/du_ll"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:text="*滑动滑块记录体温"
             android:textColor="@color/navigate_tv_select"
             android:textSize="15sp" />
@@ -96,43 +96,36 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/tv_prompt"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="37.5dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp">
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/color_white"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:src="@mipmap/sanjiao" />
-        </LinearLayout>
 
     </RelativeLayout>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@id/recycle_id"
+    <FrameLayout
+        android:id="@id/frame_id"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white">
 
-    </android.support.v7.widget.RecyclerView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/navigate_bg">
+
+        </View>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_id"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:background="@color/color_white">
+
+        </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
+
 </RelativeLayout>
