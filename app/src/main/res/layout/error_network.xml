@@ -9,7 +9,7 @@
         android:id="@+id/network_error_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+       >
 
         <ImageView
             android:id="@+id/newWorkError"
@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/newWorkError"
             android:layout_centerHorizontal="true"
-            android:text="网络异常"
+            android:layout_marginTop="30dp"
+            android:text="没有网络连接"
             android:textColor="#999999"
             android:textSize="30px" />
     </RelativeLayout>

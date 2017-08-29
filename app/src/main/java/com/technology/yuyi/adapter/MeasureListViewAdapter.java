@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -51,6 +52,7 @@ public class MeasureListViewAdapter extends BaseAdapter {
         if (convertView==null){
             viewHolder=new ViewHolder();
             convertView = mInflater.inflate(R.layout.measure_listview_item, null);
+            viewHolder.bg_rl=(RelativeLayout) convertView.findViewById(R.id.bg_measure_rl);
             viewHolder.imageView= (ImageView) convertView.findViewById(R.id.blood_img);
             viewHolder.tv_name= (TextView) convertView.findViewById(R.id.tv_blood);
             viewHolder.tv_mess= (TextView) convertView.findViewById(R.id.tv_mess);
@@ -58,6 +60,13 @@ public class MeasureListViewAdapter extends BaseAdapter {
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
         }
+
+        if (position==0){
+            viewHolder.bg_rl.setBackgroundResource(R.mipmap.tem_bg_img);
+        }else {
+            viewHolder.bg_rl.setBackgroundResource(R.mipmap.blood_bg_img);
+        }
+
         Picasso.with(mContext).load(list.get(position).getId()).into(viewHolder.imageView);
         viewHolder.tv_name.setText(list.get(position).getTitle());
         viewHolder.tv_mess.setText(list.get(position).getName());
@@ -66,6 +75,7 @@ public class MeasureListViewAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
+        RelativeLayout bg_rl;
         ImageView imageView;
         TextView tv_name;
         TextView tv_mess;

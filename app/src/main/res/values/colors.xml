@@ -2,8 +2,17 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#25f368</color>
+    <color name="colorAccent">#1dbeec</color>
 
+    <color name="cecfd0">#cecfd0</color>
+    <color name="navigate_bg">#383a41</color>
+    <color name="dbeec">#1dbeec</color>
+    <color name="gh">#05b1f7</color>
+    <color name="normal_data">#56f29f</color>
+    <color name="navigate_tv_select">#1ebeec</color>
+    <color name="navigate_tv_select_no">#a6a6a6</color>
+    <color name="xycolor">#22f3f6</color>
+    <color name="bloodbg">#474e5b</color>
     <color name="color_fragment_btn">#fafcfb</color>
     <color name="color_press_tv">#5ee708</color>
     <color name="color_no_press_tv">#000000</color>
@@ -32,6 +41,7 @@
     <color name="color_per">#c7c5c5</color>
     <color name="color_e">#e2e2e2</color>
     <color name="color_d">#dddddd</color>
+    <color name="color_asd">#f5f2f2</color>
     <color name="color_gua">#fefbfb</color>
     <color name="color_cancel">#f1f1f1</color>
     <color name="color_delete">#e00610</color>

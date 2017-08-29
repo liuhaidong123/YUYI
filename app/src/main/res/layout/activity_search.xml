@@ -22,7 +22,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
             android:text="取消"
-            android:textColor="@color/color_username" />
+            android:textColor="@color/dbeec" />
 
         <RelativeLayout
             android:id="@+id/edit_rl"
@@ -79,7 +79,7 @@
         android:id="@+id/prompt_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_username"
+        android:textColor="@color/dbeec"
         android:text="抱歉，没有搜索到结果"
         android:layout_below="@id/search_rl"
         android:layout_marginEnd="25dp"
@@ -121,7 +121,7 @@
                 android:paddingEnd="25dp"
                 android:paddingStart="25dp"
                 android:text="清除历史"
-                android:textColor="@color/color_username"
+                android:textColor="@color/dbeec"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>
@@ -162,7 +162,7 @@
                 android:paddingEnd="25dp"
                 android:paddingStart="25dp"
                 android:text="清除历史"
-                android:textColor="@color/color_username"
+                android:textColor="@color/dbeec"
                 android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>

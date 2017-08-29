@@ -55,9 +55,9 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/color_username"
+                android:background="@color/navigate_tv_select"
                 android:gravity="center"
-                android:text="@string/str_sure"
+                android:text="@string/str_sure1"
                 android:textColor="@color/color_white"
                 android:textSize="17sp" />
         </LinearLayout>

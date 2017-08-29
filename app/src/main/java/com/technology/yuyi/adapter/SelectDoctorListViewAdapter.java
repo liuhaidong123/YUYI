@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,9 +42,9 @@ public class SelectDoctorListViewAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context mContext;
     private List<DatenumberList> mListDoctor = new ArrayList<>();
-    private int flag;
+    private boolean flag;
 
-    public SelectDoctorListViewAdapter(final Context mContext, List<DatenumberList> mListDoctor, int flag) {
+    public SelectDoctorListViewAdapter(final Context mContext, List<DatenumberList> mListDoctor, boolean flag) {
         this.mContext = mContext;
         this.mListDoctor = mListDoctor;
         this.flag = flag;
@@ -50,7 +52,7 @@ public class SelectDoctorListViewAdapter extends BaseAdapter {
 
     }
 
-    public void setFlag(int flag) {
+    public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
@@ -80,7 +82,7 @@ public class SelectDoctorListViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.select_doctor_listview_item, null);
             viewHolder.register_rl = (RelativeLayout) convertView.findViewById(R.id.right_rl);
-            viewHolder.imageView = (RoundImageView) convertView.findViewById(R.id.doctor_img_head);
+           viewHolder.imageView = (ImageView) convertView.findViewById(R.id.doctor_img_head);
             viewHolder.doc_name = (TextView) convertView.findViewById(R.id.doctor_name_tv);
             viewHolder.doc_job = (TextView) convertView.findViewById(R.id.doctor_job_tv);
             viewHolder.num_tv = (TextView) convertView.findViewById(R.id.num_hao);
@@ -93,19 +95,22 @@ public class SelectDoctorListViewAdapter extends BaseAdapter {
         viewHolder.doc_name.setText(mListDoctor.get(position).getTrueName());
         viewHolder.doc_job.setText(mListDoctor.get(position).getTitle());
         //上午
-        if (flag == 0) {
+        if (flag) {
+            Log.e("重新设置数据","上午");
             viewHolder.num_tv.setText(""+mListDoctor.get(position).getBeforNum());
         }
         //下午
-        if (flag == 1) {
+        if (!flag) {
+            Log.e("重新设置数据","下午");
             viewHolder.num_tv.setText("" + mListDoctor.get(position).getAfterNum());
         }
+
         return convertView;
     }
 
 
     class ViewHolder {
-        RoundImageView imageView;
+        ImageView imageView;
         TextView doc_name;
         TextView doc_job;
         TextView num_tv;

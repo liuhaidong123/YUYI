@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
@@ -228,7 +229,18 @@ public class SingleCallActivity extends BaseCallActivity implements Handler.Call
 
             List<String> userIds = new ArrayList<>();
             userIds.add(targetId);
-            RongCallClient.getInstance().startCall(conversationType, targetId, userIds, mediaType, null);
+            try{
+                if (RongCallClient.getInstance()==null){
+                    Log.e("EEEEEE","EEEEEE");
+                    return;
+                }
+                RongCallClient.getInstance().startCall(conversationType, targetId, userIds, mediaType, null);
+            }
+            catch (Exception e){
+
+                e.printStackTrace();
+            }
+
         } else { // resume call
             callSession = RongCallClient.getInstance().getCallSession();
             mediaType = callSession.getMediaType();

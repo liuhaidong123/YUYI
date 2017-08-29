@@ -17,6 +17,7 @@
             android:layout_height="44dp"
             android:gravity="center"
             android:text="@string/measure_name"
+            android:textStyle="bold"
             android:textColor="@color/color_normal"
             android:textSize="17sp" />
     </RelativeLayout>
@@ -29,16 +30,15 @@
         android:background="@color/color_cancel" />
 
     <ListView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:id="@+id/measure_listview_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/mea_line"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_scroll_bg"
-        android:divider="@null"
-        android:dividerHeight="10dp"
+        android:divider="@color/color_scroll_bg"
+        android:dividerHeight="15dp"
         android:scrollbars="none"
         >
 

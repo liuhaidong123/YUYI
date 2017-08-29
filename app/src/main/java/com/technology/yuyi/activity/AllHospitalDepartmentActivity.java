@@ -113,7 +113,7 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                 for (HospitalDepartmentMessage h : mLeftData) {
                     if (h == mLeftAdapter.getItem(position)) {
                         h.setOpen(true);
-                        Toast.makeText(AllHospitalDepartmentActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(AllHospitalDepartmentActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                     } else {
                         h.setOpen(false);
                     }
@@ -121,7 +121,7 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                     //设置点击时的文字颜色
                     if (h.isOpen()) {
                         textView.setBackgroundColor(Color.parseColor("#ffffff"));
-                        textView.setTextColor(Color.parseColor("#25f368"));
+                        textView.setTextColor(Color.parseColor("#1dbeec"));
                     } else {
                         textView.setBackgroundColor(Color.parseColor("#f2f2f2"));
                         textView.setTextColor(Color.parseColor("#333333"));

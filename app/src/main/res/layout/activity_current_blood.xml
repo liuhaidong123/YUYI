@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/m_current_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
@@ -28,6 +28,15 @@
             android:text="@string/str_blood_c"
             android:textColor="@color/color_normal"
             android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/hand_input_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="手动输入" />
     </RelativeLayout>
 
     <View
@@ -37,102 +46,181 @@
         android:layout_below="@id/current_title"
         android:background="@color/color_cancel" />
 
-    <RelativeLayout
-        android:id="@+id/rl_blood_g"
+    <LinearLayout
+        android:id="@+id/data_rl"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="167dp"
         android:layout_below="@id/curr_line"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_white">
+        android:background="@color/navigate_bg"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_blood_g"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="15dp"
-            android:gravity="center_vertical"
-            android:text="@string/str_userheightpress"
-            android:textColor="@color/color_g"
-            android:textSize="14sp" />
-
-        <View
-            android:id="@+id/curr_line2"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_blood_g"
-            android:layout_marginStart="15dp"
-            android:background="@color/color_e" />
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/height_blood_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"
+                    android:textColor="@color/navigate_tv_select"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/heigt_blood_tv_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="高压/mmHg"
+                    android:textColor="@color/color_white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/low_blood_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="000"
+                    android:textColor="@color/navigate_tv_select"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:id="@+id/low_blood_tv_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="低压/mmHg"
+                    android:textColor="@color/color_white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_height_blood"
-            android:layout_width="wrap_content"
-            android:layout_height="69dp"
-            android:layout_below="@+id/curr_line2"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/color_username"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_blood_l"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/rl_blood_g"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/color_white">
-
-        <TextView
-            android:id="@+id/tv_blood_l"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="15dp"
-            android:gravity="center_vertical"
-            android:text="@string/str_userlowpress"
-            android:textColor="@color/color_g"
-            android:textSize="14sp" />
-
-        <View
-            android:id="@+id/blood_line2"
+            android:id="@+id/normal_tv"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/tv_blood_l"
-            android:layout_marginStart="15dp"
-            android:background="@color/color_e" />
+            android:layout_height="67dp"
+            android:gravity="center_horizontal"
+            android:text="*当前血压为空"
+            android:textColor="@color/navigate_tv_select"
+            android:textSize="15sp"
 
-        <TextView
-            android:id="@+id/tv_low_blood"
-            android:layout_width="wrap_content"
-            android:layout_height="69dp"
-            android:layout_below="@id/blood_line2"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text=""
-            android:textColor="@color/color_username"
-            android:textSize="15sp" />
-    </RelativeLayout>
+            />
+
+    </LinearLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_blood_g"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_below="@id/curr_line"-->
+        <!--android:layout_marginEnd="10dp"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@color/color_white"-->
+        <!--android:visibility="gone">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_blood_g"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/str_userheightpress"-->
+            <!--android:textColor="@color/color_g"-->
+            <!--android:textSize="14sp" />-->
+
+        <!--<View-->
+            <!--android:id="@+id/curr_line2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_below="@id/tv_blood_g"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:background="@color/color_e" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_height_blood"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="69dp"-->
+            <!--android:layout_below="@+id/curr_line2"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text=""-->
+            <!--android:textColor="@color/color_username"-->
+            <!--android:textSize="15sp" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_blood_l"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_below="@id/rl_blood_g"-->
+        <!--android:layout_marginEnd="10dp"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@color/color_white"-->
+        <!--android:visibility="gone">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_blood_l"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/str_userlowpress"-->
+            <!--android:textColor="@color/color_g"-->
+            <!--android:textSize="14sp" />-->
+
+        <!--<View-->
+            <!--android:id="@+id/blood_line2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_below="@id/tv_blood_l"-->
+            <!--android:layout_marginStart="15dp"-->
+            <!--android:background="@color/color_e" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_low_blood"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="69dp"-->
+            <!--android:layout_below="@id/blood_line2"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text=""-->
+            <!--android:textColor="@color/color_username"-->
+            <!--android:textSize="15sp" />-->
+    <!--</RelativeLayout>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_prompt"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_below="@id/rl_blood_l"-->
+        <!--android:layout_marginStart="25dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:text="@string/str_blood_z"-->
+        <!--android:textColor="@color/color_username"-->
+        <!--android:visibility="gone" />-->
 
     <TextView
-        android:id="@+id/tv_prompt"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_below="@id/rl_blood_l"
-        android:layout_marginStart="25dp"
-        android:gravity="center_vertical"
-        android:text="@string/str_blood_z"
-        android:textColor="@color/color_username"
-        android:visibility="gone" />
 
-    <TextView
         android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_below="@id/tv_prompt"
+        android:layout_below="@id/data_rl"
         android:layout_marginTop="5dp"
         android:background="@color/color_white"
         android:gravity="center_vertical"
@@ -144,7 +232,7 @@
     <View
         android:id="@+id/curr_line5"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/tv_data"
         android:background="@color/color_cancel" />
 
@@ -152,25 +240,28 @@
         android:id="@+id/rl_sure"
         android:layout_width="match_parent"
         android:layout_height="49dp"
+        android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
         android:background="@color/color_white">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/color_e" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:background="@color/color_e" />-->
 
         <Button
             android:id="@+id/blood_btn_sure"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/click_change_bgcolor"
+            android:background="@mipmap/sure_input_data_bg"
             android:text="@string/str_sure"
-            android:textColor="@drawable/click_change_tvcolor"
-            android:textSize="12sp" />
+            android:textColor="@color/color_white"
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -194,35 +285,37 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_white"
                     android:divider="@color/color_cancel"
-                    android:dividerHeight="1dp">
+                    android:dividerHeight="0.5dp">
 
                 </com.technology.yuyi.myview.InformationListView>
 
                 <View
                     android:id="@+id/curr_line7"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:layout_below="@id/userdata_listview_id"
-                    android:background="@color/color_bg" />
+                    android:background="@color/color_cancel" />
 
                 <RelativeLayout
                     android:id="@+id/add_user_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="75dp"
                     android:layout_below="@id/curr_line7"
                     android:background="@color/color_white"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                   >
 
 
                     <ImageView
                         android:id="@+id/add_img"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="30dp"
+                        android:layout_marginStart="10dp"
                         android:src="@mipmap/add_icon_1" />
 
                     <TextView
+                        android:id="@+id/add_person_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -232,7 +325,12 @@
                         android:textColor="@color/color_per"
                         android:textSize="14sp" />
 
-
+                    <View
+                        android:id="@+id/curr_line8"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                       android:layout_alignParentBottom="true"
+                        android:background="@color/color_cancel" />
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>

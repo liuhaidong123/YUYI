@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.EquitmentManageListViewAdapter;
+import com.technology.yuyi.bean.MyEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EquipmentManageActivity extends AppCompatActivity implements View.OnClickListener {
     private ListView mListView;
@@ -23,7 +27,7 @@ public class EquipmentManageActivity extends AppCompatActivity implements View.O
     private View mAlertView;
     private TextView mSure_btn;
     private TextView mCancel_btn;
-
+    private List<MyEntity> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +49,11 @@ public class EquipmentManageActivity extends AppCompatActivity implements View.O
         mAlertDialog = mBuilder.create();
         mAlertDialog.setView(mAlertView);
         //设备列表
+        list.add(new MyEntity("体温计", "设备未连接", R.mipmap.mea_bpg_icon_norm_1));
+        list.add(new MyEntity("血压计", "设备未连接", R.mipmap.mea_therm_icon_norm_2));
         mFooterView = LayoutInflater.from(this).inflate(R.layout.add_other_equitment, null);
         mListView = (ListView) findViewById(R.id.equitment_listview_id);
-        mAdapter = new EquitmentManageListViewAdapter(this);
+        mAdapter = new EquitmentManageListViewAdapter(this,list);
         mListView.setAdapter(mAdapter);
         mListView.addFooterView(mFooterView);
         //设备长按事件
@@ -55,7 +61,12 @@ public class EquipmentManageActivity extends AppCompatActivity implements View.O
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //这里需要判断添加其他设备，因为他是listview的footer
-                mAlertDialog.show();
+                if (position==list.size()){//添加
+
+                }else {
+                    mAlertDialog.show();
+                }
+
                 return false;
             }
         });

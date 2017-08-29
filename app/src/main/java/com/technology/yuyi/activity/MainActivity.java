@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public final String askTag = "askFragment";
     public final String myTag = "myFragment";
     public final String errorTag = "errorFragment";
-    public final String pressColor = "#25f368";
-    public final String noPressColor = "#666666";
+    public final String pressColor = "#1ebeec";
+    public final String noPressColor = "#a6a6a6";
     private long time = 0;
     private String resStr;
     private Handler handler = new Handler() {

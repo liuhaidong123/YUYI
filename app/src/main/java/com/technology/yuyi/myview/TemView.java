@@ -22,8 +22,8 @@ public class TemView extends View {
     private ArrayList<String> XDate = new ArrayList<>();
     private ArrayList<Float> mTemData = new ArrayList<>();
 
-    private final String paintColor = "#6a6a6a";
-    private final String myColor = "#74958a";
+    private final String paintColor = "#7ed66b";
+    private final String myColor = "#22f3f6";
     private Paint YXpaint;
     private Paint linePaint;
     private Paint mSolidCirclePaint;
@@ -106,6 +106,7 @@ public class TemView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
 
         //Y轴体温刻度
         for (int i = 0; i < YData.size(); i++) {

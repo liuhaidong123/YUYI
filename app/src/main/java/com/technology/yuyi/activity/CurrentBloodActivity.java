@@ -1,9 +1,11 @@
 package com.technology.yuyi.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -44,7 +46,7 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
     private RelativeLayout mAdd_rl;
     private TextView mEditHeight;
     private TextView mEditLow;
-
+    private TextView mDataMsg_tv,mHand_input_tv;
     private Map<String, String> mMap = new HashMap<>();
     private Map<String, String> mSubmitMap = new HashMap<>();
 
@@ -112,6 +114,11 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         //请求用户列表
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
+        //异常提示
+        mDataMsg_tv= (TextView) findViewById(R.id.normal_tv);
+        //手动输入
+        mHand_input_tv=(TextView) findViewById(R.id.hand_input_tv);
+        mHand_input_tv.setOnClickListener(this);
         //用户列表
         mListView = (ListView) findViewById(R.id.userdata_listview_id);
         mAdapter = new CurrentBloodAdapter(this, mList);
@@ -144,8 +151,8 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         mSure_btn = (Button) findViewById(R.id.blood_btn_sure);
         mSure_btn.setOnClickListener(this);
 
-        mEditHeight = (TextView) findViewById(R.id.tv_height_blood);
-        mEditLow = (TextView) findViewById(R.id.tv_low_blood);
+        mEditHeight = (TextView) findViewById(R.id.height_blood_tv);
+        mEditLow = (TextView) findViewById(R.id.low_blood_tv);
 
         //信息不完整弹框
         mSureBuilder = new AlertDialog.Builder(this);
@@ -159,6 +166,10 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
         mPrompt_Cancel.setOnClickListener(this);
     }
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -183,6 +194,9 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
+        }else if (id==mHand_input_tv.getId()){//手动输入
+            startActivity(new Intent(this, HandInputBloodActivity.class));
+            finish();
         }
     }
 
@@ -192,7 +206,7 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
      * @return
      */
     public String getHeightBlood() {
-        if (!mEditHeight.getText().toString().trim().equals("") && mEditHeight.getText().toString() != null) {
+        if (!mEditHeight.getText().toString().trim().equals("") && mEditHeight.getText().toString() != null&&Integer.valueOf(mEditHeight.getText().toString().trim())!=0) {
             return mEditHeight.getText().toString().trim();
         } else {
             return "";
@@ -205,17 +219,15 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
      * @return
      */
     public String getLowBlood() {
-        if (!mEditLow.getText().toString().trim().equals("") && mEditLow.getText().toString() != null) {
+        if (!mEditLow.getText().toString().trim().equals("") && mEditLow.getText().toString() != null&&Integer.valueOf(mEditLow.getText().toString().trim())!=0) {
             return mEditLow.getText().toString().trim();
         } else {
             return "";
         }
     }
-
     /**
      * 提交
      */
-
     public void submitBloodData() {
         if (!getHeightBlood().equals("")) {//高压
             if (!getLowBlood().equals("")) {//低压
@@ -245,4 +257,33 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         mRefresh.setRefreshing(true);
     }
 
+
+
+    /**
+     * 判断血压,体温设置提示
+     * height 高压
+     * low 低压
+     *
+     */
+    public void checkBlood(int height, int low) {
+
+        if (height == 0 && low == 0 ) {
+
+            mDataMsg_tv.setText("*当前数据为空");
+            mDataMsg_tv.setTextColor(ContextCompat.getColor(this,R.color.navigate_tv_select));
+        }
+
+        //显示不正常
+        else if (height > 139 || height < 90 || low > 89 || low < 60 ) {
+
+            mDataMsg_tv.setText("*当前数据异常");
+            mDataMsg_tv.setTextColor(ContextCompat.getColor(this,R.color.color_red));
+
+        } else {
+
+            mDataMsg_tv.setText("*当前数据正常");
+            mDataMsg_tv.setTextColor(ContextCompat.getColor(this,R.color.normal_data));
+        }
+
+    }
 }

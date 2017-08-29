@@ -71,7 +71,7 @@ public class LeftListViewAdapter extends BaseAdapter {
         //点击的时候文字和背景变颜色
         if(entity.isOpen()){
             tv.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv.setTextColor(Color.parseColor("#25f368"));
+            tv.setTextColor(Color.parseColor("#1dbeec"));
         }else{
             tv.setBackgroundColor(Color.parseColor("#f2f2f2"));
             tv.setTextColor(Color.parseColor("#333333"));

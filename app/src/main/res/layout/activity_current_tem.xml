@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/current_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:paddingEnd="15dp"
             android:paddingStart="15dp"
@@ -28,13 +28,24 @@
             android:gravity="center"
             android:text="@string/str_current"
             android:textColor="@color/color_normal"
-            android:textSize="17sp" />
+            android:textSize="17sp"
+             />
+
+        <TextView
+            android:id="@+id/hand_input_tem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="手动输入"
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <View
         android:id="@+id/curr_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/current_title"
         android:background="@color/color_cancel" />
 
