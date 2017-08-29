@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
+            android:id="@+id/myfragment"
             android:clipChildren="false"
             android:background="#474d5b"
             android:layout_width="match_parent"
