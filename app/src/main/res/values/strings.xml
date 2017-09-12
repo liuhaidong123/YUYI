@@ -6,7 +6,7 @@
     <string name="ask_name">咨询</string>
     <string name="my_name">我的</string>
 
-    <string name="edit_hint">搜索药品</string>
+    <string name="edit_hint">搜索医院</string>
     <string name="beijing">北京</string>
     <string name="str_drugmall">我的药品</string>
     <string name="str_register">预约挂号</string>

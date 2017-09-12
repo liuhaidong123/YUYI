@@ -630,7 +630,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             startActivity(new Intent(this.getActivity(), AppointmentActivity.class));
         } else if (id == mEdit_rl.getId()) {//跳转到搜索页
             Intent intent = new Intent(this.getActivity(), SearchActivity.class);
-            intent.putExtra("type", "drug");
+            intent.putExtra("type", "hospital");
             startActivity(intent);
 
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
@@ -836,7 +836,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
             //用户头像
             roundImageView = new RoundImageView(this.getActivity());
-            Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
+            Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.usererr).into(roundImageView);
 
             //Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
             imglist.add(roundImageView);

@@ -39,9 +39,9 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 public class My_userLogin_Activity extends AppCompatActivity {
-    private int timeOut = 60;//计时器
+    private int timeOut = 10;//计时器
     private TextView my_userlogin_getSMScode;//获取验证码按钮
-    private TextView my_userlogin_SMStimer;//显示计时器的view
+//    private TextView my_userlogin_SMStimer;//显示计时器的view
     private EditText my_userlogin_edit_name, my_userlogin_edit_smdCode;//用户名与验证码输入框
     private String userName, userPsd;
 
@@ -54,10 +54,10 @@ public class My_userLogin_Activity extends AppCompatActivity {
             super.handleMessage(msg);
             int what=msg.what;
             if (what>0){
-                my_userlogin_SMStimer.setText(what+ "S");
-                my_userlogin_SMStimer.setVisibility(View.VISIBLE);
+                my_userlogin_getSMScode.setText("倒计时 "+what+"S");
             }
             else if (what==0){
+                my_userlogin_getSMScode.setText("获取验证码");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -69,9 +69,9 @@ public class My_userLogin_Activity extends AppCompatActivity {
                         }
                     }
                 }).start();
-                my_userlogin_SMStimer.setVisibility(View.GONE);
             }
             else if(msg.what==-2){
+                my_userlogin_getSMScode.setText("获取验证码");
                 my_userlogin_getSMScode.setClickable(true);
                 my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
             }
@@ -178,8 +178,8 @@ public class My_userLogin_Activity extends AppCompatActivity {
     private void initView() {
         mHttptools = HttpTools.getHttpToolsInstance();
         my_userlogin_getSMScode = (TextView) findViewById(R.id.my_userlogin_getSMScode);
-        my_userlogin_SMStimer = (TextView) findViewById(R.id.my_userlogin_SMStimer);
-        my_userlogin_SMStimer.setVisibility(View.INVISIBLE);
+//        my_userlogin_SMStimer = (TextView) findViewById(R.id.my_userlogin_SMStimer);
+//        my_userlogin_SMStimer.setVisibility(View.INVISIBLE);
         my_userlogin_edit_name = (EditText) findViewById(R.id.my_userlogin_edit_name);
         my_userlogin_edit_smdCode = (EditText) findViewById(R.id.my_userlogin_edit_smdCode);
         my_userlogin_getSMScode.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +199,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
                 }
             }
         });
-        my_userlogin_SMStimer.setVisibility(View.GONE);
+//        my_userlogin_SMStimer.setVisibility(View.GONE);
         my_userlogin_getSMScode.setClickable(true);
         my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_smscode));
     }
@@ -210,7 +210,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
         my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
         my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_unclick));
         mHttptools.getValidateCode(mHandler, mMap);//获取验证码接口
-        timeOut=60;
+        timeOut=10;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -227,8 +227,6 @@ public class My_userLogin_Activity extends AppCompatActivity {
             }
         }).start();
     }
-
-
 
     //登陆按钮
     public void Login(View view) {

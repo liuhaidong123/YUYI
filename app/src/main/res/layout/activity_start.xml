@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     android:background="@mipmap/start_page"
     tools:context="com.technology.yuyi.activity.StartActivity">
-
     <Button
-        android:background="@color/color_ee"
+        android:background="@drawable/btnva"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:textColor="@color/color_normal"

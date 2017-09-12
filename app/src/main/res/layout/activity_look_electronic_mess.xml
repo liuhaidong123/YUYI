@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:text="病例内容"/>
                 <TextView
-                    android:text="@string/str_hospiytal_mess"
+                    android:text=""
                     android:textSize="13sp"
                     android:textColor="#333333"
                     android:layout_marginTop="15dp"

@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:src="@mipmap/nothings"/>
         <TextView
-            android:text="这里什么都没有"
+            android:text="没有查询到数据！"
             android:textSize="15sp"
             android:textColor="#bababa"
             android:id="@+id/empty_text"

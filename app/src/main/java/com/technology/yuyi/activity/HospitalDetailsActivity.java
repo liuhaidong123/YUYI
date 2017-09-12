@@ -91,6 +91,8 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 case 1:
                     MyDialog.stopDia();
                     try {
+//                        DocId="17743516301ph";
+//                        user.targetId = DocId;
                         bean_DocId docId = gson.gson.fromJson(resStr, bean_DocId.class);
                         if (docId != null) {
                             if (docId.getCode()==0){

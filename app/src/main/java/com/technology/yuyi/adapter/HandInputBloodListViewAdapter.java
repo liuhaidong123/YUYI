@@ -65,7 +65,7 @@ public class HandInputBloodListViewAdapter extends BaseAdapter {
             holderTem = (HolderBlood) convertView.getTag();
         }
         holderTem.textView.setText(list.get(position).getTrueName());
-        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.error_small).into(holderTem.img);
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getAvatar()).error(R.mipmap.usererr).into(holderTem.img);
         return convertView;
     }
 

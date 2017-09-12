@@ -73,7 +73,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 0) {
-                toast.toast_faild(getActivity());
+//                toast.toast_faild(getActivity());
             } else if (msg.what == 1) {
                 try {
                     UserMessage userMessage = gson.gson.fromJson(resStr, UserMessage.class);

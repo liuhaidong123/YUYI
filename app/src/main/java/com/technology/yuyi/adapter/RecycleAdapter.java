@@ -93,7 +93,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyRecycl
                 holder.snajiao.setVisibility(View.GONE);
                 holder.name.setText("");
             } else {
-                Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getAvatar()).error(R.mipmap.error_small).into(holder.circleImageView);
+                Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getAvatar()).error(R.mipmap.usererr).into(holder.circleImageView);
                 if (showNameList.get(position)){
                     holder.name.setVisibility(View.VISIBLE);
                     holder.snajiao.setVisibility(View.VISIBLE);

@@ -89,16 +89,16 @@ private ImageView mBack;
                                         }
                                     });
                                 } else {
-                                    mFrag.setEmptyView("这里什么都没有");
+                                    mFrag.setEmptyView("没有病历记录！");
                                 }
                             } else {
                                 mFrag.setEmptyView(!"".equals(recordList.getMessage())&&!TextUtils.isEmpty(recordList.getMessage())?"失败："+recordList.getMessage():"获取电子病例失败：未知原因");
                             }
                         } else {
-                            mFrag.setEmptyView("这里什么都没有");
+                            mFrag.setEmptyView("没有病历记录！");
                         }
                     } catch (Exception e) {
-                        mFrag.setEmptyView("数据异常");
+                        mFrag.setEmptyView("数据异常！");
                         e.printStackTrace();
                     }
                     break;
@@ -125,14 +125,14 @@ private ImageView mBack;
                                     }
                                 });
                             } else {
-                                mFrag.setEmptyView("这里设么都没有");
+                                mFrag.setEmptyView("没有病历记录！");
                             }
                         } else {
                             mFrag.setEmptyView(!"".equals(us.getMessage())&&!TextUtils.isEmpty(us.getMessage())?"失败："+us.getMessage():"获取电子病例失败：未知原因");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        mFrag.setEmptyView("数据异常");
+                        mFrag.setEmptyView("数据异常！");
                     }
                     break;
             }
@@ -151,8 +151,6 @@ private ImageView mBack;
         } else if ("1".equals(type)) {
             getFamilyUserMsg(Fid);//获取家人的电子病历列表
         }
-
-
     }
 
     public void initView() {

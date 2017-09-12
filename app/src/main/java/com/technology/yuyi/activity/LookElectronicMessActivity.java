@@ -42,39 +42,6 @@ public class LookElectronicMessActivity extends AppCompatActivity {
     private int id;
     private String type;//0我的病历，1家人病历
     List<String> list;//存放图片的url（不加ip）
-    private String resStr;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case 0:
-//                    toast.toast_faild(LookElectronicMessActivity.this);
-//                    break;
-//                case 1://获取自己的电子病例 gender// 0女1男
-//                    try {
-//                        bean_MedicalRecordMsg recordMsg = gson.gson.fromJson(resStr, bean_MedicalRecordMsg.class);
-//                        if (recordMsg != null) {
-//                        } else {
-//                            toast.toast_gsonEmpty(LookElectronicMessActivity.this);
-//                        }
-//                    } catch (Exception e) {
-//                        toast.toast_gsonFaild(LookElectronicMessActivity.this);
-//                        e.printStackTrace();
-//                    }
-//                    break;
-//                case 2://获取家人的电子病例
-//                    try {
-//                        bean_FamilyUserEleMsg eleMsg = gson.gson.fromJson(resStr, bean_FamilyUserEleMsg.class);
-//
-//                    } catch (Exception e) {
-//                        toast.toast_gsonFaild(LookElectronicMessActivity.this);
-//                    }
-//                    break;
-//            }
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,9 +74,12 @@ public class LookElectronicMessActivity extends AppCompatActivity {
                     eleMsg_text_DocName.setText(beanUser.getPhysicianName());
                     ele_message.setText(beanUser.getMedicalrecord());
                     String url=beanUser.getPicture();
-                    String[]str=url.split(";");
-                    adapter=new LookElecAdapter(this,str);
-                    ele_gridView.setAdapter(adapter);
+                    if (url!=null&&!"".equals(url)){
+                        String[]str=url.split(";");
+                        adapter=new LookElecAdapter(this,str);
+                        ele_gridView.setAdapter(adapter);
+                    }
+
                 }
                 break;
             case "1"://家人的电子病例
@@ -121,9 +91,11 @@ public class LookElectronicMessActivity extends AppCompatActivity {
                     eleMsg_text_DocName.setText(beanFamilyUser.getPhysicianName());
                     ele_message.setText(beanFamilyUser.getMedicalrecord());
                     String url=beanFamilyUser.getPicture();
-                    String[]str=url.split(";");
+                    if (url!=null&&!"".equals(url)){
+                        String[]str=url.split(";");
                         adapter=new LookElecAdapter(this,str);
                         ele_gridView.setAdapter(adapter);
+                    }
                 }
                 break;
         }
