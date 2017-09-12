@@ -148,7 +148,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         int id = v.getId();
         if (id == bottomBtn.getId()) {
             showWindowAsk();
-        } else if (id == ask_voice.getId()) {//语音咨询
+        } else if (id == R.id.ask_voice) {//语音咨询
             pop.dismiss();
             if ("-1".equals(DocId)){
                 Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
@@ -160,7 +160,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 //                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
-        } else if (id == ask_video.getId()) {//视频咨询
+        } else if (id == R.id.ask_video) {//视频咨询
             pop.dismiss();
             if ("-1".equals(DocId)){
                 Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();
@@ -174,7 +174,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 getRongInfo();
             }
 
-        } else if (id == ask_word.getId()) {//文字资讯
+        } else if (id == R.id.ask_word) {//文字资讯
             pop.dismiss();
             if ("-1".equals(DocId)){
                 Toast.makeText(HospitalDetailsActivity.this,"当前医院尚未开通咨询服务,请选择其他医院咨询",Toast.LENGTH_SHORT).show();

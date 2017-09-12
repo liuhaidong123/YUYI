@@ -51,7 +51,7 @@ public class SanJiao extends View {
         paint.setAntiAlias(true);
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setStrokeWidth(dip2px(1));
-        double a = 250 - (mTemNum - 34) * 25;//计算每次体温下，三角形正对的刻度
+        double a = 235 - (mTemNum - 34) * 25;//计算每次体温下，三角形正对的刻度
         Path path = new Path();//画三角形
         path.moveTo(getWidth() / 2, dip2px(a));
         path.lineTo(getWidth() / 2 + dip2px(30), dip2px(a - 10));

@@ -3,46 +3,46 @@
     xmlns:melove="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    android:background="@color/navigate_bg">
 
     <LinearLayout
-        android:background="@color/navigate_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/navigate_bg"
         android:gravity="center"
         android:orientation="vertical">
 
 
         <LinearLayout
-
             android:id="@+id/show_name_ll"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:gravity="center"
             android:background="@color/navigate_bg"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="122"
                 android:textColor="@color/color_white"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/sanjiao_img"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/sanjiao" />
+                android:src="@mipmap/sanjiao"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/color_white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="90dp"
+            android:background="@color/color_white">
+
             <com.technology.yuyi.myview.RoundImageView
                 android:id="@+id/img_small"
                 android:layout_width="58dp"

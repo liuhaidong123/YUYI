@@ -1043,22 +1043,22 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void checkBlood(int height, int low, float tem) {
 
         if (height == 0 && low == 0 && tem == 0) {
-            mPromptImg.setImageResource(R.mipmap.normal);
+            mPromptImg.setVisibility(View.GONE);
             mPromptTv.setText("待测");
+            mPromptTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+            mPromptTv.setVisibility(View.VISIBLE);
             mPromptTv.setTextColor(Color.parseColor(grayColor));
         }
 
         //显示不正常
         else if (height > 139 || height < 90 || low > 89 || low < 60 || tem < 36 || tem > 37.5) {
-
+            mPromptImg.setVisibility(View.VISIBLE);
             mPromptImg.setImageResource(R.mipmap.normal_error);
-            mPromptTv.setText("异常");
-            mPromptTv.setTextColor(Color.parseColor(redColor));
-
+            mPromptTv.setVisibility(View.GONE);
         } else {
+            mPromptImg.setVisibility(View.VISIBLE);
             mPromptImg.setImageResource(R.mipmap.normal);
-            mPromptTv.setText("正常");
-            mPromptTv.setTextColor(Color.parseColor(grayColor));
+            mPromptTv.setVisibility(View.GONE);
         }
         mHeightBloodTv.setText(height + "");
         mLowBloodTv.setText(low + "");

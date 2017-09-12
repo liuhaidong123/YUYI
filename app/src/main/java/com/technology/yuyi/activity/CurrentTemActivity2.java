@@ -125,12 +125,10 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         manager.setOrientation(OrientationHelper.HORIZONTAL);//水平走向
         mRecycleview.setLayoutManager(manager);
         mAdapter = new RecycleAdapter(mList, showNameList, this);
+        //选择头像
         mAdapter.setOnItemClickLitener(new RecycleAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                // LinearLayout linearLayout= (LinearLayout) view.findViewById(R.id.show_name_ll);
-                TextView textView = (TextView) view.findViewById(R.id.name);
-                ImageView imageView = (ImageView) view.findViewById(R.id.sanjiao_img);
                 if (mList.size() == 0) {//只有添加按钮
                     Intent intent = new Intent(getApplicationContext(), AddFamilyUserActivity.class);
                     intent.putExtra("type", "0");
@@ -234,6 +232,7 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
             mSureAlertDialog.dismiss();
         }else if (id==mHandInput.getId()){
             startActivity(new Intent(this,HandInputTemActivity2.class));
+            finish();
         }
     }
 
