@@ -24,7 +24,7 @@
             android:layout_below="@+id/newWorkError"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:text="没有网络连接"
+            android:text="没有网络连接！"
             android:textColor="#999999"
             android:textSize="30px" />
     </RelativeLayout>

@@ -120,19 +120,21 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true">
+                            <!--<TextView-->
+                                <!--android:layout_centerVertical="true"-->
+                                <!--android:id="@+id/my_userlogin_SMStimer"-->
+                                <!--android:layout_width="25dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_alignParentBottom="true"-->
+                                <!--android:layout_alignParentRight="true"-->
+                                <!--android:layout_marginLeft="5dp"-->
+                                <!--android:paddingBottom="3dp"-->
+                                <!--android:text="59S"-->
+                                <!--android:textColor="#f21121"-->
+                                <!--android:textSize="10sp" />-->
                             <TextView
-                                android:layout_centerVertical="true"
-                                android:id="@+id/my_userlogin_SMStimer"
-                                android:layout_width="25dp"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
+                                android:layout_marginRight="15dp"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginLeft="5dp"
-                                android:paddingBottom="3dp"
-                                android:text="59S"
-                                android:textColor="#f21121"
-                                android:textSize="10sp" />
-                            <TextView
                                 android:layout_centerVertical="true"
                                 android:id="@+id/my_userlogin_getSMScode"
                                 android:layout_width="90dp"
@@ -140,7 +142,6 @@
                                 android:paddingBottom="5dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentBottom="true"
-                                android:layout_toLeftOf="@+id/my_userlogin_SMStimer"
                                 android:background="@drawable/btnlogin"
                                 android:gravity="center"
                                 android:text="发送验证码"

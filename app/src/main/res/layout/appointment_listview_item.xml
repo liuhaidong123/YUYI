@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="112212132332"
+                    android:text=""
                     android:textColor="@color/color_normal"
                     android:textSize="18sp"
 
@@ -46,7 +46,7 @@
                     android:layout_below="@+id/yu_tv_title"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="122312332"
+                    android:text=""
                     android:textColor="@color/color_normal"
                     android:textSize="13sp" />
             </RelativeLayout>

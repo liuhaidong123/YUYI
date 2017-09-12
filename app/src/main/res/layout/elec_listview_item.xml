@@ -22,13 +22,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:text="2017"
+                    android:text="就诊"
                     android:textColor="#1ebeec"
                     android:id="@+id/data_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:text="08-20"
+                    android:text="时间"
                     android:textColor="#1ebeec"
                     android:id="@+id/data_monthDay"
                     android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                 android:maxLines="1"
                 android:textColor="#999999"
                 android:textSize="14sp"
-                android:text="涿州市中医院"
+                android:text="医院"
                 android:id="@+id/hospital_hospitalName"/>
         </RelativeLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_centerVertical="true"
                 android:textColor="#999999"
                 android:textSize="14sp"
-                android:text="消化不良是日常生活中最常见的疾病"
+                android:text="病情描述"
                 android:ellipsize="end"
                 android:layout_toLeftOf="@+id/ms"
                 android:layout_marginRight="5dp"
