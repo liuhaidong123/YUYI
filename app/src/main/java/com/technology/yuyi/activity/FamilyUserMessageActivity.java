@@ -330,7 +330,7 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
                 mEleAdapter.notifyDataSetChanged();
             }
             else {
-                framLayout.setEmptyView("这里设么都没有");
+                framLayout.setEmptyView("没有病例记录！");
 //                userMessage_rela_ele_listview.setEmpty();
             }
         }

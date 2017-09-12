@@ -139,7 +139,7 @@ public class MS_drugState extends MyActivity implements MS_drugStatePresenter.IM
                     init(0);
                 }
                 else {
-                    myFrag.setEmptyView("这里什么都没有");
+                    myFrag.setEmptyView("没有查询到记录！");
                 }
             }
             else {
@@ -147,7 +147,7 @@ public class MS_drugState extends MyActivity implements MS_drugStatePresenter.IM
             }
         }
         else {
-            myFrag.setEmptyView("这里什么都没有");
+            myFrag.setEmptyView("没有查询到记录！");
         }
     }
 
