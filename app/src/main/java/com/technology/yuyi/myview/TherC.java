@@ -59,7 +59,7 @@ public class TherC extends View {
 
 
         //左边的白线
-        paint.setShader(null);
+        paint.setShader(null); 
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setStrokeWidth(dip2px(4));
         canvas.drawLine(getWidth() / 2 - dip2px(12), dip2px(24), getWidth() / 2 - dip2px(12), getHeight() - dip2px(75), paint);
