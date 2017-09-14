@@ -39,7 +39,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 public class My_userLogin_Activity extends AppCompatActivity {
-    private int timeOut = 10;//计时器
+    private int timeOut = 60;//计时器
     private TextView my_userlogin_getSMScode;//获取验证码按钮
 //    private TextView my_userlogin_SMStimer;//显示计时器的view
     private EditText my_userlogin_edit_name, my_userlogin_edit_smdCode;//用户名与验证码输入框
@@ -210,7 +210,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
         my_userlogin_getSMScode.setClickable(false);//获取验证码按钮不能点击
         my_userlogin_getSMScode.setBackground(getResources().getDrawable(R.drawable.my_userlogin_unclick));
         mHttptools.getValidateCode(mHandler, mMap);//获取验证码接口
-        timeOut=10;
+        timeOut=60;
         new Thread(new Runnable() {
             @Override
             public void run() {
