@@ -22,18 +22,12 @@ import android.widget.TextView;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.ElectronicMessActivity;
 import com.technology.yuyi.activity.EquipmentManageActivity;
 import com.technology.yuyi.activity.FamilyManageActivity;
-import com.technology.yuyi.activity.MyOrderActivity;
-import com.technology.yuyi.activity.My_address_Activity;
 import com.technology.yuyi.activity.My_message_Activity;
-import com.technology.yuyi.activity.My_shoppingCart_Activity;
 import com.technology.yuyi.activity.My_userLogin_Activity;
 import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
@@ -80,7 +74,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 try {
                     UserMessage userMessage = gson.gson.fromJson(resStr, UserMessage.class);
                     UserMessage.ResultBean bean = userMessage.getResult();
-                    Picasso.with(getActivity()).load(UrlTools.BASE + bean.getAvatar()).error(R.mipmap.usererr).into(mHead_img);
+                    Picasso.with(getActivity()).load(Ip.url_F + bean.getAvatar()).error(R.mipmap.usererr).into(mHead_img);
                     if (!"".equals(bean.getTrueName()) && !TextUtils.isEmpty(bean.getTrueName())) {
                         mNikName.setText(bean.getTrueName() + "");
                         mNikName.setVisibility(View.VISIBLE);
