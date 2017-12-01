@@ -27,8 +27,7 @@
             android:gravity="center"
             android:text="@string/str_hand"
             android:textColor="@color/color_normal"
-            android:textSize="17sp"
-            />
+            android:textSize="17sp" />
     </RelativeLayout>
 
     <View
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="167dp"
         android:layout_below="@id/curr_line"
-        android:background="@color/navigate_bg"
+        android:background="#383a41"
         android:orientation="vertical">
 
         <LinearLayout
@@ -122,102 +121,6 @@
             />
 
     </LinearLayout>
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/rl_blood_g"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:layout_below="@id/curr_line"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:layout_marginStart="10dp"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:background="@color/color_white">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_blood_g"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="30dp"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:text="@string/str_userheightpress"-->
-    <!--android:textColor="@color/color_g"-->
-    <!--android:textSize="14sp" />-->
-
-    <!--<View-->
-    <!--android:id="@+id/curr_line2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_below="@id/tv_blood_g"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:background="@color/color_e" />-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/edit_height_blood"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@id/curr_line2"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:background="@null"-->
-    <!--android:hint="请输入..."-->
-    <!--android:inputType="number"-->
-    <!--android:maxLength="3"-->
-    <!--android:textColor="@color/color_ad"-->
-    <!--android:textSize="13sp" />-->
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/rl_blood_l"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:layout_below="@id/rl_blood_g"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:layout_marginStart="10dp"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:background="@color/color_white">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_blood_l"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="30dp"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:text="@string/str_userlowpress"-->
-    <!--android:textColor="@color/color_g"-->
-    <!--android:textSize="14sp" />-->
-
-    <!--<View-->
-    <!--android:id="@+id/blood_line2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_below="@id/tv_blood_l"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:background="@color/color_e" />-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/edit_low_blood"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_below="@id/blood_line2"-->
-    <!--android:layout_marginStart="15dp"-->
-    <!--android:layout_marginTop="6dp"-->
-    <!--android:background="@null"-->
-    <!--android:hint="请输入..."-->
-    <!--android:inputType="number"-->
-    <!--android:maxLength="3"-->
-    <!--android:textColor="@color/color_ad"-->
-    <!--android:textSize="13sp" />-->
-    <!--</RelativeLayout>-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/tv_prompt_input"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="30dp"-->
-    <!--android:layout_below="@id/rl_blood_l"-->
-    <!--android:layout_marginStart="25dp"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:text="@string/str_hand_pro"-->
-    <!--android:textColor="@color/color_tem"-->
-    <!--android:visibility="gone" />-->
 
     <TextView
         android:id="@+id/tv_data"
@@ -246,11 +149,6 @@
         android:layout_marginBottom="40dp"
         android:background="@color/color_white">
 
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:background="@color/color_e" />-->
 
         <Button
             android:id="@+id/blood_btn_sure"
@@ -336,5 +234,37 @@
             </RelativeLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/again_login_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/hand_title"
+        android:background="@color/color_white"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_aa" />
+
+        <ImageView
+            android:id="@+id/nothing_img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/nothing" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nothing_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="信息错误:请重新登录"
+            android:textColor="@color/color_aa"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

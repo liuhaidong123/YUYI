@@ -134,10 +134,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activity.CurrentTemActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
             android:name=".activity.AddEquipmentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -145,10 +141,6 @@
             android:name=".activity.CurrentBloodActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".activity.HandInputTemActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden|stateAlwaysHidden" />
         <activity
             android:name=".activity.HandInputBloodActivity"
             android:screenOrientation="portrait"

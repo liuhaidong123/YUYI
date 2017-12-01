@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="167dp"
         android:layout_below="@id/curr_line"
-        android:background="@color/navigate_bg"
+        android:background="#383a41"
         android:orientation="vertical">
 
         <LinearLayout
@@ -122,98 +122,6 @@
 
     </LinearLayout>
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/rl_blood_g"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:layout_below="@id/curr_line"-->
-        <!--android:layout_marginEnd="10dp"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:background="@color/color_white"-->
-        <!--android:visibility="gone">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_blood_g"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="@string/str_userheightpress"-->
-            <!--android:textColor="@color/color_g"-->
-            <!--android:textSize="14sp" />-->
-
-        <!--<View-->
-            <!--android:id="@+id/curr_line2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_below="@id/tv_blood_g"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:background="@color/color_e" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_height_blood"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="69dp"-->
-            <!--android:layout_below="@+id/curr_line2"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text=""-->
-            <!--android:textColor="@color/color_username"-->
-            <!--android:textSize="15sp" />-->
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/rl_blood_l"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:layout_below="@id/rl_blood_g"-->
-        <!--android:layout_marginEnd="10dp"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:background="@color/color_white"-->
-        <!--android:visibility="gone">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_blood_l"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="@string/str_userlowpress"-->
-            <!--android:textColor="@color/color_g"-->
-            <!--android:textSize="14sp" />-->
-
-        <!--<View-->
-            <!--android:id="@+id/blood_line2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_below="@id/tv_blood_l"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:background="@color/color_e" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_low_blood"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="69dp"-->
-            <!--android:layout_below="@id/blood_line2"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text=""-->
-            <!--android:textColor="@color/color_username"-->
-            <!--android:textSize="15sp" />-->
-    <!--</RelativeLayout>-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/tv_prompt"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_below="@id/rl_blood_l"-->
-        <!--android:layout_marginStart="25dp"-->
-        <!--android:gravity="center_vertical"-->
-        <!--android:text="@string/str_blood_z"-->
-        <!--android:textColor="@color/color_username"-->
-        <!--android:visibility="gone" />-->
 
     <TextView
 
@@ -240,24 +148,24 @@
         android:id="@+id/rl_sure"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
         android:background="@color/color_white">
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:background="@color/color_e" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="@color/color_e" />-->
 
         <Button
             android:id="@+id/blood_btn_sure"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@mipmap/sure_input_data_bg"
             android:text="@string/str_sure"
             android:textColor="@color/color_white"
@@ -302,8 +210,7 @@
                     android:layout_height="75dp"
                     android:layout_below="@id/curr_line7"
                     android:background="@color/color_white"
-                    android:visibility="gone"
-                   >
+                    android:visibility="gone">
 
 
                     <ImageView
@@ -329,12 +236,43 @@
                         android:id="@+id/curr_line8"
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
-                       android:layout_alignParentBottom="true"
+                        android:layout_alignParentBottom="true"
                         android:background="@color/color_cancel" />
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <RelativeLayout
+        android:id="@+id/again_login_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/current_title"
+        android:visibility="gone"
+        android:background="@color/color_white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_aa" />
+
+        <ImageView
+            android:id="@+id/nothing_img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/nothing" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nothing_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="信息错误:请重新登录"
+            android:textColor="@color/color_aa"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -31,30 +31,29 @@ public class InformationDetailsActivity extends AppCompatActivity implements Vie
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == 23) {//医院
+            if (msg.what == 43) {//医院
                 Object o = msg.obj;
-                if (o != null && o instanceof UpdatedInformation) {
-                    UpdatedInformation information = (UpdatedInformation) o;
-                    Picasso.with(InformationDetailsActivity.this).load(UrlTools.BASE + information.getPicture()).into(mHospital_img);
-                    tv_jj.setText(information.getType());
-                    mHospital_name.setText(information.getTitle());
-                    mHospital_grade.setText(information.getSmalltitle());
-                    mHospital_message.setText(information.getArticleText());
+                if (o != null && o instanceof com.technology.yuyi.bean.NewInforAdDetails.Root) {
+                    com.technology.yuyi.bean.NewInforAdDetails.Root information = (com.technology.yuyi.bean.NewInforAdDetails.Root) o;
+
+                   if (information.getCode().equals("0")){
+
+                       if ("".equals(information.getResult().getPicture())){
+                           mHospital_img.setImageResource(R.mipmap.errorpicture);
+                       }else {
+                           String[]strings= information.getResult().getPicture().split(";");
+                           Picasso.with(getApplicationContext()).load(UrlTools.BASE+strings[0]).error(R.mipmap.errorpicture).into(mHospital_img);
+                       }
+                       mHospital_name.setText(information.getResult().getTitle());
+                       mHospital_grade.setText(information.getResult().getSmallTitle());
+                       mHospital_message.setText(information.getResult().getContent());
+                   }else {
+                       ToastUtils.myToast(InformationDetailsActivity.this, "获取详情错误");
+                   }
+
 
                 }
             } else if (msg.what == 204) {//医院详情失败
-                ToastUtils.myToast(InformationDetailsActivity.this, "请求失败");
-            } else if (msg.what == 34) {//广告
-                Object o = msg.obj;
-                if (o != null && o instanceof Root) {
-                    Root root = (Root) o;
-                    Picasso.with(InformationDetailsActivity.this).load(UrlTools.BASE + root.getPicture()).error(R.mipmap.error_big).into(mHospital_img);
-                    mHospital_name.setText(root.getTitle());
-                    mHospital_grade.setText(root.getSmalltitle());
-                    mHospital_message.setText(root.getArticleText());
-                    tv_jj.setText(root.getType());
-                }
-            } else if (msg.what == 224) {//广告详情失败
                 ToastUtils.myToast(InformationDetailsActivity.this, "请求失败");
             }
         }
@@ -70,14 +69,7 @@ public class InformationDetailsActivity extends AppCompatActivity implements Vie
     public void initView() {
         //根据传过来的id,查询对应的医院详情
         mHttptools = HttpTools.getHttpToolsInstance();
-        //医院资讯
-        if (getIntent().getStringExtra("type").equals("information")) {
-            mHttptools.getFirstPageInformationTwoDataMessage(handler, getIntent().getLongExtra("id", -1));
-        }
-        //广告资讯
-        if (getIntent().getStringExtra("type").equals("ad")) {
-            mHttptools.getAdMessageData(handler, getIntent().getIntExtra("id", -1));
-        }
+        mHttptools.getNewInformationAdDetails(handler,getIntent().getLongExtra("id", -1));
 
 
         mHospitalMess = (TextView) findViewById(R.id.hospitals_mess);

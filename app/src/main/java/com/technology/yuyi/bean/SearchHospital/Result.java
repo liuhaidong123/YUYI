@@ -29,7 +29,7 @@ public class Result {
 
     private String createTime;
 
-    private int grade;
+    private String grade;
 
     private int id;
 
@@ -135,11 +135,11 @@ public class Result {
         this.createTime = createTime;
     }
 
-    public int getGrade() {
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 

@@ -72,7 +72,6 @@ public class RightListViewAdapter extends BaseAdapter {
                 Intent intent=new Intent(mContext, SelectDoctorActivity.class);
                 intent.putExtra("name",mList.get(position).getClinicName());
                 intent.putExtra("cid",mList.get(position).getId());
-                Log.e("id----",""+mList.get(position).getId());
                 mContext.startActivity(intent);
             }
         });

@@ -74,6 +74,9 @@ public class HandInputTemActivity2 extends AppCompatActivity implements View.OnC
                         // mAdapter.notifyDataSetChanged();
                         mPosintion = 0;
                         isSelect = true;
+                    }else {//重新登录
+                        again_login_rl.setVisibility(View.VISIBLE);
+                        Toast.makeText(HandInputTemActivity2.this,"信息错误，请重新登录",Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -108,6 +111,7 @@ public class HandInputTemActivity2 extends AppCompatActivity implements View.OnC
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
     private RelativeLayout mTem_rl;
+    private RelativeLayout again_login_rl;//显示重新登录页面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,7 +122,8 @@ public class HandInputTemActivity2 extends AppCompatActivity implements View.OnC
         initUI();
     }
     private void initUI() {
-
+        again_login_rl= (RelativeLayout)findViewById(R.id.again_login_rl);
+        again_login_rl.setOnClickListener(this);
         mRecycleview = (RecyclerView) findViewById(R.id.recycle_id);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(OrientationHelper.HORIZONTAL);//水平走向
@@ -181,9 +186,9 @@ public class HandInputTemActivity2 extends AppCompatActivity implements View.OnC
         mName = (TextView) findViewById(R.id.name);
         //显示温度计
         mTem_rl = (RelativeLayout) findViewById(R.id.my_tem_rl);
-        SanJiaoHand sanJiao=new SanJiaoHand(this,37,mCurrent_tem,du_tv,mPrompt_tv);//默认体温37
+        SanJiaoHand sanJiao=new SanJiaoHand(this,39,mCurrent_tem,du_tv,mPrompt_tv);//默认体温37
         TherC therC = new TherC(this);
-        mCurrent_tem.setText("37");
+        mCurrent_tem.setText("39");
         mTem_rl.addView(therC);
         mTem_rl.addView(sanJiao);
 

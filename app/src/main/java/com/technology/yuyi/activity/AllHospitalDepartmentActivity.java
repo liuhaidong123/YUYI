@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,18 +27,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllHospitalDepartmentActivity extends AppCompatActivity implements View.OnClickListener {
+    private RelativeLayout nodata_rl;
     private ImageView mBack;
     private TextView mHospital_name;
     //左边listview
     private LeftListViewAdapter mLeftAdapter;
     private ListView mLeftListView;
     private List<HospitalDepartmentMessage> mLeftData = new ArrayList();
-
     //右边listview
     private ListView mRightListView;
     private RightListViewAdapter mRightAdapter;
     private List mRightData = new ArrayList<>();//右边所有门诊集合
-
     private SwipeRefreshLayout mRefresh;
     //网络数据
     private HttpTools mHttptools;
@@ -61,19 +61,24 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                         if (mRightData.size() != 0) {
                             mRightAdapter.setmList((List<HospitalOutPatient>) mRightData.get(0));
                             mRightAdapter.notifyDataSetChanged();
-
                         }
                         mRefresh.setRefreshing(false);
                         mRefresh.setEnabled(false);
+
+                        if (mLeftData.size() == 0) {//没有科室信息
+                            nodata_rl.setVisibility(View.VISIBLE);
+                            mRefresh.setVisibility(View.GONE);
+                        }
                     }
                 }
             } else if (msg.what == 215) {
+                ToastUtils.myToast(AllHospitalDepartmentActivity.this, "科室信息获取失败");
                 mRefresh.setRefreshing(false);
                 mRefresh.setEnabled(false);
             } else if (msg.what == 216) {
                 mRefresh.setRefreshing(false);
                 mRefresh.setEnabled(false);
-                ToastUtils.myToast(AllHospitalDepartmentActivity.this, "请求失败");
+                ToastUtils.myToast(AllHospitalDepartmentActivity.this, "科室信息获取失败");
             }
         }
     };
@@ -86,6 +91,8 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
     }
 
     private void initView() {
+        nodata_rl = (RelativeLayout) findViewById(R.id.nodata_rl);
+        nodata_rl.setOnClickListener(this);
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getHospitalDepartmentData(mHandler, getIntent().getIntExtra("hid", -1));
         //刷新
@@ -113,7 +120,7 @@ public class AllHospitalDepartmentActivity extends AppCompatActivity implements 
                 for (HospitalDepartmentMessage h : mLeftData) {
                     if (h == mLeftAdapter.getItem(position)) {
                         h.setOpen(true);
-                       // Toast.makeText(AllHospitalDepartmentActivity.this, "" + position, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(AllHospitalDepartmentActivity.this, "" + position, Toast.LENGTH_SHORT).show();
                     } else {
                         h.setOpen(false);
                     }

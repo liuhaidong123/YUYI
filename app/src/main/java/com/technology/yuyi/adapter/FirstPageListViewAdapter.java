@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.technology.yuyi.HttpTools.UrlTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.FirstPageInformationTwoData;
-import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Rows;
+import com.technology.yuyi.bean.NewInformationList.Rows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +65,9 @@ public class FirstPageListViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.imageView);
+        Picasso.with(mContext).load(UrlTools.BASE + list.get(position).getPicture()).error(R.mipmap.errorpicture).into(viewHolder.imageView);
         viewHolder.hospital_tv.setText(list.get(position).getTitle());
-        viewHolder.hospital_message_tv.setText(list.get(position).getArticleText());
+        viewHolder.hospital_message_tv.setText(list.get(position).getContent());
         return convertView;
     }
 

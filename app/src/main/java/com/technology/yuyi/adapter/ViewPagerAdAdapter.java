@@ -28,15 +28,15 @@ import java.util.List;
 public class ViewPagerAdAdapter extends PagerAdapter {
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<Rows> mListImgAd = new ArrayList<>();//广告图片集合
+    private List<com.technology.yuyi.bean.NewAdList.Rows> mListImgAd = new ArrayList<>();//广告图片集合
 
-    public ViewPagerAdAdapter(Context mContext, List<Rows> list) {
+    public ViewPagerAdAdapter(Context mContext, List<com.technology.yuyi.bean.NewAdList.Rows> list) {
         this.mContext = mContext;
         this.mListImgAd = list;
         mInflater = LayoutInflater.from(this.mContext);
     }
 
-    public void setmListImgAd(List<Rows> mListImgAd) {
+    public void setmListImgAd(List<com.technology.yuyi.bean.NewAdList.Rows> mListImgAd) {
         this.mListImgAd = mListImgAd;
     }
 
@@ -55,7 +55,7 @@ public class ViewPagerAdAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = mInflater.inflate(R.layout.viewpager_item, null);
         ImageView img = ((ImageView) view.findViewById(R.id.imageView1));
-        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(position).getPicture()).error(R.mipmap.error_big).into(img);
+        Picasso.with(mContext).load(UrlTools.BASE + mListImgAd.get(position).getPicture()).error(R.mipmap.errorpicture).into(img);
         //点击轮播图片跳转
         img.setOnClickListener(new View.OnClickListener() {
             @Override

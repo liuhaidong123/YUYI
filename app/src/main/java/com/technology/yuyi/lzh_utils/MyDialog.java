@@ -16,17 +16,19 @@ import com.technology.yuyi.R;
 
 public class MyDialog {
     public static ProgressDialog dialog;
-    public static void showDialog(Context context){
-        if (context!=null){
+
+    public static void showDialog(Context context) {
+        if (context != null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             View v = inflater.inflate(R.layout.window, null);
-            ImageView imageView= (ImageView) v.findViewById(R.id.dialogimg);
+            ImageView imageView = (ImageView) v.findViewById(R.id.dialogimg);
             imageView.setBackgroundResource(R.drawable.animt);
             AnimationDrawable animationDrawable = (AnimationDrawable)
                     imageView.getBackground();
             animationDrawable.start();
             dialog = new ProgressDialog(context, R.style.dialog);
             dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             dialog.setContentView(v, new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -34,8 +36,9 @@ public class MyDialog {
         }
 
     }
-    public static void  stopDia(){
-        if(dialog!=null&&dialog.isShowing()){
+
+    public static void stopDia() {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
     }

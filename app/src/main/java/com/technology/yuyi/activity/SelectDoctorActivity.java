@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +49,6 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     private int hour;
     private List<Result> mList = new ArrayList<>();
     private HttpTools mHttptools;
-
-
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -59,7 +58,7 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
-                    if (root.getCode().equals("0")) {
+                    if (root!=null&&root.getCode().equals("0")) {
                         int month = 0;
                         int day = 0;
                         mList = root.getResult();
@@ -79,12 +78,18 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                                 //mDate.get(i).setText(date);
                             }
                             mDateMsg_tv.setText(mDateList.get(datePosition));
-
                             //刚进页面显示第一个日期，上午的医生数据
                             mAdapterList = mList.get(datePosition).getDatenumberList();
-                            mAdapter.setmListDoctor(mAdapterList);
-                            mAdapter.setFlag(isFlag);
-                            mAdapter.notifyDataSetChanged();
+                            if (mAdapterList.size()!=0){
+                                mAdapter.setmListDoctor(mAdapterList);
+                                mAdapter.setFlag(isFlag);
+                                mAdapter.notifyDataSetChanged();
+                                mAll_Doctor_Rl.setVisibility(View.VISIBLE);
+                            }else {
+                                nodata_rl.setVisibility(View.VISIBLE);
+                                Toast.makeText(SelectDoctorActivity.this,"此门诊目前没有医生信息",Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }
 
@@ -94,11 +99,16 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.UserListBean.Root) {
                     com.technology.yuyi.bean.UserListBean.Root root = (com.technology.yuyi.bean.UserListBean.Root) o;
-                    userList = root.getResult();
-                    if (userList.size() != 0) {
-                        mRegisterAdapter.setmList(userList);
-                        mRegisterAdapter.notifyDataSetChanged();
+                    if (root!=null&&root.getResult()!=null){
+                        userList = root.getResult();
+                        if (userList.size() != 0) {
+                            mRegisterAdapter.setmList(userList);
+                            mRegisterAdapter.notifyDataSetChanged();
+                        }
+                    }else {
+                        Toast.makeText(SelectDoctorActivity.this,"账号异常，请重新登录",Toast.LENGTH_SHORT).show();
                     }
+
                 }
             } else if (msg.what == 226) {
                 ToastUtils.myToast(SelectDoctorActivity.this, "获取列表失败");
@@ -155,12 +165,8 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     private View mSureAlertView;
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
-
-
     private GridView mAlertGridView;
     private SelectRegisterPersonGridViewAlertAdapter mRegisterAdapter;
-
-
     private boolean isFlag = true;//默认true上午, false 下午
     private long docID;
     private long homeuserId;
@@ -173,7 +179,8 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     private TextView mDateMsg_tv, mMorning_tv, mAfternoon_tv;//日期，上午下午
     private List<String> mDateList = new ArrayList<>();
     private int datePosition = 0;
-
+    private RelativeLayout mAll_Doctor_Rl;
+    private RelativeLayout nodata_rl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +189,9 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void initView() {
+        nodata_rl = (RelativeLayout) findViewById(R.id.nodata_rl);
+        nodata_rl.setOnClickListener(this);
+        mAll_Doctor_Rl= (RelativeLayout) findViewById(R.id.doctor_all_data_rl);
         //左右日期按钮
         mLfetDate_img = (ImageView) findViewById(R.id.left_date_img);
         mRightDate_img = (ImageView) findViewById(R.id.right_date_img);
@@ -396,6 +406,5 @@ public class SelectDoctorActivity extends AppCompatActivity implements View.OnCl
         mHttptools.getUserLIst(mHandler, map);//获取所有挂号人
         mHttptools.getUserRegisterData(mHandler, getIntent().getIntExtra("cid", -1));//获取所有医生列表
     }
-
 
 }

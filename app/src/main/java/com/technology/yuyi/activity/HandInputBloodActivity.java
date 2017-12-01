@@ -58,16 +58,23 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
-                    mList = root.getResult();
-                    mAdapter.setList(mList);
-                    mAdapter.notifyDataSetChanged();
-                    mRefresh.setRefreshing(false);
+                    if (root!=null&&root.getResult()!=null){
+                        mList = root.getResult();
+                        mAdapter.setList(mList);
+                        mAdapter.notifyDataSetChanged();
+                        mRefresh.setRefreshing(false);
 
-                    if (mList.size() == 6) {
-                        mAdd_rl.setVisibility(View.GONE);
-                    } else {
-                        mAdd_rl.setVisibility(View.VISIBLE);
+                        if (mList.size() == 6) {
+                            mAdd_rl.setVisibility(View.GONE);
+                        } else {
+                            mAdd_rl.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+                        //显示重新登录
+                        again_login_rl.setVisibility(View.VISIBLE);
+                        Toast.makeText(HandInputBloodActivity.this,"信息错误，请重新登录",Toast.LENGTH_SHORT).show();
                     }
+
                 }
             } else if (msg.what == 225) {//json解析失败
                 mRefresh.setRefreshing(false);
@@ -102,7 +109,7 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
     private View mSureAlertView;
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
-
+    private RelativeLayout again_login_rl;//显示重新登录页面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +118,8 @@ public class HandInputBloodActivity extends AppCompatActivity implements View.On
     }
 
     public void initView() {
+        again_login_rl= (RelativeLayout)findViewById(R.id.again_login_rl);
+        again_login_rl.setOnClickListener(this);
         //请求用户列表
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();

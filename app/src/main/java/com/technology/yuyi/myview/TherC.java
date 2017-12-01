@@ -48,9 +48,6 @@ public class TherC extends View {
         Paint paint = new Paint();
 
 
-
-
-
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
          /* 设置渐变色 这个正方形的颜色是改变的 */
@@ -59,7 +56,7 @@ public class TherC extends View {
 
 
         //左边的白线
-        paint.setShader(null); 
+        paint.setShader(null);
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setStrokeWidth(dip2px(4));
         canvas.drawLine(getWidth() / 2 - dip2px(12), dip2px(24), getWidth() / 2 - dip2px(12), getHeight() - dip2px(75), paint);
@@ -100,17 +97,19 @@ public class TherC extends View {
         paint.setStrokeWidth(dip2px(1));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(dip2px(10));
-        int startY = 35;
+        float startY =  ((getHeight() - dip2px(75f) - dip2px(24) - dip2px(35)) / 41);
+        float addScale =  ((getHeight() - dip2px(75f) - dip2px(24) - dip2px(35)) / 41);
         int text = 42;
-        for (int i = 0; i <= 40; i++) {
+        for (int i = 0; i <= 35; i++) {
             if (i % 5 == 0) {//刻度长线
-                canvas.drawLine(getWidth() / 2 - dip2px(10), dip2px(startY), getWidth() / 2, dip2px(startY), paint);
-                canvas.drawText(String.valueOf(text), getWidth() / 2 - dip2px(25), dip2px(startY), paint);
+                canvas.drawLine(getWidth() / 2 - dip2px(10), startY + dip2px(35), getWidth() / 2, startY + dip2px(35), paint);
+                canvas.drawText(String.valueOf(text), getWidth() / 2 - dip2px(25), startY + dip2px(35), paint);
                 text -= 1;
             } else {//刻度短线
-                canvas.drawLine(getWidth() / 2 - dip2px(10), dip2px(startY), getWidth() / 2 - dip2px(5), dip2px(startY), paint);
+                canvas.drawLine(getWidth() / 2 - dip2px(10), startY + dip2px(35), getWidth() / 2 - dip2px(5), startY + dip2px(35), paint);
             }
-            startY += 5;
+            Log.e("startY=", "刻度：" + startY);
+            startY += addScale;
         }
 
 

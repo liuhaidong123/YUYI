@@ -17,12 +17,12 @@ import java.util.List;
  * Created by liuhaidong on 2017/3/20.
  */
 
-public class DrugHospitalResult extends BaseAdapter {
+public class HospitalSearchHistoryAdapter extends BaseAdapter {
     private Context mContext;
     private List<String> mList = new ArrayList<>();
     private LayoutInflater mInflater;
 
-    public DrugHospitalResult(Context mContext, List<String> mList) {
+    public HospitalSearchHistoryAdapter(Context mContext, List<String> mList) {
         this.mContext = mContext;
         this.mList = mList;
         this.mInflater = LayoutInflater.from(this.mContext);

@@ -4,6 +4,7 @@ package com.technology.yuyi.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ import com.technology.yuyi.bean.FirstPageInformationTwoDataRoot;
 import com.technology.yuyi.bean.FirstPageUserDataBean.BloodpressureList;
 import com.technology.yuyi.bean.FirstPageUserDataBean.Result;
 import com.technology.yuyi.bean.FirstPageUserDataBean.TemperatureList;
+import com.technology.yuyi.lhd.utils.ImgUitls;
 import com.technology.yuyi.lhd.utils.ToastUtils;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.user;
@@ -93,7 +95,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
     private FirstPageListViewAdapter mListViewAdapter;//资讯adapter
     private ListView mFirstPageListView;//资讯ListView
-    private List<com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Rows> mInforList = new ArrayList<>();
+    private List<com.technology.yuyi.bean.NewInformationList.Rows> mInforList = new ArrayList<>();
 
     private GridView mGridview;//常用药品Gridview
     private UseDrugGridViewAdapter mUseDrugAdapter;//常用药品adapter
@@ -101,7 +103,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
 
     private ViewPager mViewPagerAD;
     private ViewPagerAdAdapter AdAdapter;
-    private List<Rows> mListAd = new ArrayList<>();//广告图片集合
+    private List<com.technology.yuyi.bean.NewAdList.Rows> mListAd = new ArrayList<>();//广告图片集合
     private ImageView mCircleImg;
     private ImageView[] mArrImageView;//存放广告小圆点的数组
     private ViewGroup mGroup;//存放小圆点容器
@@ -162,24 +164,27 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             }
 
             //首页资讯2条数据
-            else if (msg.what == 22) {
+            else if (msg.what == 41) {
                 Object o = msg.obj;
-                if (o != null && o instanceof com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root) {
-                    com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root root = (com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.Root) o;
-                    mInforList = root.getRows();
-                    mListViewAdapter.setList(mInforList);
-                    mListViewAdapter.notifyDataSetChanged();
-                    mSwipeRefresh.setRefreshing(false);
+                if (o != null && o instanceof com.technology.yuyi.bean.NewInformationList.Root) {
+                    com.technology.yuyi.bean.NewInformationList.Root root = (com.technology.yuyi.bean.NewInformationList.Root) o;
+                    if (root != null) {
+                        mInforList = root.getRows();
+                        mListViewAdapter.setList(mInforList);
+                        mListViewAdapter.notifyDataSetChanged();
+                        mSwipeRefresh.setRefreshing(false);
+                    }
+
                 }
                 //资讯请求失败
             } else if (msg.what == 202) {
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 203) {
                 mSwipeRefresh.setRefreshing(false);
-            } else if (msg.what == 31) {//广告接口
+            } else if (msg.what == 42) {//广告接口
                 Object o = msg.obj;
-                if (o != null && o instanceof Root) {
-                    Root root = (Root) o;
+                if (o != null && o instanceof com.technology.yuyi.bean.NewAdList.Root) {
+                    com.technology.yuyi.bean.NewAdList.Root root = (com.technology.yuyi.bean.NewAdList.Root) o;
                     if (root.getResult().getRows().size() != 0) {
                         mGroup.removeAllViews();
                         mListAd.clear();
@@ -204,11 +209,19 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 Object o = msg.obj;
                 if (o != null && o instanceof com.technology.yuyi.bean.FirstPageUserDataBean.Root) ;
                 com.technology.yuyi.bean.FirstPageUserDataBean.Root root = (com.technology.yuyi.bean.FirstPageUserDataBean.Root) o;
-                mUserData.clear();
-                mAllUser_ll.removeAllViews();
                 if (root != null && root.getResult() != null) {
+                    mUserData.clear();
+                    mAllUser_ll.removeAllViews();
                     mUserData = root.getResult();
-                    initUserMessage();//初始化用户的头像和昵称，绘制折线图
+                    try {
+                        initUserMessage();//初始化用户的头像和昵称，绘制折线图
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    again_login_rl.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(), "信息错误，请重新登录", Toast.LENGTH_SHORT).show();
                 }
                 mSwipeRefresh.setRefreshing(false);
             } else if (msg.what == 231) {
@@ -357,10 +370,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private LinearLayout addlinear;
     //添加图片
     private ImageView imageView;
-
-    private String greenColor = "#25f368";
     private String grayColor = "#6a6a6a";
-    private String redColor = "#ec2e2e";
     private ImageView mPromptImg;
     private TextView mPromptTv;
     private TextView mHeightBloodTv;
@@ -376,11 +386,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     private View mSureAlertView;
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
-
     public boolean isLoop = true;
+    private RelativeLayout again_login_rl;//显示重新登录页面
 
     public FirstPageFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -402,8 +412,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
     public void initHttp() {
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
-        mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
-        mHttptools.getAdData(mHttpHandler);//广告接口
+        mHttptools.getNewInformationList(mHttpHandler, 0, 2);//修改后的资讯列表
+        mHttptools.getNewAdList(mHttpHandler);//修改后的广告接口
     }
 
     @Override
@@ -418,6 +428,8 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * @param view
      */
     public void initView(View view) {
+        again_login_rl = (RelativeLayout) view.findViewById(R.id.again_login_rl);
+        again_login_rl.setOnClickListener(this);
         //消息图片
         mMessage_img = (ImageView) view.findViewById(R.id.message_img);
         mMessage_img.setOnClickListener(this);
@@ -429,10 +441,10 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             @Override
             public void onRefresh() {
                 mHttptools.getFirstSixDrugData(mHttpHandler);//首页常用药品6条数据
-                mHttptools.getFirstPageInformationTwoData(mHttpHandler, 0, 2);//首页资讯2条数据
+                mHttptools.getNewInformationList(mHttpHandler, 0, 2);//首页资讯2条数据
 
                 mViewPagerAD.clearOnPageChangeListeners();
-                mHttptools.getAdData(mHttpHandler);//广告
+                mHttptools.getNewAdList(mHttpHandler);//广告
 
                 tvlist.clear();
                 heightBloodData.clear();
@@ -470,8 +482,13 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         mFirstPageListView.setAdapter(mListViewAdapter);
         mFirstPageListView.setOnItemClickListener(this);
 
+
         //广告viewpager
         mViewPagerAD = (ViewPager) view.findViewById(R.id.viewpager_title);
+        ViewGroup.LayoutParams params = mViewPagerAD.getLayoutParams();
+        params.height = ImgUitls.getWith(getActivity()) / 2;
+        mViewPagerAD.setLayoutParams(params);
+
         AdAdapter = new ViewPagerAdAdapter(getActivity(), mListAd);
         //初始化存放小圆点的容器(广告)
         mGroup = (ViewGroup) view.findViewById(R.id.viewGroup);
@@ -620,19 +637,15 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         int id = v.getId();
         if (id == mInformation_rl.getId()) {//资讯跳转
             startActivity(new Intent(this.getActivity(), InformationActivity.class));
-        } else if (id == R.id.drugmall_ll) {//预约挂号
-
+        } else if (id == R.id.drugmall_ll) {//医药商城
             Intent intent = new Intent();
-            intent.setClass(getActivity(),MS_drugState.class);
-//            intent.setClass(getActivity(), MS_home_Activity.class);
+            intent.setClass(getActivity(), MS_drugState.class);
             startActivity(intent);
-        } else if (id == mRegister_ll.getId()) {//医药商城
+        } else if (id == mRegister_ll.getId()) {//预约挂号
             startActivity(new Intent(this.getActivity(), AppointmentActivity.class));
         } else if (id == mEdit_rl.getId()) {//跳转到搜索页
             Intent intent = new Intent(this.getActivity(), SearchActivity.class);
-            intent.putExtra("type", "hospital");
             startActivity(intent);
-
         } else if (id == mStaple_drug_rl.getId()) { //跳转到常用药品
             Intent intent = new Intent(this.getActivity(), MS_allkinds_activity.class);
             intent.putExtra("type", 2);
@@ -825,10 +838,11 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
      * 初始化用户数据
      */
     public void initUserMessage() {
+
         for (int i = 0; i < mUserData.size(); i++) {
             final int k = i;
             //用户布局
-             linearLayout = new LinearLayout(getActivity());
+            linearLayout = new LinearLayout(getActivity());
             linearLayout.setId(View.generateViewId());
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setGravity(Gravity.CENTER);
@@ -837,8 +851,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             //用户头像
             roundImageView = new RoundImageView(this.getActivity());
             Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.usererr).into(roundImageView);
-
-            //Picasso.with(getActivity()).load(UrlTools.BASE + mUserData.get(i).getAvatar()).error(R.mipmap.error_small).into(roundImageView);
             imglist.add(roundImageView);
             //用户真实姓名
             textView = new TextView(this.getActivity());
@@ -849,7 +861,6 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
                 textView.setTextColor(Color.parseColor("#1dbeec"));
             } else {
                 roundImageView.setLayoutParams(paramsImg);
-                //textView.setTextColor(Color.parseColor(grayColor));
                 textView.setVisibility(View.GONE);
             }
 
@@ -1045,7 +1056,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
         if (height == 0 && low == 0 && tem == 0) {
             mPromptImg.setVisibility(View.GONE);
             mPromptTv.setText("待测");
-            mPromptTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+            mPromptTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             mPromptTv.setVisibility(View.VISIBLE);
             mPromptTv.setTextColor(Color.parseColor(grayColor));
         }

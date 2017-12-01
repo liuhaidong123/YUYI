@@ -6,11 +6,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
@@ -24,15 +27,14 @@ import java.util.List;
 
 public class AppointmentActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private SwipeRefreshLayout mRefresh;
-
-    private InformationListView mListviewApp;
+    private ListView mListviewApp;
+    private View footer;
+    private ProgressBar footerBar;
+    private RelativeLayout nodata_rl;
     private AppointmentListViewAdapter mAdapter;
     private List<FirstPageInformationTwoData> mList = new ArrayList<>();
     private ImageView mBack;//返回
     private RelativeLayout mSearch_rl;//搜索
-
-    private RelativeLayout mMany_more;
-    private ProgressBar mBar;
     private int mStart = 0;
     private int mAddNum = 10;
     private HttpTools mHttptools;
@@ -50,19 +52,27 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
                     mAdapter.setList(mList);
                     mAdapter.notifyDataSetChanged();
                     mRefresh.setRefreshing(false);
-
-                    mBar.setVisibility(View.INVISIBLE);
+                    mListviewApp.removeFooterView(footer);
+                    footerBar.setVisibility(View.INVISIBLE);
                     if (list.size() == 10) {
-                        mMany_more.setVisibility(View.VISIBLE);
+                        mListviewApp.addFooterView(footer);
                     } else {
-                        mMany_more.setVisibility(View.GONE);
+                        mListviewApp.removeFooterView(footer);
+                    }
+
+                    if (mList.size() == 0) {
+                        nodata_rl.setVisibility(View.VISIBLE);
                     }
                 }
             } else if (msg.what == 213) {
-                mBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(AppointmentActivity.this, "医院信息错误", Toast.LENGTH_SHORT).show();
+                mListviewApp.removeFooterView(footer);
+                footerBar.setVisibility(View.GONE);
                 mRefresh.setRefreshing(false);
             } else if (msg.what == 214) {
-                mBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(AppointmentActivity.this, "医院信息错误", Toast.LENGTH_SHORT).show();
+                mListviewApp.removeFooterView(footer);
+                footerBar.setVisibility(View.GONE);
                 mRefresh.setRefreshing(false);
             }
 
@@ -77,6 +87,9 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void initView() {
+        nodata_rl = (RelativeLayout) findViewById(R.id.nodata_rl);
+        nodata_rl.setOnClickListener(this);
+
         mRefresh = (SwipeRefreshLayout) findViewById(R.id.app_refresh);
         mRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
         mRefresh.setRefreshing(true);
@@ -85,29 +98,18 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
             public void onRefresh() {
                 mStart = 0;
                 mList.clear();
-                mMany_more.setVisibility(View.GONE);
                 mAdapter.notifyDataSetChanged();
-                mHttptools.getAppintmentData(mHandler, 0, 10);
+                mHttptools.getAppintmentData(mHandler, mStart, mAddNum);
             }
         });
         //获取首页数据
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getAppintmentData(mHandler, 0, 10);
-
-        mMany_more = (RelativeLayout) findViewById(R.id.in_many_relative);
-        mBar = (ProgressBar) findViewById(R.id.in_pbLocate);
-        mMany_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBar.setVisibility(View.VISIBLE);
-                mStart += 10;
-                mHttptools.getAppintmentData(mHandler, mStart, mAddNum);
-            }
-        });
-
+        mHttptools.getAppintmentData(mHandler, mStart, mAddNum);
         //预约挂号listview
-        mListviewApp = (InformationListView) findViewById(R.id.app_listview_id);
+        mListviewApp = (ListView) findViewById(R.id.app_listview_id);
         mListviewApp.setOnItemClickListener(this);
+        footer = LayoutInflater.from(this).inflate(R.layout.circle_listview_footer, null);
+        footerBar = (ProgressBar) footer.findViewById(R.id.pbLocate);
         mAdapter = new AppointmentListViewAdapter(this, mList);
         mListviewApp.setAdapter(mAdapter);
         //返回键
@@ -126,16 +128,22 @@ public class AppointmentActivity extends AppCompatActivity implements View.OnCli
             finish();
         } else if (id == mSearch_rl.getId()) {//点击edittext跳转
             Intent intent = new Intent(this, SearchActivity.class);
-            intent.putExtra("type", "hospital");
             startActivity(intent);
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, AllHospitalDepartmentActivity.class);
-        intent.putExtra("hid", mList.get(position).getId());
-        intent.putExtra("hospital_name", mList.get(position).getHospitalName());
-        startActivity(intent);
+        if (position == mList.size()) {
+            footerBar.setVisibility(View.VISIBLE);
+            mStart += 10;
+            mHttptools.getAppintmentData(mHandler, mStart, mAddNum);
+        } else {
+            Intent intent = new Intent(this, AllHospitalDepartmentActivity.class);
+            intent.putExtra("hid", mList.get(position).getId());
+            intent.putExtra("hospital_name", mList.get(position).getHospitalName());
+            startActivity(intent);
+        }
+
     }
 }

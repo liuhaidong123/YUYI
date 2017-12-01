@@ -12,8 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
@@ -29,17 +32,17 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- *zixun
+ * zixun
  */
 public class AskFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private InformationListView mListview;
+    private ListView mListview;
     private AskListViewAdapter mAdapter;
     private List<FirstPageInformationTwoData> mList = new ArrayList<>();
-    private SwipeRefreshLayout mRefreshLaout;
-
-    private RelativeLayout mMany_more;
-    private ProgressBar mProgress;
+    private SwipeRefreshLayout mRefreshLaout,mNODataRefresh;
+    private TextView mNoMsg_Tv;
+    private View footer;
+    private ProgressBar footerBar;
     private HttpTools mHttptools;
 
     private int mStart = 0;
@@ -52,24 +55,48 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
                 Object o = msg.obj;
                 if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
                     FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
-                    List<FirstPageInformationTwoData> list = new ArrayList<>();
-                    list = root.getRows();
-                    mList.addAll(list);
-                    mAdapter.setmList(mList);
-                    mAdapter.notifyDataSetChanged();
-                    mRefreshLaout.setRefreshing(false);
-                    mProgress.setVisibility(View.INVISIBLE);
-                    if (list.size() == 10) {
-                        mMany_more.setVisibility(View.VISIBLE);
-                    } else {
-                        mMany_more.setVisibility(View.GONE);
+                    if (root!=null&&root.getRows()!=null){
+
+                        List<FirstPageInformationTwoData> list = new ArrayList<>();
+                        list = root.getRows();
+                        mListview.removeFooterView(footer);
+                        footerBar.setVisibility(View.INVISIBLE);
+                        mList.addAll(list);
+                        mAdapter.setmList(mList);
+                        mAdapter.notifyDataSetChanged();
+                        mRefreshLaout.setRefreshing(false);
+                        if (list.size() == 10) {
+                            mListview.addFooterView(footer);
+                        } else {
+                            mListview.removeFooterView(footer);
+                        }
+
+                        if (mList.size()==0){
+                            mNODataRefresh.setVisibility(View.VISIBLE);
+                            mNoMsg_Tv.setText("暂无医院信息");
+                        }else {
+                            mNODataRefresh.setVisibility(View.GONE);
+                            mNoMsg_Tv.setText("");
+                        }
+                    }else {//账号异常，重新登录
+                        mNODataRefresh.setVisibility(View.VISIBLE);
+                        mNoMsg_Tv.setText("账号异常,请重新登录");
                     }
+
                 }
             } else if (msg.what == 205) {
-                mProgress.setVisibility(View.INVISIBLE);
+                mNODataRefresh.setVisibility(View.VISIBLE);
+                mNoMsg_Tv.setText("医院信息错误,请检查账号异常");
+                mListview.removeFooterView(footer);
+                footerBar.setVisibility(View.INVISIBLE);
                 mRefreshLaout.setRefreshing(false);
+                Toast.makeText(getActivity(),"医院信息错误",Toast.LENGTH_SHORT).show();
             } else if (msg.what == 206) {
-                mProgress.setVisibility(View.INVISIBLE);
+                mNODataRefresh.setVisibility(View.VISIBLE);
+                mNoMsg_Tv.setText("医院信息错误,请检查账号异常");
+                Toast.makeText(getActivity(),"医院信息错误",Toast.LENGTH_SHORT).show();
+                mListview.removeFooterView(footer);
+                footerBar.setVisibility(View.INVISIBLE);
                 mRefreshLaout.setRefreshing(false);
             }
         }
@@ -88,26 +115,14 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
     }
 
     public void initView(View view) {
-
-
         Log.e("纬度", user.Latitude + "");
         Log.e("经度", user.Longitude + "");
-
         mHttptools = HttpTools.getHttpToolsInstance();
-        mHttptools.getAskData(handler, 0, 10);
+        mHttptools.getAskData(handler, mStart, mAddNum);
 
-        mMany_more = (RelativeLayout) view.findViewById(R.id.many_relative);
-        mProgress = (ProgressBar) view.findViewById(R.id.pbLocate);
-        //点击加载更多显示数据
-        mMany_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mProgress.setVisibility(View.VISIBLE);
-                mStart += 10;
-                mHttptools.getAskData(handler, mStart, mAddNum);
-            }
-        });
-        mListview = (InformationListView) view.findViewById(R.id.hospital_listview);
+        mListview = (ListView) view.findViewById(R.id.hospital_listview);
+        footer = LayoutInflater.from(getActivity()).inflate(R.layout.circle_listview_footer, null);
+        footerBar = (ProgressBar) footer.findViewById(R.id.pbLocate);
         mAdapter = new AskListViewAdapter(this.getActivity(), mList);
         mListview.setAdapter(mAdapter);
         mListview.setOnItemClickListener(this);
@@ -119,23 +134,38 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
             @Override
             public void onRefresh() {
                 mStart = 0;
-                mMany_more.setVisibility(View.GONE);
+                mListview.removeFooterView(footer);
                 mList.clear();
                 mAdapter.notifyDataSetChanged();
-                mHttptools.getAskData(handler, 0, 10);
+                mHttptools.getAskData(handler,mStart, mAddNum);
             }
         });
+        mNODataRefresh= (SwipeRefreshLayout) view.findViewById(R.id.error_data_refresh);
+        mNODataRefresh.setColorSchemeResources(R.color.color_delete, R.color.color_username, R.color.trans2);
+        mNODataRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mStart = 0;
+                mListview.removeFooterView(footer);
+                mList.clear();
+                mAdapter.notifyDataSetChanged();
+                mHttptools.getAskData(handler, mStart, mAddNum);
+            }
+        });
+        mNoMsg_Tv= (TextView) view.findViewById(R.id.no_msg_tv);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent intent = new Intent(this.getActivity(), HospitalDetailsActivity.class);
-        intent.putExtra("id", mList.get(position).getId());
-        startActivity(intent);
-
-
+        if (position == mList.size()) {
+            footerBar.setVisibility(View.VISIBLE);
+            mStart += 10;
+            mHttptools.getAskData(handler, mStart, mAddNum);
+        } else {
+            Intent intent = new Intent(this.getActivity(), HospitalDetailsActivity.class);
+            intent.putExtra("id", mList.get(position).getId());
+            startActivity(intent);
+        }
     }
-
-
 }

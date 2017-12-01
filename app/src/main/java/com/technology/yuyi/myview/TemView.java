@@ -84,19 +84,20 @@ public class TemView extends View {
         //折线画笔
         linePaint = new Paint();
         linePaint.setAntiAlias(true);
-        linePaint.setColor(Color.parseColor(paintColor));
+        linePaint.setStrokeWidth(dip2px(1f));
+        linePaint.setColor(Color.parseColor(myColor));
         linePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         //实心圆圈画笔
         mSolidCirclePaint = new Paint();
         mSolidCirclePaint.setStyle(Paint.Style.FILL);
         mSolidCirclePaint.setStrokeWidth(dip2px(2));
-        mSolidCirclePaint.setColor(Color.parseColor(paintColor));
+        mSolidCirclePaint.setColor(Color.parseColor(myColor));
         mSolidCirclePaint.setAntiAlias(true);
 
         //实心圆圈外边的大圆画笔
         mStrokeCirclePaint = new Paint();
-        mStrokeCirclePaint.setColor(Color.parseColor(paintColor));
+        mStrokeCirclePaint.setColor(Color.parseColor(myColor));
         mStrokeCirclePaint.setAntiAlias(true);
         mStrokeCirclePaint.setStyle(Paint.Style.STROKE);
         mStrokeCirclePaint.setStrokeWidth(dip2px(1));
