@@ -16,10 +16,7 @@ import android.widget.ListView;
 
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.CurrentBloodActivity;
-import com.technology.yuyi.activity.CurrentTemActivity;
 import com.technology.yuyi.activity.CurrentTemActivity2;
-import com.technology.yuyi.activity.HandInputBloodActivity;
-import com.technology.yuyi.activity.HandInputTemActivity;
 import com.technology.yuyi.adapter.MeasureListViewAdapter;
 import com.technology.yuyi.bean.MyEntity;
 

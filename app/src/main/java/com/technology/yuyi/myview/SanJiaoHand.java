@@ -26,14 +26,17 @@ public class SanJiaoHand extends View {
     private TextView textView;
     private TextView du;
     private TextView mPrompt_tv;
-   private DecimalFormat df = new DecimalFormat("######0.0");
-    public SanJiaoHand(Context context, double mTemNum, TextView textView,TextView du,TextView mPrompt_tv) {
+    private float endPoint;
+    private float startY;
+    private DecimalFormat df = new DecimalFormat("######0.0");
+
+    public SanJiaoHand(Context context, double mTemNum, TextView textView, TextView du, TextView mPrompt_tv) {
         super(context);
         this.mContext = context;
         this.mTemNum = mTemNum;
         this.textView = textView;
-        this.du=du;
-        this.mPrompt_tv=mPrompt_tv;
+        this.du = du;
+        this.mPrompt_tv = mPrompt_tv;
     }
 
     public SanJiaoHand(Context context, AttributeSet attrs) {
@@ -56,11 +59,14 @@ public class SanJiaoHand extends View {
         paint.setAntiAlias(true);
         paint.setColor(Color.parseColor("#ffffff"));
         paint.setStrokeWidth(dip2px(1));
-        double a = 235 - (mTemNum - 34) * 5 * 5;//计算每次体温下，三角形正对的刻度
+
+        startY =  ((getHeight() - dip2px(75f) - dip2px(24) - dip2px(35)) / 41);//每个小格的刻度值
+        endPoint = getHeight() - dip2px(75f) - dip2px(24)-startY*5;
+        float  a = (float) (getHeight() - dip2px(75f) - dip2px(24) - dip2px(35) - (mTemNum - 34) * 5 * startY);//计算每次体温下，三角形正对的刻度
         Path path = new Path();//画三角形
-        path.moveTo(getWidth() / 2, dip2px(a));
-        path.lineTo(getWidth() / 2 + dip2px(30), dip2px(a - 10));
-        path.lineTo(getWidth() / 2 + dip2px(30), dip2px(a + 10));
+        path.moveTo(getWidth() / 2, a + dip2px(35));
+        path.lineTo(getWidth() / 2 + dip2px(30), a + dip2px(25));
+        path.lineTo(getWidth() / 2 + dip2px(30), a + dip2px(45));
         path.close();
         canvas.drawPath(path, paint);
         if (Double.valueOf(mTemNum) <= 36) {
@@ -106,15 +112,13 @@ public class SanJiaoHand extends View {
 
     float x, y;
 
-    //当你触到按钮时，event.getX();event.getY();是相对于该按钮左上点（h画布本身）的相对位置。
+    //当你触到按钮时，event.getX();event.getY();是相对于该按钮画布本身的相对位置。
     // 而event.getRawX();event.getRawY();始终是相对于屏幕的位置。
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-               // Toast.makeText(mContext, "按下", Toast.LENGTH_SHORT).show();
-              //  x = event.getX();
-              //  y = event.getY();
+
                 Log.e("getx", event.getX() + "");
                 Log.e("gety", event.getY() + "");
                 Log.e("getRawX", event.getRawX() + "");
@@ -124,21 +128,22 @@ public class SanJiaoHand extends View {
                 x = event.getX();
                 y = event.getY();
                 //在规定范围内移动三角形
-                if (y > dip2px(35) && y < dip2px(235) && x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
-                    mTemNum = (235 - px2dip(mContext, y)) / 25 + 34;
+                if (y > dip2px(35) && y < endPoint && x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
+
+                   mTemNum=((getHeight() - dip2px(75f) - dip2px(24) - dip2px(35))-(y-dip2px(35)))/startY/5+34;
                     invalidate();
                     //保留一位小数
                     String temNum = df.format(mTemNum);
                     textView.setText(temNum + "");
                 }
-               // Toast.makeText(mContext, "移动", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "移动", Toast.LENGTH_SHORT).show();
                 break;
             case MotionEvent.ACTION_UP:
                 x = event.getX();
                 y = event.getY();
                 //点击三角形显示刻度
-                if (y > dip2px(35) && y < dip2px(235)&& x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
-                    mTemNum = (235 - px2dip(mContext, y)) / 25 + 34;
+                if (y > dip2px(35) && y < endPoint && x < getWidth() / 2 + dip2px(30) && x > getWidth() / 2) {
+                    mTemNum=((getHeight() - dip2px(75f) - dip2px(24) - dip2px(35))-(y-dip2px(35)))/startY/5+34;
                     invalidate();
                     //保留一位小数
                     String temNum = df.format(mTemNum);

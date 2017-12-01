@@ -38,14 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/navigate_bg"
+        android:background="#383a41"
         android:orientation="vertical">
 
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:background="@color/color_cancel" />-->
 
         <LinearLayout
             android:id="@+id/firstpage_btn_ll_all"
@@ -100,7 +95,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/measure_name"
-                    android:textColor="@color/navigate_tv_select_no" />
+                    android:textColor="#a6a6a6" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,7 +119,7 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/ask_name"
-                    android:textColor="@color/navigate_tv_select_no" />
+                    android:textColor="#a6a6a6" />
             </LinearLayout>
 
             <LinearLayout
@@ -148,13 +143,11 @@
                     android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="@string/my_name"
-                    android:textColor="@color/navigate_tv_select_no" />
+                    android:textColor="#a6a6a6" />
             </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
-
-
 
     <RelativeLayout
         android:id="@+id/fragment_relative"
@@ -163,4 +156,5 @@
         android:layout_above="@id/all_ll_btn">
 
     </RelativeLayout>
+
 </RelativeLayout>

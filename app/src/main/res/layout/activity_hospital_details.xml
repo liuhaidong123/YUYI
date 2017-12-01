@@ -61,14 +61,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#000000">
+                    android:background="#8b000000">
 
                     <TextView
                         android:id="@+id/tv_hospital"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="15dp"
                         android:text=""
                         android:textColor="@color/color_white"
                         android:textSize="16sp" />
@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@id/rl_head"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:gravity="center_vertical"
                 android:text=""
                 android:textColor="@color/color_normal"
@@ -104,7 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_hospital_mess"
                 android:layout_marginBottom="34dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:text=""
                 android:textColor="@color/color_press"
                 android:textSize="15sp" />

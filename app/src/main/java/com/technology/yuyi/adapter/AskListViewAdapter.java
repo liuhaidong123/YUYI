@@ -1,6 +1,7 @@
 package com.technology.yuyi.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class AskListViewAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context mContext;
     private List<FirstPageInformationTwoData> mList = new ArrayList<>();
-
+    private int a=0;
     public AskListViewAdapter(Context mContext, List<FirstPageInformationTwoData> mList) {
         this.mContext = mContext;
         this.mList = mList;
@@ -54,6 +55,8 @@ public class AskListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        a++;
+        Log.e("医院a=",a+"");
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
@@ -67,7 +70,7 @@ public class AskListViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.img);
+        Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getPicture()).error(R.mipmap.errorpicture).into(viewHolder.img);
         viewHolder.title_tv.setText(mList.get(position).getHospitalName());
         viewHolder.tel_tv.setText(mList.get(position).getTell());
         viewHolder.address_tv.setText("地址:"+mList.get(position).getAddress());

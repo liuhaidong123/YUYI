@@ -25,7 +25,7 @@ public class Information {
 
     private String createTime;
 
-    private int grade;
+    private String grade;
 
     private long id;
 
@@ -95,10 +95,10 @@ public class Information {
     public String getCreateTime(){
         return this.createTime;
     }
-    public void setGrade(int grade){
+    public void setGrade(String grade){
         this.grade = grade;
     }
-    public int getGrade(){
+    public String getGrade(){
         return this.grade;
     }
     public void setId(long id){

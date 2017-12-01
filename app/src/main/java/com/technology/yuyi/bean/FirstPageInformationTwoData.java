@@ -30,7 +30,7 @@ public class FirstPageInformationTwoData {
 
     private String createTime;
 
-    private int grade;
+    private String grade;
 
     private int id;
 
@@ -130,10 +130,10 @@ public class FirstPageInformationTwoData {
     public String getCreateTime(){
         return this.createTime;
     }
-    public void setGrade(int grade){
+    public void setGrade(String grade){
         this.grade = grade;
     }
-    public int getGrade(){
+    public String getGrade(){
         return this.grade;
     }
     public void setId(int id){

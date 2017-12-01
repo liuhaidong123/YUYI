@@ -64,7 +64,7 @@ public class SelectRegisterPersonGridViewAlertAdapter extends BaseAdapter {
         textView = (TextView) convertView.findViewById(R.id.name_alert);
 
         if (position < mList.size()) {
-            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getAvatar()).error(R.mipmap.error_small).into(imageView);
+            Picasso.with(mContext).load(UrlTools.BASE + mList.get(position).getAvatar()).error(R.mipmap.usererr).into(imageView);
             textView.setText(mList.get(position).getTrueName());
         }
 

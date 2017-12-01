@@ -3,12 +3,12 @@
     xmlns:melove="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/navigate_bg">
+    android:background="#383a41">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/navigate_bg"
+        android:background="#383a41"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -17,7 +17,7 @@
             android:id="@+id/show_name_ll"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@color/navigate_bg"
+            android:background="#383a41"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="122"
-                android:textColor="@color/color_white"
+                android:textColor="#ffffff"
                 android:textSize="14sp"
                 android:visibility="gone" />
 
@@ -41,7 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:background="@color/color_white">
+            android:background="#ffffff">
 
             <com.technology.yuyi.myview.RoundImageView
                 android:id="@+id/img_small"

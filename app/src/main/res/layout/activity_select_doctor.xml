@@ -8,7 +8,6 @@
     tools:context="com.technology.yuyi.activity.SelectDoctorActivity">
 
     <RelativeLayout
-
         android:id="@+id/doctor_title"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -40,88 +39,120 @@
         android:layout_below="@id/doctor_title"
         android:background="@color/color_bg" />
 
-
     <RelativeLayout
-        android:id="@+id/select_date_rl"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@id/doc_line"
-        android:background="@color/color_white">
-
-        <ImageView
-            android:id="@+id/left_date_img"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:background="@color/color_scroll_bg"
-            android:src="@mipmap/left_date" />
-
-        <ImageView
-            android:id="@+id/right_date_img"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@color/color_scroll_bg"
-            android:src="@mipmap/right_date" />
-
-        <TextView
-            android:id="@+id/date_msg_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toLeftOf="@id/right_date_img"
-            android:layout_toRightOf="@id/left_date_img"
-            android:gravity="center"
-            android:textColor="@color/navigate_tv_select"
-            android:textSize="15sp" />
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/doc1_line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/select_date_rl"
-        android:background="@color/color_bg" />
-
-    <LinearLayout
-        android:id="@+id/morning_afternoon_ll"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/doc1_line">
-
-        <TextView
-            android:id="@+id/morning_tv_btn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/navigate_tv_select"
-            android:gravity="center"
-            android:text="上午"
-            android:textColor="@color/color_white" />
-
-        <TextView
-            android:id="@+id/afternoon_tv_msg"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/color_white"
-            android:gravity="center"
-            android:text="下午"
-            android:textColor="@color/color_drumall" />
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/doctor_listview"
+        android:id="@+id/doctor_all_data_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/morning_afternoon_ll"
-        android:layout_marginTop="15dp"
+        android:layout_below="@id/doc_line"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/select_date_rl"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/color_white">
+
+            <ImageView
+                android:id="@+id/left_date_img"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@color/color_scroll_bg"
+                android:src="@mipmap/left_date" />
+
+            <ImageView
+                android:id="@+id/right_date_img"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/color_scroll_bg"
+                android:src="@mipmap/right_date" />
+
+            <TextView
+                android:id="@+id/date_msg_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/right_date_img"
+                android:layout_toRightOf="@id/left_date_img"
+                android:gravity="center"
+                android:textColor="@color/navigate_tv_select"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/doc1_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/select_date_rl"
+            android:background="@color/color_bg" />
+
+        <LinearLayout
+            android:id="@+id/morning_afternoon_ll"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/doc1_line">
+
+            <TextView
+                android:id="@+id/morning_tv_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/navigate_tv_select"
+                android:gravity="center"
+                android:text="上午"
+                android:textColor="@color/color_white" />
+
+            <TextView
+                android:id="@+id/afternoon_tv_msg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/color_white"
+                android:gravity="center"
+                android:text="下午"
+                android:textColor="@color/color_drumall" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/doctor_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/morning_afternoon_ll"
+            android:layout_marginTop="15dp"
+            android:background="@color/color_white"
+            android:divider="@color/color_scroll_bg"
+            android:dividerHeight="10dp">
+
+        </ListView>
+    </RelativeLayout>
+
+    <!--没有数据页面-->
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/nodata_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/doc_line"
         android:background="@color/color_white"
-        android:divider="@color/color_scroll_bg"
-        android:dividerHeight="10dp">
+       >
 
+        <ImageView
+            android:id="@+id/login_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/nothings" />
 
-    </ListView>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_img"
+            android:layout_centerHorizontal="true"
+            android:text="此科室暂无医生信息"
+            android:textColor="@color/color_dd"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </RelativeLayout>

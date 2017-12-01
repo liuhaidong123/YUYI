@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
@@ -65,16 +67,23 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
                 Object o = msg.obj;
                 if (o != null && o instanceof Root) {
                     Root root = (Root) o;
-                    mList = root.getResult();
-                    mAdapter.setList(mList);
-                    mAdapter.notifyDataSetChanged();
-                    mRefresh.setRefreshing(false);
+                    if (root!=null&&root.getResult()!=null){
+                        mList = root.getResult();
+                        mAdapter.setList(mList);
+                        mAdapter.notifyDataSetChanged();
+                        mRefresh.setRefreshing(false);
 
-                    if (mList.size() == 6) {
-                        mAdd_rl.setVisibility(View.GONE);
-                    } else {
-                        mAdd_rl.setVisibility(View.VISIBLE);
+                        if (mList.size() == 6) {
+                            mAdd_rl.setVisibility(View.GONE);
+                        } else {
+                            mAdd_rl.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+                        //显示重新登录
+                        again_login_rl.setVisibility(View.VISIBLE);
+                        Toast.makeText(CurrentBloodActivity.this,"信息错误，请重新登录",Toast.LENGTH_SHORT).show();
                     }
+
                 }
             } else if (msg.what == 225) {//json解析失败
                 mRefresh.setRefreshing(false);
@@ -103,6 +112,7 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
         }
     };
 
+    private RelativeLayout again_login_rl;//显示重新登录页面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,8 +121,11 @@ public class CurrentBloodActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void initView() {
+        again_login_rl= (RelativeLayout)findViewById(R.id.again_login_rl);
+        again_login_rl.setOnClickListener(this);
         //请求用户列表
         mMap.put("token", user.token);
+        Log.e("token=",user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
         //异常提示
         mDataMsg_tv= (TextView) findViewById(R.id.normal_tv);

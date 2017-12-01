@@ -4,7 +4,7 @@
     android:id="@+id/activity_hand_input_tem2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_white"
+    android:background="#ffffff"
     tools:context="com.technology.yuyi.activity.HandInputTemActivity2">
 
     <RelativeLayout
@@ -28,12 +28,10 @@
             android:gravity="center"
             android:text="手动输入"
             android:textColor="@color/color_normal"
-            android:textSize="17sp"
-            />
+            android:textSize="17sp" />
 
 
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/tem_data_rl"
@@ -41,7 +39,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/frame_id"
         android:layout_below="@id/current_title"
-        android:background="@color/navigate_bg">
+        android:background="#383a41">
 
         <TextView
             android:id="@+id/btn_sure"
@@ -104,18 +102,17 @@
 
     </RelativeLayout>
 
-
     <FrameLayout
         android:id="@id/frame_id"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_white">
+        android:background="#ffffff">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="@color/navigate_bg">
+            android:background="#383a41">
 
         </View>
 
@@ -123,9 +120,41 @@
             android:id="@+id/recycle_id"
             android:layout_width="wrap_content"
             android:layout_height="120dp"
-            android:background="@color/color_white">
+            android:background="#ffffff">
 
         </android.support.v7.widget.RecyclerView>
     </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/again_login_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/current_title"
+        android:background="#ffffff"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/color_aa" />
+
+        <ImageView
+            android:id="@+id/nothing_img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/nothing" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nothing_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="信息错误:请重新登录"
+            android:textColor="@color/color_aa"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

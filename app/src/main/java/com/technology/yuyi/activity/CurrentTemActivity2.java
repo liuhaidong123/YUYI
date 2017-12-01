@@ -70,9 +70,11 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
                         mAdapter.setmList(mList);
                         mAdapter.setShowNameList(showNameList);
                         mRecycleview.setAdapter(mAdapter);
-                        // mAdapter.notifyDataSetChanged();
                         mPosintion = 0;
                         isSelect = true;
+                    }else {//重新登录
+                        again_login_rl.setVisibility(View.VISIBLE);
+                        Toast.makeText(CurrentTemActivity2.this,"信息错误，请重新登录",Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -107,7 +109,7 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
     private TextView mPrompt;//去完善
     private TextView mPrompt_Cancel;//取消
     private RelativeLayout mTem_rl;
-
+    private RelativeLayout again_login_rl;//显示重新登录页面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +121,8 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
     }
 
     private void initUI() {
-
+        again_login_rl= (RelativeLayout)findViewById(R.id.again_login_rl);
+        again_login_rl.setOnClickListener(this);
         mRecycleview = (RecyclerView) findViewById(R.id.recycle_id);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(OrientationHelper.HORIZONTAL);//水平走向
@@ -183,7 +186,7 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         mName = (TextView) findViewById(R.id.name);
         //显示温度计
         mTem_rl = (RelativeLayout) findViewById(R.id.my_tem_rl);
-        SanJiao sanJiao=new SanJiao(this,40.2,mCurrent_tem);//需要将温度计测量的体温传过去，现在数据测试
+        SanJiao sanJiao=new SanJiao(this,39,mCurrent_tem);//需要将温度计测量的体温传过去，现在数据测试
         TherC therC = new TherC(this);
         mTem_rl.addView(therC);
         mTem_rl.addView(sanJiao);

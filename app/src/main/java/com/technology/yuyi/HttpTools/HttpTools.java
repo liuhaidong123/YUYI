@@ -77,8 +77,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败6条数据：", strMsg.toString());
                 handler.sendEmptyMessage(201);
@@ -118,8 +118,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败资讯2条数据：", strMsg);
                 handler.sendEmptyMessage(203);
@@ -159,8 +159,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败资讯2条数据详情：", strMsg);
             }
@@ -199,15 +199,14 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败资讯2条数据：", strMsg);
                 handler.sendEmptyMessage(203);
             }
         });
     }
-
 
 
     /**
@@ -242,8 +241,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败咨询页面数据：", strMsg);
                 handler.sendEmptyMessage(206);
@@ -283,8 +282,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败咨询据详情：", strMsg);
                 handler.sendEmptyMessage(207);
@@ -327,8 +326,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure：", "获取验证码失败" + strMsg);
                 handler.sendEmptyMessage(209);
@@ -369,8 +368,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 handler.sendEmptyMessage(211);
                 Log.e("onFailure：", "登录失败" + strMsg);
@@ -384,7 +383,7 @@ public class HttpTools {
      */
     public void getUserMessage(final Handler handler, String token) {
         String url = UrlTools.BASE + UrlTools.URL_USER_MESSAGE + "token=" + token;
-        Log.e("onSuccess：",UrlTools.BASE + UrlTools.URL_USER_MESSAGE+token );
+        Log.e("onSuccess：", UrlTools.BASE + UrlTools.URL_USER_MESSAGE + token);
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -412,8 +411,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure：", "获取用户信息失败" + strMsg);
                 handler.sendEmptyMessage(212);
@@ -456,8 +455,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败预约挂号数据：", strMsg);
                 handler.sendEmptyMessage(214);
@@ -500,8 +499,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 handler.sendEmptyMessage(216);
                 Log.e("onFailure请求失败医院科室数据：", strMsg);
@@ -537,13 +536,14 @@ public class HttpTools {
                     handler.sendEmptyMessage(217);
                 }
             }
+
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
-                Log.e("onFailure请求失败医院科室数据：", strMsg+"");
+                Log.e("onFailure请求失败医院科室数据：", strMsg + "");
                 handler.sendEmptyMessage(218);
             }
         });
@@ -579,8 +579,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败轮播广告接口数据：", strMsg);
                 handler.sendEmptyMessage(219);
@@ -621,8 +621,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败查找药品数据：", strMsg);
                 handler.sendEmptyMessage(221);
@@ -662,8 +662,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败查找医院数据：", strMsg);
                 handler.sendEmptyMessage(223);
@@ -703,8 +703,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败轮播广告详情数据：", strMsg);
                 handler.sendEmptyMessage(224);
@@ -745,8 +745,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure：", "获取用户列表失败" + strMsg);
                 handler.sendEmptyMessage(226);
@@ -788,8 +788,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure：", "提交体温失败" + strMsg);
                 handler.sendEmptyMessage(228);
@@ -832,8 +832,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure：", "提交血压失败" + strMsg);
                 handler.sendEmptyMessage(230);
@@ -860,7 +860,7 @@ public class HttpTools {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功首页用户列表数据：", s);
                 try {
-                    com.technology.yuyi.bean.FirstPageUserDataBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.FirstPageUserDataBean.Root.class);
+                    com.technology.yuyi.bean.FirstPageUserDataBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.FirstPageUserDataBean.Root.class);
                     Message message = new Message();
                     message.what = 38;
                     message.obj = root;
@@ -875,19 +875,20 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求失败首页用户列表数据：", strMsg);
                 handler.sendEmptyMessage(232);
             }
         });
     }
+
     /**
      * 点击首页用户头像用户的数据
      */
-    public void getClickUserDataData(final Handler handler, String token,long humeuserId) {
-        String url = UrlTools.BASE + UrlTools.URL_CLICK_USER_HEAD_FIRST_PAGE + "token=" + token+"&humeuserId="+humeuserId;
+    public void getClickUserDataData(final Handler handler, String token, long humeuserId) {
+        String url = UrlTools.BASE + UrlTools.URL_CLICK_USER_HEAD_FIRST_PAGE + "token=" + token + "&humeuserId=" + humeuserId;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -900,7 +901,7 @@ public class HttpTools {
                 super.onSuccess(s);
                 Log.e("onSuccess请求成功点击数据：", s);
                 try {
-                    com.technology.yuyi.bean.FirstPageClickUserBean.Root root=mGson.fromJson(s, com.technology.yuyi.bean.FirstPageClickUserBean.Root.class);
+                    com.technology.yuyi.bean.FirstPageClickUserBean.Root root = mGson.fromJson(s, com.technology.yuyi.bean.FirstPageClickUserBean.Root.class);
                     Message message = new Message();
                     message.what = 39;
                     message.obj = root;
@@ -915,8 +916,8 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure请求点击失败：", strMsg);
                 handler.sendEmptyMessage(233);
@@ -927,7 +928,7 @@ public class HttpTools {
     /**
      * 确定挂号
      */
-    public void sureRegister(final Handler handler, Map<String, String> map){
+    public void sureRegister(final Handler handler, Map<String, String> map) {
         String url = UrlTools.BASE + UrlTools.URL_REGISTER;
         mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
             @Override
@@ -942,10 +943,10 @@ public class HttpTools {
                 super.onSuccess(s);
                 Log.e("onSuccess：", "提交挂号成功" + s);
                 try {
-                    com.technology.yuyi.bean.RegisterResult.Root root=mGson.fromJson(s,com.technology.yuyi.bean.RegisterResult.Root.class);
-                    Message message=new Message();
-                    message.what=40;
-                    message.obj=root;
+                    com.technology.yuyi.bean.RegisterResult.Root root = mGson.fromJson(s, com.technology.yuyi.bean.RegisterResult.Root.class);
+                    Message message = new Message();
+                    message.what = 40;
+                    message.obj = root;
                     handler.sendMessage(message);
                 } catch (Exception e) {
                     handler.sendEmptyMessage(235);
@@ -957,14 +958,114 @@ public class HttpTools {
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="--null";
+                if (strMsg == null) {
+                    strMsg = "--null";
                 }
                 Log.e("onFailure：", "提交挂号失败" + strMsg);
                 handler.sendEmptyMessage(236);
             }
         });
 
+    }
 
+
+    //修改后的资讯列表
+    public void getNewInformationList(final Handler handler, int start, int limit) {
+        String url = UrlTools.BASE + UrlTools.URL_NEW_INFORMATION_MSG + "start=" + start + "&limit=" + limit;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("修改后的资讯列表开始", "-");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("修改后的资讯列表成功", "-" + s);
+                com.technology.yuyi.bean.NewInformationList.Root root = mGson.fromJson(s, com.technology.yuyi.bean.NewInformationList.Root.class);
+                Message m = new Message();
+                m.what = 41;
+                m.obj = root;
+                handler.sendMessage(m);
+
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                if (strMsg == null) {
+                    strMsg = "-null";
+                }
+                Log.e("修改后的资讯列表失败", "-" + strMsg);
+            }
+        });
+    }
+
+    //修改后的轮播列表接口
+
+    public void getNewAdList(final Handler handler) {
+        String url = UrlTools.BASE + UrlTools.URL_NEW_AD_MSG;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("修改后的轮播列表接口开始","-");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("修改后的轮播列表接口成功","-"+s);
+                com.technology.yuyi.bean.NewAdList.Root root =mGson.fromJson(s, com.technology.yuyi.bean.NewAdList.Root.class);
+                Message m=new Message();
+                m.obj=root;
+                m.what=42;
+                handler.sendMessage(m);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="-null";
+                }
+                Log.e("修改后的轮播列表接口失败","-"+strMsg);
+            }
+        });
+    }
+
+    //修改后的轮播详情和资讯接口
+
+    public void getNewInformationAdDetails(final Handler handler,long id) {
+        String url = UrlTools.BASE + UrlTools.URL_NEW_INFOR_AD_DETIAL+"id="+id;
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e("修改后的轮播详情和资讯接口开始","-");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e("修改后的轮播详情和资讯接口成功","-"+s);
+                com.technology.yuyi.bean.NewInforAdDetails.Root root =mGson.fromJson(s, com.technology.yuyi.bean.NewInforAdDetails.Root.class);
+                Message m=new Message();
+                m.obj=root;
+                m.what=43;
+                handler.sendMessage(m);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                if (strMsg==null){
+                    strMsg="-null";
+                }
+                Log.e("修改后的轮播详情和资讯接口失败","-"+strMsg);
+            }
+        });
     }
 }

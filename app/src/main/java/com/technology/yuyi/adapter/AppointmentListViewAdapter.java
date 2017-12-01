@@ -1,12 +1,12 @@
 package com.technology.yuyi.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -25,6 +25,7 @@ public class AppointmentListViewAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private Context mContent;
     private List<FirstPageInformationTwoData> list=new ArrayList<>();
+    private int a=0;
     public AppointmentListViewAdapter(Context mContent,List<FirstPageInformationTwoData> list) {
         this.mContent = mContent;
         this.list=list;
@@ -52,6 +53,8 @@ public class AppointmentListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        a++;
+        Log.e("医院a=",""+a);
         ViewHolder viewHolder=null;
         if (convertView==null){
             viewHolder=new ViewHolder();
@@ -59,17 +62,13 @@ public class AppointmentListViewAdapter extends BaseAdapter {
             viewHolder.img= (ImageView) convertView.findViewById(R.id.yu_img_mess);
             viewHolder.name_tv= (TextView) convertView.findViewById(R.id.yu_tv_title);
             viewHolder.grade_tv=(TextView) convertView.findViewById(R.id.grade_tv);
-            //viewHolder.message_tv=(TextView) convertView.findViewById(R.id.yu_tv_mess);
-            viewHolder.bg= (RelativeLayout) convertView.findViewById(R.id.bg_alpha);
             convertView.setTag(viewHolder);
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
         }
-        Picasso.with(mContent).load(UrlTools.BASE+list.get(position).getPicture()).error(R.mipmap.error_small).into(viewHolder.img);
+        Picasso.with(mContent).load(UrlTools.BASE+list.get(position).getPicture()).error(R.mipmap.errorpicture).into(viewHolder.img);
         viewHolder.name_tv.setText(list.get(position).getHospitalName());
-        viewHolder.grade_tv.setText(list.get(position).getGradeName());
-       // viewHolder.message_tv.setText(list.get(position).getIntroduction());
-        viewHolder.bg.getBackground().setAlpha(125);
+        viewHolder.grade_tv.setText(list.get(position).getGrade());
         return convertView;
     }
 
@@ -77,7 +76,5 @@ public class AppointmentListViewAdapter extends BaseAdapter {
         ImageView img;
         TextView name_tv;
         TextView grade_tv;
-        TextView message_tv;
-        RelativeLayout bg;
     }
 }
