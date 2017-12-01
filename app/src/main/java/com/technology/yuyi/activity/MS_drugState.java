@@ -171,7 +171,8 @@ public class MS_drugState extends MyActivity implements MS_drugStatePresenter.IM
                 e.printStackTrace();
             }
             finally {
-                int state=lt.get(pos).getState();//state药品的状态，从1开始最后一个为4对应res1，res2的长度
+                int state=lt.get(pos).getState();
+                //state药品的状态，从1开始最后一个为4对应res1，res2的长度
                 for (int i=0;i<state;i++) {
                     View vi = LayoutInflater.from(this).inflate(R.layout.drugstate, null);
                     TextView bottomText = (TextView) vi.findViewById(R.id.bottomText);//底部的状态提示信息

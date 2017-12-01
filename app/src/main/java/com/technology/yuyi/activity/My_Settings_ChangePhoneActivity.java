@@ -43,6 +43,11 @@ public class My_Settings_ChangePhoneActivity extends AppCompatActivity implement
         text_smsCode_btn= (TextView) findViewById(R.id.text_smsCode_btn);
         text_smsCode_btn.setOnClickListener(this);
     }
+    public void reBack(View view){
+        if (view!=null){
+            finish();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -72,6 +77,7 @@ public class My_Settings_ChangePhoneActivity extends AppCompatActivity implement
             text_smsCode_btn.setText("发送验证码");
         }
     }
+
 
     @Override
     public void onInputPhoneError() {

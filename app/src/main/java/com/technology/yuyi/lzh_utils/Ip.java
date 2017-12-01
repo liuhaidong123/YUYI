@@ -6,8 +6,8 @@ package com.technology.yuyi.lzh_utils;
 public interface Ip {
 //   http://59.110.169.148:8080/
 //   http://59.110.169.148:8080/
-   public final static String url_F="http://59.110.169.148:8080/";
-   public final static String url="http://59.110.169.148:8080/";
+   public final static String url_F="http://192.168.1.168:8082/yuyi/";
+   public final static String url="http://192.168.1.168:8082/yuyi/";
 
    //获取我的药品状态接口（只获取一个）http://192.168.1.55:8080/yuyi/prescription/findList.do?token=DAF338120FEDDDC8310B881B459353C0
    public final static String interface_MyDrugState="prescription/findList.do?";
@@ -100,5 +100,4 @@ public interface Ip {
    //图片url   http://59.110.169.148:8080
    public final static String imagePth_F="http://59.110.169.148:8080/";
    public final static String imagePth="http://59.110.169.148:8080/";
-
 }

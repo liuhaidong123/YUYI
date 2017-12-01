@@ -291,14 +291,11 @@ public class HttpTools {
             }
         });
     }
-
-
     /**
      * 获取验证码接口
      */
     public void getValidateCode(final Handler handler, Map<String, String> map) {
         String url = UrlTools.BASE + UrlTools.URL_GET_VALIDATE_CODE;
-
         mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -320,10 +317,7 @@ public class HttpTools {
                     handler.sendEmptyMessage(208);
                     Log.e("错误码：", e.toString());
                 }
-
-
             }
-
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);

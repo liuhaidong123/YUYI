@@ -65,6 +65,7 @@ import com.technology.yuyi.myview.RoundImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -464,7 +465,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
             }
         } else {
             mp.put("avatar", bit64);
-        }
+            }
         okhttp.getCallCookie(Ip.url + Ip.interface_addFamilyUser, mp, cooki).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -680,6 +681,7 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
         intent2.putExtra("aspectY", 1);
         intent2.putExtra("outputX", 200);//宽度
         intent2.putExtra("outputY", 200);//高度
+        file = new File(getExternalFilesDir("DCIM").getAbsolutePath(), new Date().getTime()+ ".jpg");
         intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(intent2, ResCode.Request_cutPhoto);
     }
@@ -693,8 +695,9 @@ public class AddFamilyUserActivity extends AppCompatActivity implements View.OnC
                     cutPhoto(data.getData());
                     break;
                 case ResCode.Request_takePhoto:
+                    File f=file;
                     //此处启动裁剪程序
-                    cutPhoto(Uri.fromFile(file));
+                    cutPhoto(Uri.fromFile(f));
                     break;
                 case ResCode.Request_cutPhoto:
                     try {

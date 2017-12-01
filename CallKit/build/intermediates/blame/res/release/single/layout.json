@@ -28,12 +28,12 @@
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_refresh_list_view.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_dialog_popup_prompt.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_dialog_popup_prompt.xml"
-    },
-    {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_ext_input_edit_text.xml",
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_ext_input_edit_text.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_dialog_popup_prompt.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_dialog_popup_prompt.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_item_public_service_multi_rich_content_message.xml",
@@ -52,20 +52,20 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_ext_root_menu_item.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_pic_popup_window.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_pic_popup_window.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_voip_video_call_user_info.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/layout/rc_voip_video_call_user_info.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_voip_item_outgoing_maudio.xml",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/src/main/res/layout/rc_voip_item_outgoing_maudio.xml"
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_pic_popup_window.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_pic_popup_window.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_voip_ac_muti_audio.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/src/main/res/layout/rc_voip_ac_muti_audio.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_voip_item_outgoing_maudio.xml",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/src/main/res/layout/rc_voip_item_outgoing_maudio.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_cs_alert_warning.xml",
@@ -188,24 +188,24 @@
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_wi_file_list_adapter.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_item_discussion_conversation.xml",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_item_discussion_conversation.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_item_public_service_multi_rich_content_message.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_item_public_service_multi_rich_content_message.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_item_discussion_conversation.xml",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_item_discussion_conversation.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_ext_menu_container.xml",
         "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_ext_menu_container.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_ac_webview.xml",
-        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_ac_webview.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_item_public_service_conversation.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_item_public_service_conversation.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_ac_webview.xml",
+        "source": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/exploded-aar/YUYI/IMKit/unspecified/res/layout/rc_ac_webview.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/CallKit/build/intermediates/res/merged/release/layout/rc_ac_file_download.xml",

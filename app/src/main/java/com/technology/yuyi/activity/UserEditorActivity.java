@@ -60,6 +60,7 @@ import com.technology.yuyi.myview.RoundImageView;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -279,8 +280,10 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
     private void TakePhoto() {
         if (Build.VERSION.SDK_INT>=23){
             int Permission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-            if (Permission!= PackageManager.PERMISSION_GRANTED){
-                requestPermissions(new String[]{Manifest.permission.CAMERA},10);
+            if ((ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED)||
+                    (ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)||
+                    (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED)){
+                requestPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},10);
             }
             else {
                 if (pop!=null){
@@ -392,35 +395,35 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case 20:
+                case 20://图库
+                        outputImage=new File(getExternalFilesDir("DCIM").getAbsolutePath(),new Date().getTime()+".jpg");
                         //此处启动裁剪程序
                         Intent intent = new Intent("com.android.camera.action.CROP");
-                        //此处注释掉的部分是针对android 4.4路径修改的一个测试
-                        //有兴趣的读者可以自己调试看看
                         intent.setDataAndType(data.getData(), "image/*");
                         intent.putExtra("scale", true);
-
-                    intent.putExtra("aspectX", 1);
-                    intent.putExtra("aspectY", 1);
-                    intent.putExtra("outputX", 200);//宽度
-                    intent.putExtra("outputY", 200);//高度
-//                    intent.putExtra("return-data", true);
-//                    intent.putExtra("noFaceDetection", true);
+                        intent.putExtra("aspectX", 1);
+                        intent.putExtra("aspectY", 1);
+                        intent.putExtra("outputX", 200);//宽度
+                        intent.putExtra("outputY", 200);//高度
+                        intent.putExtra("return-data", true);
+                        intent.putExtra("noFaceDetection", true);
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
                         startActivityForResult(intent, 12);
                     break;
-                case 21:
+                case 21://拍照
                         //此处启动裁剪程序
+                        File f=outputImage;
                         Intent intent2 = new Intent("com.android.camera.action.CROP");
-                        //此处注释掉的部分是针对android 4.4路径修改的一个测试
-                        //有兴趣的读者可以自己调试看看
-                        intent2.setDataAndType(Uri.fromFile(outputImage), "image/*");
+                        intent2.setDataAndType(Uri.fromFile(f), "image/*");
                         intent2.putExtra("scale", true);
-
                         intent2.putExtra("aspectX", 1);
                         intent2.putExtra("aspectY", 1);
                         intent2.putExtra("outputX", 200);//宽度
                         intent2.putExtra("outputY", 200);//高度
+
+                        intent2.putExtra("return-data", true);
+                        intent2.putExtra("noFaceDetection", true);
+                        outputImage=new File(getExternalFilesDir("DCIM").getAbsolutePath(),new Date().getTime()+".jpg");
                         intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputImage));
                         startActivityForResult(intent2, 12);
                     break;
@@ -439,6 +442,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                   catch (Exception e){
+                      e.printStackTrace();
                       Toast.makeText(UserEditorActivity.this,"照片截取失败",Toast.LENGTH_SHORT).show();
                   }
                     break;
@@ -472,12 +476,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
 
     //提交用户信息http://localhost:8080/yuyi/personal/save.do?token=C0700876FB2F9BEC156AC039F894E92B&idCard=515251635262&age=26
     public void sendMsg(){
-//        private EditText user_editor_userName;
-//        private EditText mAgeEdit;
-//        private EditText mNikName;
-//        private EditText mAdEdit;
-//        private EditText mAddressEdit;
-//        private TextView user_editor_sex;
         Map<String,String>mp=new HashMap<>();
         mp.put("token",user.token);
         if (isBitChange){
@@ -497,7 +495,6 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
         mp.put("age",ag);//年龄
         mp.put("gender",""+SE);//性别
         Log.i("---性别--","--------"+SE);
-//        mp.put("idCard",mAdEdit.getText().toString());//身份证号
         okhttp.getCall(Ip.url_F+Ip.interface_UserMsgRevise,mp,okhttp.OK_POST).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {

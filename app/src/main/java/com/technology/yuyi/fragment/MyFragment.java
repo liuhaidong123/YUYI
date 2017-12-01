@@ -39,6 +39,7 @@ import com.technology.yuyi.activity.SetActivity;
 import com.technology.yuyi.activity.UserEditorActivity;
 import com.technology.yuyi.bean.UserMessage;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.WindowUtils;
 import com.technology.yuyi.lzh_utils.checkNotificationAllowed;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
@@ -54,6 +55,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class MyFragment extends Fragment implements View.OnClickListener {
+    RelativeLayout myfrag_UserInfo;
     private RoundImageView mHead_img;
     private TextView mNikName;//姓名
     private TextView mUserAge;//年龄
@@ -117,6 +119,12 @@ public class MyFragment extends Fragment implements View.OnClickListener {
 
     //初始化数据
     public void initView(View view) {
+        Log.i("width=====",WindowUtils.getInstance().getWindowWidth(getActivity())+"");
+        myfrag_UserInfo= (RelativeLayout) view.findViewById(R.id.myfrag_UserInfo);
+        ViewGroup.LayoutParams params=myfrag_UserInfo.getLayoutParams();
+        params.width= WindowUtils.getInstance().getWindowWidth(getActivity());
+        params.height=WindowUtils.getInstance().getWindowWidth(getActivity())/2;
+        myfrag_UserInfo.setLayoutParams(params);
         myfrag_imageSex= (ImageView) view.findViewById(R.id.myfrag_imageSex);//xingbie
         //用户信息
         mHead_img = (RoundImageView) view.findViewById(R.id.my_head_img);

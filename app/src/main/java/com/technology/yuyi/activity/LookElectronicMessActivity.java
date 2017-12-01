@@ -79,7 +79,6 @@ public class LookElectronicMessActivity extends AppCompatActivity {
                         adapter=new LookElecAdapter(this,str);
                         ele_gridView.setAdapter(adapter);
                     }
-
                 }
                 break;
             case "1"://家人的电子病例

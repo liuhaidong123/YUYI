@@ -189,7 +189,6 @@ private ImageView mBack;
                 handler.sendEmptyMessage(1);
             }
         });
-
     }
     //获取家人电子病历http://localhost:8080/yuyi/medical/homeuserMedicalTime.do?id=1
     public void getFamilyUserMsg(String ids) {

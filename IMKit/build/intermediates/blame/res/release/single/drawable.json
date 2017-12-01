@@ -12,28 +12,28 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable/rc_btn_public_service_unfollow_selector.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_btn_public_service_enter_selector.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_btn_public_service_enter_selector.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_pb_file_download_progress.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/drawable/rc_pb_file_download_progress.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_corner_location_style.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_corner_location_style.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_btn_public_service_enter_selector.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_btn_public_service_enter_selector.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_selector_grid_camera_mask.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_selector_grid_camera_mask.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_an_voice_sent.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_an_voice_sent.xml"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_voice_toggle_selector.xml",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_voice_toggle_selector.xml"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_an_voice_sent.xml",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_an_voice_sent.xml"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_selector_grid_camera_mask.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_selector_grid_camera_mask.xml"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_corner_location_style.xml",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/src/main/res/drawable/rc_corner_location_style.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/release/drawable/rc_edit_text_background_selector.xml",

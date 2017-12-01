@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.bean_DocId;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyApp;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.RongConnect;
 import com.technology.yuyi.lzh_utils.gson;
@@ -44,8 +46,9 @@ import java.util.Map;
 
 import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
-public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RelativeLayout mBgRelative;
     private ImageView mBack;
@@ -98,6 +101,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                             if (docId.getCode()==0){
                                 DocId = docId.getId() + "";
                                 user.targetId = DocId;
+                                MyApp.setUserInfo(DocId,new UserInfo(DocId,"医生",Uri.parse("http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4")));
                             }
                             else if (docId.getCode()==-1){
                                DocId="-1";//医院没有设置咨询功能
@@ -155,9 +159,9 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 return;
             }
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
+
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             } else {
-//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == R.id.ask_video) {//视频咨询
@@ -256,4 +260,5 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         View parent=findViewById(R.id.activity_hospital_details);
         Pop.getInstance().getCenterSettings(this,pop,parent,vi,0.25f, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
     }
+
 }

@@ -58,7 +58,7 @@ public class My_message_Activity extends MyActivity{
                                     adapter.notifyDataSetChanged();
                                 }
                                 else {
-                                    myMessageFrag.setEmptyView("这里什么都没有");
+                                    myMessageFrag.setEmptyView("没有查询到数据！");
                                 }
                             }
                             else {
@@ -66,11 +66,11 @@ public class My_message_Activity extends MyActivity{
                             }
                         }
                         else {
-                            myMessageFrag.setEmptyView("这里什么都没有");
+                            myMessageFrag.setEmptyView("没有查询到数据！");
                         }
                     }
                     catch (Exception e){
-                        myMessageFrag.setEmptyView("数据异常");
+                        myMessageFrag.setEmptyView("数据异常！");
                         e.printStackTrace();
 
                     }
