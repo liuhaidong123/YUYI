@@ -74,7 +74,7 @@ public class MyFragment extends Fragment implements View.OnClickListener {
                 try {
                     UserMessage userMessage = gson.gson.fromJson(resStr, UserMessage.class);
                     UserMessage.ResultBean bean = userMessage.getResult();
-                    Picasso.with(getActivity()).load(Ip.url_F + bean.getAvatar()).error(R.mipmap.usererr).into(mHead_img);
+                    Picasso.with(getActivity()).load(Ip.url_F + bean.getAvatar()).placeholder(R.mipmap.usererr).error(R.mipmap.usererr).into(mHead_img);
                     if (!"".equals(bean.getTrueName()) && !TextUtils.isEmpty(bean.getTrueName())) {
                         mNikName.setText(bean.getTrueName() + "");
                         mNikName.setVisibility(View.VISIBLE);

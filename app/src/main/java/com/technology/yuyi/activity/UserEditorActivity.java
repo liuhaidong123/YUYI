@@ -80,7 +80,7 @@ public class UserEditorActivity extends AppCompatActivity implements View.OnClic
                         if ("0".equals(usMsg.getCode())){
                             bean_My_UserMsg.ResultBean bean=usMsg.getResult();
                             user_editor_userName.setText(bean.getTrueName());
-                            Picasso.with(UserEditorActivity.this).load(Ip.url_F+bean.getAvatar()).error(R.mipmap.usererr).into(new Target() {
+                            Picasso.with(UserEditorActivity.this).load(Ip.url_F+bean.getAvatar()).placeholder(R.mipmap.usererr).error(R.mipmap.usererr).into(new Target() {
                                 @Override
                                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
                                     bit64=BitmapTobase64.bitmapToBase64(bitmap);

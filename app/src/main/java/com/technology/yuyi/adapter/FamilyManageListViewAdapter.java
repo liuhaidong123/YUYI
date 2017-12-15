@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.bean_ListFamilyUser;
@@ -61,7 +59,7 @@ public class FamilyManageListViewAdapter extends BaseAdapter {
             convertView.setTag(hodler);
         }
             hodler= (ViewHodler) convertView.getTag();
-        Picasso.with(mContext).load(Uri.parse(Ip.imagePth+list.get(position).getAvatar())).error(R.mipmap.usererr).into(hodler.img_head);
+        Picasso.with(mContext).load(Uri.parse(Ip.imagePth+list.get(position).getAvatar())).placeholder(R.mipmap.usererr).error(R.mipmap.usererr).into(hodler.img_head);
         hodler.name.setText(list.get(position).getTrueName());
         hodler.family_nikcName.setText("（"+list.get(position).getNickName()+"）");
         hodler.family_age.setText(list.get(position).getAge()==0?"0岁":list.get(position).getAge()+"岁");

@@ -12,16 +12,16 @@
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_notice_wraning.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voice_icon_right.png",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voice_icon_right.png"
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_location_tip.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ext_location_tip.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_fr_file_list_ad_icon_file.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_fr_file_list_ad_icon_file.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_location_tip.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ext_location_tip.png"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_voice_icon_right.png",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voice_icon_right.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f48a.png",
@@ -40,16 +40,16 @@
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_voice_input_toggle_hover.9.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_yes_hover.png",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_yes_hover.png"
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_phone_pressed.png",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_phone_pressed.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f61f.png",
         "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f61f.png"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_phone_pressed.png",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_phone_pressed.png"
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_yes_hover.png",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_yes_hover.png"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f339.png",
@@ -72,12 +72,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f62b.png"
     },
     {
-        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f649.png",
-        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f649.png"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_bubble_right.9.png",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_bubble_right.9.png"
+    },
+    {
+        "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f649.png",
+        "source": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f649.png"
     },
     {
         "merged": "/Users/hcq/Desktop/YUYI/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f35a.png",
