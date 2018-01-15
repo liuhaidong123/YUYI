@@ -62,14 +62,14 @@ public class InformationListViewAdapter extends BaseAdapter {
             viewHolder=new InformationListViewAdapter.ViewHolder();
             viewHolder.imageView= (ImageView) convertView.findViewById(R.id.infor_img_mess);
             viewHolder.hospital_tv= (TextView) convertView.findViewById(R.id.infor_tv_title);
-            viewHolder.mBg_rl= (RelativeLayout) convertView.findViewById(R.id.bg_rl_information);
+           // viewHolder.mBg_rl= (RelativeLayout) convertView.findViewById(R.id.bg_rl_information);
             convertView.setTag(viewHolder);
         }else {
             viewHolder= (ViewHolder) convertView.getTag();
         }
         Picasso.with(mContext).load(UrlTools.BASE+list.get(position).getPicture()).error(R.mipmap.errorpicture).into(viewHolder.imageView);
         viewHolder.hospital_tv.setText(list.get(position).getTitle());
-        viewHolder.mBg_rl.getBackground().setAlpha(125);
+        //viewHolder.mBg_rl.getBackground().setAlpha(125);
         return convertView;
 
     }
@@ -77,8 +77,8 @@ public class InformationListViewAdapter extends BaseAdapter {
     class ViewHolder {
         ImageView imageView;
         TextView hospital_tv;
-        TextView hospital_message_tv;
-        RelativeLayout mBg_rl;
+        //TextView hospital_message_tv;
+       // RelativeLayout mBg_rl;
     }
 
 }

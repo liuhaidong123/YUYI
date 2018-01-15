@@ -91,7 +91,7 @@ public class SelectDoctorListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Picasso.with(mContext).load(UrlTools.BASE + mListDoctor.get(position).getAvatar()).error(R.mipmap.error_small).into(viewHolder.imageView);
+        Picasso.with(mContext).load(UrlTools.BASE + mListDoctor.get(position).getAvatar()).error(R.mipmap.errorpicture).into(viewHolder.imageView);
         viewHolder.doc_name.setText(mListDoctor.get(position).getTrueName());
         viewHolder.doc_job.setText(mListDoctor.get(position).getTitle());
         //上午

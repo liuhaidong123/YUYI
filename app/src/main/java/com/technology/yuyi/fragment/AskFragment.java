@@ -52,6 +52,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 24) {
+                mNODataRefresh.setRefreshing(false);
                 Object o = msg.obj;
                 if (o != null && o instanceof FirstPageInformationTwoDataRoot) {
                     FirstPageInformationTwoDataRoot root = (FirstPageInformationTwoDataRoot) o;
@@ -85,6 +86,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
 
                 }
             } else if (msg.what == 205) {
+                mNODataRefresh.setRefreshing(false);
                 mNODataRefresh.setVisibility(View.VISIBLE);
                 mNoMsg_Tv.setText("医院信息错误,请检查账号异常");
                 mListview.removeFooterView(footer);
@@ -92,6 +94,7 @@ public class AskFragment extends Fragment implements AdapterView.OnItemClickList
                 mRefreshLaout.setRefreshing(false);
                 Toast.makeText(getActivity(),"医院信息错误",Toast.LENGTH_SHORT).show();
             } else if (msg.what == 206) {
+                mNODataRefresh.setRefreshing(false);
                 mNODataRefresh.setVisibility(View.VISIBLE);
                 mNoMsg_Tv.setText("医院信息错误,请检查账号异常");
                 Toast.makeText(getActivity(),"医院信息错误",Toast.LENGTH_SHORT).show();

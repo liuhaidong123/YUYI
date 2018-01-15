@@ -295,9 +295,9 @@ public class HttpTools {
     /**
      * 获取验证码接口
      */
-    public void getValidateCode(final Handler handler, Map<String, String> map) {
+    public void getValidateCode(final Handler handler, Map<String, String> map, String cookie) {
         String url = UrlTools.BASE + UrlTools.URL_GET_VALIDATE_CODE;
-
+        mFinalHttp.addHeader("cookie", cookie);
         mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -339,8 +339,9 @@ public class HttpTools {
     /**
      * 登录接口
      */
-    public void login(final Handler handler, Map<String, String> map) {
+    public void login(final Handler handler, Map<String, String> map,String cookie) {
         String url = UrlTools.BASE + UrlTools.URL_LOGIN;
+        mFinalHttp.addHeader("cookie", cookie);
         mFinalHttp.post(url, new AjaxParams(map), new AjaxCallBack<String>() {
             @Override
             public void onStart() {
@@ -1011,60 +1012,60 @@ public class HttpTools {
             @Override
             public void onStart() {
                 super.onStart();
-                Log.e("修改后的轮播列表接口开始","-");
+                Log.e("修改后的轮播列表接口开始", "-");
             }
 
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("修改后的轮播列表接口成功","-"+s);
-                com.technology.yuyi.bean.NewAdList.Root root =mGson.fromJson(s, com.technology.yuyi.bean.NewAdList.Root.class);
-                Message m=new Message();
-                m.obj=root;
-                m.what=42;
+                Log.e("修改后的轮播列表接口成功", "-" + s);
+                com.technology.yuyi.bean.NewAdList.Root root = mGson.fromJson(s, com.technology.yuyi.bean.NewAdList.Root.class);
+                Message m = new Message();
+                m.obj = root;
+                m.what = 42;
                 handler.sendMessage(m);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="-null";
+                if (strMsg == null) {
+                    strMsg = "-null";
                 }
-                Log.e("修改后的轮播列表接口失败","-"+strMsg);
+                Log.e("修改后的轮播列表接口失败", "-" + strMsg);
             }
         });
     }
 
     //修改后的轮播详情和资讯接口
 
-    public void getNewInformationAdDetails(final Handler handler,long id) {
-        String url = UrlTools.BASE + UrlTools.URL_NEW_INFOR_AD_DETIAL+"id="+id;
+    public void getNewInformationAdDetails(final Handler handler, long id) {
+        String url = UrlTools.BASE + UrlTools.URL_NEW_INFOR_AD_DETIAL + "id=" + id;
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {
                 super.onStart();
-                Log.e("修改后的轮播详情和资讯接口开始","-");
+                Log.e("修改后的轮播详情和资讯接口开始", "-");
             }
 
             @Override
             public void onSuccess(String s) {
                 super.onSuccess(s);
-                Log.e("修改后的轮播详情和资讯接口成功","-"+s);
-                com.technology.yuyi.bean.NewInforAdDetails.Root root =mGson.fromJson(s, com.technology.yuyi.bean.NewInforAdDetails.Root.class);
-                Message m=new Message();
-                m.obj=root;
-                m.what=43;
+                Log.e("修改后的轮播详情和资讯接口成功", "-" + s);
+                com.technology.yuyi.bean.NewInforAdDetails.Root root = mGson.fromJson(s, com.technology.yuyi.bean.NewInforAdDetails.Root.class);
+                Message m = new Message();
+                m.obj = root;
+                m.what = 43;
                 handler.sendMessage(m);
             }
 
             @Override
             public void onFailure(Throwable t, int errorNo, String strMsg) {
                 super.onFailure(t, errorNo, strMsg);
-                if (strMsg==null){
-                    strMsg="-null";
+                if (strMsg == null) {
+                    strMsg = "-null";
                 }
-                Log.e("修改后的轮播详情和资讯接口失败","-"+strMsg);
+                Log.e("修改后的轮播详情和资讯接口失败", "-" + strMsg);
             }
         });
     }

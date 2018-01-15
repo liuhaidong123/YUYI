@@ -5,9 +5,8 @@ package com.technology.yuyi.HttpTools;
  */
 
 public class UrlTools {
-   // public static final String BASE="http://59.110.169.148:8080";
-
-    public static final String BASE = "http://192.168.1.44:8080/yuyi";
+    public static final String BASE = "http://59.110.169.148:8080";
+    //public static final String BASE = "http://192.168.1.168:8082/yuyi";
     public static final String URL_FIRST_PAGE_SIX_DATA = "/drugs/findList.do?start=0&limit=6&cid=11";//首页常用药品6条数据
     public static final String URL_UPDATEA_FIRST = "/article/findList.do?";//首页俩条数据，以及资讯全部数据（需传start=0&limit=2）
     public static final String URL_UPDATEA_FIRST_MESSAGE = "/article/getid.do?";////首页俩条数据，以及资讯全部数据的详情（传id=）
@@ -33,6 +32,10 @@ public class UrlTools {
     public static final String URL_REGISTER = "/register/save.do";//确定挂号接口（post方法：参数：token String，homeuserId Long家庭成员ID ；datenumberId Long对应可预约号数量表的编号，isAm Boolean 是否为上午）
 
     public static final String URL_NEW_INFORMATION_MSG = "/doctorlyinformation/findPagePersonal.do?";//修改后的资讯列表
-    public static final String URL_NEW_AD_MSG="/doctorlyinformation/findall.do";//修改后的轮播图接口列表
-    public static final String URL_NEW_INFOR_AD_DETIAL="/doctorlyinformation/getIdPersonal.do?";//修改后的资讯详情和广告详情id=1
+    public static final String URL_NEW_AD_MSG = "/doctorlyinformation/findall.do";//修改后的轮播图接口列表
+    public static final String URL_NEW_INFOR_AD_DETIAL = "/doctorlyinformation/getIdPersonal.do?";//修改后的资讯详情和广告详情id=1
+
+    //获取动态验证码
+    public static final String URL_GET_DYNAMIC_NUM = "/personal/imgcode.do?";//参数ts=1515636702185当前毫秒数
+
 }

@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    toast.toast_faild(MainActivity.this);
+//                    toast.toast_faild(MainActivity.this);
                     break;
                 case 1:
                     try {
