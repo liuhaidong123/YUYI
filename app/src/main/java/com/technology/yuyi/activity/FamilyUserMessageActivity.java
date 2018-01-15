@@ -468,13 +468,6 @@ public class FamilyUserMessageActivity extends AppCompatActivity implements View
                     mFromViewTemp.drawBottomView(listTime);
                     mFromViewTemp.drawFirstDataView(listSource);
                 }
-//
-//                (result!=null){
-//                    //最后一条数据的高压，低压，体温值（用于页面显示）
-//                    float HighPress=0.0f;
-//                    float LowPress=0.0f;
-//                    float Temp=0.0f;
-//                pressHigh,pressLow,temp
                 String preH=getText(HighPress);
                 String preL=getText(LowPress);
                 String tem=getText(Temp)+"°c";

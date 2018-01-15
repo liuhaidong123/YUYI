@@ -52,7 +52,7 @@ public class My_Settings_ChangePhoneModel{
                 case -2://切换手机号
                     imodel.onChangePhoneError("网络异常");
                     break;
-                case 2://切换手机号失败
+                case 2://切换手机号
                     try{
                         BeanChangePhone bean=gson.gson.fromJson(resStr,BeanChangePhone.class);
                         imodel.onChangePhoneSuccess(bean);

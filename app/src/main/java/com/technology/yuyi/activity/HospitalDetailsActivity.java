@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,6 +32,7 @@ import com.technology.yuyi.R;
 import com.technology.yuyi.bean.Information;
 import com.technology.yuyi.bean.bean_DocId;
 import com.technology.yuyi.lzh_utils.Ip;
+import com.technology.yuyi.lzh_utils.MyApp;
 import com.technology.yuyi.lzh_utils.MyDialog;
 import com.technology.yuyi.lzh_utils.RongConnect;
 import com.technology.yuyi.lzh_utils.gson;
@@ -45,8 +47,9 @@ import java.util.logging.Logger;
 
 import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
-public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private RelativeLayout mBgRelative;
     private ImageView mBack;
@@ -99,9 +102,11 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                             if (docId.getCode() == 0) {
                                 DocId = docId.getId() + "";
                                 user.targetId = DocId;
-                            } else if (docId.getCode() == -1) {
-                                DocId = "-1";//医院没有设置咨询功能
+                                MyApp.setUserInfo(DocId,new UserInfo(DocId,"医生",Uri.parse("http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4")));
                             }
+                            else if (docId.getCode()==-1){
+                               DocId="-1";//医院没有设置咨询功能
+                                    }
                         } else {
                             Toast.makeText(HospitalDetailsActivity.this, "请求医生信息错误，无法启动聊天程序,请稍后重试", Toast.LENGTH_SHORT).show();
                         }
@@ -114,7 +119,6 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     };
 
     private TextView mTv_hospital;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +131,6 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
         //获取网络数据
         mHttptools = HttpTools.getHttpToolsInstance();
         mHttptools.getAskDataMessage(mHandler, getIntent().getIntExtra("id", -1));
-        Log.e("医院ID=", getIntent().getIntExtra("id", -1) + "");
 
         mHospital_name = (TextView) findViewById(R.id.tv_hospital);//医院名称
         mGrade_tv = (TextView) findViewById(R.id.grade_tv);//等级

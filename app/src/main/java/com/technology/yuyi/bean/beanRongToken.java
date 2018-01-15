@@ -5,7 +5,7 @@ package com.technology.yuyi.bean;
  */
 //获取融云token接口
 public class beanRongToken {
-//code=1成功，0失败
+    //code=1成功，0失败
     /**
      * code : 1
      * id : 17734862622

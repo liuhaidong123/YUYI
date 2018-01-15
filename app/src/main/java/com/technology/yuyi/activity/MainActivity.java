@@ -38,6 +38,7 @@ import com.technology.yuyi.lhd.utils.BroadCastYUYI;
 import com.technology.yuyi.lhd.utils.SharedPreferencesUtils;
 import com.technology.yuyi.lzh_utils.Ip;
 import com.technology.yuyi.lzh_utils.JPshAliasAndTags;
+import com.technology.yuyi.lzh_utils.MyApp;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
 import com.technology.yuyi.lzh_utils.toast;
@@ -96,7 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             user.RongToken = tok.getToken();
                             Log.i("Rong--", tok.getId() + "--" + tok.getTrueName());
                             Log.e("融云用户头像---",Ip.imagePth + tok.getAvatar());
-                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId() + "", tok.getTrueName() + "", Uri.parse(Ip.imagePth + tok.getAvatar())));
+//                            RongIM.getInstance().setCurrentUserInfo(new UserInfo(tok.getId() + "", tok.getTrueName() + "", Uri.parse("http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4")));
+                            MyApp.setUserInfo(tok.getId()+"",new UserInfo(tok.getId()+"",tok.getTrueName()+"",Uri.parse(Ip.imagePth+tok.getAvatar())));
                             initRongCon();
                         } else if ("0".equals(tok.getCode())) {
                             Log.e("融云获取token错误--1--main-", "---后台无法返回token----");

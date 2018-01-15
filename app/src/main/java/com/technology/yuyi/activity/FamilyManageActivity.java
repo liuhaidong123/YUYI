@@ -26,7 +26,6 @@ import com.technology.yuyi.lzh_utils.MyEmptyListView;
 import com.technology.yuyi.lzh_utils.UserInfo;
 import com.technology.yuyi.lzh_utils.gson;
 import com.technology.yuyi.lzh_utils.okhttp;
-import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
 import com.technology.yuyi.myview.MyFrameLyout;
 
@@ -111,12 +110,9 @@ public class FamilyManageActivity extends Activity implements View.OnClickListen
         //添加用户
         mAddFamily = (TextView) findViewById(R.id.family_add);
         mAddFamily.setOnClickListener(this);
-
         //返回
         mBack = (ImageView) findViewById(R.id.family_back);
         mBack.setOnClickListener(this);
-
-
     }
 
     @Override

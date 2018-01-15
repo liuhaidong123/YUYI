@@ -46,6 +46,4 @@ public class Roung_imActivity extends FragmentActivity{
             finish();
         }
     }
-
-
 }

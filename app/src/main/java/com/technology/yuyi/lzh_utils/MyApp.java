@@ -16,7 +16,9 @@ import android.view.inputmethod.InputMethodManager;
 import com.technology.yuyi.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
@@ -34,12 +36,14 @@ import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
  * Created by wanyu on 2017/3/8.
  */
 
-public class MyApp extends Application{
+public class MyApp extends Application implements RongIM.UserInfoProvider{
     public static Activity activityCurrent;
     private static List<Activity> list;
+   static Map<String,UserInfo>mp;
     @Override
     public void onCreate() {
         super.onCreate();
+        mp=new HashMap<>();
         list=new ArrayList<>();
         if (Build.VERSION.SDK_INT>=14){//4.0以上
             registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -83,13 +87,14 @@ public class MyApp extends Application{
 //        catchHandler.init(getApplicationContext());
 
 
-        JPushInterface.setDebugMode(false);//发不时设为false
+        JPushInterface.setDebugMode(true);//发不时设为false
         JPushInterface.init(getApplicationContext());
 
 
 
 
         RongIM.getInstance().init(this);
+        RongIM.setUserInfoProvider(this,false);
         RongIM.getInstance().setMessageAttachedUserInfo(true);
 
         RongIM.getInstance().setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
@@ -143,7 +148,6 @@ public class MyApp extends Application{
 
     }
 
-
     public static void removeActivity(){
         if (list!=null&&list.size()>0){
             for (int i=0;i<list.size();i++){
@@ -153,5 +157,14 @@ public class MyApp extends Application{
             }
             list.clear();
         }
+    }
+
+    @Override
+    public UserInfo getUserInfo(String s) {
+        return  mp.get(s);
+    }
+
+    public static void setUserInfo(String ids,UserInfo info){
+        mp.put(ids,info);
     }
 }

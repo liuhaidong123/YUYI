@@ -36,8 +36,6 @@ public class JPshAliasAndTags {
             }
         });
     }
-
-
     //设置标签
     public static void setTag(Context context,Set<String>tag){
         JPushInterface.setTags(context, tag, new TagAliasCallback() {

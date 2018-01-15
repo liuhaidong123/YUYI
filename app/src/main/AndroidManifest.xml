@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.technology.yuyi">
-
     <!-- 支付宝相关 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -17,15 +15,11 @@
         android:resizeable="true"
         android:smallScreens="true" />
     <!-- 支付宝相关 -->
-
-
     <!-- 融云callKit -->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <!-- 融云callKit -->
-
-
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 用于访问GPS定位 -->
@@ -48,8 +42,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 用于进行网络定位 -->
-
-
     <!-- //／／／／／／／／／／／／／／激光推送／／／／／／／／／／／／／／／／／／／／ -->
     <permission
         android:name="com.technology.yuyi.permission.JPUSH_MESSAGE"
@@ -436,11 +428,7 @@
             android:name="JPUSH_APPKEY"
             android:value="4439dd4f42e0ba09ef4fd4e7" />
         <!-- ／／／／／／／／／／／激光推送／／／／／／／／／ -->
-
-
         <!-- 融云相关（以下） -->
-
-
         <!-- 离线消息 -->
         <receiver
             android:name=".lzh_utils.SealNotificationReceiver"
