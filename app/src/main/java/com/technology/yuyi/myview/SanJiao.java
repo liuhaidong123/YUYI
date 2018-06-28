@@ -22,13 +22,16 @@ public class SanJiao extends View {
     private DisplayMetrics mDisplayMetrics;
     private Context mContext;
     private double mTemNum;
-    private TextView textView;
 
-    public SanJiao(Context context, double mTemNum, TextView textView) {
+
+    public SanJiao(Context context) {
         super(context);
         this.mContext = context;
+
+
+    }
+    public void setDuNum(double mTemNum){
         this.mTemNum = mTemNum;
-        this.textView = textView;
     }
 
     public SanJiao(Context context, AttributeSet attrs) {

@@ -1,9 +1,15 @@
 package com.technology.yuyi.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -41,7 +47,9 @@ import com.technology.yuyi.lzh_utils.toast;
 import com.technology.yuyi.lzh_utils.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -49,7 +57,7 @@ import io.rong.callkit.RongCallKit;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.UserInfo;
 
-public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class HospitalDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RelativeLayout mBgRelative;
     private ImageView mBack;
@@ -102,11 +110,10 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                             if (docId.getCode() == 0) {
                                 DocId = docId.getId() + "";
                                 user.targetId = DocId;
-                                MyApp.setUserInfo(DocId,new UserInfo(DocId,"医生",Uri.parse("http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4")));
+                                MyApp.setUserInfo(DocId, new UserInfo(DocId, "医生", Uri.parse("http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4")));
+                            } else if (docId.getCode() == -1) {
+                                DocId = "-1";//医院没有设置咨询功能
                             }
-                            else if (docId.getCode()==-1){
-                               DocId="-1";//医院没有设置咨询功能
-                                    }
                         } else {
                             Toast.makeText(HospitalDetailsActivity.this, "请求医生信息错误，无法启动聊天程序,请稍后重试", Toast.LENGTH_SHORT).show();
                         }
@@ -119,6 +126,7 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
     };
 
     private TextView mTv_hospital;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +169,6 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_AUDIO);
             } else {
-//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == R.id.ask_video) {//视频咨询
@@ -174,7 +181,6 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
                 RongCallKit.startSingleCall(HospitalDetailsActivity.this, user.targetId, RongCallKit.CallMediaType.CALL_MEDIA_TYPE_VIDEO);
 
             } else {
-//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
 
@@ -187,26 +193,13 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
             if (DocId != null && !"".equals(DocId) && !"".equals(user.RonguserId) && !TextUtils.isEmpty(user.RonguserId)) {
                 RongIM.getInstance().startPrivateChat(HospitalDetailsActivity.this, user.targetId, "咨询");
             } else {
-//                Toast.makeText(HospitalDetailsActivity.this, "咨询程序启动失败，请稍后重试", Toast.LENGTH_SHORT).show();
                 getRongInfo();
             }
         } else if (id == mBack.getId()) {//返回
             finish();
         }
-//        else if (id==ask_close.getId()){//弹窗中的关闭咨询方式的按钮
-//            pop.dismiss();
-//        }
     }
 
-    //设置alert宽度
-    public void setAlertWidth(float a, AlertDialog alertDialog) {
-        DisplayMetrics dm = new DisplayMetrics();
-        WindowManager m = getWindowManager();
-        m.getDefaultDisplay().getMetrics(dm);
-        android.view.WindowManager.LayoutParams p = alertDialog.getWindow().getAttributes();  //获取对话框当前的参数值
-        p.width = (int) (dm.widthPixels * (a));
-        alertDialog.getWindow().setAttributes(p);//设置生效
-    }
 
     //获取医生id
     public void getDocId() {
@@ -247,19 +240,19 @@ public class HospitalDetailsActivity extends AppCompatActivity implements View.O
 
     //选择咨询方式
     public void showWindowAsk() {
-        if (pop == null) {
-            pop = new PopupWindow();
-        }
-        View vi = LayoutInflater.from(this).inflate(R.layout.pop_ask, null);
-        ask_video = (LinearLayout) vi.findViewById(R.id.ask_video);
-        ask_video.setOnClickListener(this);
-        ask_voice = (LinearLayout) vi.findViewById(R.id.ask_voice);
-        ask_voice.setOnClickListener(this);
-        ask_word = (LinearLayout) vi.findViewById(R.id.ask_word);
-        ask_word.setOnClickListener(this);
-//        ask_close= (ImageView) vi.findViewById(R.id.ask_close);
-//        ask_close.setOnClickListener(this);
-        View parent = findViewById(R.id.activity_hospital_details);
-        Pop.getInstance().getCenterSettings(this, pop, parent, vi, 0.25f, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            if (pop == null) {
+                pop = new PopupWindow();
+            }
+            View vi = LayoutInflater.from(this).inflate(R.layout.pop_ask, null);
+            ask_video = (LinearLayout) vi.findViewById(R.id.ask_video);
+            ask_video.setOnClickListener(this);
+            ask_voice = (LinearLayout) vi.findViewById(R.id.ask_voice);
+            ask_voice.setOnClickListener(this);
+            ask_word = (LinearLayout) vi.findViewById(R.id.ask_word);
+            ask_word.setOnClickListener(this);
+            View parent = findViewById(R.id.activity_hospital_details);
+            Pop.getInstance().getCenterSettings(this, pop, parent, vi, 0.25f, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
+
 }

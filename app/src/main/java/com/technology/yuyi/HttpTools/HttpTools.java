@@ -214,6 +214,7 @@ public class HttpTools {
      */
     public void getAskData(final Handler handler, int start, int limit) {
         String url = UrlTools.BASE + UrlTools.URL_FIRST_PAGE_TWO_DATA + "start=" + start + "&limit=" + limit;
+        Log.e("获取咨询页面数据url=",url);
         mFinalHttp.get(url, new AjaxCallBack<String>() {
             @Override
             public void onStart() {

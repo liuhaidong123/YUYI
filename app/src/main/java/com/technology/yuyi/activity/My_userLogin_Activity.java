@@ -292,7 +292,7 @@ public class My_userLogin_Activity extends AppCompatActivity {
             public void onResponse(Response response) throws IOException {
                 if (response.isSuccessful()) {
                     myCooike = response.headers().get("Set-Cookie");
-                    Log.e("动态验证码myCooike=", myCooike);
+                    //Log.e("动态验证码myCooike=", myCooike);
                     InputStream inputStream = response.body().byteStream();
                     final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 

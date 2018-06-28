@@ -70,7 +70,7 @@
                     android:id="@+id/height_blood_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"
+                    android:text="0"
                     android:textColor="@color/navigate_tv_select"
                     android:textSize="40sp" />
 
@@ -94,7 +94,7 @@
                     android:id="@+id/low_blood_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="000"
+                    android:text="0"
                     android:textColor="@color/navigate_tv_select"
                     android:textSize="40sp" />
 
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="67dp"
             android:gravity="center_horizontal"
-            android:text="*当前血压为空"
+            android:text="血压设备未连接"
             android:textColor="@color/navigate_tv_select"
             android:textSize="15sp"
 

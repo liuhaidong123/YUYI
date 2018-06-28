@@ -72,7 +72,8 @@
                 android:id="@+id/current_tem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="000"
+                android:text="0.0"
+                android:textColor="@color/navigate_tv_select"
                 android:textSize="40sp" />
 
             <TextView
@@ -80,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="°c"
+                android:textColor="@color/navigate_tv_select"
                 android:textSize="40sp" />
         </LinearLayout>
 
@@ -91,7 +93,7 @@
             android:layout_below="@id/du_ll"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="*当前数据为空"
+            android:text="体温设备未连接"
             android:textColor="@color/navigate_tv_select"
             android:textSize="15sp" />
 

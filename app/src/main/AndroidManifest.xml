@@ -71,6 +71,17 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <!-- //／／／／／／／／／／／／／／激光推送／／／／／／／／／／／／／／／／／／／／ -->
+
+
+    <!--血压计 解锁的权限 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="false" />
     <application
         android:name=".lzh_utils.MyApp"
         android:allowBackup="true"
@@ -450,6 +461,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/rc_file_path" />
         </provider>
+
         <!-- 会话界面actiity -->
         <activity
             android:name=".activity.Roung_imActivity"
@@ -493,6 +505,24 @@
         <activity android:name=".activity.My_Settings_ChangePhoneActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
+
+        <!--血压体温-->
+        <meta-data
+            android:name="LS_APP_KEY"
+            android:value="C8603DD7DE42F77FA948BD2AC6A5626F" />
+        <meta-data
+            android:name="LS_APP_CHANNEL"
+            android:value="wylt" />
+        <service android:name="com.sst.jkezt.bluetoothUtil.BluetoothClientService" >
+
+        </service>
+        <receiver
+            android:name="com.sst.jkezt.bluetoothUtil.BluetoothConnectActivityReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.PAIRING_REQUEST" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

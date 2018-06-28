@@ -1,6 +1,7 @@
 package com.technology.yuyi.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.sst.jkezt.health.utils.JkezAPIMain;
 import com.technology.yuyi.R;
 import com.technology.yuyi.bean.beanRongToken;
 import com.technology.yuyi.fragment.AskFragment;
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 设置状态栏透明
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -130,8 +133,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             Log.e("激光推送在LoginActiity注册----", "Login激光推送注册成功");
         }
-    }
 
+
+    }
 
     //初始化数据
     public void initView() {
@@ -169,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == mFirstPage_ll.getId()) {
             showFirstPageFragment();
         } else if (id == mMeasure_ll.getId()) {
+            JkezAPIMain.openBluetooth();//打开蓝牙
             showMeasureFragment();
         } else if (id == mAsk_ll.getId()) {
             showAskFragment();
@@ -489,10 +494,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        JkezAPIMain.closeBluetooth();
     }
 
 
-    private void initRongCon() {
+   private void initRongCon() {
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
             RongIM.connect(user.RongToken, new RongIMClient.ConnectCallback() {
                 /**
@@ -501,7 +507,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  */
                 @Override
                 public void onTokenIncorrect() {
-
+                    Log.i("我的生活--main-",  "main--onTokenIncorrect--");
                 }
 
                 /**
@@ -564,4 +570,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return false;
     }
+
+
 }

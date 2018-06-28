@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.sst.jkezt.health.utils.JkezAPIMain;
 import com.technology.yuyi.R;
 import com.technology.yuyi.activity.CurrentBloodActivity;
 import com.technology.yuyi.activity.CurrentTemActivity2;
@@ -50,6 +51,7 @@ public class MeasureFragment extends Fragment implements AdapterView.OnItemClick
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_measure, container, false);
         initView(view);
+
         return view;
     }
 

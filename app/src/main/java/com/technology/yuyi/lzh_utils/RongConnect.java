@@ -78,6 +78,7 @@ public class RongConnect {
                 @Override
                 public void onTokenIncorrect() {
                     MyDialog.stopDia();
+                    Log.i("onToken我的生活","--RongConnect==onTokenIncorrect---");
                 }
 
                 /**
@@ -88,7 +89,7 @@ public class RongConnect {
                 public void onSuccess(String userid) {
                     MyDialog.stopDia();
                     user.RonguserId=userid;
-                    Log.i("融云返回的id--hospital-",userid+"--hospital---");
+                    Log.i("融云返回的id--RongConnect-",userid+"--RongConnect---");
                 }
                 /**
                  * 连接融云失败

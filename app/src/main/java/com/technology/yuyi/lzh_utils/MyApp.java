@@ -13,6 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.sst.jkezt.health.utils.JkezAPIMain;
 import com.technology.yuyi.R;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class MyApp extends Application implements RongIM.UserInfoProvider{
     @Override
     public void onCreate() {
         super.onCreate();
+       JkezAPIMain.initSDK(this, "wanyult");
+
         mp=new HashMap<>();
         list=new ArrayList<>();
         if (Build.VERSION.SDK_INT>=14){//4.0以上

@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
@@ -18,6 +19,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sst.jkezt.health.utils.BTTptData;
+import com.sst.jkezt.health.utils.HealthMeasureActivity;
+import com.sst.jkezt.health.utils.HealthMeasureListener;
+import com.sst.jkezt.health.utils.HealthMeasureState;
+import com.sst.jkezt.health.utils.HealthMeasureType;
+import com.sst.jkezt.health.utils.JkezAPIMain;
 import com.technology.yuyi.HttpTools.HttpTools;
 import com.technology.yuyi.R;
 import com.technology.yuyi.adapter.RecycleAdapter;
@@ -34,13 +41,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CurrentTemActivity2 extends AppCompatActivity implements View.OnClickListener {
+public class CurrentTemActivity2 extends HealthMeasureActivity implements View.OnClickListener {
     private RecyclerView mRecycleview;
     private RecycleAdapter mAdapter;
     private List<Result> mList = new ArrayList<>();
     private List<Boolean> showNameList = new ArrayList<>();
     private ImageView mBack;
-    private TextView mSure_btn,mHandInput;
+    private TextView mSure_btn, mHandInput;
     private TextView mCurrent_tem, du_tv;//体温数据
     private TextView mPrompt_tv, mName;
     private boolean isSelect = false;
@@ -72,9 +79,9 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
                         mRecycleview.setAdapter(mAdapter);
                         mPosintion = 0;
                         isSelect = true;
-                    }else {//重新登录
+                    } else {//重新登录
                         again_login_rl.setVisibility(View.VISIBLE);
-                        Toast.makeText(CurrentTemActivity2.this,"信息错误，请重新登录",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CurrentTemActivity2.this, "信息错误，请重新登录", Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -110,6 +117,10 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
     private TextView mPrompt_Cancel;//取消
     private RelativeLayout mTem_rl;
     private RelativeLayout again_login_rl;//显示重新登录页面
+    private HealthMeasureType type;//体温类型
+    private float mTemNum = 34.5f;//默认体温34.5度，三角指示标志指示在34.5度那里，注意：异常数据时，三角形指示在34.5那里
+    private SanJiao mSanjiao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,10 +129,11 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         mMap.put("token", user.token);
         mHttptools = HttpTools.getHttpToolsInstance();
         initUI();
+
     }
 
     private void initUI() {
-        again_login_rl= (RelativeLayout)findViewById(R.id.again_login_rl);
+        again_login_rl = (RelativeLayout) findViewById(R.id.again_login_rl);
         again_login_rl.setOnClickListener(this);
         mRecycleview = (RecyclerView) findViewById(R.id.recycle_id);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -171,7 +183,7 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         mBack.setOnClickListener(this);
 
         //手动输入
-        mHandInput= (TextView) findViewById(R.id.hand_input_tem);
+        mHandInput = (TextView) findViewById(R.id.hand_input_tem);
         mHandInput.setOnClickListener(this);
         //保存
         mSure_btn = (TextView) findViewById(R.id.btn_sure);
@@ -186,11 +198,91 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         mName = (TextView) findViewById(R.id.name);
         //显示温度计
         mTem_rl = (RelativeLayout) findViewById(R.id.my_tem_rl);
-        SanJiao sanJiao=new SanJiao(this,39,mCurrent_tem);//需要将温度计测量的体温传过去，现在数据测试
+        mSanjiao = new SanJiao(this);//需要将温度计测量的体温传过去，现在数据测试
+        mSanjiao.setDuNum(mTemNum);
         TherC therC = new TherC(this);
         mTem_rl.addView(therC);
-        mTem_rl.addView(sanJiao);
+        mTem_rl.addView(mSanjiao);
+        type = HealthMeasureType.BTTEMPERATURETYPE;//测量时的类型，这里是体温的类型
+        initBluetooth(type, new HealthMeasureListener() {
+            @Override
+            public void onHealthNotFindDevice() {
+            }
 
+            @Override
+            public void onHealthFindDevice(BluetoothDevice bluetoothDevice, HealthMeasureType healthMeasureType) {
+                Log.e("设备名称：", bluetoothDevice.getName());
+            }
+
+            /**
+             * 监听蓝牙连接
+             */
+            @Override
+            public void onHealthConnected() {
+                mPrompt_tv.setText("连接成功，等待测量");
+
+            }
+
+            /**
+             * 监听蓝牙断开
+             */
+            @Override
+            public void onHealthDeviceDisconnect() {
+
+                mPrompt_tv.setText("设备已断开");
+                mCurrent_tem.setText("0.0");
+                mSanjiao.setDuNum(34.5);
+                mSanjiao.invalidate();//数据异常时，三角形指示标志指示在32度那里
+            }
+
+            @Override
+            public void onHealthDeviceReceiveData(HealthMeasureType healthMeasureType, HealthMeasureState healthMeasureState, Object o) {
+                if (healthMeasureType == HealthMeasureType.BTTEMPERATURETYPE) {//接收到体温设备
+                    BTTptData tptdata = (BTTptData) o;
+                    if (healthMeasureState == HealthMeasureState.ERROR) {//获取异常的内容
+                        mPrompt_tv.setText("异常:" + tptdata.getErrtext());
+                        mCurrent_tem.setText("0.0");
+                        mTemNum=34.5f;
+                        mSanjiao.setDuNum(34.5);
+                        mSanjiao.invalidate();//数据异常时，三角形指示标志指示在32度那里
+                    } else {
+                        if (1 == tptdata.getMeaType()) {
+                            mTemNum = tptdata.getBody_temperature();
+                            if (Double.valueOf(mTemNum) <= 36) {
+                                mPrompt_tv.setText("*当前体温过低,请查看测量部位");
+                                mPrompt_tv.setTextColor(Color.parseColor("#1ebeec"));
+                                du_tv.setTextColor(Color.parseColor("#1ebeec"));
+                                mCurrent_tem.setTextColor(Color.parseColor("#1ebeec"));
+                            } else if (Double.valueOf(mTemNum) >= 38) {
+                                mPrompt_tv.setText("*当前体温过高,请尽快就医");
+                                mPrompt_tv.setTextColor(Color.parseColor("#f6547a"));
+                                du_tv.setTextColor(Color.parseColor("#f6547a"));
+                                mCurrent_tem.setTextColor(Color.parseColor("#f6547a"));
+                            } else {
+                                mPrompt_tv.setText("*当前体温正常");
+                                mPrompt_tv.setTextColor(Color.parseColor("#f654f5"));
+                                du_tv.setTextColor(Color.parseColor("#f654f5"));
+                                mCurrent_tem.setTextColor(Color.parseColor("#f654f5"));
+                            }
+                            mCurrent_tem.setText(tptdata.getBody_temperature() + "");
+                            //当温度大于等于35小于等于42度时，三角形指示标志指示在正确的刻度位置
+                            if (mTemNum>=35&&mTemNum<=42){
+                                mSanjiao.setDuNum(mTemNum);
+                                mSanjiao.invalidate();
+                            }else {
+                                mPrompt_tv.setText("异常:" + tptdata.getErrtext());
+                                mCurrent_tem.setText("0.0");
+                                mTemNum=34.5f;
+                                mSanjiao.setDuNum(mTemNum);
+                                mSanjiao.invalidate();//数据异常时，三角形指示标志指示在32度那里
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        });
         //信息不完整弹框
         mSureBuilder = new AlertDialog.Builder(this);
         mSureAlertDialog = mSureBuilder.create();
@@ -203,22 +295,22 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         mPrompt_Cancel = (TextView) mSureAlertView.findViewById(R.id.alert_sure_cancel);
         mPrompt_Cancel.setOnClickListener(this);
 
-        if (Double.valueOf(mCurrent_tem.getText().toString().trim()) <= 36) {
-            mPrompt_tv.setText("*当前体温过低,请查看测量部位");
-            mPrompt_tv.setTextColor(Color.parseColor("#1ebeec"));
-            mCurrent_tem.setTextColor(Color.parseColor("#1ebeec"));
-            du_tv.setTextColor(Color.parseColor("#1ebeec"));
-        } else if (Double.valueOf(mCurrent_tem.getText().toString().trim()) >= 38) {
-            mPrompt_tv.setText("*当前体温过高,请尽快就医");
-            mPrompt_tv.setTextColor(Color.parseColor("#f6547a"));
-            mCurrent_tem.setTextColor(Color.parseColor("#f6547a"));
-            du_tv.setTextColor(Color.parseColor("#f6547a"));
-        } else {
-            mPrompt_tv.setText("*当前体温正常");
-            mPrompt_tv.setTextColor(Color.parseColor("#f654f5"));
-            mCurrent_tem.setTextColor(Color.parseColor("#f654f5"));
-            du_tv.setTextColor(Color.parseColor("#f654f5"));
-        }
+//        if (Double.valueOf(mCurrent_tem.getText().toString().trim()) <= 36) {
+//            mPrompt_tv.setText("*当前体温过低,请查看测量部位");
+//            mPrompt_tv.setTextColor(Color.parseColor("#1ebeec"));
+//            mCurrent_tem.setTextColor(Color.parseColor("#1ebeec"));
+//            du_tv.setTextColor(Color.parseColor("#1ebeec"));
+//        } else if (Double.valueOf(mCurrent_tem.getText().toString().trim()) >= 38) {
+//            mPrompt_tv.setText("*当前体温过高,请尽快就医");
+//            mPrompt_tv.setTextColor(Color.parseColor("#f6547a"));
+//            mCurrent_tem.setTextColor(Color.parseColor("#f6547a"));
+//            du_tv.setTextColor(Color.parseColor("#f6547a"));
+//        } else {
+//            mPrompt_tv.setText("*当前体温正常");
+//            mPrompt_tv.setTextColor(Color.parseColor("#f654f5"));
+//            mCurrent_tem.setTextColor(Color.parseColor("#f654f5"));
+//            du_tv.setTextColor(Color.parseColor("#f654f5"));
+//        }
     }
 
     @Override
@@ -233,8 +325,8 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
             mSureAlertDialog.dismiss();
         } else if (id == mPrompt_Cancel.getId()) {
             mSureAlertDialog.dismiss();
-        }else if (id==mHandInput.getId()){
-            startActivity(new Intent(this,HandInputTemActivity2.class));
+        } else if (id == mHandInput.getId()) {
+            startActivity(new Intent(this, HandInputTemActivity2.class));
             finish();
         }
     }
@@ -243,7 +335,7 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
      * 获取体温
      */
     public String getTemData() {
-        if (!mCurrent_tem.getText().toString().trim().equals("") && mCurrent_tem.getText().toString() != null&&Double.valueOf(mCurrent_tem.getText().toString().trim())!=0) {
+        if (!mCurrent_tem.getText().toString().trim().equals("") && mCurrent_tem.getText().toString() != null && Double.valueOf(mCurrent_tem.getText().toString().trim()) != 0) {
             return mCurrent_tem.getText().toString().trim();
         } else {
             return "";
@@ -275,4 +367,5 @@ public class CurrentTemActivity2 extends AppCompatActivity implements View.OnCli
         super.onResume();
         mHttptools.getUserLIst(mHandler, mMap);//
     }
+
 }

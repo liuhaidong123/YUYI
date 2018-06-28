@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
 
     sourceSets {
         main {
@@ -12,9 +12,9 @@ android {
     defaultConfig {
         applicationId "com.technology.yuyi"
         minSdkVersion 17
-        targetSdkVersion 25
-        versionCode 2
-        versionName "2.0"
+        targetSdkVersion 23
+        versionCode 3
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -33,9 +33,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:support-v4:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/afinal_0.5.1_bin.jar')
@@ -49,4 +46,8 @@ dependencies {
     compile project(':CallLib')
     compile project(':IMKit')
     compile project(':IMLib')
+    compile files('libs/jkez_measure_out2.4.8.jar')
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
 }

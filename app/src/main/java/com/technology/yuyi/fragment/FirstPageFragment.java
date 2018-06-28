@@ -735,7 +735,7 @@ public class FirstPageFragment extends Fragment implements View.OnClickListener,
             //如果没有授权定位权限
             if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
                 //请求授权，点击允许或者拒绝时会回调onRequestPermissionsResult（），
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATE_CODE);//位置信息
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_PHONE_STATE,Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO}, LOCATE_CODE);//位置信息
                 return;
                 //如果已经授权，执行业务逻辑
             } else {
