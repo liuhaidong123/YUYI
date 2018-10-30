@@ -54,6 +54,7 @@ public class My_settings_feedbackIdea_Activity extends Activity {
                                 user.clearLogin(My_settings_feedbackIdea_Activity.this);
                             }
                         else if ("0".equals(code)){
+                                finish();
                                 Toast.makeText(My_settings_feedbackIdea_Activity.this,"提交成功",Toast.LENGTH_SHORT).show();
                             }
                     }

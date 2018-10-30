@@ -200,12 +200,12 @@
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/layout/rc_pic_popup_window.xml"
     },
     {
-        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/layout/rc_ac_camera.xml",
-        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/layout/rc_ac_camera.xml"
-    },
-    {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/layout/rc_location_preview_activity.xml",
         "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/layout/rc_location_preview_activity.xml"
+    },
+    {
+        "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/layout/rc_ac_camera.xml",
+        "source": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/src/main/res/layout/rc_ac_camera.xml"
     },
     {
         "merged": "/Users/liuhaidong/AndroidStudioProjects/YUYI/IMKit/build/intermediates/res/merged/debug/layout/rc_item_public_service_rich_content_message.xml",

@@ -14,6 +14,7 @@ import com.technology.yuyi.bean.LoginSuccess;
 import com.technology.yuyi.bean.UpdatedFirstPageTwoDataBean.UpdatedInformation;
 import com.technology.yuyi.bean.UserMessage;
 import com.technology.yuyi.bean.ValidateCodeRoot;
+import com.technology.yuyi.bean.VersionRoot;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -635,9 +636,9 @@ public class HttpTools {
     /**
      * 搜索医院接口
      */
-    public void getSearchHospitalData(final Handler handler, String vague) {
-        String url = UrlTools.BASE + UrlTools.URL_SEARCH_HOSPITAL + "vague=" + vague;
-        mFinalHttp.get(url, new AjaxCallBack<String>() {
+    public void getSearchHospitalData(final Handler handler,Map<String,String> map) {
+        String url = UrlTools.BASE + UrlTools.URL_SEARCH_HOSPITAL ;
+        mFinalHttp.post(url,new AjaxParams(map) ,new AjaxCallBack<String>() {
             @Override
             public void onStart() {
                 super.onStart();
@@ -1067,6 +1068,37 @@ public class HttpTools {
                     strMsg = "-null";
                 }
                 Log.e("修改后的轮播详情和资讯接口失败", "-" + strMsg);
+            }
+        });
+    }
+
+    //检测版本
+    public void CheckVersion(final Handler handler) {
+
+        String url = UrlTools.BASE + UrlTools.Url_CheckVersion;
+
+        mFinalHttp.get(url, new AjaxCallBack<String>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                Log.e(" 检测版本onStart", "-");
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                super.onSuccess(s);
+                Log.e(" 检测版本onSuccess", "-" + s);
+                VersionRoot root = mGson.fromJson(s, VersionRoot.class);
+                Message message = new Message();
+                message.obj = root;
+                message.what = 909;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(Throwable t, int errorNo, String strMsg) {
+                super.onFailure(t, errorNo, strMsg);
+                Log.e(" 检测版本onFailure", "-" + strMsg);
             }
         });
     }

@@ -55,6 +55,7 @@ public class SetActivity extends AppCompatActivity implements View.OnClickListen
                     startActivity(new Intent(this,My_Settings_ChangePhoneActivity.class));
                     break;
                 case R.id.tv_exit://退出
+                    user.clearFuWu(this);
                     RongIM.getInstance().logout();
                     user.clearLogin(this);
                     MyApp.removeActivity();

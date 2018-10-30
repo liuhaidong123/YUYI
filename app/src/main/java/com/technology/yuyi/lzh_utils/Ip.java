@@ -90,7 +90,7 @@ public interface Ip {
     public final static String interface_SmsCode = "/personal/vcode.do?";
 
     //获取融云医生的信息接口（聊天对象的信息）http://192.168.1.37:8080/yuyi/physician/doctory.do?
-    public final static String interface_DocInfo = "physician/doctory.do?";
+    public final static String interface_DocInfo = "physician/doctory2.do?";
 
     //更改绑定手机号修改绑定的手机号 http://192.168.1.168:8082/yuyi/personal/modifymobile.do?token=1213&newMobile=13717883009&vcode=123456
     public final static String interface_ChangePhone = "personal/modifymobile.do?";

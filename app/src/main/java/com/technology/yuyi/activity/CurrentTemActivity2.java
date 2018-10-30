@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.graphics.Color;
@@ -120,7 +121,7 @@ public class CurrentTemActivity2 extends HealthMeasureActivity implements View.O
     private HealthMeasureType type;//体温类型
     private float mTemNum = 34.5f;//默认体温34.5度，三角指示标志指示在34.5度那里，注意：异常数据时，三角形指示在34.5那里
     private SanJiao mSanjiao;
-
+    BluetoothAdapter bluetoothAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -228,7 +229,6 @@ public class CurrentTemActivity2 extends HealthMeasureActivity implements View.O
              */
             @Override
             public void onHealthDeviceDisconnect() {
-
                 mPrompt_tv.setText("设备已断开");
                 mCurrent_tem.setText("0.0");
                 mSanjiao.setDuNum(34.5);

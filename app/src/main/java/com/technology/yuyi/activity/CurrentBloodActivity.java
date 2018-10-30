@@ -1,5 +1,6 @@
 package com.technology.yuyi.activity;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.graphics.Color;
@@ -122,6 +123,7 @@ public class CurrentBloodActivity extends HealthMeasureActivity implements View.
 
     private RelativeLayout again_login_rl;//显示重新登录页面
     private HealthMeasureType type;//血压类型
+    BluetoothAdapter bluetoothAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,8 +132,6 @@ public class CurrentBloodActivity extends HealthMeasureActivity implements View.
     }
 
     public void initView() {
-
-
         again_login_rl= (RelativeLayout)findViewById(R.id.again_login_rl);
         again_login_rl.setOnClickListener(this);
         //请求用户列表
@@ -175,10 +175,11 @@ public class CurrentBloodActivity extends HealthMeasureActivity implements View.
         mSure_btn = (Button) findViewById(R.id.blood_btn_sure);
         mSure_btn.setOnClickListener(this);
 
-        type = HealthMeasureType.BTBPTYPE;//测量时的类型，这里是血压的类型
+
         mEditHeight = (TextView) findViewById(R.id.height_blood_tv);
         mEditLow = (TextView) findViewById(R.id.low_blood_tv);
         mDevice_Prompt=(TextView) findViewById(R.id.normal_tv);
+        type = HealthMeasureType.BTBPBLETYPE;//测量时的类型，这里是血压的类型
         initBluetooth(type, new HealthMeasureListener() {
             @Override
             public void onHealthNotFindDevice() {
@@ -206,8 +207,7 @@ public class CurrentBloodActivity extends HealthMeasureActivity implements View.
             @Override
             public void onHealthDeviceDisconnect() {
                 mDevice_Prompt.setText("血压设备未连接");
-
-
+                Log.e("设备名称：", "血压设备未连接");
             }
 
             @Override

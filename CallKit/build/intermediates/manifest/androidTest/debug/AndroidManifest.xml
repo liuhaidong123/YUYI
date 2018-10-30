@@ -40,7 +40,7 @@
         <activity
             android:name="io.rong.callkit.MultiVideoCallActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
                 <action android:name="io.rong.intent.action.voip.MULTIVIDEO" />
@@ -51,7 +51,7 @@
         <activity
             android:name="io.rong.callkit.SingleCallActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
                 <action android:name="io.rong.intent.action.voip.SINGLEVIDEO" />
@@ -67,7 +67,7 @@
         <activity
             android:name="io.rong.callkit.MultiAudioCallActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
                 <action android:name="io.rong.intent.action.voip.MULTIAUDIO" />
@@ -126,7 +126,7 @@
             android:screenOrientation="portrait" /> <!-- imlib config begin -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
-            android:value="25wehl3u2qo7w" />
+            android:value="qd46yzrfq0j3f" />
 
         <service
             android:name="io.rong.imlib.ipc.RongService"

@@ -164,8 +164,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMeasure_img = (ImageView) findViewById(R.id.measure_btn_img);
         mAsk_img = (ImageView) findViewById(R.id.ask_btn_img);
         mMy_img = (ImageView) findViewById(R.id.my_btn_img);
-
+        JkezAPIMain.initSDK(this, "wanyult");
+       // JkezAPIMain.openBluetooth();//打开蓝牙
     }
+
 
     @Override
     public void onClick(View v) {
@@ -173,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == mFirstPage_ll.getId()) {
             showFirstPageFragment();
         } else if (id == mMeasure_ll.getId()) {
-            JkezAPIMain.openBluetooth();//打开蓝牙
             showMeasureFragment();
         } else if (id == mAsk_ll.getId()) {
             showAskFragment();
@@ -478,6 +479,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         JPushInterface.onResume(MainActivity.this);
+
     }
 
     @Override

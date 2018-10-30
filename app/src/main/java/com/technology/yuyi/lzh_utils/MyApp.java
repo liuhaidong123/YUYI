@@ -44,8 +44,6 @@ public class MyApp extends Application implements RongIM.UserInfoProvider{
     @Override
     public void onCreate() {
         super.onCreate();
-       JkezAPIMain.initSDK(this, "wanyult");
-
         mp=new HashMap<>();
         list=new ArrayList<>();
         if (Build.VERSION.SDK_INT>=14){//4.0以上

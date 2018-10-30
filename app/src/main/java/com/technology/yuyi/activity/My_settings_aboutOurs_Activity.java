@@ -43,9 +43,9 @@ public class My_settings_aboutOurs_Activity extends MyActivity {
                         Bean_MySetting_AboutUs about=okhttp.gson.fromJson(resStr,Bean_MySetting_AboutUs.class);
                         if (about!=null){
                             if (about.getResult()!=null){
-                                my_settings_aboutOurs_name.setText(about.getResult().getTitle());
+                                my_settings_aboutOurs_name.setText("宇医");
                                 my_settings_aboutOurs_pro.setText(about.getResult().getContent());
-                                my_settings_aboutOurs_versionCode.setText(about.getResult().getVersion());
+                                my_settings_aboutOurs_versionCode.setText("宇医"+about.getResult().getVersion()+".0");
 //                                Picasso.with(con).load(Ip.imagePth+about.getResult().getPicture()).error(R.mipmap.logo).into(my_settings_aboutOurs_imageview);
                             }
 

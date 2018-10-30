@@ -2,6 +2,7 @@ package com.technology.yuyi.lzh_utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 /**
@@ -63,5 +64,28 @@ public class user {
     //判断融云的token是否存在
     public static boolean isTokenExits(){
         return false;
+    }
+
+
+    //保存用户咨询视频的时候，选择同意标志
+    public static void saveFuWuFlag(Context con, boolean flag) {
+        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(con);
+        SharedPreferences.Editor edi = pre.edit();
+        edi.putBoolean("fuwu", flag);
+        edi.commit();
+    }
+
+    //保存用户咨询视频的时候，选择同意标志
+    public static boolean getFuWuFlag(Context con) {
+        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(con);
+        return pre.getBoolean("fuwu", false);
+    }
+
+    //清除标志
+    public static void clearFuWu(Context con) {
+        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(con);
+        SharedPreferences.Editor edi = pre.edit();
+        edi.remove("fuwu");
+        edi.commit();
     }
 }
